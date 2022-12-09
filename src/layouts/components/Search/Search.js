@@ -2,13 +2,16 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { MdClear } from 'react-icons/md';
 import { BiLoaderCircle } from 'react-icons/bi';
+
 import SearchItem from '~/components/SearchItem';
 import Popper from '~/components/Popper';
-import 'tippy.js/dist/tippy.css';
+import useDebounce from '~/hooks/useDebounce';
+import * as searchServices from '~/apiServices/searchServices';
 
 import styles from './Search.module.scss';
 
@@ -19,29 +22,33 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
-    console.log('loading: ', loading);
+
+    const debounced = useDebounce(searchValue, 600);
 
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
         if (searchValue.length > 1) {
             setLoading(true);
-            fetch(`http://localhost:8080/api/course/search?q=${encodeURIComponent(searchValue)}`)
-                .then((res) => res.json())
-                .then((res) => {
-                    setSearchResult(res.data);
+
+            const fetchApi = async () => {
+                const result = await searchServices.search(debounced);
+                if (!result) {
+                    setSearchResult([]);
                     setLoading(false);
-                })
-                .catch(() => {
+                } else {
+                    setSearchResult(result);
                     setLoading(false);
-                });
+                }
+            };
+            fetchApi();
         }
-    }, [searchValue]);
+    }, [debounced]);
 
     const handleClearInput = () => {
         setSearchValue('');
@@ -70,7 +77,7 @@ function Search() {
                                 )}
                                 <p>
                                     {searchResult.length < 1
-                                        ? `Không có kết quả nào cho ${searchValue === '' ? '' : `'${searchValue}'`}`
+                                        ? `Không có kết quả nào ${searchValue === '' ? '' : `cho '${searchValue}'`}`
                                         : `Kết quả cho '${searchValue}'`}
                                 </p>
                             </div>
