@@ -1,0 +1,96 @@
+.wrapper {
+    height: 66px;
+    padding: 0 28px;
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #e8ebed;
+
+    .logo {
+        display: flex;
+        align-items: center;
+
+        a {
+            img {
+                width: 38px;
+                height: 38px;
+                border-radius: 8px;
+                object-fit: contain;
+            }
+        }
+
+        h4 {
+            font-weight: 700;
+            margin-left: 16px;
+        }
+    }
+
+    // Search Results
+
+    .action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .is-login {
+            display: flex;
+            align-items: center;
+
+            .my-course {
+                background-color: transparent;
+                color: #333;
+                cursor: pointer;
+                font-size: 1.4rem;
+                font-weight: 600;
+                margin-right: 16px;
+                padding: 8px;
+                box-shadow: none;
+                display: block;
+                outline: none;
+                border: none;
+                font-family: inherit;
+            }
+
+            .notify {
+                margin-top: 6px;
+                font-size: 1.8rem;
+                color: var(--color-gray);
+                padding: 8px;
+                cursor: pointer;
+            }
+
+            .info {
+                padding-left: 12px;
+
+                img {
+                    cursor: pointer;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    width: 28px;
+                    height: 28px;
+                }
+            }
+        }
+
+        .btn-login {
+            background-color: var(--color-primary);
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding: 9px 20px;
+
+            a {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+    }
+}
