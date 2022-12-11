@@ -8,7 +8,7 @@ import styles from './Header.module.scss';
 const cx = classNames.bind(styles);
 
 function Header() {
-    const isLogin = true;
+    const isLogin = false;
 
     return (
         <div className={cx('wrapper')}>

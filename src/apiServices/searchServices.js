@@ -12,3 +12,5 @@ export const search = async (q) => {
         console.log('error: ', error);
     }
 };
+
+export const register = async () => {};
