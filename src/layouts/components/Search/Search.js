@@ -33,7 +33,7 @@ function Search() {
             return;
         }
 
-        if (searchValue.length > 1) {
+        if (debounced.length > 1) {
             setLoading(true);
 
             const fetchApi = async () => {
