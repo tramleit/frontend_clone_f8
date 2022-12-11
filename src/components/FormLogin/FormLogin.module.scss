@@ -30,6 +30,14 @@
             border-radius: 44px;
             height: 44px;
 
+            &.active {
+                border-color: var(--color-valid);
+            }
+
+            input[type='password'] {
+                font-family: Verdana;
+            }
+
             input {
                 background-color: transparent;
                 border: none;
@@ -41,6 +49,14 @@
                 font-family: inherit;
                 width: 100%;
             }
+        }
+
+        .message {
+            color: var(--color-valid);
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin: 8px 0 8px 8px;
+            text-align: left;
         }
     }
 
@@ -56,9 +72,11 @@
         margin-top: 20px;
         cursor: pointer;
         cursor: not-allowed;
+        font-family: inherit;
 
         &.active {
             background-color: #1dbfaf;
+            background-image: linear-gradient(70.06deg, #2cccff -5%, #22dfbf 106%);
             cursor: pointer;
         }
     }

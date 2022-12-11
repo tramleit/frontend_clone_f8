@@ -7,8 +7,22 @@
     --color-black: #000;
     --color-text: #333;
     --color-desc: #0000008a;
+    --color-valid: #f33a58;
 
     --background-color: #fff;
+}
+
+::selection {
+    background: #f05123;
+    color: var(--background-color);
+}
+::-moz-selection {
+    background: #f05123;
+    color: var(--background-color);
+}
+::-webkit-selection {
+    background: #f05123;
+    color: var(--background-color);
 }
 
 * {
