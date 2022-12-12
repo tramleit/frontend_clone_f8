@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser, RegisterNewUser } from '~/redux/apiRequest';
+import * as apiRequest from '~/redux/apiRequest';
 import styles from './FormLogin.module.scss';
 
 const cx = classNames.bind(styles);
@@ -41,7 +41,7 @@ function FormLogin({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                const resBackend = await loginUser(user, dispatch, navigate);
+                const resBackend = await apiRequest.loginUser(user, dispatch, navigate);
 
                 if (resBackend?.data.errCode === 1) {
                     setValidEmail(resBackend.data.message);
@@ -54,7 +54,7 @@ function FormLogin({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                RegisterNewUser(newUser, dispatch, navigate);
+                await apiRequest.RegisterNewUser(newUser, dispatch, navigate);
             }
         }
     };

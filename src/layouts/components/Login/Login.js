@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function Login() {
     const isFetching = useSelector((state) => state.auth.login.isFetching);
-    console.log('isFetching: ', isFetching);
+
     return (
         <div className={cx('wrapper')}>
             {isFetching ? <Loading /> : Fragment}

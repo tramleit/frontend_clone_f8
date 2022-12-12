@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { useDispatch } from 'react-redux';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
-import { MdClear } from 'react-icons/md';
 import { BiLoaderCircle } from 'react-icons/bi';
-
+import { MdClear } from 'react-icons/md';
 import SearchItem from '~/components/SearchItem';
 import Popper from '~/components/Popper';
 import useDebounce from '~/hooks/useDebounce';
-import * as searchServices from '~/apiServices/searchServices';
+import * as apiRequest from '~/redux/apiRequest';
 
 import styles from './Search.module.scss';
 
@@ -23,9 +23,9 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const debounced = useDebounce(searchValue, 600);
-
+    const dispatch = useDispatch();
     const inputRef = useRef();
+    const debounced = useDebounce(searchValue, 600);
 
     useEffect(() => {
         if (!debounced.trim()) {
@@ -37,7 +37,8 @@ function Search() {
             setLoading(true);
 
             const fetchApi = async () => {
-                const result = await searchServices.search(debounced);
+                const result = await apiRequest.search(debounced, dispatch);
+
                 if (!result) {
                     setSearchResult([]);
                     setLoading(false);
