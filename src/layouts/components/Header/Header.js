@@ -4,11 +4,14 @@ import { BsBellFill } from 'react-icons/bs';
 import { Image } from '~/assets/image';
 import Search from '../Search';
 import styles from './Header.module.scss';
+import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const isLogin = false;
+    const isUser = useSelector((state) => state.auth.login.currentUser);
+    console.log('isUser: ', isUser);
 
     return (
         <div className={cx('wrapper')}>
@@ -22,14 +25,14 @@ function Header() {
             <Search />
 
             <div className={cx('action')}>
-                {isLogin ? (
+                {isUser !== null ? (
                     <div className={cx('is-login')}>
                         <button className={cx('my-course')}>Khóa học của tôi</button>
                         <div className={cx('notify')}>
                             <BsBellFill />
                         </div>
                         <div className={cx('info')}>
-                            <img src="https://i.imgur.com/nRKM19b.jpg" alt="Avatar" />
+                            <img src={isUser.avatar !== '' ? isUser.avatar : Image.avatar} alt={isUser.name} />
                         </div>
                     </div>
                 ) : (

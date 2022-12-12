@@ -41,12 +41,12 @@ function FormLogin({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                const resBackend = await apiRequest.loginUser(user, dispatch, navigate);
+                const result = await apiRequest.loginUser(user, dispatch, navigate);
 
-                if (resBackend?.data.errCode === 1) {
-                    setValidEmail(resBackend.data.message);
-                } else if (resBackend?.data.errCode === 2) {
-                    setValidPassword(resBackend.data.message);
+                if (result?.data.errCode === 1) {
+                    setValidEmail(result.data.message);
+                } else if (result?.data.errCode === 2) {
+                    setValidPassword(result.data.message);
                 }
             } else {
                 const newUser = {

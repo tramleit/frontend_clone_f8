@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as request from '~/utils/request';
 import { loginFailed, loginStart, loginSuccess, registerFailed, registerStart, registerSuccess } from './authSlice';
 import { searchSuccess } from './searchSlice';
@@ -34,7 +33,7 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     try {
         await request.post('/user/register', newUser);
         dispatch(registerSuccess());
-        navigate('/login');
+        navigate('/');
     } catch (error) {
         dispatch(registerFailed());
     }
