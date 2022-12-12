@@ -1,17 +1,17 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { BsBellFill } from 'react-icons/bs';
 import { Image } from '~/assets/image';
 import Search from '../Search';
 import styles from './Header.module.scss';
 import { useSelector } from 'react-redux';
+import MyCourse from '~/layouts/components/MyCourse';
+import Notify from '../Notify';
+import MyInfo from '../MyInfo';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-    const isLogin = false;
     const isUser = useSelector((state) => state.auth.login.currentUser);
-    console.log('isUser: ', isUser);
 
     return (
         <div className={cx('wrapper')}>
@@ -27,13 +27,9 @@ function Header() {
             <div className={cx('action')}>
                 {isUser !== null ? (
                     <div className={cx('is-login')}>
-                        <button className={cx('my-course')}>Khóa học của tôi</button>
-                        <div className={cx('notify')}>
-                            <BsBellFill />
-                        </div>
-                        <div className={cx('info')}>
-                            <img src={isUser.avatar !== '' ? isUser.avatar : Image.avatar} alt={isUser.name} />
-                        </div>
+                        <MyCourse />
+                        <Notify />
+                        <MyInfo avatar={isUser.avatar} name={isUser.name} />
                     </div>
                 ) : (
                     <div className={cx('btn-login')}>
