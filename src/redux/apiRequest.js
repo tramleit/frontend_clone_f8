@@ -52,7 +52,7 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     dispatch(logoutStart());
     try {
-        let res = await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
+        await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
             headers: {
                 token: token,
             },
