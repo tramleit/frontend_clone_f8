@@ -3,13 +3,32 @@ import 'tippy.js/dist/tippy.css';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
 import { Image } from '~/assets/image';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '~/redux/apiRequest';
+import { loginSuccess } from '~/redux/authSlice';
+import { createAxios } from '~/redux/createInstance';
 
 const cx = classNames.bind(styles);
 
 function MyInfo({ avatar, name }) {
     const [active, setActive] = useState(false);
+
+    const user = useSelector((state) => state.auth.login.currentUser);
+    console.log('user: ', user);
+
+    const accessToken = user?.accessToken;
+    const id = user?._id;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLout = async () => {
+        const axiosJWT = createAxios(user, dispatch, loginSuccess);
+
+        await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <Tippy
@@ -20,12 +39,12 @@ function MyInfo({ avatar, name }) {
                         <div className={cx('user')}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src="https://files.fullstack.edu.vn/f8-prod/user_photos/253914/63391f65d6f9d.jpg"
-                                    alt=""
+                                    src={user.data.avatar !== '' ? user.data.avatar : Image.avatar}
+                                    alt={user.data.name}
                                 />
                             </div>
                             <div className={cx('info')}>
-                                <span className={cx('name')}>Mã Việt Hà</span>
+                                <span className={cx('name')}>{user.data.name}</span>
                                 <div className={cx('username')}>@mavietha7z</div>
                             </div>
                         </div>
@@ -55,7 +74,7 @@ function MyInfo({ avatar, name }) {
                             <li className={cx('item')}>
                                 <Link>Cài đặt</Link>
                             </li>
-                            <li className={cx('item')}>
+                            <li className={cx('item')} onClick={handleLout}>
                                 <Link>Đăng xuất</Link>
                             </li>
                         </ul>
@@ -63,7 +82,7 @@ function MyInfo({ avatar, name }) {
                 )}
             >
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
-                    <img src={avatar !== '' ? avatar : Image.avatar} alt={name} />
+                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={name} />
                 </div>
             </Tippy>
         </div>
