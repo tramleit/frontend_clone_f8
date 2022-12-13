@@ -1,5 +1,7 @@
 .wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 
     .my-info {
         animation: Tippy-animation 0.3s ease;

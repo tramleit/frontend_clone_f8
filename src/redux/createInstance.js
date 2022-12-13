@@ -14,7 +14,6 @@ const refreshToken = async () => {
 
 export const createAxios = (user, dispatch, stateSuccess) => {
     const newInstance = axios.create();
-
     newInstance.interceptors.request.use(
         async (config) => {
             let date = new Date();
@@ -22,6 +21,7 @@ export const createAxios = (user, dispatch, stateSuccess) => {
 
             if (decodeToken.exp < date.getTime() / 1000) {
                 const data = await refreshToken();
+
                 const refreshUser = {
                     ...user.data,
                     accessToken: data.accessToken,
@@ -34,7 +34,6 @@ export const createAxios = (user, dispatch, stateSuccess) => {
             return config;
         },
         (err) => {
-            console.log('567');
             return Promise.reject(err);
         }
     );

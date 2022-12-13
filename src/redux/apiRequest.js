@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import * as request from '~/utils/request';
 import {
     loginFailed,
@@ -41,8 +42,8 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        await request.post('/user/register', newUser);
-        dispatch(registerSuccess());
+        const res = await request.post('/user/register', newUser);
+        dispatch(registerSuccess(res));
         navigate('/');
     } catch (error) {
         dispatch(registerFailed());

@@ -12,11 +12,10 @@ import { createAxios } from '~/redux/createInstance';
 
 const cx = classNames.bind(styles);
 
-function MyInfo({ avatar, name }) {
+function MyInfo() {
     const [active, setActive] = useState(false);
 
     const user = useSelector((state) => state.auth.login.currentUser);
-    console.log('user: ', user);
 
     const accessToken = user?.accessToken;
     const id = user?._id;
@@ -82,7 +81,7 @@ function MyInfo({ avatar, name }) {
                 )}
             >
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
-                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={name} />
+                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={user.data.name} />
                 </div>
             </Tippy>
         </div>

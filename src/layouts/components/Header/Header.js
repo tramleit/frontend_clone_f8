@@ -29,7 +29,7 @@ function Header() {
                     <div className={cx('is-login')}>
                         <MyCourse />
                         <Notify />
-                        <MyInfo avatar={isUser.avatar} name={isUser.name} />
+                        <MyInfo />
                     </div>
                 ) : (
                     <div className={cx('btn-login')}>
