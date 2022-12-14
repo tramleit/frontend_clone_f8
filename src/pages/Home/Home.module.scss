@@ -4,4 +4,42 @@
     .banner {
         margin-top: 18px;
     }
+
+    .course {
+        margin-top: 70px;
+        overflow: hidden;
+        padding: 0 44px 74px;
+
+        .heading {
+            align-items: center;
+            display: flex;
+            margin: 16px 0 20px 0;
+
+            .title {
+                color: #242424;
+                font-size: 2.4rem;
+                font-weight: 900;
+            }
+
+            span {
+                background-color: #1473e6;
+                border-radius: 4px;
+                color: #fff;
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding: 4px 6px;
+                margin-left: 8px;
+                text-transform: uppercase;
+                margin-bottom: 4px;
+            }
+        }
+
+        .list-course {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-left: -12px;
+            margin-right: -12px;
+        }
+    }
 }

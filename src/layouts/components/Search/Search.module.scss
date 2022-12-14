@@ -77,6 +77,10 @@
         align-items: center;
         justify-content: center;
 
+        &:focus-within {
+            border-color: #000;
+        }
+
         .icon-search {
             width: 32px;
             height: 32px;

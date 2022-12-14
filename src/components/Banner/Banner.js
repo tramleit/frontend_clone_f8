@@ -1,5 +1,3 @@
-import { faCrown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
@@ -14,14 +12,19 @@ function Banner() {
                 <h4 className={cx('title')}>
                     <Link to="/landing/htmlcss">
                         <span>Khóa học HTML CSS Pro</span>
-                        <FontAwesomeIcon icon={faCrown} />
+                        <img
+                            src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
+                            alt=""
+                        />
                     </Link>
                 </h4>
                 <p className={cx('description')}>
                     Đây là khóa học đầy đủ và chi tiết nhất bạn có thể tìm thấy được ở trên Internet!
                 </p>
                 <button className={cx('btn')}>
-                    <span>Tìm hiểu thêm</span>
+                    <Link to="/landing/htmlcss">
+                        <span>Tìm hiểu thêm</span>
+                    </Link>
                 </button>
             </div>
             <div className={cx('right')}>

@@ -30,12 +30,10 @@
                 line-height: 1.5;
             }
 
-            svg {
-                font-size: 2.4rem;
-                color: #fbab17;
-                margin-left: 4px;
+            img {
                 display: inline-block;
-                margin-bottom: 2px;
+                margin-left: 4px;
+                width: 24px;
             }
         }
 
@@ -48,7 +46,7 @@
         .btn {
             border: 2px solid #fff;
             border-radius: 16px;
-            color: #fff;
+
             display: inline-block;
             font-size: 1.4rem;
             font-weight: 700;
@@ -62,13 +60,20 @@
 
             &:hover {
                 background-color: #fff;
-                color: #6828fa;
+
+                a {
+                    color: #6828fa;
+                }
             }
 
-            span {
-                font-size: 1.4rem;
-                filter: contrast(200%);
-                font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            a {
+                color: #fff;
+
+                span {
+                    font-size: 1.4rem;
+                    filter: contrast(200%);
+                    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+                }
             }
         }
     }

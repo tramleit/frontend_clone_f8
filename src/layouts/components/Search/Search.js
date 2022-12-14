@@ -2,8 +2,7 @@ import { useState, useEffect, useRef, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import HandlessTippy from '@tippyjs/react/headless';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { BiLoaderCircle } from 'react-icons/bi';
@@ -62,11 +61,12 @@ function Search() {
         setShowResult(false);
     };
 
+    console.log("showResult && searchValue !== '': ", showResult && searchValue !== '');
     return (
         <div className={cx('body')}>
-            <Tippy
-                interactive
+            <HandlessTippy
                 visible={showResult && searchValue !== ''}
+                interactive
                 onClickOutside={handleHideResult}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
@@ -113,7 +113,7 @@ function Search() {
                     />
                     <div className={cx('icon-clear')}>{!!searchValue && <MdClear onClick={handleClearInput} />}</div>
                 </div>
-            </Tippy>
+            </HandlessTippy>
         </div>
     );
 }

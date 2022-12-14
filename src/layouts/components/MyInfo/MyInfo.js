@@ -1,5 +1,4 @@
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import HandlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
 import { Image } from '~/assets/image';
@@ -24,15 +23,15 @@ function MyInfo() {
 
     const handleLout = async () => {
         const axiosJWT = createAxios(user, dispatch, loginSuccess);
-
         await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
     };
 
     return (
         <div className={cx('wrapper')}>
-            <Tippy
+            <HandlessTippy
                 interactive
                 visible={active}
+                onClickOutside={() => setActive(false)}
                 render={(attrs) => (
                     <div className={cx('my-info')} tabIndex="-1" {...attrs}>
                         <div className={cx('user')}>
@@ -83,7 +82,7 @@ function MyInfo() {
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
                     <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={user.data.name} />
                 </div>
-            </Tippy>
+            </HandlessTippy>
         </div>
     );
 }

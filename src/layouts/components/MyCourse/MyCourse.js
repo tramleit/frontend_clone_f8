@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import HandlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
@@ -12,9 +13,10 @@ function MyCourse() {
 
     return (
         <div className={cx('wrapper')}>
-            <Tippy
+            <HandlessTippy
                 interactive
                 visible={active}
+                onClickOutside={() => setActive(false)}
                 render={(attrs) => (
                     <div className={cx('course-result')} tabIndex="-1" {...attrs}>
                         <div className={cx('header')}>
@@ -106,7 +108,7 @@ function MyCourse() {
                 <button className={cx('btn')} onClick={() => setActive(!active)}>
                     Khóa học của tôi
                 </button>
-            </Tippy>
+            </HandlessTippy>
         </div>
     );
 }

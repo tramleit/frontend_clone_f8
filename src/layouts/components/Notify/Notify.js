@@ -1,8 +1,6 @@
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
+import HandlessTippy from '@tippyjs/react/headless';
 import styles from './Notify.module.scss';
-import { BsBellFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { HiCheck } from 'react-icons/hi';
@@ -17,17 +15,19 @@ function Notify() {
 
     return (
         <div className={cx('wrapper')}>
-            <Tippy
+            <HandlessTippy
                 interactive
                 visible={active}
+                onClickOutside={() => setActive(false)}
                 render={(attrs) => (
                     <div className={cx('notify-result')} tabIndex="-1" {...attrs}>
                         <div className={cx('header')}>
                             <h4 className={cx('title')}>Thông báo</h4>
 
-                            <Tippy
+                            <HandlessTippy
                                 interactive
                                 visible={watch}
+                                onClickOutside={() => setWatch(false)}
                                 render={(attrs) => (
                                     <div className={cx('watched')} tabIndex="-1" {...attrs}>
                                         <div className={cx('send')}>
@@ -40,7 +40,7 @@ function Notify() {
                                 <span className={cx('dots')} onClick={() => setWatch(!watch)}>
                                     <HiDotsHorizontal />
                                 </span>
-                            </Tippy>
+                            </HandlessTippy>
                         </div>
                         <div className={cx('content')}>
                             <div className={cx('item')}>
@@ -154,7 +154,7 @@ function Notify() {
                 <button className={cx('btn-notify')} onClick={() => setActive(!active)}>
                     <FontAwesomeIcon icon={faBell} />
                 </button>
-            </Tippy>
+            </HandlessTippy>
         </div>
     );
 }
