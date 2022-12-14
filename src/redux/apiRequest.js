@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import * as request from '~/utils/request';
 import {
     loginFailed,

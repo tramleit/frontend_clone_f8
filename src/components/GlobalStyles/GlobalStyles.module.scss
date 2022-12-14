@@ -54,6 +54,7 @@ html ::-webkit-scrollbar-track {
 body {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     font-size: 1.6rem;
+    overflow-y: overlay;
 }
 
 a {

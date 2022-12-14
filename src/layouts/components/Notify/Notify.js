@@ -6,6 +6,8 @@ import { BsBellFill } from 'react-icons/bs';
 import { useState } from 'react';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import { HiCheck } from 'react-icons/hi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +21,7 @@ function Notify() {
                 interactive
                 visible={active}
                 render={(attrs) => (
-                    <div className={cx('course-result')} tabIndex="-1" {...attrs}>
+                    <div className={cx('notify-result')} tabIndex="-1" {...attrs}>
                         <div className={cx('header')}>
                             <h4 className={cx('title')}>Thông báo</h4>
 
@@ -150,7 +152,7 @@ function Notify() {
                 )}
             >
                 <button className={cx('btn-notify')} onClick={() => setActive(!active)}>
-                    <BsBellFill />
+                    <FontAwesomeIcon icon={faBell} />
                 </button>
             </Tippy>
         </div>

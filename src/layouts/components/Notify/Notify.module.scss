@@ -1,7 +1,7 @@
 .wrapper {
     position: relative;
 
-    .course-result {
+    .notify-result {
         animation: Tippy-animation 0.3s ease;
         background: var(--background-color);
         border-radius: 10px;
@@ -155,13 +155,17 @@
     }
 
     .btn-notify {
-        margin-top: 6px;
+        margin-top: 2px;
         font-size: 1.8rem;
-        color: var(--color-gray);
+        color: #707070;
         padding: 8px;
         cursor: pointer;
         background-color: transparent;
         border: none;
+
+        &:hover {
+            color: #333;
+        }
     }
 }
 

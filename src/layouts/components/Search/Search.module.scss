@@ -98,10 +98,14 @@
             flex: 1;
             height: 100%;
             outline: none;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             padding: 0 4px 0 4px;
             font-family: inherit;
             color: var(--color-black);
+
+            &::placeholder {
+                color: #000;
+            }
         }
 
         .icon-clear {
