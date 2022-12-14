@@ -17,6 +17,7 @@
             position: relative;
             padding-top: 56.25%;
             width: 100%;
+            min-height: 225.56px;
 
             &:hover .btn-view {
                 visibility: visible;
@@ -47,9 +48,15 @@
             .image {
                 position: absolute;
                 top: 0;
-                width: 100%;
                 border-radius: 16px;
-                min-height: 225.56px;
+                max-height: 225.56px;
+                height: 225.56px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                object-fit: cover;
+                overflow: hidden;
+                background-position: 50%;
+                width: 100%;
             }
 
             .btn-view {
@@ -90,6 +97,51 @@
                 width: 26px;
                 height: 28px;
                 z-index: 1;
+            }
+
+            .video-wrap {
+                align-items: center;
+                bottom: 0;
+                display: flex;
+                justify-content: space-between;
+                left: 0;
+                padding: 16px;
+                position: absolute;
+                right: 0;
+                background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0) 50%);
+                z-index: 1;
+                top: 0;
+                border-radius: 16px;
+
+                .play {
+                    align-items: center;
+                    background-color: #fff;
+                    border-radius: 10px;
+                    display: flex;
+                    height: 36px;
+                    justify-content: center;
+                    width: 36px;
+                    position: absolute;
+                    bottom: 16px;
+                    left: 16px;
+
+                    svg {
+                        color: #333;
+                        font-size: 1.3rem;
+                    }
+                }
+
+                .duration {
+                    border: 2px solid #fff;
+                    border-radius: 999px;
+                    color: #fff;
+                    font-size: 1.3rem;
+                    font-weight: 600;
+                    padding: 7px 12px;
+                    position: absolute;
+                    bottom: 16px;
+                    right: 16px;
+                }
             }
         }
 
@@ -144,6 +196,97 @@
                 color: var(--color-primary);
                 font-size: 1.6rem;
                 font-weight: 600;
+            }
+        }
+
+        .studying {
+            color: #666;
+            font-size: 1.4rem;
+
+            svg {
+                display: inline-block;
+                height: 1em;
+                overflow: visible;
+                vertical-align: -0.125em;
+            }
+
+            span {
+                margin-left: 8px;
+            }
+        }
+
+        .author {
+            align-items: center;
+            display: flex;
+
+            .avatar-wrap {
+                margin-right: 8px;
+                position: relative;
+                color: #757575;
+                font-size: 1.4rem;
+
+                .avatar {
+                    background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
+                    padding: 3px;
+                    position: relative;
+                    align-items: center;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+
+                    img {
+                        border-radius: 50%;
+                        flex-shrink: 0;
+                        height: 20px;
+                        object-fit: cover;
+                        width: 20px;
+                    }
+                }
+
+                .crown-user {
+                    height: auto;
+                    position: absolute;
+                    right: -6px;
+                    top: -3px;
+                    width: 9px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+
+            .name-author {
+                color: #757575;
+                font-size: 1.4rem;
+
+                .user-name {
+                    color: #292929;
+                    font-weight: 600;
+                }
+
+                svg {
+                    font-size: 1.2rem;
+                    color: #1b74e4;
+                    margin-left: 4px;
+                }
+
+                .dot {
+                    margin: 0 8px;
+                }
+            }
+        }
+
+        .stats {
+            color: #757575;
+            display: flex;
+            font-size: 1.4rem;
+            margin-left: -24px;
+
+            .stats-box {
+                margin-left: 24px;
+
+                span {
+                    margin-left: 8px;
+                }
             }
         }
     }

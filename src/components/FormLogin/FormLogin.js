@@ -3,6 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as apiRequest from '~/redux/apiRequest';
+import { openModal } from '~/redux/modunSlice';
 import styles from './FormLogin.module.scss';
 
 const cx = classNames.bind(styles);
@@ -42,7 +43,7 @@ function FormLogin({ role, nameBtn }) {
                     password: password,
                 };
                 const result = await apiRequest.loginUser(user, dispatch, navigate);
-
+                dispatch(openModal());
                 if (result?.data.errCode === 1) {
                     setValidEmail(result.data.message);
                 } else if (result?.data.errCode === 2) {
@@ -55,6 +56,7 @@ function FormLogin({ role, nameBtn }) {
                     password: password,
                 };
                 await apiRequest.RegisterNewUser(newUser, dispatch, navigate);
+                dispatch(openModal());
             }
         }
     };

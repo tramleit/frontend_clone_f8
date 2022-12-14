@@ -125,7 +125,7 @@ function Modal() {
                                     </li>
                                 </ul>
                                 <p className={cx('author')}>
-                                    <span>Đăng bởi</span>
+                                    <span>Đăng bởi: </span>
                                     <a href="/@son-dang">
                                         Sơn Đặng
                                         <FontAwesomeIcon icon={faCircleCheck} />
