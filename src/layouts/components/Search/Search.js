@@ -61,7 +61,6 @@ function Search() {
         setShowResult(false);
     };
 
-    console.log("showResult && searchValue !== '': ", showResult && searchValue !== '');
     return (
         <div className={cx('body')}>
             <HandlessTippy
