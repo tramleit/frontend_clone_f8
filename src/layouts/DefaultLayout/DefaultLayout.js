@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '~/components/Modal';
 import NewFeed from '~/components/NewFeed';
@@ -22,7 +21,7 @@ function DefaultLayout({ children }) {
                     <NewFeed />
                 </div>
             </div>
-            {modal ? <Modal /> : Fragment}
+            {modal && <Modal />}
             <Footer />
         </>
     );

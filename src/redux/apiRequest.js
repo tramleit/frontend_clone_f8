@@ -10,6 +10,7 @@ import {
     registerStart,
     registerSuccess,
 } from './authSlice';
+
 import { searchSuccess } from './searchSlice';
 
 export const search = async (params, dispatch) => {
@@ -32,6 +33,7 @@ export const loginUser = async (user, dispatch, navigate) => {
         const res = await request.post('/user/login', user);
         dispatch(loginSuccess(res));
         navigate('/');
+        return res;
     } catch (error) {
         dispatch(loginFailed());
         return error.response;
@@ -44,8 +46,10 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
         const res = await request.post('/user/register', newUser);
         dispatch(registerSuccess(res));
         navigate('/');
+        return res;
     } catch (error) {
         dispatch(registerFailed());
+        return error.response;
     }
 };
 

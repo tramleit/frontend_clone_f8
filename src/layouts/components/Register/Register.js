@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Form from '~/components/Form';
 import Loading from '~/components/Loading';
@@ -12,7 +11,7 @@ function Register() {
 
     return (
         <div className={cx('wrapper')}>
-            {isFetching ? <Loading /> : Fragment}
+            {isFetching && <Loading />}
             <Form
                 name="Đăng ký tài khoản F8"
                 nameBtn="Đăng ký"

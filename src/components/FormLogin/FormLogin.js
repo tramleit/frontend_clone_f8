@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as apiRequest from '~/redux/apiRequest';
@@ -12,7 +12,6 @@ function FormLogin({ role, nameBtn }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [active, setActive] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState('');
@@ -43,11 +42,15 @@ function FormLogin({ role, nameBtn }) {
                     password: password,
                 };
                 const result = await apiRequest.loginUser(user, dispatch, navigate);
-                dispatch(openModal());
+
                 if (result?.data.errCode === 1) {
                     setValidEmail(result.data.message);
                 } else if (result?.data.errCode === 2) {
                     setValidPassword(result.data.message);
+                } else if (result === undefined) {
+                    setValidEmail('Kết nối database thất bại');
+                } else if (result.errCode === 0) {
+                    dispatch(openModal());
                 }
             } else {
                 const newUser = {
@@ -55,13 +58,22 @@ function FormLogin({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                await apiRequest.RegisterNewUser(newUser, dispatch, navigate);
-                dispatch(openModal());
+                const result = await apiRequest.RegisterNewUser(newUser, dispatch, navigate);
+
+                if (result?.data.errCode === 2 || result?.data.errCode === 3) {
+                    setValidEmail(result.data.message);
+                } else if (result?.data.errCode === 4) {
+                    setValidPassword(result.data.message);
+                } else if (result === undefined) {
+                    setValidEmail('Kết nối database thất bại');
+                } else if (result.errCode === 0) {
+                    dispatch(openModal());
+                }
             }
         }
     };
 
-    const handleValid = (name) => {
+    const handleValidName = (name) => {
         // eslint-disable-next-line no-useless-escape
         const regexName = /^[a-zA-Z!@#\$%\^\&*\)\(+=._-]{2,}$/g;
 
@@ -74,29 +86,25 @@ function FormLogin({ role, nameBtn }) {
 
     return (
         <div className={cx('wrapper')}>
-            {role ? (
-                Fragment
-            ) : (
-                <>
-                    <div className={cx('form')}>
-                        <div className={cx('form-label')}>
-                            <label>Tên của bạn</label>
-                        </div>
-                        <div className={validName ? cx('form-input', 'active') : cx('form-input')}>
-                            <input
-                                type="text"
-                                placeholder="Họ và tên của bạn"
-                                value={name}
-                                onChange={(e) => {
-                                    setName(e.target.value);
-                                    setValidName(false);
-                                }}
-                                onBlur={() => handleValid(name)}
-                            />
-                        </div>
-                        {validName ? <div className={cx('message')}>Tên của bạn không hợp lệ</div> : Fragment}
+            {!role && (
+                <div className={cx('form')}>
+                    <div className={cx('form-label')}>
+                        <label>Tên của bạn</label>
                     </div>
-                </>
+                    <div className={validName ? cx('form-input', 'active') : cx('form-input')}>
+                        <input
+                            type="text"
+                            placeholder="Họ và tên của bạn"
+                            value={name}
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                setValidName(false);
+                            }}
+                            onBlur={() => handleValidName(name)}
+                        />
+                    </div>
+                    {validName && <div className={cx('message')}>Tên của bạn không hợp lệ</div>}
+                </div>
             )}
             <div className={cx('form')}>
                 <div className={cx('form-label')}>
@@ -114,7 +122,7 @@ function FormLogin({ role, nameBtn }) {
                         }}
                     />
                 </div>
-                {validEmail !== '' ? <div className={cx('message')}>{validEmail}</div> : Fragment}
+                {validEmail !== '' && <div className={cx('message')}>{validEmail}</div>}
             </div>
             <div className={cx('form')}>
                 <div className={validPassword !== '' ? cx('form-input', 'active') : cx('form-input')}>
@@ -129,7 +137,7 @@ function FormLogin({ role, nameBtn }) {
                         }}
                     />
                 </div>
-                {validPassword !== '' ? <div className={cx('message')}>{validPassword}</div> : Fragment}
+                {validPassword !== '' && <div className={cx('message')}>{validPassword}</div>}
             </div>
             <button
                 type="submit"

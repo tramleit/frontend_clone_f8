@@ -13,7 +13,6 @@ const cx = classNames.bind(styles);
 
 function MyInfo() {
     const [active, setActive] = useState(false);
-
     const user = useSelector((state) => state.auth.login.currentUser);
 
     const accessToken = user?.accessToken;
@@ -37,12 +36,12 @@ function MyInfo() {
                         <div className={cx('user')}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src={user.data.avatar !== '' ? user.data.avatar : Image.avatar}
-                                    alt={user.data.name}
+                                    src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar}
+                                    alt={user.data?.name}
                                 />
                             </div>
                             <div className={cx('info')}>
-                                <span className={cx('name')}>{user.data.name}</span>
+                                <span className={cx('name')}>{user.data?.name}</span>
                                 <div className={cx('username')}>@mavietha7z</div>
                             </div>
                         </div>
@@ -80,7 +79,7 @@ function MyInfo() {
                 )}
             >
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
-                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={user.data.name} />
+                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={user.data?.name} />
                 </div>
             </HandlessTippy>
         </div>

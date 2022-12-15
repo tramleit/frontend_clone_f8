@@ -1,7 +1,7 @@
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaFacebookSquare, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiChevronLeft } from 'react-icons/hi';
@@ -9,15 +9,17 @@ import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import FormLogin from '~/components/FormLogin';
 
+// import { UserAuth } from '~/auth/AuthContext';
+
 import styles from './Form.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Form({ name, nameBtn, question, path, action, role }) {
-    console.log('role: ', role);
-    console.log('path: ', path);
-    console.log('name: ', name);
     const [loginEmail, setLoginEmail] = useState(true);
+
+    // const { googleSignIn, user } = UserAuth();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         if (role) {
@@ -25,15 +27,21 @@ function Form({ name, nameBtn, question, path, action, role }) {
         } else {
             document.title = 'Đăng ký tài khoản F8';
         }
-    }, []);
+    }, [role]);
+
+    // const handleGoogleSignIn = async () => {
+    //     try {
+    //         await googleSignIn();
+    //     } catch (error) {
+    //         console.log('error: ', error);
+    //     }
+    // };
 
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('content')}>
-                    {loginEmail ? (
-                        Fragment
-                    ) : (
+                    {!loginEmail && (
                         <div className={cx('btn-back')} onClick={() => setLoginEmail(true)}>
                             <HiChevronLeft />
                         </div>
@@ -48,7 +56,6 @@ function Form({ name, nameBtn, question, path, action, role }) {
                         {loginEmail ? (
                             <div className={cx('login')}>
                                 <div className={cx('btn-login')} onClick={() => setLoginEmail(false)}>
-                                    {/* <FaUser className={cx('icon-user')} /> */}
                                     <FontAwesomeIcon icon={faUser} className={cx('icon-user')} />
                                     <span>Sử dụng email / số điện thoại</span>
                                 </div>
@@ -72,11 +79,7 @@ function Form({ name, nameBtn, question, path, action, role }) {
                             {question} <Link to={path}>{action}</Link>
                         </p>
 
-                        {loginEmail === false && role === true ? (
-                            <p className={cx('forgot-password')}>Quên mật khẩu?</p>
-                        ) : (
-                            Fragment
-                        )}
+                        {!loginEmail && role && <p className={cx('forgot-password')}>Quên mật khẩu?</p>}
                     </div>
 
                     <div className={cx('accept')}>

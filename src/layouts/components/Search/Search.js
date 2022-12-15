@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Fragment } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
@@ -82,9 +82,7 @@ function Search() {
                                         : `Kết quả cho '${searchValue}'`}
                                 </p>
                             </div>
-                            {searchResult.length < 1 ? (
-                                Fragment
-                            ) : (
+                            {!searchResult.length < 1 && (
                                 <div className={cx('search-heading')}>
                                     <h4>KHÓA HỌC</h4>
                                     <Link to={`/search/${searchValue}`}>Xem thêm</Link>

@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import styles from './CourseItem.module.scss';
-import { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
@@ -16,18 +15,16 @@ function CourseItem({ type, student, coming = false, name, imageComing, image })
                     <img className={cx('image')} src={coming ? imageComing : image} alt="" />
                     <button className={cx('btn-view')}>Xem khóa học</button>
 
-                    {type === 'pro' ? (
+                    {type === 'pro' && (
                         <div className={cx('crown')}>
                             <img
                                 src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
                                 alt="Crown"
                             />
                         </div>
-                    ) : (
-                        Fragment
                     )}
 
-                    {type === 'video' ? (
+                    {type === 'video' && (
                         <div className={cx('video-wrap')}>
                             <div className={cx('play')}>
                                 <FontAwesomeIcon icon={faPlay} />
@@ -36,34 +33,30 @@ function CourseItem({ type, student, coming = false, name, imageComing, image })
                                 <span>34:51</span>
                             </div>
                         </div>
-                    ) : (
-                        Fragment
                     )}
                 </Link>
+
                 <h4 className={cx('name-course')}>
                     <Link to="/landing/htmlcss" className={coming ? cx('disabled-name') : ''}>
                         {name}
                     </Link>
                 </h4>
-                {type === 'pro' && !coming ? (
+
+                {type === 'pro' && !coming && (
                     <div className={cx('price')}>
                         <span className={cx('old-price')}>2.499.000đ</span>
                         <span className={cx('new-price')}>1.299.000đ</span>
                     </div>
-                ) : (
-                    Fragment
                 )}
 
-                {type === 'free' ? (
+                {type === 'free' && (
                     <div className={cx('studying')}>
                         <FontAwesomeIcon icon={faUsers} />
                         <span>{student}</span>
                     </div>
-                ) : (
-                    Fragment
                 )}
 
-                {type === 'blog' ? (
+                {type === 'blog' && (
                     <div className={cx('author')}>
                         <Link className={cx('avatar-wrap')}>
                             <div className={cx('avatar')}>
@@ -81,11 +74,9 @@ function CourseItem({ type, student, coming = false, name, imageComing, image })
                             <span>6 phút đọc</span>
                         </Link>
                     </div>
-                ) : (
-                    Fragment
                 )}
 
-                {type === 'video' ? (
+                {type === 'video' && (
                     <div className={cx('stats')}>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faEye} />
@@ -100,8 +91,6 @@ function CourseItem({ type, student, coming = false, name, imageComing, image })
                             <span>229</span>
                         </div>
                     </div>
-                ) : (
-                    Fragment
                 )}
             </div>
         </div>

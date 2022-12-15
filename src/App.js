@@ -4,6 +4,7 @@ import { DefaultLayout } from '~/layouts';
 import { Fragment } from 'react';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
+// import { AuthContextProvider } from './auth/AuthContext';
 
 function App() {
     const isFetching = useSelector((state) => state.auth.login.isFetching);
@@ -11,7 +12,7 @@ function App() {
     return (
         <Router>
             <div className="App">
-                {isFetching ? <Loading /> : Fragment}
+                {isFetching && <Loading />}
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;
