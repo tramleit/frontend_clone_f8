@@ -14,6 +14,7 @@ function NewFeed() {
     const handleOpenModal = () => {
         dispatch(openModal());
     };
+
     return (
         <div className={cx('wrapper')}>
             <Tippy content="Bảng tin F8">

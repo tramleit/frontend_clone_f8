@@ -10,7 +10,7 @@ import { MdClear } from 'react-icons/md';
 import SearchItem from '~/components/SearchItem';
 import Popper from '~/components/Popper';
 import useDebounce from '~/hooks/useDebounce';
-import * as apiRequest from '~/services/apiRequest';
+import { search } from '~/services/apiSearch';
 
 import styles from './Search.module.scss';
 
@@ -36,7 +36,7 @@ function Search() {
             setLoading(true);
 
             const fetchApi = async () => {
-                const result = await apiRequest.search(debounced, dispatch);
+                const result = await search(debounced, dispatch);
 
                 if (!result) {
                     setSearchResult([]);

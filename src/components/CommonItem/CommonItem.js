@@ -4,37 +4,85 @@ import styles from './CommonItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
+import { useEffect, useState } from 'react';
+import { getUserById } from '~/services/apiAuth';
+import { Image } from '~/assets/image';
 
 const cx = classNames.bind(styles);
 
-function CommonItem({ type, student, coming = false, name, imageComing, image }) {
+function CommonItem({ type, patch, student, coming = false, name, imageComing, image, author, dataVideo }) {
+    const [authorBlog, setAuthorBlog] = useState({});
+
+    useEffect(() => {
+        const idAuthor = author;
+        if (idAuthor) {
+            const fetchApi = async () => {
+                const author = await getUserById(idAuthor);
+                setAuthorBlog(author);
+            };
+            fetchApi();
+        }
+    }, [author]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-course')}>
-                <Link className={coming ? cx('link', 'disabled') : cx('link')} to="/landing/htmlcss">
-                    <img className={cx('image')} src={coming ? imageComing : image} alt="" />
-                    <button className={cx('btn-view')}>Xem khóa học</button>
+                {type === 'video' ? (
+                    <a
+                        className={coming ? cx('link', 'disabled') : cx('link')}
+                        href={patch}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
+                        <button className={cx('btn-view')}>Xem khóa học</button>
 
-                    {type === 'pro' && (
-                        <div className={cx('crown')}>
-                            <img
-                                src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
-                                alt="Crown"
-                            />
-                        </div>
-                    )}
+                        {type === 'pro' && (
+                            <div className={cx('crown')}>
+                                <img
+                                    src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
+                                    alt="Crown"
+                                />
+                            </div>
+                        )}
 
-                    {type === 'video' && (
-                        <div className={cx('video-wrap')}>
-                            <div className={cx('play')}>
-                                <FontAwesomeIcon icon={faPlay} />
+                        {type === 'video' && (
+                            <div className={cx('video-wrap')}>
+                                <div className={cx('play')}>
+                                    <FontAwesomeIcon icon={faPlay} />
+                                </div>
+                                <div className={cx('duration')}>
+                                    <span>{dataVideo.timeVideo}</span>
+                                </div>
                             </div>
-                            <div className={cx('duration')}>
-                                <span>34:51</span>
+                        )}
+                    </a>
+                ) : (
+                    <Link className={coming ? cx('link', 'disabled') : cx('link')} to={patch}>
+                        <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
+                        <button className={cx('btn-view')}>Xem khóa học</button>
+
+                        {type === 'pro' && (
+                            <div className={cx('crown')}>
+                                <img
+                                    src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
+                                    alt="Crown"
+                                />
                             </div>
-                        </div>
-                    )}
-                </Link>
+                        )}
+
+                        {type === 'video' && (
+                            <div className={cx('video-wrap')}>
+                                <div className={cx('play')}>
+                                    <FontAwesomeIcon icon={faPlay} />
+                                </div>
+                                <div className={cx('duration')}>
+                                    <span>{dataVideo.timeVideo}</span>
+                                </div>
+                            </div>
+                        )}
+                    </Link>
+                )}
 
                 <h4 className={cx('name-course')}>
                     <Link to="/landing/htmlcss" className={coming ? cx('disabled-name') : ''}>
@@ -61,15 +109,15 @@ function CommonItem({ type, student, coming = false, name, imageComing, image })
                         <Link className={cx('avatar-wrap')}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png"
-                                    alt="Sơn Đặng"
+                                    src={authorBlog.avatar !== '' ? authorBlog.avatar : Image.avatar}
+                                    alt={authorBlog.name}
                                 />
                             </div>
-                            <IconCrownUser className={cx('crown-user')} />
+                            {authorBlog.admin && <IconCrownUser className={cx('crown-user')} />}
                         </Link>
                         <Link className={cx('name-author')}>
-                            <span className={cx('user-name')}>Sơn Đặng</span>
-                            <FontAwesomeIcon icon={faCircleCheck} />
+                            <span className={cx('user-name')}>{authorBlog.name}</span>
+                            {authorBlog.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                             <span className={cx('dot')}>·</span>
                             <span>6 phút đọc</span>
                         </Link>
@@ -80,15 +128,15 @@ function CommonItem({ type, student, coming = false, name, imageComing, image })
                     <div className={cx('stats')}>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faEye} />
-                            <span>212.524</span>
+                            <span>{dataVideo.view}</span>
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faThumbsUp} />
-                            <span>3.124</span>
+                            <span>{dataVideo.like}</span>
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faComment} />
-                            <span>229</span>
+                            <span>{dataVideo.comment}</span>
                         </div>
                     </div>
                 )}

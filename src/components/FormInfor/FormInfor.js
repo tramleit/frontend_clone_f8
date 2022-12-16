@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import * as apiRequest from '~/services/apiRequest';
+import { loginUser, RegisterNewUser } from '~/services/apiAuth';
 import { openModal } from '~/redux/reducer/modunReducer';
 import styles from './FormInfor.module.scss';
 
@@ -41,7 +41,7 @@ function FormInfor({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                const result = await apiRequest.loginUser(user, dispatch, navigate);
+                const result = await loginUser(user, dispatch, navigate);
 
                 if (result?.data.errCode === 1) {
                     setValidEmail(result.data.message);
@@ -58,7 +58,7 @@ function FormInfor({ role, nameBtn }) {
                     email: email,
                     password: password,
                 };
-                const result = await apiRequest.RegisterNewUser(newUser, dispatch, navigate);
+                const result = await RegisterNewUser(newUser, dispatch, navigate);
 
                 if (result?.data.errCode === 2 || result?.data.errCode === 3) {
                     setValidEmail(result.data.message);
