@@ -1,13 +1,13 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import styles from './CourseItem.module.scss';
+import styles from './CommonItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
 
 const cx = classNames.bind(styles);
 
-function CourseItem({ type, student, coming = false, name, imageComing, image }) {
+function CommonItem({ type, student, coming = false, name, imageComing, image }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-course')}>
@@ -97,4 +97,4 @@ function CourseItem({ type, student, coming = false, name, imageComing, image })
     );
 }
 
-export default CourseItem;
+export default CommonItem;

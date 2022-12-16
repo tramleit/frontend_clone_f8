@@ -1,10 +1,10 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
-import searchReducer from './searchSlice';
-import modunReducer from './modunSlice';
-
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
+import authReducer from './reducer/authReducer';
+import searchReducer from './reducer/searchReducer';
+import modunReducer from './reducer/modunReducer';
+import courseReducer from './reducer/courseReducer';
 
 const persistConfig = {
     key: 'root',
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     search: searchReducer,
     modun: modunReducer,
+    course: courseReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

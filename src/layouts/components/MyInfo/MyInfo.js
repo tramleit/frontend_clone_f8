@@ -5,8 +5,8 @@ import { Image } from '~/assets/image';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '~/redux/apiRequest';
-import { loginSuccess } from '~/redux/authSlice';
+import { logoutUser } from '~/services/apiRequest';
+import { loginSuccess } from '~/redux/reducer/authReducer';
 import { createAxios } from '~/redux/createInstance';
 
 const cx = classNames.bind(styles);

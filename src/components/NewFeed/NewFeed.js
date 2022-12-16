@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import { IconBullHorn } from '~/assets/Icon';
 import styles from './NewFeed.module.scss';
 import { useDispatch } from 'react-redux';
-import { openModal } from '~/redux/modunSlice';
+import { openModal } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 

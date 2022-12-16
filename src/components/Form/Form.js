@@ -7,7 +7,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { HiChevronLeft } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
-import FormLogin from '~/components/FormLogin';
+import FormInfor from '~/components/FormInfor';
 
 // import { UserAuth } from '~/auth/AuthContext';
 
@@ -73,7 +73,7 @@ function Form({ name, nameBtn, question, path, action, role }) {
                                 </div>
                             </div>
                         ) : (
-                            <FormLogin role={role} nameBtn={nameBtn} />
+                            <FormInfor role={role} nameBtn={nameBtn} />
                         )}
                         <p className={cx('question')}>
                             {question} <Link to={path}>{action}</Link>

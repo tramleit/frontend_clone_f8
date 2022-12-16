@@ -10,7 +10,7 @@ import { MdClear } from 'react-icons/md';
 import SearchItem from '~/components/SearchItem';
 import Popper from '~/components/Popper';
 import useDebounce from '~/hooks/useDebounce';
-import * as apiRequest from '~/redux/apiRequest';
+import * as apiRequest from '~/services/apiRequest';
 
 import styles from './Search.module.scss';
 

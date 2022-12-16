@@ -2,13 +2,13 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import * as apiRequest from '~/redux/apiRequest';
-import { openModal } from '~/redux/modunSlice';
-import styles from './FormLogin.module.scss';
+import * as apiRequest from '~/services/apiRequest';
+import { openModal } from '~/redux/reducer/modunReducer';
+import styles from './FormInfor.module.scss';
 
 const cx = classNames.bind(styles);
 
-function FormLogin({ role, nameBtn }) {
+function FormInfor({ role, nameBtn }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -150,4 +150,4 @@ function FormLogin({ role, nameBtn }) {
     );
 }
 
-export default FormLogin;
+export default FormInfor;

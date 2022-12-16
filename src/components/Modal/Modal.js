@@ -2,7 +2,7 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '~/redux/modunSlice';
+import { closeModal } from '~/redux/reducer/modunReducer';
 import styles from './Modal.module.scss';
 
 const cx = classNames.bind(styles);

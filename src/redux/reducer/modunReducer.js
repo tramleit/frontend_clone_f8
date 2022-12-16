@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const modunSlice = createSlice({
+const modunReducer = createSlice({
     name: 'modun',
     initialState: {
         modal: {
@@ -17,6 +17,6 @@ const modunSlice = createSlice({
     },
 });
 
-export const { openModal, closeModal } = modunSlice.actions;
+export const { openModal, closeModal } = modunReducer.actions;
 
-export default modunSlice.reducer;
+export default modunReducer.reducer;

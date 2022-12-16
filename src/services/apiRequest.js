@@ -9,23 +9,8 @@ import {
     registerFailed,
     registerStart,
     registerSuccess,
-} from './authSlice';
-
-import { searchSuccess } from './searchSlice';
-
-export const search = async (params, dispatch) => {
-    try {
-        const res = await request.get('/course/search', {
-            params: {
-                q: params,
-            },
-        });
-        dispatch(searchSuccess(res.data));
-        return res.data;
-    } catch (error) {
-        return error;
-    }
-};
+} from '~/redux/reducer/authReducer';
+import { searchSuccess } from '~/redux/reducer/searchReducer';
 
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
@@ -65,5 +50,28 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
         navigate('/login');
     } catch (error) {
         dispatch(logoutFailed());
+    }
+};
+
+export const search = async (params, dispatch) => {
+    try {
+        const res = await request.get('/course/search', {
+            params: {
+                q: params,
+            },
+        });
+        dispatch(searchSuccess(res.data));
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const GetAllCourseFree = async () => {
+    try {
+        const res = await request.get('/course/get');
+        console.log('res: ', res);
+    } catch (error) {
+        console.log('error: ', error);
     }
 };
