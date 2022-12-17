@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import Search from '../Search';
 import styles from './Header.module.scss';
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 function Header() {
     const isUser = useSelector((state) => state.auth.login.currentUser);
 
-    const pathName = window.location.pathname;
+    const pathName = useLocation().pathname;
 
     return (
         <div className={cx('wrapper')}>

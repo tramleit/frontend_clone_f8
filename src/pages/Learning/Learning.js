@@ -4,6 +4,7 @@ import styles from './Learning.module.scss';
 import Heading from '~/components/Heading';
 import LearningPathItem from '~/components/LearningPathItem';
 import { Image } from '~/assets/image';
+import SuggestionBox from '~/components/SuggestionBox';
 
 const cx = classNames.bind(styles);
 
@@ -35,21 +36,13 @@ function Learning() {
                     />
                 </div>
 
-                <div className={cx('community')}>
-                    <div className={cx('info')}>
-                        <h2>Tham gia cộng đồng học viên F8 trên Facebook</h2>
-                        <p>
-                            Hàng nghìn người khác đang học lộ trình giống như bạn. Hãy tham gia hỏi đáp, chia sẻ và hỗ
-                            trợ nhau trong quá trình học nhé.
-                        </p>
-                        <a href="https://www.facebook.com/groups/f8official" target="_blank" rel="noreferrer">
-                            Tham gia nhóm
-                        </a>
-                    </div>
-                    <div className={cx('image')}>
-                        <img src={Image.imageLearning} alt="Học lập trình web (F8 - Fullstack.edu.vn)" />
-                    </div>
-                </div>
+                <SuggestionBox
+                    title="Tham gia cộng đồng học viên F8 trên Facebook"
+                    desc="Hàng nghìn người khác đang học lộ trình giống như bạn. Hãy tham gia hỏi đáp, chia sẻ và hỗ trợ nhau
+                    trong quá trình học nhé."
+                    path="https://www.facebook.com/groups/f8official"
+                    nameBtn="Tham gia nhóm"
+                />
             </div>
         </div>
     );
