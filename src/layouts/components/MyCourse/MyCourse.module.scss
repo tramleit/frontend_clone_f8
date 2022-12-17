@@ -8,7 +8,7 @@
         box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
         overflow: hidden;
         transition: all 0.3s ease-in-out;
-        min-width: 406px;
+        min-width: 380px;
         padding-bottom: 12px;
         position: absolute;
         right: -68px;
@@ -93,6 +93,12 @@
                         }
                     }
                 }
+            }
+
+            .unregistered {
+                font-size: 1.4rem;
+                padding: 0 20px;
+                margin: 14px 0;
             }
         }
     }

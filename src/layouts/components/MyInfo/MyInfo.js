@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 function MyInfo() {
     const [active, setActive] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
+    console.log('user: ', user);
 
     const accessToken = user?.accessToken;
     const id = user?._id;
@@ -42,7 +43,7 @@ function MyInfo() {
                             </div>
                             <div className={cx('info')}>
                                 <span className={cx('name')}>{user.data?.name}</span>
-                                <div className={cx('username')}>@mavietha7z</div>
+                                <div className={cx('username')}>@{user.data?.username}</div>
                             </div>
                         </div>
                         <hr />

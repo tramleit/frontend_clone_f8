@@ -107,6 +107,11 @@
                 cursor: pointer;
                 flex-direction: row;
                 padding: 8px 36px 8px 12px;
+                background-color: rgba(22, 24, 35, 0.05);
+
+                &.read {
+                    background-color: var(--background-color);
+                }
 
                 &:hover {
                     background-color: rgba(22, 24, 35, 0.05);
