@@ -7,7 +7,6 @@ import { FaSearch } from 'react-icons/fa';
 import { BiLoaderCircle } from 'react-icons/bi';
 import { MdClear } from 'react-icons/md';
 import SearchItem from '~/components/SearchItem';
-import Popper from '~/components/Popper';
 import useDebounce from '~/hooks/useDebounce';
 import { search } from '~/services/apiSearch';
 
@@ -68,7 +67,7 @@ function Search() {
                 onClickOutside={handleHideResult}
                 render={(attrs) => (
                     <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                        <Popper>
+                        <div className={cx('wrapper-search')}>
                             <div className={cx('search-header')}>
                                 {loading ? (
                                     <BiLoaderCircle className={cx('icon-loading')} />
@@ -90,7 +89,7 @@ function Search() {
                             {searchResult?.map((course) => (
                                 <SearchItem key={course._id} data={course} />
                             ))}
-                        </Popper>
+                        </div>
                     </div>
                 )}
             >
