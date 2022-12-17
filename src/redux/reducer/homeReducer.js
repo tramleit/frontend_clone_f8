@@ -22,7 +22,7 @@ const homeReducer = createSlice({
             state.courses.error = false;
         },
         getAllCoursesFailed: (state) => {
-            state.courses.error = true;
+            state.courses.error = false;
         },
 
         getAllBlogsSuccess: (state, action) => {

@@ -16,11 +16,8 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const courses = useSelector((state) => state.home.courses?.currentCourses);
-    console.log('courses: ', courses);
     const blogs = useSelector((state) => state.home.blogs.currentBlogs);
-    console.log('blogs: ', blogs);
     const videos = useSelector((state) => state.home.videos.currentVideos);
-    console.log('videos: ', videos);
 
     const dispatch = useDispatch();
 

@@ -4,10 +4,8 @@ import { getAllVideosFailed, getAllVideosSuccess } from '~/redux/reducer/homeRed
 export const getAllVideos = async (dispatch) => {
     try {
         const res = await request.get('/video/get');
-        console.log('getAllVideos: ', res);
-        dispatch(getAllVideosSuccess(res));
+        dispatch(getAllVideosSuccess(res.data));
     } catch (error) {
-        console.log('error getAllVideos: ', error);
         dispatch(getAllVideosFailed());
     }
 };
