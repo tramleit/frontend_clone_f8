@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
     const modal = useSelector((state) => state.modun.modal.status);
+
     return (
         <>
             <Header />

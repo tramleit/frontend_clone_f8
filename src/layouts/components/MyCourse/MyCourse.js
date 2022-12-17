@@ -18,7 +18,7 @@ function MyCourse() {
     useEffect(() => {
         const myCourses = user.data.myCourses;
         setCourses(myCourses);
-    }, [user.myCourses]);
+    }, [user.data.myCourses]);
 
     return (
         <div className={cx('wrapper')}>
