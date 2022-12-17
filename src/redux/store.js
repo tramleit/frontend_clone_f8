@@ -2,7 +2,6 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import authReducer from './reducer/authReducer';
-import searchReducer from './reducer/searchReducer';
 import modunReducer from './reducer/modunReducer';
 import homeReducer from './reducer/homeReducer';
 
@@ -13,7 +12,6 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
     auth: authReducer,
-    search: searchReducer,
     modun: modunReducer,
     home: homeReducer,
 });

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
 import HandlessTippy from '@tippyjs/react/headless';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
@@ -22,7 +21,6 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
-    const dispatch = useDispatch();
     const inputRef = useRef();
     const debounced = useDebounce(searchValue, 600);
 
@@ -36,13 +34,14 @@ function Search() {
             setLoading(true);
 
             const fetchApi = async () => {
-                const result = await search(debounced, dispatch);
+                const result = await search(debounced);
+                console.log('result: ', result);
 
                 if (!result) {
                     setSearchResult([]);
                     setLoading(false);
                 } else {
-                    setSearchResult(result);
+                    setSearchResult(result.data);
                     setLoading(false);
                 }
             };
@@ -88,7 +87,7 @@ function Search() {
                                     <Link to={`/search/${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
-                            {searchResult.map((course) => (
+                            {searchResult?.map((course) => (
                                 <SearchItem key={course._id} data={course} />
                             ))}
                         </Popper>

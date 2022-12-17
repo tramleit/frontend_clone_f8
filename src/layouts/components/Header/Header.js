@@ -7,11 +7,14 @@ import { useSelector } from 'react-redux';
 import MyCourse from '~/layouts/components/MyCourse';
 import Notify from '../Notify';
 import MyInfo from '../MyInfo';
+import BackButton from '~/components/BackButton';
 
 const cx = classNames.bind(styles);
 
 function Header() {
     const isUser = useSelector((state) => state.auth.login.currentUser);
+
+    const pathName = window.location.pathname;
 
     return (
         <div className={cx('wrapper')}>
@@ -19,7 +22,7 @@ function Header() {
                 <Link to="/">
                     <img src={Image.iconLogo} alt="logo F8" />
                 </Link>
-                <h4>Học Lập Trình Để Đi Làm</h4>
+                {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
             <Search />

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faNewspaper, faPlus, faRoad, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,31 +13,30 @@ function Sidebar() {
                 <div className={cx('create-blog')}>
                     <FontAwesomeIcon icon={faPlus} />
                 </div>
-
                 <ul className={cx('list')}>
                     <li className={cx('item')}>
-                        <Link className={cx('link', 'active')} to="/">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/">
                             <FontAwesomeIcon icon={faHome} />
                             <span>Home</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <Link className={cx('link')} to="/learning">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/learning">
                             <FontAwesomeIcon icon={faRoad} />
                             <span>Lộ trình</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <Link className={cx('link')} to="/courses">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/courses">
                             <FontAwesomeIcon icon={faLightbulb} />
                             <span>Học</span>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <Link className={cx('link')} to="/blog">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/blog">
                             <FontAwesomeIcon icon={faNewspaper} />
                             <span>Blog</span>
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             </div>
