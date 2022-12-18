@@ -4,6 +4,7 @@ import Courses from '~/pages/Courses';
 import Blog from '~/pages/Blog';
 import Login from '~/layouts/components/Login';
 import Register from '~/layouts/components/Register';
+import Profile from '~/pages/Profile/Profile';
 
 // Public router
 const publicRoutes = [
@@ -13,6 +14,7 @@ const publicRoutes = [
     { path: '/blog', component: Blog },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
+    { path: '/@:username', component: Profile },
 ];
 
 const privateRoutes = [];

@@ -2,7 +2,7 @@
     flex-shrink: 0;
 
     .sidebar {
-        --width: ;
+        --width: 96px;
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -11,8 +11,33 @@
         position: -webkit-sticky;
         position: sticky;
         top: 74px;
-        width: 96px;
+        width: var(--width);
         z-index: 8;
+        transform: translateX(0);
+        transition: opacity 0.5s ease, -webkit-transform 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease, -webkit-transform 0.5s ease;
+
+        &.active {
+            transform: translateX(-76px);
+
+            &::after {
+                width: 4px;
+                right: 16px;
+            }
+        }
+
+        &::after {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            bottom: 0;
+            content: '';
+            height: 100%;
+            position: absolute;
+            right: 90px;
+            width: 0px;
+        }
 
         .create-blog {
             align-items: center;

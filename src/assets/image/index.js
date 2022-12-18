@@ -6,6 +6,7 @@ export const Image = {
     frontend: require('./frontend.png'),
     backend: require('./backend.png'),
     imageLearning: require('./imageLearning.png'),
+    coverProfile: require('./cover-profile.png'),
 };
 
 export const IconCourse = {

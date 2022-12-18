@@ -1,15 +1,25 @@
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faNewspaper, faPlus, faRoad, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const [isHovered, setIsHovered] = useState(false);
+
+    const pathName = useLocation().pathname;
+    const hasAtSymbol = pathName.includes('/@');
+
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('sidebar')}>
+            <div
+                className={hasAtSymbol && !isHovered ? cx('sidebar', 'active') : cx('sidebar')}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
                 <div className={cx('create-blog')}>
                     <FontAwesomeIcon icon={faPlus} />
                 </div>

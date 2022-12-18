@@ -14,7 +14,6 @@ const cx = classNames.bind(styles);
 function MyInfo() {
     const [active, setActive] = useState(false);
     const user = useSelector((state) => state.auth.login.currentUser);
-    console.log('user: ', user);
 
     const accessToken = user?.accessToken;
     const id = user?._id;
@@ -49,28 +48,28 @@ function MyInfo() {
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link>Trang cá nhân</Link>
+                                <Link to={`/@${user.data?.username}`}>Trang cá nhân</Link>
                             </li>
                         </ul>
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link>Viết blog</Link>
+                                <Link to="new-post">Viết blog</Link>
                             </li>
                             <li className={cx('item')}>
-                                <Link>Bài viết của tôi</Link>
-                            </li>
-                        </ul>
-                        <hr />
-                        <ul className={cx('list')}>
-                            <li className={cx('item')}>
-                                <Link>Bài viết đã lưu</Link>
+                                <Link to="/me/post/:tab">Bài viết của tôi</Link>
                             </li>
                         </ul>
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link>Cài đặt</Link>
+                                <Link to="/me/bookmark/posts">Bài viết đã lưu</Link>
+                            </li>
+                        </ul>
+                        <hr />
+                        <ul className={cx('list')}>
+                            <li className={cx('item')}>
+                                <Link to="/settings">Cài đặt</Link>
                             </li>
                             <li className={cx('item')} onClick={handleLout}>
                                 <Link>Đăng xuất</Link>

@@ -13,6 +13,11 @@
     font-size: 1.4rem;
     border-bottom: 1px solid #e8ebed;
 
+    &.active {
+        background-color: transparent;
+        border-bottom: none;
+    }
+
     .logo {
         display: flex;
         align-items: center;

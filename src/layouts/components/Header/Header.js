@@ -13,11 +13,11 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const isUser = useSelector((state) => state.auth.login.currentUser);
-
     const pathName = useLocation().pathname;
+    const hasAtSymbol = pathName.includes('/@');
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
             <div className={cx('logo')}>
                 <Link to="/">
                     <img src={Image.iconLogo} alt="logo F8" />
@@ -25,12 +25,12 @@ function Header() {
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
-            <Search />
+            {!hasAtSymbol && <Search />}
 
             <div className={cx('action')}>
                 {isUser !== null ? (
                     <div className={cx('is-login')}>
-                        <MyCourse />
+                        {!hasAtSymbol && <MyCourse />}
                         <Notify />
                         <MyInfo />
                     </div>
