@@ -12,7 +12,6 @@ const cx = classNames.bind(styles);
 
 function Notify() {
     const [notify, setNotify] = useState([]);
-    console.log('notify: ', notify);
     const [currentUser, setCurrentUser] = useState({});
     const [active, setActive] = useState(false);
     const [watch, setWatch] = useState(false);
