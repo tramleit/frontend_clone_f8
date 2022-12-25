@@ -2,9 +2,11 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUser, RegisterNewUser } from '~/services/apiAuth';
+import { handleSendMail, loginUser, RegisterNewUser } from '~/services/apiAuth';
 import { openModal } from '~/redux/reducer/modunReducer';
 import styles from './FormInfor.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +14,16 @@ function FormInfor({ role, nameBtn }) {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [code, setCode] = useState('');
+
+    const [btnText, setBtnText] = useState('Gửi mã');
+    const [btnCount, setBtnCount] = useState(0);
+
     const [active, setActive] = useState(false);
+    const [activeBtnCode, setActiveBtnCode] = useState(false);
+    const [activeInputCode, setActiveInputCode] = useState(false);
+
+    const [loading, setLoading] = useState(false);
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState('');
     const [validPassword, setValidPassword] = useState('');
@@ -21,10 +32,33 @@ function FormInfor({ role, nameBtn }) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        let interval;
+
+        if (btnCount > 0) {
+            interval = setInterval(() => {
+                setBtnCount(btnCount - 1);
+            }, 1000);
+            setBtnText(`Gửi lại mã ${btnCount}`);
+            setActiveBtnCode(false);
+        } else if (btnCount === 0) {
+            setBtnText('Gửi mã');
+            setActiveBtnCode(true);
+        }
+
+        return () => clearInterval(interval);
+    }, [btnCount]);
+
+    useEffect(() => {
         // eslint-disable-next-line no-useless-escape
         const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         const regexPassword = /^.{8,}$/;
+        if (regexEmail.test(email) && regexPassword.test(password) && btnCount === 0) {
+            setActiveBtnCode(true);
+        } else {
+            setActiveBtnCode(false);
+        }
 
+        // && code.length === 6
         if (regexEmail.test(email) && regexPassword.test(password)) {
             setActive(true);
         } else {
@@ -32,7 +66,7 @@ function FormInfor({ role, nameBtn }) {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [email, password]);
+    }, [email, password, code]);
 
     const handleSubmit = async () => {
         if (active) {
@@ -57,6 +91,7 @@ function FormInfor({ role, nameBtn }) {
                     name: name,
                     email: email,
                     password: password,
+                    code: code,
                 };
                 const result = await RegisterNewUser(newUser, dispatch, navigate);
 
@@ -81,6 +116,29 @@ function FormInfor({ role, nameBtn }) {
             setValidName(true);
         } else {
             setValidName(false);
+        }
+    };
+
+    const handleOnchangeCode = (e) => {
+        if (activeInputCode) {
+            setCode(e);
+        }
+    };
+
+    const handleSendCode = async () => {
+        if (activeBtnCode) {
+            setActiveInputCode(true);
+            setActiveBtnCode(false);
+            setLoading(true);
+            const result = await handleSendMail(email);
+
+            if (result.errCode === 0) {
+                setBtnCount(120);
+                setLoading(false);
+            } else {
+                setValidEmail(result.message);
+                setLoading(false);
+            }
         }
     };
 
@@ -138,7 +196,31 @@ function FormInfor({ role, nameBtn }) {
                     />
                 </div>
                 {validPassword !== '' && <div className={cx('message')}>{validPassword}</div>}
+                {!role && <div className={cx('help')}>Gợi ý: Mật khẩu cần có ít nhất 8 kí tự</div>}
             </div>
+
+            {!role && (
+                <div className={cx('form')}>
+                    <div className={cx('form-input', 'code')}>
+                        <input
+                            type="text"
+                            maxLength={6}
+                            placeholder="Nhập mã xác nhận"
+                            value={code}
+                            onChange={(e) => handleOnchangeCode(e.target.value)}
+                        />
+                        <div
+                            className={activeBtnCode ? cx('send-code', 'active') : cx('send-code')}
+                            onClick={handleSendCode}
+                        >
+                            <span>
+                                {btnText}
+                                {loading && <FontAwesomeIcon icon={faSpinner} className={cx('icon-loading')} />}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            )}
             <button
                 type="submit"
                 className={active ? cx('btn-login', 'active') : cx('btn-login')}

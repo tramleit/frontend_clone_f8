@@ -61,3 +61,14 @@ export const getUserById = async (idUser) => {
         return error;
     }
 };
+
+export const handleSendMail = async (email) => {
+    try {
+        const res = await request.post('/user/verify-email', { email });
+        console.log('res: ', res);
+        return res;
+    } catch (error) {
+        console.log('error: ', error);
+        return error.response.data;
+    }
+};

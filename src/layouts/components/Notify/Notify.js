@@ -20,7 +20,7 @@ function Notify() {
     const user = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const isNotify = user.data.notify;
+        const isNotify = user.data;
         setNotify(isNotify);
 
         const isUser = user.data;
@@ -57,7 +57,7 @@ function Notify() {
                             </HandlessTippy>
                         </div>
                         <div className={cx('content')}>
-                            {notify.map((noti) => (
+                            {/* {notify?.map((noti) => (
                                 <div className={read ? cx('item', 'read') : cx('item')} key={noti.timestamps}>
                                     <div className={cx('avatar')}>
                                         <img src={noti.avatar} alt={noti.description} />
@@ -70,7 +70,7 @@ function Notify() {
                                         <div className={cx('time')}>7 ngày trước</div>
                                     </div>
                                 </div>
-                            ))}
+                            ))} */}
                         </div>
                     </div>
                 )}

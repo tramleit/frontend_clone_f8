@@ -60,7 +60,7 @@ function Courses() {
                         </div>
                     </div>
 
-                    <div className={cx('list')}>
+                    {/* <div className={cx('list')}>
                         {courses?.map((course) => (
                             <CommonItem
                                 type="free"
@@ -70,7 +70,7 @@ function Courses() {
                                 image={course.image}
                             />
                         ))}
-                    </div>
+                    </div> */}
                 </div>
 
                 <SuggestionBox

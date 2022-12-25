@@ -16,9 +16,9 @@ function MyCourse() {
     const user = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const myCourses = user.data.myCourses;
+        const myCourses = user.data;
         setCourses(myCourses);
-    }, [user.data.myCourses]);
+    }, [user?.data]);
 
     return (
         <div className={cx('wrapper')}>
@@ -32,7 +32,7 @@ function MyCourse() {
                             <h4 className={cx('title')}>Khóa học của tôi</h4>
                         </div>
                         <div className={cx('content')}>
-                            {courses.length > 0 ? (
+                            {courses?.length > 0 ? (
                                 courses.map((course) => (
                                     <div className={cx('item')}>
                                         <Link>

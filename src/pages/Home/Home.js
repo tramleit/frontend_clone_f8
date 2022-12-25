@@ -90,7 +90,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className={cx('list')}>
+                    {/* <div className={cx('list')}>
                         {courses?.map((course) => (
                             <CommonItem
                                 type="free"
@@ -100,7 +100,7 @@ function Home() {
                                 image={course.image}
                             />
                         ))}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={cx('course-wrapper')}>
@@ -114,7 +114,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className={cx('list')}>
+                    {/* <div className={cx('list')}>
                         {blogs?.map((blog) => (
                             <CommonItem
                                 type="blog"
@@ -124,7 +124,7 @@ function Home() {
                                 author={blog.author}
                             />
                         ))}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={cx('course-wrapper')}>
