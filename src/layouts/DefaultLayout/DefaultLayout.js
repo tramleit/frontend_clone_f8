@@ -10,6 +10,7 @@ import styles from './DefaultLayout.module.scss';
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
     const modal = useSelector((state) => state.modun.modal.status);
 
     return (
@@ -19,7 +20,7 @@ function DefaultLayout({ children }) {
                 <Sidebar />
                 <div className={cx('content')}>
                     {children}
-                    <NewFeed />
+                    {currentUser && <NewFeed />}
                 </div>
             </div>
             {modal && <Modal />}

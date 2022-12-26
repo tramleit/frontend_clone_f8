@@ -16,6 +16,7 @@ function MyInfo() {
     const user = useSelector((state) => state.auth.login.currentUser);
 
     const accessToken = user?.accessToken;
+
     const id = user?._id;
     const dispatch = useDispatch();
     const navigate = useNavigate();

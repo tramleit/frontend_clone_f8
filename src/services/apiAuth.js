@@ -40,14 +40,16 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     dispatch(logoutStart());
     try {
-        await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
+        const res = await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
             headers: {
                 token: token,
             },
         });
+        console.log('res: ', res);
         dispatch(logoutSuccess());
         navigate('/login');
     } catch (error) {
+        console.log('error: ', error);
         dispatch(logoutFailed());
     }
 };

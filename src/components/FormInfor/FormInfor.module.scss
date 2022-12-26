@@ -40,6 +40,10 @@
 
             &.active {
                 border-color: var(--color-valid);
+
+                input {
+                    color: var(--color-primary);
+                }
             }
 
             &.code {

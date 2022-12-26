@@ -27,6 +27,7 @@ function FormInfor({ role, nameBtn }) {
     const [validName, setValidName] = useState(false);
     const [validEmail, setValidEmail] = useState('');
     const [validPassword, setValidPassword] = useState('');
+    const [validCode, setValidCode] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,6 +42,7 @@ function FormInfor({ role, nameBtn }) {
             setBtnText(`Gửi lại mã ${btnCount}`);
             setActiveBtnCode(false);
         } else if (btnCount === 0) {
+            setValidCode('');
             setBtnText('Gửi mã');
             setActiveBtnCode(true);
         }
@@ -52,15 +54,19 @@ function FormInfor({ role, nameBtn }) {
         // eslint-disable-next-line no-useless-escape
         const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         const regexPassword = /^.{8,}$/;
+
         if (regexEmail.test(email) && regexPassword.test(password) && btnCount === 0) {
             setActiveBtnCode(true);
         } else {
             setActiveBtnCode(false);
         }
 
-        // && code.length === 6
         if (regexEmail.test(email) && regexPassword.test(password)) {
-            setActive(true);
+            if (role) {
+                setActive(true);
+            } else if (!role && code.length === 6) {
+                setActive(true);
+            }
         } else {
             setActive(false);
         }
@@ -99,6 +105,8 @@ function FormInfor({ role, nameBtn }) {
                     setValidEmail(result.data.message);
                 } else if (result?.data.errCode === 4) {
                     setValidPassword(result.data.message);
+                } else if (result?.data.errCode === 5) {
+                    setValidCode(result.data.message);
                 } else if (result === undefined) {
                     setValidEmail('Kết nối database thất bại');
                 } else if (result.errCode === 0) {
@@ -131,7 +139,7 @@ function FormInfor({ role, nameBtn }) {
             setActiveBtnCode(false);
             setLoading(true);
             const result = await handleSendMail(email);
-
+            setCode('');
             if (result.errCode === 0) {
                 setBtnCount(120);
                 setLoading(false);
@@ -201,7 +209,7 @@ function FormInfor({ role, nameBtn }) {
 
             {!role && (
                 <div className={cx('form')}>
-                    <div className={cx('form-input', 'code')}>
+                    <div className={validCode !== '' ? cx('form-input', 'code', 'active') : cx('form-input', 'code')}>
                         <input
                             type="text"
                             maxLength={6}
@@ -219,6 +227,7 @@ function FormInfor({ role, nameBtn }) {
                             </span>
                         </div>
                     </div>
+                    {validCode !== '' && <div className={cx('message')}>{validCode}</div>}
                 </div>
             )}
             <button
