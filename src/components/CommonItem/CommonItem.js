@@ -10,20 +10,18 @@ import { Image } from '~/assets/image';
 
 const cx = classNames.bind(styles);
 
-function CommonItem({ type, patch, student, coming = false, name, imageComing, image, author, dataVideo }) {
-    const [authorBlog, setAuthorBlog] = useState({});
-
-    useEffect(() => {
-        const idAuthor = author;
-        if (idAuthor) {
-            const fetchApi = async () => {
-                const author = await getUserById(idAuthor);
-                setAuthorBlog(author);
-            };
-            fetchApi();
-        }
-    }, [author]);
-
+function CommonItem({
+    type,
+    patch,
+    student,
+    coming = false,
+    name,
+    imageComing,
+    image,
+    author,
+    dataVideo,
+    readingTime,
+}) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('item-course')}>
@@ -85,7 +83,7 @@ function CommonItem({ type, patch, student, coming = false, name, imageComing, i
                 )}
 
                 <h4 className={cx('name-course')}>
-                    <Link to="/landing/htmlcss" className={coming ? cx('disabled-name') : ''}>
+                    <Link to={patch} className={coming ? cx('disabled-name') : ''}>
                         {name}
                     </Link>
                 </h4>
@@ -108,18 +106,15 @@ function CommonItem({ type, patch, student, coming = false, name, imageComing, i
                     <div className={cx('author')}>
                         <Link className={cx('avatar-wrap')}>
                             <div className={cx('avatar')}>
-                                <img
-                                    src={authorBlog.avatar !== '' ? authorBlog.avatar : Image.avatar}
-                                    alt={authorBlog.name}
-                                />
+                                <img src={author.avatar !== '' ? author.avatar : Image.avatar} alt={author.name} />
                             </div>
-                            {authorBlog.admin && <IconCrownUser className={cx('crown-user')} />}
+                            {author.admin && <IconCrownUser className={cx('crown-user')} />}
                         </Link>
                         <Link className={cx('name-author')}>
-                            <span className={cx('user-name')}>{authorBlog.name}</span>
-                            {authorBlog.tick && <FontAwesomeIcon icon={faCircleCheck} />}
+                            <span className={cx('user-name')}>{author.name}</span>
+                            {author.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                             <span className={cx('dot')}>·</span>
-                            <span>6 phút đọc</span>
+                            <span>{readingTime > 0 ? readingTime : '1'} phút đọc</span>
                         </Link>
                     </div>
                 )}
@@ -132,7 +127,7 @@ function CommonItem({ type, patch, student, coming = false, name, imageComing, i
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faThumbsUp} />
-                            <span>{dataVideo.like}</span>
+                            <span>{dataVideo.like.toLocaleString()}</span>
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faComment} />

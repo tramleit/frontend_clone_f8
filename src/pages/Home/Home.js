@@ -16,8 +16,11 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const courses = useSelector((state) => state.home.courses?.currentCourses);
+    console.log('courses: ', courses);
     const blogs = useSelector((state) => state.home.blogs.currentBlogs);
+    console.log('blogs: ', blogs);
     const videos = useSelector((state) => state.home.videos.currentVideos);
+    console.log('videos: ', videos);
 
     const dispatch = useDispatch();
 
@@ -26,14 +29,12 @@ function Home() {
     }, []);
 
     useEffect(() => {
-        if (!courses || !blogs || !videos) {
-            const fetchApi = async () => {
-                await getAllCourses(dispatch);
-                await getAllBlogs(dispatch);
-                await getAllVideos(dispatch);
-            };
-            fetchApi();
-        }
+        const fetchApi = async () => {
+            await getAllCourses(dispatch);
+            await getAllBlogs(dispatch);
+            await getAllVideos(dispatch);
+        };
+        fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -90,17 +91,17 @@ function Home() {
                         </div>
                     </div>
 
-                    {/* <div className={cx('list')}>
+                    <div className={cx('list')}>
                         {courses?.map((course) => (
                             <CommonItem
                                 type="free"
                                 key={course._id}
                                 student={course.userLearning}
-                                name={course.fullName}
+                                name={course.name}
                                 image={course.image}
                             />
                         ))}
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className={cx('course-wrapper')}>
@@ -114,17 +115,22 @@ function Home() {
                         </div>
                     </div>
 
-                    {/* <div className={cx('list')}>
+                    <div className={cx('list')}>
                         {blogs?.map((blog) => (
-                            <CommonItem
-                                type="blog"
-                                key={blog._id}
-                                name={blog.name}
-                                image={blog.image}
-                                author={blog.author}
-                            />
+                            <>
+                                {console.log('blog: ', blog)}
+                                <CommonItem
+                                    type="blog"
+                                    key={blog._id}
+                                    name={blog.title}
+                                    image={blog.image}
+                                    author={blog.author}
+                                    readingTime={blog.readingTime}
+                                    patch={blog.slug}
+                                />
+                            </>
                         ))}
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className={cx('course-wrapper')}>
@@ -138,18 +144,18 @@ function Home() {
                         </div>
                     </div>
 
-                    {/* <div className={cx('list')}>
+                    <div className={cx('list')}>
                         {videos?.map((video) => (
                             <CommonItem
                                 type="video"
                                 key={video._id}
-                                name={video.name}
+                                name={video.title}
                                 image={video.image}
-                                patch={`https://www.youtube.com/watch?v=${video.linkVideo}`}
+                                patch={`https://www.youtube.com/watch?v=${video.urlVideo}`}
                                 dataVideo={video}
                             />
                         ))}
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>

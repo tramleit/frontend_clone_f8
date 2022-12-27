@@ -4,7 +4,7 @@ import { getAllCoursesFailed, getAllCoursesSuccess } from '~/redux/reducer/homeR
 export const getAllCourses = async (dispatch) => {
     try {
         const res = await request.get('/course/get');
-        dispatch(getAllCoursesSuccess(res.data));
+        dispatch(getAllCoursesSuccess(res.data.data));
     } catch (error) {
         dispatch(getAllCoursesFailed());
     }

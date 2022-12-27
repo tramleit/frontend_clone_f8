@@ -4,7 +4,7 @@ import request from '~/utils/request';
 export const getAllBlogs = async (dispatch) => {
     try {
         const res = await request.get('/blog/get');
-        dispatch(getAllBlogsSuccess(res.data));
+        dispatch(getAllBlogsSuccess(res.data.data));
     } catch (error) {
         dispatch(getAllBlogsFailed());
     }
