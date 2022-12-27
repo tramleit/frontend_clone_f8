@@ -15,7 +15,7 @@ export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
     try {
         const res = await request.post('/user/login', user);
-        dispatch(loginSuccess(res));
+        dispatch(loginSuccess(res.data));
         navigate('/');
         return res;
     } catch (error) {
@@ -28,7 +28,7 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     dispatch(registerStart());
     try {
         const res = await request.post('/user/register', newUser);
-        dispatch(registerSuccess(res));
+        dispatch(registerSuccess(res.data));
         navigate('/');
         return res;
     } catch (error) {
@@ -40,12 +40,11 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     dispatch(logoutStart());
     try {
-        const res = await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
+        await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
             headers: {
                 token: token,
             },
         });
-        console.log('res: ', res);
         dispatch(logoutSuccess());
         navigate('/login');
     } catch (error) {
@@ -67,7 +66,6 @@ export const getUserById = async (idUser) => {
 export const handleSendMail = async (email) => {
     try {
         const res = await request.post('/user/verify-email', { email });
-        console.log('res: ', res);
         return res;
     } catch (error) {
         console.log('error: ', error);

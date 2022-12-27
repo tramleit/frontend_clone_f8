@@ -7,25 +7,22 @@ import { HiCheck } from 'react-icons/hi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
+import moment from 'moment/moment';
+import 'moment/locale/vi';
 
 const cx = classNames.bind(styles);
 
 function Notify() {
     const [notify, setNotify] = useState([]);
-    const [currentUser, setCurrentUser] = useState({});
     const [active, setActive] = useState(false);
     const [watch, setWatch] = useState(false);
     const [read, setRead] = useState(false);
 
-    const user = useSelector((state) => state.auth.login.currentUser);
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const isNotify = user.data;
-        setNotify(isNotify);
-
-        const isUser = user.data;
-        setCurrentUser(isUser);
-    }, [user.data]);
+        setNotify(currentUser.notify);
+    }, [currentUser.notify]);
 
     return (
         <div className={cx('wrapper')}>
@@ -57,8 +54,12 @@ function Notify() {
                             </HandlessTippy>
                         </div>
                         <div className={cx('content')}>
-                            {/* {notify?.map((noti) => (
-                                <div className={read ? cx('item', 'read') : cx('item')} key={noti.timestamps}>
+                            {notify?.map((noti) => (
+                                <div
+                                    className={read ? cx('item', 'read') : cx('item')}
+                                    key={noti.timestamps}
+                                    onClick={() => setRead(true)}
+                                >
                                     <div className={cx('avatar')}>
                                         <img src={noti.avatar} alt={noti.description} />
                                     </div>
@@ -67,10 +68,10 @@ function Notify() {
                                             Chào mừng<strong> {currentUser.name} </strong>đã gia nhập F8.{' '}
                                             {noti.description} &#129505;
                                         </div>
-                                        <div className={cx('time')}>7 ngày trước</div>
+                                        <div className={cx('time')}>{moment(notify.timestamps).fromNow()}</div>
                                     </div>
                                 </div>
-                            ))} */}
+                            ))}
                         </div>
                     </div>
                 )}

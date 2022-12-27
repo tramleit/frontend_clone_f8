@@ -138,7 +138,7 @@ function Home() {
                         </div>
                     </div>
 
-                    <div className={cx('list')}>
+                    {/* <div className={cx('list')}>
                         {videos?.map((video) => (
                             <CommonItem
                                 type="video"
@@ -149,7 +149,7 @@ function Home() {
                                 dataVideo={video}
                             />
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

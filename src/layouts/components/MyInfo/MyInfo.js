@@ -13,16 +13,17 @@ const cx = classNames.bind(styles);
 
 function MyInfo() {
     const [active, setActive] = useState(false);
-    const user = useSelector((state) => state.auth.login.currentUser);
 
-    const accessToken = user?.accessToken;
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+    console.log('currentUser: ', currentUser);
+    const accessToken = currentUser?.accessToken;
 
-    const id = user?._id;
+    const id = currentUser?._id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleLout = async () => {
-        const axiosJWT = createAxios(user, dispatch, loginSuccess);
+        const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
         await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
     };
 
@@ -37,19 +38,19 @@ function MyInfo() {
                         <div className={cx('user')}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar}
-                                    alt={user.data?.name}
+                                    src={currentUser.avatar !== '' ? currentUser.avatar : Image.avatar}
+                                    alt={currentUser.name}
                                 />
                             </div>
                             <div className={cx('info')}>
-                                <span className={cx('name')}>{user.data?.name}</span>
-                                <div className={cx('username')}>@{user.data?.username}</div>
+                                <span className={cx('name')}>{currentUser.name}</span>
+                                <div className={cx('username')}>@{currentUser.username}</div>
                             </div>
                         </div>
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link to={`/@${user.data?.username}`}>Trang cá nhân</Link>
+                                <Link to={`/@${currentUser.username}`}>Trang cá nhân</Link>
                             </li>
                         </ul>
                         <hr />
@@ -80,7 +81,7 @@ function MyInfo() {
                 )}
             >
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
-                    <img src={user.data?.avatar !== '' ? user.data?.avatar : Image.avatar} alt={user.data?.name} />
+                    <img src={currentUser.avatar !== '' ? currentUser.avatar : Image.avatar} alt={currentUser.name} />
                 </div>
             </HandlessTippy>
         </div>
