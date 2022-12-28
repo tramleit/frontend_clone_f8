@@ -4,15 +4,13 @@ import styles from './CommonItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
-import { useEffect, useState } from 'react';
-import { getUserById } from '~/services/apiAuth';
 import { Image } from '~/assets/image';
 
 const cx = classNames.bind(styles);
 
 function CommonItem({
     type,
-    patch,
+    pathName,
     student,
     coming = false,
     name,
@@ -28,7 +26,7 @@ function CommonItem({
                 {type === 'video' ? (
                     <a
                         className={coming ? cx('link', 'disabled') : cx('link')}
-                        href={patch}
+                        href={pathName}
                         target="_blank"
                         rel="noreferrer"
                     >
@@ -56,7 +54,7 @@ function CommonItem({
                         )}
                     </a>
                 ) : (
-                    <Link className={coming ? cx('link', 'disabled') : cx('link')} to={patch}>
+                    <Link className={coming ? cx('link', 'disabled') : cx('link')} to={pathName}>
                         <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
                         <button className={cx('btn-view')}>Xem khóa học</button>
 
@@ -83,7 +81,7 @@ function CommonItem({
                 )}
 
                 <h4 className={cx('name-course')}>
-                    <Link to={patch} className={coming ? cx('disabled-name') : ''}>
+                    <Link to={pathName} className={coming ? cx('disabled-name') : ''}>
                         {name}
                     </Link>
                 </h4>

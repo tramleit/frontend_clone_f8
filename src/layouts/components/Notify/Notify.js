@@ -68,7 +68,7 @@ function Notify() {
                                             Chào mừng<strong> {currentUser.name} </strong>đã gia nhập F8.{' '}
                                             {noti.description} &#129505;
                                         </div>
-                                        <div className={cx('time')}>{moment(notify.timestamps).fromNow()}</div>
+                                        <div className={cx('time')}>{moment(noti.timestamps).from(moment.now())}</div>
                                     </div>
                                 </div>
                             ))}

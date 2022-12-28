@@ -16,11 +16,8 @@ const cx = classNames.bind(styles);
 
 function Home() {
     const courses = useSelector((state) => state.home.courses?.currentCourses);
-    console.log('courses: ', courses);
     const blogs = useSelector((state) => state.home.blogs.currentBlogs);
-    console.log('blogs: ', blogs);
     const videos = useSelector((state) => state.home.videos.currentVideos);
-    console.log('videos: ', videos);
 
     const dispatch = useDispatch();
 
@@ -92,15 +89,19 @@ function Home() {
                     </div>
 
                     <div className={cx('list')}>
-                        {courses?.map((course) => (
-                            <CommonItem
-                                type="free"
-                                key={course._id}
-                                student={course.userLearning}
-                                name={course.name}
-                                image={course.image}
-                            />
-                        ))}
+                        {courses?.map(
+                            (course) =>
+                                course.price === 0 && (
+                                    <CommonItem
+                                        type="free"
+                                        key={course._id}
+                                        student={course.userLearning}
+                                        name={course.name}
+                                        image={course.image}
+                                        pathName={`/course/${course.pathName}`}
+                                    />
+                                )
+                        )}
                     </div>
                 </div>
 
@@ -117,18 +118,15 @@ function Home() {
 
                     <div className={cx('list')}>
                         {blogs?.map((blog) => (
-                            <>
-                                {console.log('blog: ', blog)}
-                                <CommonItem
-                                    type="blog"
-                                    key={blog._id}
-                                    name={blog.title}
-                                    image={blog.image}
-                                    author={blog.author}
-                                    readingTime={blog.readingTime}
-                                    patch={blog.slug}
-                                />
-                            </>
+                            <CommonItem
+                                type="blog"
+                                key={blog._id}
+                                name={blog.title}
+                                image={blog.image}
+                                author={blog.author}
+                                readingTime={blog.readingTime}
+                                patch={blog.slug}
+                            />
                         ))}
                     </div>
                 </div>
