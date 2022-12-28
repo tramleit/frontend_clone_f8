@@ -98,7 +98,7 @@ function Home() {
                                         student={course.userLearning}
                                         name={course.name}
                                         image={course.image}
-                                        pathName={`/course/${course.pathName}`}
+                                        pathName={`/courses/${course.pathName}`}
                                     />
                                 )
                         )}

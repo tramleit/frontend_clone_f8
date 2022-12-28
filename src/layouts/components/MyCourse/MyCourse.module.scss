@@ -22,7 +22,6 @@
 
             .title {
                 font-size: 1.8rem;
-                font-weight: 600;
             }
         }
 
@@ -58,7 +57,6 @@
                     .info-title {
                         font-size: 1.4rem;
                         margin: 6px 0 0;
-                        font-weight: 600;
 
                         a {
                             color: #333;
@@ -108,7 +106,6 @@
         color: #333;
         cursor: pointer;
         font-size: 1.4rem;
-        font-weight: 600;
         margin-right: 16px;
         padding: 8px;
         box-shadow: none;
@@ -117,6 +114,7 @@
         border: none;
         font-family: inherit;
         margin-bottom: 2px;
+        font-weight: 600;
     }
 }
 @keyframes Tippy-animation {

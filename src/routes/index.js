@@ -6,12 +6,14 @@ import Login from '~/layouts/components/Login';
 import Register from '~/layouts/components/Register';
 import Profile from '~/pages/Profile/Profile';
 import Settings from '~/pages/Settings';
+import Tracks from '~/pages/Tracks';
 
 // Public router
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/learning', component: Learning },
     { path: '/courses', component: Courses },
+    { path: '/courses/:pathName', component: Tracks, layout: null },
     { path: '/blog', component: Blog },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },

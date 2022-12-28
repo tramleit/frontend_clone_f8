@@ -4,7 +4,7 @@ import { DefaultLayout } from '~/layouts';
 import { Fragment } from 'react';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
-// import { AuthContextProvider } from './auth/AuthContext';
+import './App.css';
 
 function App() {
     const isFetching = useSelector((state) => state.auth.login.isFetching);

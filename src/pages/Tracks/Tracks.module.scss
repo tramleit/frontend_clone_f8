@@ -1,0 +1,29 @@
+.wrapper {
+    width: 100%;
+
+    .comment {
+        bottom: 70px;
+        position: fixed;
+        right: 20px;
+        z-index: 1;
+
+        right: calc(23% + 20px);
+
+        .comment-btn {
+            background-color: #fff;
+            border-radius: 999px;
+            box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+            color: var(--color-primary);
+            cursor: pointer;
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding: 8px 12px;
+            position: relative;
+            user-select: none;
+
+            span {
+                margin-left: 8px;
+            }
+        }
+    }
+}
