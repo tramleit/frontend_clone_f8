@@ -9,17 +9,12 @@ import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import FormInfor from '~/components/FormInfor';
 
-// import { UserAuth } from '~/auth/AuthContext';
-
 import styles from './Form.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Form({ name, nameBtn, question, path, action, role }) {
     const [loginEmail, setLoginEmail] = useState(true);
-
-    // const { googleSignIn, user } = UserAuth();
-    // const navigate = useNavigate();
 
     useEffect(() => {
         if (role) {
@@ -28,14 +23,6 @@ function Form({ name, nameBtn, question, path, action, role }) {
             document.title = 'Đăng ký tài khoản F8';
         }
     }, [role]);
-
-    // const handleGoogleSignIn = async () => {
-    //     try {
-    //         await googleSignIn();
-    //     } catch (error) {
-    //         console.log('error: ', error);
-    //     }
-    // };
 
     return (
         <div className={cx('wrapper')}>

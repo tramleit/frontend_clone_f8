@@ -9,10 +9,24 @@
         margin-left: 0;
         padding: 0 0 2px 20px;
         margin: 16px 40px 16px 0;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    strong {
+        font-weight: 700;
     }
 
     a[href] {
         color: var(--color-primary);
         text-decoration: underline;
+    }
+
+    ol,
+    ul {
+        margin: 28px 0;
+        padding-left: 24px;
     }
 }

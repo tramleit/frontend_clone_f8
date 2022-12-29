@@ -1,16 +1,27 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModalComment } from '~/redux/reducer/modunReducer';
 import CommentItem from './CommentItem';
 import styles from './CommentModal.module.scss';
 
 const cx = classNames.bind(styles);
 
 function CommentModal() {
+    const modalComment = useSelector((state) => state.modun.modalComment?.status);
+
+    const dispatch = useDispatch();
+
+    const handleCloseModalComment = () => {
+        dispatch(closeModalComment());
+    };
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={modalComment ? cx('wrapper') : cx('wrapper', 'open')} onClick={handleCloseModalComment}>
+            <div></div>
             <div className={cx('container')}>
-                <div className={cx('close-modal')}>
+                <div className={cx('close-modal')} onClick={handleCloseModalComment}>
                     <FontAwesomeIcon icon={faXmark} />
                 </div>
 

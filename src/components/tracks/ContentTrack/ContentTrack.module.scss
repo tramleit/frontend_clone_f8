@@ -9,6 +9,14 @@
     top: 0;
     width: 77%;
 
+    &.active {
+        width: 100%;
+
+        .content {
+            padding: 0 16%;
+        }
+    }
+
     .content {
         min-height: 400px;
         padding: 0 8.5%;
@@ -47,9 +55,25 @@
 
                     .number {
                         font-size: 1.3rem;
+                        font-weight: 600;
                     }
                 }
             }
+        }
+    }
+
+    .powered {
+        color: #666;
+        font-size: 1.4rem;
+        padding: 12px 0;
+        text-align: center;
+
+        svg {
+            color: #d43c68;
+        }
+
+        .dot {
+            padding: 0 6px;
         }
     }
 }

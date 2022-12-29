@@ -31,7 +31,7 @@
                 display: flex;
                 align-items: center;
                 position: relative;
-                padding: 5px 0 0;
+                padding: 4px 0 0;
 
                 .icon-search-result {
                     position: absolute;
@@ -47,6 +47,7 @@
                 }
 
                 p {
+                    margin: 0;
                     margin-left: 24px;
                 }
             }

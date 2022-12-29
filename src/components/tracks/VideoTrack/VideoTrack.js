@@ -5,7 +5,7 @@ import styles from './VideoTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
-function VideoTrack() {
+function VideoTrack({ status }) {
     const [played, setPlayed] = useState(0);
     console.log('played: ', played);
 
@@ -14,7 +14,7 @@ function VideoTrack() {
     };
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={status ? cx('wrapper') : cx('wrapper', 'active')}>
             <div className={cx('player-wrap')}>
                 <div className={cx('player')}>
                     <ReactPlayer

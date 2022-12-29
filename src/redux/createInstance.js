@@ -8,7 +8,7 @@ const refreshToken = async () => {
         });
         return res.data;
     } catch (error) {
-        console.log('error: ', error);
+        console.log('refreshToken error: ', error);
     }
 };
 

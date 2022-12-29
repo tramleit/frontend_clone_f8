@@ -48,7 +48,6 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
         dispatch(logoutSuccess());
         navigate('/login');
     } catch (error) {
-        console.log('error: ', error);
         dispatch(logoutFailed());
     }
 };
@@ -58,7 +57,6 @@ export const getUserById = async (idUser) => {
         const res = await request.get(`/user/${idUser}`);
         return res;
     } catch (error) {
-        console.log('error: ', error);
         return error;
     }
 };
@@ -68,7 +66,6 @@ export const handleSendMail = async (email) => {
         const res = await request.post('/user/verify-email', { email });
         return res;
     } catch (error) {
-        console.log('error: ', error);
         return error.response.data;
     }
 };

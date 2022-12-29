@@ -90,7 +90,7 @@
                     color: #35414c;
                     cursor: pointer;
                     font-size: 1.4rem;
-
+                    font-weight: 600;
                     line-height: 40px;
                     outline: 0;
                     text-align: center;
@@ -108,6 +108,7 @@
 
             a {
                 color: var(--color-primary);
+                font-weight: 600;
             }
         }
 

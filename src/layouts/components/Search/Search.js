@@ -34,7 +34,6 @@ function Search() {
 
             const fetchApi = async () => {
                 const result = await search(debounced);
-                console.log('result: ', result);
 
                 if (!result) {
                     setSearchResult([]);

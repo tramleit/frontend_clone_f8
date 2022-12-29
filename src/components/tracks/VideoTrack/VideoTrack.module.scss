@@ -4,6 +4,10 @@
     position: relative;
     width: 100%;
 
+    &.active {
+        padding: 0 16%;
+    }
+
     .player-wrap {
         position: relative;
         padding-top: 56.25%;

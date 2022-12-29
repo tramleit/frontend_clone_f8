@@ -12,6 +12,11 @@
     will-change: opacity;
     z-index: 35;
 
+    &.open {
+        visibility: hidden;
+        animation: CloseModal 0.5s ease forwards;
+    }
+
     .container {
         width: 720px;
         animation: Comment 0.5s ease;
@@ -112,6 +117,16 @@
     }
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes CloseModal {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
     }
 }
 

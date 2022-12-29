@@ -1,6 +1,7 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useSelector } from 'react-redux';
 import MarkdownParser from '../MarkdownParser';
 import VideoTrack from '../VideoTrack';
 import styles from './ContentTrack.module.scss';
@@ -8,9 +9,11 @@ import styles from './ContentTrack.module.scss';
 const cx = classNames.bind(styles);
 
 function ContentTrack() {
+    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
+
     return (
-        <div className={cx('wrapper')}>
-            <VideoTrack />
+        <div className={sidebarCourse ? cx('wrapper') : cx('wrapper', 'active')}>
+            <VideoTrack status={false} />
 
             <div className={cx('content')}>
                 <div className={cx('header')}>
@@ -30,6 +33,10 @@ function ContentTrack() {
 
                 <MarkdownParser fontSize="1.6rem" />
             </div>
+
+            <p className={cx('powered')}>
+                Made with <FontAwesomeIcon icon={faHeart} /> <span className={cx('dot')}>·</span> Powered by F8
+            </p>
         </div>
     );
 }

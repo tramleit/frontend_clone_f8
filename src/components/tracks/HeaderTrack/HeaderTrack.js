@@ -14,7 +14,7 @@ function HeaderTrack() {
             <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate(-1)}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <Link className={cx('logo')}>
+            <Link className={cx('logo')} to="/">
                 <img src={Image.iconLogo} alt="Logo" />
             </Link>
             <div className={cx('title')}>Lập Trình JavaScript Cơ Bản</div>

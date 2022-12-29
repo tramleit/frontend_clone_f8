@@ -8,6 +8,10 @@
     width: 23%;
     z-index: 2;
 
+    &.active {
+        width: 0;
+    }
+
     .learn-list {
         animation: Tracks 0.2s ease-in;
         background-color: var(--white-color);

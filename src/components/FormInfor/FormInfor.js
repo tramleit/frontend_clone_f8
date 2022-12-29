@@ -155,7 +155,7 @@ function FormInfor({ role, nameBtn }) {
             {!role && (
                 <div className={cx('form')}>
                     <div className={cx('form-label')}>
-                        <label>Tên của bạn</label>
+                        <label>Tên của bạn?</label>
                     </div>
                     <div className={validName ? cx('form-input', 'active') : cx('form-input')}>
                         <input

@@ -4,10 +4,12 @@
     .comment {
         bottom: 70px;
         position: fixed;
-        right: 20px;
+        right: calc(23% + 20px);
         z-index: 1;
 
-        right: calc(23% + 20px);
+        &.active {
+            right: 20px;
+        }
 
         .comment-btn {
             background-color: #fff;
