@@ -60,13 +60,11 @@
             }
 
             .btn-view {
-                border-color: #fff;
                 color: #000;
                 left: 50%;
                 opacity: 0;
                 position: absolute;
                 top: 60%;
-                -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
                 visibility: hidden;
                 z-index: 1;
@@ -83,6 +81,7 @@
                 white-space: nowrap;
                 font-family: inherit;
                 line-height: 1.15;
+                font-weight: 600;
             }
 
             .crown {

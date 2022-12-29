@@ -1,6 +1,7 @@
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
@@ -8,12 +9,15 @@ import styles from './CommentItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CommentItem() {
+function CommentItem({ comment }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
                 <Link>
-                    <img src={Image.avatar} alt="" />
+                    <img
+                        src={comment.user.avatar !== '' ? comment.user.avatar : Image.avatar}
+                        alt={comment.user.name}
+                    />
                 </Link>
             </div>
 
@@ -21,10 +25,10 @@ function CommentItem() {
                 <div className={cx('wrap')}>
                     <div className={cx('content')}>
                         <Link>
-                            <span className={cx('author')}>Nguyễn Duy Tùng</span>
+                            <span className={cx('author')}>{comment.user.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser fontSize="1.4rem" />
+                            <MarkdownParser data={comment.contentHTML} fontSize="1.4rem" />
                         </div>
                     </div>
 
@@ -36,7 +40,7 @@ function CommentItem() {
                             <span>·</span>
                             <span className={cx('reply-comment')}>Trả lời</span>
                             <span>·</span>
-                            <span className={cx('create-time')}>2 tháng trước</span>
+                            <span className={cx('create-time')}>{moment(comment.createdAt).fromNow()}</span>
                             <span className={cx('more-btn-wrap')}>
                                 <button className={cx('more-btn')}>
                                     <FontAwesomeIcon icon={faEllipsis} />

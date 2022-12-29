@@ -59,6 +59,13 @@
 
             &.active {
                 background: rgba(240, 81, 35, 0.2);
+
+                .step-desc {
+                    svg {
+                        color: rgba(240, 81, 35, 0.8) !important;
+                        animation: StepItem 5s linear infinite;
+                    }
+                }
             }
 
             .info {
@@ -104,5 +111,14 @@
                 }
             }
         }
+    }
+}
+
+@keyframes StepItem {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1turn);
     }
 }

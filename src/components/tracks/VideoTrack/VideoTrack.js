@@ -1,17 +1,12 @@
 import classNames from 'classnames/bind';
-import { useState } from 'react';
 import ReactPlayer from 'react-player';
+import { useSelector } from 'react-redux';
 import styles from './VideoTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
 function VideoTrack({ status }) {
-    const [played, setPlayed] = useState(0);
-    console.log('played: ', played);
-
-    const handleGetTotalTimeVideo = (data) => {
-        console.log('data: ', data);
-    };
+    const lesson = useSelector((state) => state.lesson?.currentLesson);
 
     return (
         <div className={status ? cx('wrapper') : cx('wrapper', 'active')}>
@@ -22,10 +17,8 @@ function VideoTrack({ status }) {
                         height="100%"
                         playing
                         controls
-                        onProgress={(progress) => setPlayed(progress.playedSeconds)}
-                        onDuration={handleGetTotalTimeVideo}
-                        light="https://i.ytimg.com/vi/-jV06pqjUUc/maxresdefault.jpg"
-                        url="https://www.youtube.com/watch?v=-jV06pqjUUc"
+                        light={lesson.thumbNail}
+                        url={`https://www.youtube.com/watch?v=${lesson.urlVideo}`}
                     />
                 </div>
             </div>

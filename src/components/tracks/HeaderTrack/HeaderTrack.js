@@ -7,17 +7,17 @@ import styles from './HeaderTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
-function HeaderTrack() {
+function HeaderTrack({ name }) {
     const navigate = useNavigate();
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate(-1)}>
+            <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate('/')}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <Link className={cx('logo')} to="/">
                 <img src={Image.iconLogo} alt="Logo" />
             </Link>
-            <div className={cx('title')}>Lập Trình JavaScript Cơ Bản</div>
+            <div className={cx('title')}>{name}</div>
 
             <div className={cx('actions')}>
                 <div className={cx('progress-wrap')}>

@@ -1,6 +1,7 @@
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import MarkdownParser from '../MarkdownParser';
 import VideoTrack from '../VideoTrack';
@@ -10,16 +11,20 @@ const cx = classNames.bind(styles);
 
 function ContentTrack() {
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
+    const lesson = useSelector((state) => state.lesson?.currentLesson);
+    const date = moment(lesson.updatedAt);
 
     return (
         <div className={sidebarCourse ? cx('wrapper') : cx('wrapper', 'active')}>
-            <VideoTrack status={false} />
+            <VideoTrack status={sidebarCourse} />
 
             <div className={cx('content')}>
                 <div className={cx('header')}>
                     <div className={cx('heading')}>
-                        <h2 className={cx('title')}>Lời khuyên trước khóa học</h2>
-                        <p className={cx('time-update')}>Cập nhật tháng 11 năm 2022</p>
+                        <h2 className={cx('title')}>{lesson.nameLesson}</h2>
+                        <p className={cx('time-update')}>
+                            Cập nhật tháng {date.format('MM')} năm {date.format('YYYY')}
+                        </p>
                     </div>
 
                     <button className={cx('note')}>
@@ -31,7 +36,7 @@ function ContentTrack() {
                     </button>
                 </div>
 
-                <MarkdownParser fontSize="1.6rem" />
+                <MarkdownParser data={lesson.descHTML} fontSize="1.6rem" />
             </div>
 
             <p className={cx('powered')}>

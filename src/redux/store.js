@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import authReducer from './reducer/authReducer';
 import modunReducer from './reducer/modunReducer';
 import homeReducer from './reducer/homeReducer';
+import lessonReducer from './reducer/lessonReducer';
 
 const persistConfig = {
     key: 'root',
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     modun: modunReducer,
     home: homeReducer,
+    lesson: lessonReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -104,13 +104,13 @@ function CommonItem({
                     <div className={cx('author')}>
                         <Link className={cx('avatar-wrap')}>
                             <div className={cx('avatar')}>
-                                <img src={author.avatar !== '' ? author.avatar : Image.avatar} alt={author.name} />
+                                <img src={author?.avatar !== '' ? author?.avatar : Image.avatar} alt={author?.name} />
                             </div>
-                            {author.admin && <IconCrownUser className={cx('crown-user')} />}
+                            {author?.admin && <IconCrownUser className={cx('crown-user')} />}
                         </Link>
                         <Link className={cx('name-author')}>
-                            <span className={cx('user-name')}>{author.name}</span>
-                            {author.tick && <FontAwesomeIcon icon={faCircleCheck} />}
+                            <span className={cx('user-name')}>{author?.name}</span>
+                            {author?.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                             <span className={cx('dot')}>·</span>
                             <span>{readingTime > 0 ? readingTime : '1'} phút đọc</span>
                         </Link>

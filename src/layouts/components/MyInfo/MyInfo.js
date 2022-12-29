@@ -15,6 +15,7 @@ function MyInfo() {
     const [active, setActive] = useState(false);
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     const accessToken = currentUser?.accessToken;
 
     const id = currentUser?._id;

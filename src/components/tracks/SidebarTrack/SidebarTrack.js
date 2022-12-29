@@ -5,7 +5,7 @@ import styles from './SidebarTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SidebarTrack() {
+function SidebarTrack({ chapters, slug }) {
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
 
     return (
@@ -16,9 +16,9 @@ function SidebarTrack() {
                 </div>
 
                 <div className={cx('body')}>
-                    <TrackItem />
-                    <TrackItem />
-                    <TrackItem />
+                    {chapters?.map((chapter, index) => (
+                        <TrackItem active={chapters[0]} key={chapter._id} chapter={chapter} index={index} slug={slug} />
+                    ))}
                 </div>
             </div>
         </div>
