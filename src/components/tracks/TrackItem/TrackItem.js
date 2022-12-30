@@ -4,7 +4,7 @@ import { faChevronDown, faChevronUp, faCircleCheck, faCompactDisc } from '@forta
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TrackItem.module.scss';
 import { getLessonById } from '~/services/apiCourse';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
@@ -13,10 +13,13 @@ const cx = classNames.bind(styles);
 function TrackItem({ active, chapter, index, slug }) {
     const [activeIcon, setActiveIcon] = useState(true);
     const [activeItemId, setActiveItemId] = useState(null);
+    const [isFirstAccess, setIsFirstAccess] = useState(false);
     const [numberTime, setNumberTime] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const lesson = useSelector((state) => state.lesson?.currentLesson);
 
     useEffect(() => {
         if (active.lesson.length > 0) {
@@ -37,7 +40,7 @@ function TrackItem({ active, chapter, index, slug }) {
 
         let formatted;
         if (totalTime >= 3600) {
-            formatted = moment.utc(totalTime * 1000).format('HH:mm:ss');
+            formatted = moment.utc(totalTime * 1000).format('hh:mm:ss');
         } else {
             formatted = moment.utc(totalTime * 1000).format('mm:ss');
         }
@@ -46,9 +49,12 @@ function TrackItem({ active, chapter, index, slug }) {
     }, [chapter]);
 
     const handleGetLesson = async (lessonId) => {
-        navigate(`/courses/${slug}?id=${lessonId}`);
-        setActiveItemId(lessonId);
-        await getLessonById(lessonId, dispatch);
+        if (!isFirstAccess || lesson._id !== lessonId) {
+            navigate(`/courses/${slug}?id=${lessonId}`);
+            setActiveItemId(lessonId);
+            setIsFirstAccess(true);
+            await getLessonById(lessonId, dispatch);
+        }
     };
 
     return (

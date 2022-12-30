@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Banner from '~/components/Banner';
 import styles from './Home.module.scss';
 import CommonItem from '~/components/CommonItem';
@@ -15,6 +15,8 @@ import { getAllBlogs } from '~/services/apiBlog';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [countStudent, setCountStudent] = useState(0);
+
     const courses = useSelector((state) => state.home.courses?.currentCourses);
     const blogs = useSelector((state) => state.home.blogs.currentBlogs);
     const videos = useSelector((state) => state.home.videos.currentVideos);
@@ -24,6 +26,16 @@ function Home() {
     useEffect(() => {
         document.title = 'F8 - Học lâp trình để đi làm!';
     }, []);
+
+    useEffect(() => {
+        let totalStudent = 0;
+
+        courses.forEach((course) => {
+            totalStudent += course.userLearning;
+        });
+
+        setCountStudent(totalStudent);
+    }, [courses]);
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -76,7 +88,7 @@ function Home() {
                 <div className={cx('course-wrapper')}>
                     <div className={cx('heading')}>
                         <p className={cx('sub-heading')}>
-                            <strong>268.579+</strong>
+                            <strong>{countStudent}+</strong>
                             <span>người khác đã học</span>
                         </p>
                         <div className={cx('heading-wrap')}>

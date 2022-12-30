@@ -121,15 +121,15 @@ function CommonItem({
                     <div className={cx('stats')}>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faEye} />
-                            <span>{dataVideo.view}</span>
+                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.view)}</span>
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faThumbsUp} />
-                            <span>{dataVideo.like.toLocaleString()}</span>
+                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.like.toLocaleString())}</span>
                         </div>
                         <div className={cx('stats-box')}>
                             <FontAwesomeIcon icon={faComment} />
-                            <span>{dataVideo.comment}</span>
+                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.comment)}</span>
                         </div>
                     </div>
                 )}
