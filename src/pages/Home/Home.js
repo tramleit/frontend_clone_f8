@@ -19,6 +19,7 @@ function Home() {
 
     const courses = useSelector((state) => state.home.courses?.currentCourses);
     const blogs = useSelector((state) => state.home.blogs.currentBlogs);
+    console.log('blogs: ', blogs);
     const videos = useSelector((state) => state.home.videos.currentVideos);
 
     const dispatch = useDispatch();
@@ -134,10 +135,10 @@ function Home() {
                                 type="blog"
                                 key={blog._id}
                                 name={blog.title}
-                                image={blog.image}
+                                image={blog.imagePreview}
                                 author={blog.author}
                                 readingTime={blog.readingTime}
-                                patch={blog.slug}
+                                pathName={blog.slug}
                             />
                         ))}
                     </div>
@@ -161,7 +162,7 @@ function Home() {
                                 key={video._id}
                                 name={video.title}
                                 image={video.image}
-                                patch={`https://www.youtube.com/watch?v=${video.urlVideo}`}
+                                pathName={`https://www.youtube.com/watch?v=${video.urlVideo}`}
                                 dataVideo={video}
                             />
                         ))}

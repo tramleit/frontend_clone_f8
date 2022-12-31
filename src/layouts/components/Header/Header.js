@@ -19,23 +19,9 @@ function Header({ post, activePublic, dataNewPost }) {
     const pathName = useLocation().pathname;
     const hasAtSymbol = pathName.includes('/@');
 
-    // const handlePublicNewPost = () => {
-    //     const { author, html, image, text, title, wordCount } = dataNewPost;
-
-    //     const newPost = {
-    //         title: title,
-    //         author: author,
-    //         contentHTML: html,
-    //         contentMarkdown: text,
-    //         readingTime: wordCount,
-    //         image: image,
-    //     };
-    //     console.log('newPost: ', newPost);
-    // };
-
     return (
         <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
-            {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} />}
+            {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} dataNewPost={dataNewPost} />}
 
             <div className={cx('logo')}>
                 <Link to="/">

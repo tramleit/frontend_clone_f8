@@ -12,7 +12,6 @@ function NewPost() {
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
-    const [image, setImage] = useState('');
 
     useEffect(() => {
         if (title) {
@@ -30,10 +29,9 @@ function NewPost() {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
     const author = currentUser._id;
 
-    const handleGetDataNewPost = ({ text, html, image }) => {
+    const handleGetDataNewPost = ({ text, html }) => {
         setText(text);
         setHtml(html);
-        setImage(image);
     };
 
     useEffect(() => {
@@ -46,11 +44,7 @@ function NewPost() {
 
     return (
         <div className={cx('wrapper')}>
-            <Header
-                post={true}
-                activePublic={activePublic}
-                dataNewPost={{ title, text, html, image, wordCount, author }}
-            />
+            <Header post={true} activePublic={activePublic} dataNewPost={{ title, text, html, wordCount, author }} />
 
             <div className={cx('container')}>
                 <div className={cx('title')}>

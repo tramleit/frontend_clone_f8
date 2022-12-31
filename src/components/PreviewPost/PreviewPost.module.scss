@@ -118,27 +118,21 @@
                             border-bottom: 1px solid rgba(0, 0, 0, 0.15);
                             margin: 1.6rem 0 4px;
                             padding-bottom: 4px;
-
-                            input {
-                                width: 100%;
-                                border: none;
-                                outline: none;
-                                font-size: 2rem;
-                                font-weight: 600;
-                            }
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            font-size: 2rem;
+                            font-weight: 600;
                         }
 
                         .prev-desc {
                             border-bottom: 1px solid rgba(0, 0, 0, 0.15);
                             margin: 1.6rem 0 4px;
                             padding-bottom: 4px;
-
-                            input {
-                                font-size: 1.4rem;
-                                width: 100%;
-                                border: none;
-                                outline: none;
-                            }
+                            font-size: 1.4rem;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
 
                         .note {

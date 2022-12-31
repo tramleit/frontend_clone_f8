@@ -23,6 +23,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
     }, [text, html, image]);
 
     const handleUpload = async (file) => {
+        console.log('file: ', file);
         const formData = new FormData();
         formData.append('image', file);
 

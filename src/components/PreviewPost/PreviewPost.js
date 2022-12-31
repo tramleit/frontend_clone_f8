@@ -3,26 +3,61 @@ import classNames from 'classnames/bind';
 
 import styles from './PreviewPost.module.scss';
 import { useRef, useState } from 'react';
+import { handleUploadImage } from '~/services/apiImage';
+import { useSelector } from 'react-redux';
+import { handleCreateNewPost } from '~/services/apiBlog';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
-function PreviewPost({ setActivePrevPost }) {
+const options = [
+    { value: 'Front-end / Mobile apps', label: 'Front-end / Mobile apps' },
+    { value: 'Back-end / Devops', label: 'Back-end / Devops' },
+    { value: 'UI / UX / Design', label: 'UI / UX / Design' },
+    { value: 'Others', label: 'Others' },
+];
+
+function PreviewPost({ setActivePrevPost, dataNewPost }) {
     const [image, setImage] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
-    console.log('selectedOption: ', selectedOption);
 
-    const options = [
-        { value: 'Front-end / Mobile apps', label: 'Front-end / Mobile apps' },
-        { value: 'Back-end / Devops', label: 'Back-end / Devops' },
-        { value: 'UI / UX / Design', label: 'UI / UX / Design' },
-        { value: 'Others', label: 'Others' },
-    ];
-
+    const navigate = useNavigate();
     const inputRef = useRef();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
-    const handleSelectImage = (e) => {
-        const file = e.target.files[0];
-        file.preview = URL.createObjectURL(file);
-        setImage(file.preview);
+    const handlePublicNewPost = async () => {
+        const tags = selectedOption?.map((option) => {
+            return option.value;
+        });
+        const newPost = {
+            title: dataNewPost.title,
+            author: currentUser._id,
+            contentHTML: dataNewPost.html,
+            contentMarkdown: dataNewPost.text,
+            readingTime: dataNewPost.wordCount,
+            imagePreview: image,
+            tags: tags,
+        };
+        const result = await handleCreateNewPost(newPost);
+
+        if (result.errCode === 0) {
+            navigate('/');
+        } else {
+            alert(`Lỗi : ${result.message}`);
+        }
+    };
+
+    const handleSelectImage = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+
+        const result = await handleUploadImage(formData);
+
+        if (result.errCode === 0) {
+            setImage(result.data.urlImage);
+            return result.data.urlImage;
+        } else {
+            alert('Upload ảnh thất bại');
+        }
     };
 
     return (
@@ -49,12 +84,8 @@ function PreviewPost({ setActivePrevPost }) {
                                     </p>
                                     <span>Bấm vào đây để chọn ảnh</span>
                                 </div>
-                                <div className={cx('prev-title')}>
-                                    <input type="text" placeholder="Tiêu đề khi tin được hiển thị" />
-                                </div>
-                                <div className={cx('prev-desc')}>
-                                    <input type="text" placeholder="Mô tả khi tin được hiển thị" />
-                                </div>
+                                <div className={cx('prev-title')}>{dataNewPost.title}</div>
+                                <div className={cx('prev-desc')}>{dataNewPost.text}</div>
 
                                 <p className={cx('note')}>
                                     <strong>Lưu ý: </strong>
@@ -78,7 +109,9 @@ function PreviewPost({ setActivePrevPost }) {
                                 />
 
                                 <div className={cx('action')}>
-                                    <button className={cx('action-public')}>Xuất bản ngay</button>
+                                    <button className={cx('action-public')} onClick={handlePublicNewPost}>
+                                        Xuất bản ngay
+                                    </button>
                                 </div>
                             </div>
                         </div>
