@@ -16,7 +16,7 @@ const publicRoutes = [
     { path: '/courses', component: Courses },
     { path: '/courses/:pathName', component: Tracks, layout: null },
     { path: '/blog', component: Blog },
-    { path: '/blog/new-post', component: NewPost },
+    { path: '/new-post', component: NewPost, layout: null },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/@:username', component: Profile },

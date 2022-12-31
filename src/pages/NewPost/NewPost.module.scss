@@ -1,0 +1,31 @@
+::placeholder {
+    color: #b3b3b1;
+    font-weight: 500;
+}
+
+.wrapper {
+    .container {
+        min-height: 100vh;
+        margin-top: 24px;
+        padding: 0 32px;
+
+        .title {
+            color: #292929;
+            font-size: 3.2rem;
+            min-height: 48px;
+            width: 100%;
+
+            input {
+                outline: none;
+                border: none;
+                line-height: 1.4;
+                width: 100%;
+                font-weight: 500;
+            }
+        }
+
+        .text-editor {
+            margin-top: 16px;
+        }
+    }
+}

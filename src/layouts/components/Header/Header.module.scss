@@ -48,6 +48,26 @@
             display: flex;
             align-items: center;
             position: relative;
+
+            .public-post {
+                margin-right: 16px;
+                font-weight: 500;
+                padding: 7px 17px;
+                cursor: default;
+                opacity: 0.5;
+                pointer-events: none;
+                background-color: var(--color-primary);
+                color: var(--background-color);
+
+                appearance: none;
+                border-radius: 999px !important;
+                display: inline-block;
+                font-size: 1.4rem;
+                text-align: center;
+                transition: 0.3s ease;
+                user-select: none;
+                white-space: nowrap;
+            }
         }
 
         .btn-login {

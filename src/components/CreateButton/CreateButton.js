@@ -19,7 +19,7 @@ function CreateButton() {
             onClickOutside={() => setClick(false)}
             render={(attrs) => (
                 <div className={cx('new-post')} tabIndex="-1" {...attrs}>
-                    <Link to="/blog/new-post">
+                    <Link to="/new-post">
                         <FontAwesomeIcon icon={faPen} />
                         <span>Viết blog</span>
                     </Link>

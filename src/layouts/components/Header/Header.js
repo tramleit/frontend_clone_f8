@@ -11,7 +11,7 @@ import BackButton from '~/components/BackButton';
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ noneSearch }) {
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const hasAtSymbol = pathName.includes('/@');
@@ -25,11 +25,12 @@ function Header() {
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
-            {!hasAtSymbol && <Search />}
+            {!hasAtSymbol || (noneSearch && <Search />)}
 
             <div className={cx('action')}>
                 {isUser !== null ? (
                     <div className={cx('is-login')}>
+                        {noneSearch && <button className={cx('public-post')}>Xuất bản</button>}
                         {!hasAtSymbol && <MyCourse />}
                         <Notify />
                         <MyInfo />

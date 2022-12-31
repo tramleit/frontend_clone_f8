@@ -2,3 +2,33 @@
     background: #f05123 !important;
     transition: 0.3s ease;
 }
+
+body .rc-md-editor {
+    border: none;
+}
+
+body .rc-md-editor:not(.full) .rc-md-navigation {
+    background-color: #fff;
+    border-bottom: none;
+    position: sticky;
+    top: 66px;
+}
+
+body .rc-md-editor .rc-md-navigation .button-wrap .button {
+    min-width: 28px;
+}
+
+body .rc-md-editor .rc-md-navigation .button-wrap .rmel-iconfont {
+    font-size: 2rem;
+}
+
+body .rc-md-editor .editor-container .sec-html {
+    border-left: 1px solid #ebebeb;
+}
+
+body .rc-md-editor .editor-container > .section {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 1px;
+    border-right: none;
+}
