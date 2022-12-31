@@ -74,7 +74,7 @@
                             cursor: pointer;
 
                             &::before {
-                                background-color: hsla(0, 0%, 100%, 0.9);
+                                background-color: hsla(0, 0%, 100%, 0.6);
                                 bottom: 0;
                                 content: '';
                                 display: block;
@@ -93,6 +93,86 @@
                             span {
                                 color: var(--color-primary);
                                 margin-top: 1.2rem;
+                            }
+
+                            &[style^='background-image:'] {
+                                &:hover::before {
+                                    opacity: 1;
+                                }
+
+                                &:hover p,
+                                &:hover span {
+                                    opacity: 1;
+                                    position: relative;
+                                    z-index: 1;
+                                }
+
+                                p,
+                                span {
+                                    opacity: 0;
+                                }
+                            }
+                        }
+
+                        .prev-title {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+                            margin: 1.6rem 0 4px;
+                            padding-bottom: 4px;
+
+                            input {
+                                width: 100%;
+                                border: none;
+                                outline: none;
+                                font-size: 2rem;
+                                font-weight: 600;
+                            }
+                        }
+
+                        .prev-desc {
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+                            margin: 1.6rem 0 4px;
+                            padding-bottom: 4px;
+
+                            input {
+                                font-size: 1.4rem;
+                                width: 100%;
+                                border: none;
+                                outline: none;
+                            }
+                        }
+
+                        .note {
+                            color: #0000008a;
+                            font-size: 1.4rem;
+                            margin-top: 2.4rem;
+                        }
+                    }
+
+                    .preview-tag {
+                        margin-top: 50px;
+
+                        p {
+                            font-weight: 600;
+                        }
+
+                        .action {
+                            margin-top: 40px;
+
+                            .action-public {
+                                background-color: #029e74;
+                                color: var(--background-color);
+                                appearance: none;
+                                border: 1px solid #029e74;
+                                border-radius: 4px;
+                                display: inline-block;
+                                font-size: 1.4rem;
+                                padding: 10px 16px;
+                                user-select: none;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    opacity: 0.9;
+                                }
                             }
                         }
                     }

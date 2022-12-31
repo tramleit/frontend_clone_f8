@@ -9,31 +9,34 @@ import Notify from '../Notify';
 import MyInfo from '../MyInfo';
 import BackButton from '~/components/BackButton';
 import PreviewPost from '~/components/PreviewPost';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Header({ post, activePublic, dataNewPost }) {
+    const [activePrevPost, setActivePrevPost] = useState(false);
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const hasAtSymbol = pathName.includes('/@');
 
-    const handlePublicNewPost = () => {
-        const { author, html, image, text, title, wordCount } = dataNewPost;
+    // const handlePublicNewPost = () => {
+    //     const { author, html, image, text, title, wordCount } = dataNewPost;
 
-        const newPost = {
-            title: title,
-            author: author,
-            contentHTML: html,
-            contentMarkdown: text,
-            readingTime: wordCount,
-            image: image,
-        };
-        console.log('newPost: ', newPost);
-    };
+    //     const newPost = {
+    //         title: title,
+    //         author: author,
+    //         contentHTML: html,
+    //         contentMarkdown: text,
+    //         readingTime: wordCount,
+    //         image: image,
+    //     };
+    //     console.log('newPost: ', newPost);
+    // };
 
     return (
         <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
-            <PreviewPost />
+            {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} />}
+
             <div className={cx('logo')}>
                 <Link to="/">
                     <img src={Image.iconLogo} alt="logo F8" />
@@ -49,7 +52,7 @@ function Header({ post, activePublic, dataNewPost }) {
                         {post && (
                             <button
                                 className={activePublic ? cx('public-post', 'active') : cx('public-post')}
-                                onClick={handlePublicNewPost}
+                                onClick={() => setActivePrevPost(true)}
                             >
                                 Xuất bản
                             </button>

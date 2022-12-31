@@ -14,6 +14,14 @@ function NewPost() {
     const [html, setHtml] = useState('');
     const [image, setImage] = useState('');
 
+    useEffect(() => {
+        if (title) {
+            document.title = title;
+        } else {
+            document.title = 'Viết blog | F8';
+        }
+    }, [title]);
+
     const [activePublic, setActivePublic] = useState(false);
 
     const words = text.split(' ');
