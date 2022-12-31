@@ -18,11 +18,13 @@ const cx = classNames.bind(styles);
 
 function Tracks() {
     const [course, setCourse] = useState({});
+
     const dispatch = useDispatch();
+
     const pathName = useLocation().pathname;
     const slug = pathName.split('/')[2];
 
-    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse.status);
+    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
     const lesson = useSelector((state) => state.lesson?.currentLesson);
 
     useEffect(() => {

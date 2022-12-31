@@ -7,6 +7,7 @@ import Register from '~/layouts/components/Register';
 import Profile from '~/pages/Profile/Profile';
 import Settings from '~/pages/Settings';
 import Tracks from '~/pages/Tracks';
+import NewPost from '~/pages/NewPost';
 
 // Public router
 const publicRoutes = [
@@ -15,6 +16,7 @@ const publicRoutes = [
     { path: '/courses', component: Courses },
     { path: '/courses/:pathName', component: Tracks, layout: null },
     { path: '/blog', component: Blog },
+    { path: '/blog/new-post', component: NewPost },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },
     { path: '/@:username', component: Profile },

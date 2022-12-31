@@ -2,8 +2,9 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faNewspaper, faPlus, faRoad, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faNewspaper, faRoad, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import CreateButton from '~/components/CreateButton';
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +21,8 @@ function Sidebar() {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
-                <div className={cx('create-blog')}>
-                    <FontAwesomeIcon icon={faPlus} />
+                <div>
+                    <CreateButton />
                 </div>
                 <ul className={cx('list')}>
                     <li className={cx('item')}>
