@@ -1,7 +1,7 @@
 import { faChevronLeft, faCircleQuestion, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import styles from './HeaderTrack.module.scss';
 
@@ -14,9 +14,9 @@ function HeaderTrack({ name }) {
             <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate('/')}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <Link className={cx('logo')} to="/">
+            <RouterLink className={cx('logo')} to="/">
                 <img src={Image.iconLogo} alt="Logo" />
-            </Link>
+            </RouterLink>
             <div className={cx('title')}>{name}</div>
 
             <div className={cx('actions')}>

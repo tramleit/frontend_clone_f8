@@ -6,28 +6,31 @@ import { IconCrownUser } from '~/assets/Icon';
 
 import styles from './PostItem.module.scss';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import moment from 'moment';
+import { Image } from '~/assets/image';
 
 const cx = classNames.bind(styles);
 
-function PostItem({ title, desc, image }) {
+function PostItem({ dataPost }) {
+    console.log('dataPost: ', dataPost);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('author')}>
-                    <Link>
+                    <Link to={`/@${dataPost.author.username}`}>
                         <div className={cx('avatar-wrap')}>
                             <div className={cx('avatar')}>
                                 <img
-                                    src="https://files.fullstack.edu.vn/f8-prod/user_avatars/36050/628a1334d274d.jpg"
-                                    alt=""
+                                    src={dataPost.author.avatar ? dataPost.author.avatar : Image.avatar}
+                                    alt={dataPost.author.name}
                                 />
                             </div>
-                            <IconCrownUser />
+                            {dataPost.author.admin && <IconCrownUser />}
                         </div>
                     </Link>
-                    <Link>
-                        <span>Nguyễn Thanh Hòa</span>
-                        <FontAwesomeIcon icon={faCircleCheck} />
+                    <Link to={`/@${dataPost.author.username}`}>
+                        <span>{dataPost.author.name}</span>
+                        {dataPost.author.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                     </Link>
                 </div>
 
@@ -44,20 +47,25 @@ function PostItem({ title, desc, image }) {
             <div className={cx('body')}>
                 <div className={cx('content')}>
                     <Link>
-                        <h2 className={cx('title')}>{title}</h2>
+                        <h2 className={cx('title')}>{dataPost.title}</h2>
                     </Link>
-                    <p className={cx('desc')}>{desc}</p>
+                    <p className={cx('desc')}>
+                        {dataPost.contentMarkdown.length > 130
+                            ? dataPost.contentMarkdown.substring(0, 130) + '...'
+                            : dataPost.contentMarkdown}
+                    </p>
                     <div className={cx('info')}>
-                        <Link className={cx('tags')}>Front-end</Link>
-                        <span>8 ngày trước</span>
+                        {dataPost.tags.length > 0 && <Link className={cx('tags')}>{dataPost.tags[0]}</Link>}
+
+                        <span>{moment(dataPost.createdAt).fromNow()}</span>
                         <span className={cx('dot')}>·</span>
-                        <span>10 phút đọc</span>
+                        <span>{dataPost.readingTime > 0 ? dataPost.readingTime : 0} phút đọc</span>
                     </div>
                 </div>
-                {!!image && (
+                {dataPost.imagePreview && (
                     <div className={cx('thumb')}>
                         <Link>
-                            <img src={image} alt="" />
+                            <img src={dataPost.imagePreview} alt={dataPost.title} />
                         </Link>
                     </div>
                 )}

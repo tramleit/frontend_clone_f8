@@ -1,4 +1,5 @@
 import { getAllBlogsFailed, getAllBlogsSuccess } from '~/redux/reducer/homeReducer';
+import { getPageBlogSuccess } from '~/redux/reducer/pageBlogReducer';
 import * as request from '~/utils/request';
 
 export const getAllBlogs = async (dispatch) => {
@@ -19,5 +20,17 @@ export const handleCreateNewPost = async (newPost) => {
     } catch (error) {
         console.log('error: ', error);
         return error.response.data;
+    }
+};
+
+export const getPageBlogs = async (page, dispatch) => {
+    try {
+        const res = await request.get(`/blog/get-page?page=${page}`);
+
+        dispatch(getPageBlogSuccess(res.data));
+        const { data, ...other } = res;
+        return { ...other };
+    } catch (error) {
+        console.log('error: ', error);
     }
 };

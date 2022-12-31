@@ -44,7 +44,7 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/blog">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/blog?page=1">
                             <FontAwesomeIcon icon={faNewspaper} />
                             <span>Blog</span>
                         </NavLink>

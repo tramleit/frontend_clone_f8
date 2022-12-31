@@ -26,6 +26,12 @@
 
         .text-editor {
             margin-top: 16px;
+
+            p img {
+                display: block;
+                margin: 16px auto;
+                cursor: pointer;
+            }
         }
     }
 }

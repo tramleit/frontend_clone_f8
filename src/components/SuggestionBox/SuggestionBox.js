@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import styles from './SuggestionBox.module.scss';
 
@@ -12,9 +12,9 @@ function SuggestionBox({ title, desc, path, nameBtn }) {
                 <h2>{title}</h2>
                 <p>{desc}</p>
                 {path === '/learning' ? (
-                    <Link to={path} target="_blank" rel="noreferrer">
+                    <RouterLink to={path} target="_blank" rel="noreferrer">
                         {nameBtn}
-                    </Link>
+                    </RouterLink>
                 ) : (
                     <a href={path} target="_blank" rel="noreferrer">
                         {nameBtn}

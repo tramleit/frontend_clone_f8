@@ -5,6 +5,7 @@ import authReducer from './reducer/authReducer';
 import modunReducer from './reducer/modunReducer';
 import homeReducer from './reducer/homeReducer';
 import lessonReducer from './reducer/lessonReducer';
+import pageBlogReducer from './reducer/pageBlogReducer';
 
 const persistConfig = {
     key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     modun: modunReducer,
     home: homeReducer,
     lesson: lessonReducer,
+    pageBlog: pageBlogReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
