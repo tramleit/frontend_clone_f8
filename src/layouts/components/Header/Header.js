@@ -8,16 +8,32 @@ import MyCourse from '~/layouts/components/MyCourse';
 import Notify from '../Notify';
 import MyInfo from '../MyInfo';
 import BackButton from '~/components/BackButton';
+import PreviewPost from '~/components/PreviewPost';
 
 const cx = classNames.bind(styles);
 
-function Header({ noneSearch }) {
+function Header({ post, activePublic, dataNewPost }) {
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const hasAtSymbol = pathName.includes('/@');
 
+    const handlePublicNewPost = () => {
+        const { author, html, image, text, title, wordCount } = dataNewPost;
+
+        const newPost = {
+            title: title,
+            author: author,
+            contentHTML: html,
+            contentMarkdown: text,
+            readingTime: wordCount,
+            image: image,
+        };
+        console.log('newPost: ', newPost);
+    };
+
     return (
         <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
+            <PreviewPost />
             <div className={cx('logo')}>
                 <Link to="/">
                     <img src={Image.iconLogo} alt="logo F8" />
@@ -25,12 +41,19 @@ function Header({ noneSearch }) {
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
-            {!hasAtSymbol || (noneSearch && <Search />)}
+            {!hasAtSymbol || (post && <Search />)}
 
             <div className={cx('action')}>
                 {isUser !== null ? (
                     <div className={cx('is-login')}>
-                        {noneSearch && <button className={cx('public-post')}>Xuất bản</button>}
+                        {post && (
+                            <button
+                                className={activePublic ? cx('public-post', 'active') : cx('public-post')}
+                                onClick={handlePublicNewPost}
+                            >
+                                Xuất bản
+                            </button>
+                        )}
                         {!hasAtSymbol && <MyCourse />}
                         <Notify />
                         <MyInfo />

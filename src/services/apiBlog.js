@@ -1,5 +1,5 @@
 import { getAllBlogsFailed, getAllBlogsSuccess } from '~/redux/reducer/homeReducer';
-import request from '~/utils/request';
+import * as request from '~/utils/request';
 
 export const getAllBlogs = async (dispatch) => {
     try {

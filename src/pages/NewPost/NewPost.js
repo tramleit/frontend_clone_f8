@@ -1,4 +1,6 @@
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import EditorNewPost from '~/components/EditorNewPost';
 import Footer from '~/layouts/components/Footer';
 import Header from '~/layouts/components/Header';
@@ -7,16 +9,47 @@ import styles from './NewPost.module.scss';
 const cx = classNames.bind(styles);
 
 function NewPost() {
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
+    const [html, setHtml] = useState('');
+    const [image, setImage] = useState('');
+
+    const [activePublic, setActivePublic] = useState(false);
+
+    const words = text.split(' ');
+    const wordCount = (words.length / 60).toFixed();
+
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+    const author = currentUser._id;
+
+    const handleGetDataNewPost = ({ text, html, image }) => {
+        setText(text);
+        setHtml(html);
+        setImage(image);
+    };
+
+    useEffect(() => {
+        if (text !== '' && title !== '') {
+            setActivePublic(true);
+        } else {
+            setActivePublic(false);
+        }
+    }, [text, title]);
+
     return (
         <div className={cx('wrapper')}>
-            <Header noneSearch={true} />
+            <Header
+                post={true}
+                activePublic={activePublic}
+                dataNewPost={{ title, text, html, image, wordCount, author }}
+            />
 
             <div className={cx('container')}>
                 <div className={cx('title')}>
-                    <input type="text" placeholder="Tiêu đề" />
+                    <input type="text" placeholder="Tiêu đề" value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className={cx('text-editor')}>
-                    <EditorNewPost />
+                    <EditorNewPost handleGetDataNewPost={handleGetDataNewPost} />
                 </div>
             </div>
 
