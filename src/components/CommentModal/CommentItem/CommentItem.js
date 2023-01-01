@@ -15,8 +15,8 @@ function CommentItem({ comment }) {
             <div className={cx('avatar')}>
                 <Link>
                     <img
-                        src={comment.user?.avatar !== '' ? comment.user?.avatar : Image.avatar}
-                        alt={comment.user?.name}
+                        src={comment.author?.avatar !== '' ? comment.author?.avatar : Image.avatar}
+                        alt={comment.author?.name}
                     />
                 </Link>
             </div>
@@ -25,7 +25,7 @@ function CommentItem({ comment }) {
                 <div className={cx('wrap')}>
                     <div className={cx('content')}>
                         <Link>
-                            <span className={cx('author')}>{comment.user?.name}</span>
+                            <span className={cx('author')}>{comment.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
                             <MarkdownParser data={comment?.contentHTML} fontSize="1.4rem" />

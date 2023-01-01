@@ -1,25 +1,30 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import { closeModalComment } from '~/redux/reducer/modunReducer';
 import { handlePostComment } from '~/services/apiAuth';
 import CommentItem from './CommentItem';
-import styles from './CommentModal.module.scss';
 import EditorComment from './EditorComment';
+
+import styles from './CommentModal.module.scss';
+import { getAllComments } from '~/services/apiCourse';
 
 const cx = classNames.bind(styles);
 
-function CommentModal({ data }) {
-    const [isChat, setIsChat] = useState(false);
+function CommentModal() {
+    const [isChat, setIsChat] = useState(true);
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
 
+    const [commentItem, setCommentItem] = useState(null);
+
     const modalComment = useSelector((state) => state.modun.modalComment?.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
+    const currentLesson = useSelector((state) => state.lesson?.currentLesson);
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -29,6 +34,14 @@ function CommentModal({ data }) {
         dispatch(closeModalComment());
     };
 
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getAllComments(currentLesson._id);
+            setCommentItem(result);
+        };
+        fetchApi();
+    }, [currentLesson._id]);
+
     const handleGetDataChild = ({ html, text }) => {
         setText(text);
         setHtml(html);
@@ -36,14 +49,16 @@ function CommentModal({ data }) {
 
     const handleComment = async () => {
         const newComment = {
-            whereComment: lessonId,
-            user: currentUser._id,
+            lessonId: lessonId,
+            author: currentUser._id,
             contentHTML: html,
             contentMarkdown: text,
         };
         const result = await handlePostComment(newComment);
 
         if (result.errCode === 0) {
+            const result = await getAllComments(currentLesson._id);
+            setCommentItem(result);
             setIsChat(true);
         } else {
             alert('Lỗi vui lòng liên hệ admin để khắc phục');
@@ -60,7 +75,7 @@ function CommentModal({ data }) {
                 <div className={cx('content')} onClick={(event) => event.stopPropagation()}>
                     <div className={cx('detail')}>
                         <div className={cx('heading')}>
-                            <h4 className={cx('title')}>{data?.length} hỏi đáp</h4>
+                            <h4 className={cx('title')}>{currentLesson.comments?.length} hỏi đáp</h4>
                             <p className={cx('help')}>(Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)</p>
                         </div>
 
@@ -94,7 +109,7 @@ function CommentModal({ data }) {
                             </div>
                         </div>
 
-                        {data.map((comment) => (
+                        {commentItem?.map((comment) => (
                             <CommentItem key={comment._id} comment={comment} />
                         ))}
                     </div>

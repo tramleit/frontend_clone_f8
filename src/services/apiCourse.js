@@ -38,3 +38,14 @@ export const getLessonById = async (lessonId, dispatch) => {
         return error.response.data;
     }
 };
+
+export const getAllComments = async (lessonId) => {
+    try {
+        const res = await request.post('/course/comment/get', { lessonId });
+        console.log('res: ', res);
+
+        return res.data.data;
+    } catch (error) {
+        console.log('error: ', error);
+    }
+};

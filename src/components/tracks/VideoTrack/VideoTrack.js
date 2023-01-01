@@ -17,8 +17,8 @@ function VideoTrack({ status }) {
                         height="100%"
                         playing
                         controls
-                        light={lesson.thumbNail}
-                        url={`https://www.youtube.com/watch?v=${lesson.urlVideo}`}
+                        light={lesson?.thumbNail}
+                        url={`https://www.youtube.com/watch?v=${lesson?.urlVideo}`}
                     />
                 </div>
             </div>

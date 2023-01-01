@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 function ContentTrack() {
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
     const lesson = useSelector((state) => state.lesson?.currentLesson);
-    const date = moment(lesson.updatedAt);
+    const date = moment(lesson?.updatedAt);
 
     return (
         <div className={sidebarCourse ? cx('wrapper') : cx('wrapper', 'active')}>
@@ -21,7 +21,7 @@ function ContentTrack() {
             <div className={cx('content')}>
                 <div className={cx('header')}>
                     <div className={cx('heading')}>
-                        <h2 className={cx('title')}>{lesson.nameLesson}</h2>
+                        <h2 className={cx('title')}>{lesson?.nameLesson}</h2>
                         <p className={cx('time-update')}>
                             Cập nhật tháng {date.format('MM')} năm {date.format('YYYY')}
                         </p>
@@ -36,7 +36,7 @@ function ContentTrack() {
                     </button>
                 </div>
 
-                <MarkdownParser data={lesson.descHTML} fontSize="1.6rem" />
+                <MarkdownParser data={lesson?.descHTML} fontSize="1.6rem" />
             </div>
 
             <p className={cx('powered')}>

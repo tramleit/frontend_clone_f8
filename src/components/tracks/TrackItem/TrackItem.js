@@ -22,7 +22,7 @@ function TrackItem({ active, chapter, index, slug }) {
     const lesson = useSelector((state) => state.lesson?.currentLesson);
 
     useEffect(() => {
-        if (active.lesson.length > 0) {
+        if (active.lesson?.length > 0) {
             handleGetLesson(active?.lesson[0]._id);
         }
 
@@ -32,9 +32,9 @@ function TrackItem({ active, chapter, index, slug }) {
     useEffect(() => {
         let totalTime = 0;
 
-        chapter?.lesson.forEach((lesson) => {
+        chapter?.lesson?.forEach((lesson) => {
             const time = lesson.timeVideo;
-            const timeInSeconds = parseInt(time.split(':')[0]) * 60 + parseInt(time.split(':')[1]);
+            const timeInSeconds = parseInt(time?.split(':')[0]) * 60 + parseInt(time?.split(':')[1]);
             totalTime += timeInSeconds;
         });
 
@@ -53,6 +53,7 @@ function TrackItem({ active, chapter, index, slug }) {
             navigate(`/courses/${slug}?id=${lessonId}`);
             setActiveItemId(lessonId);
             setIsFirstAccess(true);
+
             await getLessonById(lessonId, dispatch);
         }
     };
@@ -64,7 +65,7 @@ function TrackItem({ active, chapter, index, slug }) {
                     {index + 1}. {chapter.nameChapter}
                 </h3>
                 <span className={cx('desc')}>
-                    0/{chapter.lesson.length} | {numberTime}
+                    0/{chapter.lesson?.length} | {numberTime}
                 </span>
                 <span className={cx('icon')}>
                     {activeIcon ? <FontAwesomeIcon icon={faChevronDown} /> : <FontAwesomeIcon icon={faChevronUp} />}

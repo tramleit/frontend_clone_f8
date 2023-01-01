@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import CommentModal from '~/components/CommentModal';
 import ContentTrack from '~/components/tracks/ContentTrack';
 import FooterTrack from '~/components/tracks/FooterTrack';
@@ -27,8 +27,6 @@ function Tracks() {
     // const lessonId = new URLSearchParams(location.search).get('id');
 
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
-
-    const currentLesson = useSelector((state) => state.lesson?.currentLesson);
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -60,7 +58,7 @@ function Tracks() {
                     <span>Hỏi đáp</span>
                 </button>
             </div>
-            <CommentModal data={currentLesson.comments} />
+            <CommentModal />
         </div>
     );
 }
