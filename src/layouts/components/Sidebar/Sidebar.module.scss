@@ -1,6 +1,12 @@
 .wrapper {
     flex-shrink: 0;
 
+    &.active {
+        position: fixed;
+        left: 0px;
+        top: 74px;
+    }
+
     .sidebar {
         --width: 96px;
         align-items: center;
@@ -19,11 +25,11 @@
         transition: transform 0.5s ease, opacity 0.5s ease, -webkit-transform 0.5s ease;
 
         &.active {
-            transform: translateX(-76px);
+            transform: translateX(-86px);
 
             &::after {
                 width: 4px;
-                right: 16px;
+                right: 6px;
             }
         }
 

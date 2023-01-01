@@ -14,11 +14,9 @@ export const getAllBlogs = async (dispatch) => {
 export const handleCreateNewPost = async (newPost) => {
     try {
         const res = await request.post('/blog/create', newPost);
-        console.log('res: ', res);
 
         return res;
     } catch (error) {
-        console.log('error: ', error);
         return error.response.data;
     }
 };
@@ -31,6 +29,16 @@ export const getPageBlogs = async (page, dispatch) => {
         const { data, ...other } = res;
         return { ...other };
     } catch (error) {
-        console.log('error: ', error);
+        return error.response;
+    }
+};
+
+export const getPostBySlug = async (slug) => {
+    try {
+        const res = await request.get(`/blog/get-post/${slug}`);
+
+        return res.data;
+    } catch (error) {
+        return error.response;
     }
 };

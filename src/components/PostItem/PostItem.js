@@ -12,7 +12,6 @@ import { Image } from '~/assets/image';
 const cx = classNames.bind(styles);
 
 function PostItem({ dataPost }) {
-    console.log('dataPost: ', dataPost);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -46,7 +45,7 @@ function PostItem({ dataPost }) {
 
             <div className={cx('body')}>
                 <div className={cx('content')}>
-                    <Link>
+                    <Link to={`/blog/${dataPost.slug}`}>
                         <h2 className={cx('title')}>{dataPost.title}</h2>
                     </Link>
                     <p className={cx('desc')}>
@@ -64,7 +63,7 @@ function PostItem({ dataPost }) {
                 </div>
                 {dataPost.imagePreview && (
                     <div className={cx('thumb')}>
-                        <Link>
+                        <Link to={`/blog/${dataPost.slug}`}>
                             <img src={dataPost.imagePreview} alt={dataPost.title} />
                         </Link>
                     </div>

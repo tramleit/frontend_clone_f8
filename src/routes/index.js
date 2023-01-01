@@ -8,6 +8,7 @@ import Profile from '~/pages/Profile/Profile';
 import Settings from '~/pages/Settings';
 import Tracks from '~/pages/Tracks';
 import NewPost from '~/pages/NewPost';
+import Posts from '~/pages/Posts';
 
 // Public router
 const publicRoutes = [
@@ -16,6 +17,7 @@ const publicRoutes = [
     { path: '/courses', component: Courses },
     { path: '/courses/:pathName', component: Tracks, layout: null },
     { path: '/blog', component: Blog },
+    { path: '/blog/:slug', component: Posts },
     { path: '/new-post', component: NewPost, layout: null },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Register, layout: null },

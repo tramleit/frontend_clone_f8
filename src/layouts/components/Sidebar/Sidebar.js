@@ -12,10 +12,10 @@ function Sidebar() {
     const [isHovered, setIsHovered] = useState(false);
 
     const pathName = useLocation().pathname;
-    const hasAtSymbol = pathName.includes('/@');
+    const hasAtSymbol = pathName.includes('/@') || pathName.includes('/blog/');
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
             <div
                 className={hasAtSymbol && !isHovered ? cx('sidebar', 'active') : cx('sidebar')}
                 onMouseEnter={() => setIsHovered(true)}

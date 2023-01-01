@@ -19,7 +19,6 @@ export const getCourseByPathName = async (pathName) => {
         });
         return res.data;
     } catch (error) {
-        console.log('error: ', error);
         return error.response.data;
     }
 };
@@ -36,14 +35,6 @@ export const getLessonById = async (lessonId, dispatch) => {
         const { data, ...other } = res.data;
         return { ...other };
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
-
-// export const getAllComments = async (commentId) => {
-//     try {
-//         const res = await request.get('/course/comments');
-//     } catch (error) {
-//         console.log('error: ', error);
-//     }
-// };

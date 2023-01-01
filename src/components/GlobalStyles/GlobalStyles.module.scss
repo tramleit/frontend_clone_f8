@@ -56,10 +56,6 @@ body {
     margin: 0;
 }
 
-a {
-    text-decoration: none;
-}
-
 span {
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
@@ -91,4 +87,23 @@ textarea {
     font-size: 100%;
     line-height: 1.15;
     margin: 0;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    background-color: transparent;
+
+    &:focus,
+    &:hover,
+    &:visited {
+        outline: none;
+        text-decoration: none;
+    }
+}
+
+hr {
+    box-sizing: content-box;
+    height: 0;
+    overflow: visible;
 }
