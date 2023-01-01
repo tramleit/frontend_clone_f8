@@ -17,6 +17,7 @@
 
         .info {
             .title {
+                margin: 0;
                 a {
                     color: #242424;
                     display: block;
@@ -67,7 +68,7 @@
         a {
             background-color: var(--color-primary);
             color: var(--background-color);
-
+            font-weight: 600;
             appearance: none;
             border: 1px solid var(--primary-color);
             border-radius: 999px !important;

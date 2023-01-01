@@ -137,7 +137,7 @@ function Home() {
                                 image={blog.imagePreview}
                                 author={blog.author}
                                 readingTime={blog.readingTime}
-                                pathName={blog.slug}
+                                pathName={`/blog/${blog.slug}`}
                             />
                         ))}
                     </div>
