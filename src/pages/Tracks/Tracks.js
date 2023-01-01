@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import CommentModal from '~/components/CommentModal';
 import ContentTrack from '~/components/tracks/ContentTrack';
 import FooterTrack from '~/components/tracks/FooterTrack';
@@ -21,15 +21,19 @@ function Tracks() {
 
     const dispatch = useDispatch();
 
-    const pathName = useLocation().pathname;
-    const slug = pathName.split('/')[2];
+    const slug = useParams().slug;
+
+    // const location = useLocation();
+    // const lessonId = new URLSearchParams(location.search).get('id');
 
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
-    const lesson = useSelector((state) => state.lesson?.currentLesson);
+
+    const currentLesson = useSelector((state) => state.lesson?.currentLesson);
 
     useEffect(() => {
         const fetchApi = async () => {
             const result = await getCourseByPathName(slug);
+
             if (result.errCode === 0) {
                 setCourse(result.data);
             } else {
@@ -56,7 +60,7 @@ function Tracks() {
                     <span>Hỏi đáp</span>
                 </button>
             </div>
-            <CommentModal data={lesson.comments} />
+            <CommentModal data={currentLesson.comments} />
         </div>
     );
 }

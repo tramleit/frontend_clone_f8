@@ -1,22 +1,53 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import { closeModalComment } from '~/redux/reducer/modunReducer';
+import { handlePostComment } from '~/services/apiAuth';
 import CommentItem from './CommentItem';
 import styles from './CommentModal.module.scss';
+import EditorComment from './EditorComment';
 
 const cx = classNames.bind(styles);
 
 function CommentModal({ data }) {
+    const [isChat, setIsChat] = useState(false);
+    const [text, setText] = useState('');
+    const [html, setHtml] = useState('');
+
     const modalComment = useSelector((state) => state.modun.modalComment?.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const dispatch = useDispatch();
+    const location = useLocation();
+    const lessonId = new URLSearchParams(location.search).get('id');
 
     const handleCloseModalComment = () => {
         dispatch(closeModalComment());
+    };
+
+    const handleGetDataChild = ({ html, text }) => {
+        setText(text);
+        setHtml(html);
+    };
+
+    const handleComment = async () => {
+        const newComment = {
+            whereComment: lessonId,
+            user: currentUser._id,
+            contentHTML: html,
+            contentMarkdown: text,
+        };
+        const result = await handlePostComment(newComment);
+
+        if (result.errCode === 0) {
+            setIsChat(true);
+        } else {
+            alert('Lỗi vui lòng liên hệ admin để khắc phục');
+        }
     };
 
     return (
@@ -26,7 +57,7 @@ function CommentModal({ data }) {
                     <FontAwesomeIcon icon={faXmark} />
                 </div>
 
-                <div className={cx('content')}>
+                <div className={cx('content')} onClick={(event) => event.stopPropagation()}>
                     <div className={cx('detail')}>
                         <div className={cx('heading')}>
                             <h4 className={cx('title')}>{data?.length} hỏi đáp</h4>
@@ -41,9 +72,25 @@ function CommentModal({ data }) {
                                 />
                             </div>
                             <div className={cx('comment-content')}>
-                                <div className={cx('placeholder')}>
-                                    <span>Bạn có thắc mắc gì trong bài học này?</span>
-                                </div>
+                                {isChat ? (
+                                    <div className={cx('placeholder')} onClick={() => setIsChat(false)}>
+                                        <span>Bạn có thắc mắc gì trong bài học này?</span>
+                                    </div>
+                                ) : (
+                                    <>
+                                        <div className={cx('text-editor')}>
+                                            <EditorComment handleGetDataChild={handleGetDataChild} />
+                                        </div>
+                                        <div className={cx('action-chat')}>
+                                            <button className={cx('action-cancel')} onClick={() => setIsChat(true)}>
+                                                Hủy
+                                            </button>
+                                            <button className={cx('action-ok', 'active')} onClick={handleComment}>
+                                                Bình luận
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
 

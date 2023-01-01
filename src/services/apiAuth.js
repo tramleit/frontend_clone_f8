@@ -69,3 +69,13 @@ export const handleSendMail = async (email) => {
         return error.response.data;
     }
 };
+
+export const handlePostComment = async (newComment) => {
+    try {
+        const res = await request.post('/user/comment/create', newComment);
+
+        return res;
+    } catch (error) {
+        return error.response.status;
+    }
+};

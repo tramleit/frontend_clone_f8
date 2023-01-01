@@ -15,8 +15,8 @@ function CommentItem({ comment }) {
             <div className={cx('avatar')}>
                 <Link>
                     <img
-                        src={comment.user.avatar !== '' ? comment.user.avatar : Image.avatar}
-                        alt={comment.user.name}
+                        src={comment.user?.avatar !== '' ? comment.user?.avatar : Image.avatar}
+                        alt={comment.user?.name}
                     />
                 </Link>
             </div>
@@ -25,10 +25,10 @@ function CommentItem({ comment }) {
                 <div className={cx('wrap')}>
                     <div className={cx('content')}>
                         <Link>
-                            <span className={cx('author')}>{comment.user.name}</span>
+                            <span className={cx('author')}>{comment.user?.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser data={comment.contentHTML} fontSize="1.4rem" />
+                            <MarkdownParser data={comment?.contentHTML} fontSize="1.4rem" />
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@ function CommentItem({ comment }) {
                             <span>·</span>
                             <span className={cx('reply-comment')}>Trả lời</span>
                             <span>·</span>
-                            <span className={cx('create-time')}>{moment(comment.createdAt).fromNow()}</span>
+                            <span className={cx('create-time')}>{moment(comment?.createdAt).fromNow()}</span>
                             <span className={cx('more-btn-wrap')}>
                                 <button className={cx('more-btn')}>
                                     <FontAwesomeIcon icon={faEllipsis} />
