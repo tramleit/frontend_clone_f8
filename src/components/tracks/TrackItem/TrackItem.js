@@ -4,30 +4,44 @@ import { faChevronDown, faChevronUp, faCircleCheck, faCompactDisc } from '@forta
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TrackItem.module.scss';
 import { getLessonById } from '~/services/apiCourse';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
 function TrackItem({ active, chapter, index, slug }) {
+    console.log('chapter: ', chapter.lesson[0]._id);
     const [activeIcon, setActiveIcon] = useState(true);
     const [activeItemId, setActiveItemId] = useState(null);
-    const [isFirstAccess, setIsFirstAccess] = useState(false);
     const [numberTime, setNumberTime] = useState('');
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const lesson = useSelector((state) => state.lesson?.currentLesson);
+    const location = useLocation();
+    const lessonId = new URLSearchParams(location.search).get('id');
+    console.log('lessonId: ', lessonId);
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            console.log('re-render');
+            const result = await getLessonById(chapter.lesson[0]._id, dispatch);
+            console.log('result: ', result);
+        };
+        fetchApi();
+    }, []);
 
     useEffect(() => {
         if (active.lesson?.length > 0) {
-            handleGetLesson(active?.lesson[0]._id);
+            setActiveItemId(active?.lesson[0]._id);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [active.lesson]);
+
+    const handleGetLesson = async () => {
+        await getLessonById(lessonId, dispatch);
+    };
 
     useEffect(() => {
         let totalTime = 0;
@@ -48,16 +62,6 @@ function TrackItem({ active, chapter, index, slug }) {
         setNumberTime(formatted);
     }, [chapter]);
 
-    const handleGetLesson = async (lessonId) => {
-        if (!isFirstAccess || lesson._id !== lessonId) {
-            navigate(`/courses/${slug}?id=${lessonId}`);
-            setActiveItemId(lessonId);
-            setIsFirstAccess(true);
-
-            await getLessonById(lessonId, dispatch);
-        }
-    };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('track-wrap')} onClick={() => setActiveIcon(!activeIcon)}>
@@ -75,11 +79,13 @@ function TrackItem({ active, chapter, index, slug }) {
             {!activeIcon && (
                 <div className={cx('track-list')}>
                     {chapter.lesson.map((lesson, index) => (
-                        <div
+                        <Link
                             className={cx('step-item', { active: lesson._id === activeItemId })}
                             key={lesson._id}
-                            onClick={() => handleGetLesson(lesson._id)}
+                            to={`/courses/${slug}?id=${lesson._id}`}
+                            onClick={handleGetLesson}
                         >
+                            {console.log('lesson :', lesson)}
                             <div className={cx('info')}>
                                 <h3 className={cx('step-title')}>
                                     {index + 1}. {lesson.nameLesson}
@@ -92,7 +98,7 @@ function TrackItem({ active, chapter, index, slug }) {
                             <div className={cx('step-icon')}>
                                 <FontAwesomeIcon icon={faCircleCheck} />
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             )}

@@ -44,7 +44,11 @@ function Sidebar() {
                         </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/blog?page=1">
+                        <NavLink
+                            className={(nav) => cx('link', { active: nav.isActive })}
+                            to="/blog?page=1"
+                            onClick={() => localStorage.setItem('currentPage', 1)}
+                        >
                             <FontAwesomeIcon icon={faNewspaper} />
                             <span>Blog</span>
                         </NavLink>

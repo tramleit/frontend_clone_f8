@@ -11,11 +11,11 @@ import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
 function Blog() {
+    const currentPage = useSelector((state) => state.pageBlog.currentPageBlogs);
+
     useEffect(() => {
         document.title = 'Danh sách bài viết về lĩnh vực IT';
     });
-
-    const currentPage = useSelector((state) => state.pageBlog.currentPageBlogs);
 
     return (
         <div className={cx('wrapper')}>
@@ -27,7 +27,7 @@ function Blog() {
             <div className={cx('container')}>
                 <div className={cx('left')}>
                     <div className={cx('content-left')}>
-                        {currentPage.map((post) => (
+                        {currentPage?.map((post) => (
                             <PostItem key={post._id} dataPost={post} />
                         ))}
 

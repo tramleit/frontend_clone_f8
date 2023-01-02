@@ -10,7 +10,7 @@ import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
 import SidebarTrack from '~/components/tracks/SidebarTrack';
 import { openModalComment } from '~/redux/reducer/modunReducer';
-import { getCourseByPathName } from '~/services/apiCourse';
+import { getAllComments, getCourseByPathName } from '~/services/apiCourse';
 
 import styles from './Tracks.module.scss';
 
@@ -18,13 +18,11 @@ const cx = classNames.bind(styles);
 
 function Tracks() {
     const [course, setCourse] = useState({});
+    const [commentItem, setCommentItem] = useState(null);
 
     const dispatch = useDispatch();
-
     const slug = useParams().slug;
-
-    // const location = useLocation();
-    // const lessonId = new URLSearchParams(location.search).get('id');
+    const currentLesson = useSelector((state) => state.lesson?.currentLesson);
 
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
 
@@ -41,8 +39,14 @@ function Tracks() {
         fetchApi();
     }, [slug]);
 
+    const handleGetAllCommentsLesson = async () => {
+        const result = await getAllComments(currentLesson._id);
+        setCommentItem(result);
+    };
+
     const handleOpenModalComment = () => {
         dispatch(openModalComment());
+        handleGetAllCommentsLesson();
     };
 
     return (
@@ -58,7 +62,7 @@ function Tracks() {
                     <span>Hỏi đáp</span>
                 </button>
             </div>
-            <CommentModal />
+            <CommentModal allComments={commentItem} />
         </div>
     );
 }

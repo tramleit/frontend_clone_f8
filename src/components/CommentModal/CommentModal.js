@@ -11,20 +11,22 @@ import CommentItem from './CommentItem';
 import EditorComment from './EditorComment';
 
 import styles from './CommentModal.module.scss';
-import { getAllComments } from '~/services/apiCourse';
 
 const cx = classNames.bind(styles);
 
-function CommentModal() {
+function CommentModal({ allComments }) {
     const [isChat, setIsChat] = useState(true);
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
 
-    const [commentItem, setCommentItem] = useState(null);
+    const [allComment, setAllComment] = useState(null);
+
+    useEffect(() => {
+        setAllComment(allComments);
+    }, [allComments]);
 
     const modalComment = useSelector((state) => state.modun.modalComment?.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const currentLesson = useSelector((state) => state.lesson?.currentLesson);
 
     const dispatch = useDispatch();
     const location = useLocation();
@@ -33,14 +35,6 @@ function CommentModal() {
     const handleCloseModalComment = () => {
         dispatch(closeModalComment());
     };
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getAllComments(currentLesson._id);
-            setCommentItem(result);
-        };
-        fetchApi();
-    }, [currentLesson._id]);
 
     const handleGetDataChild = ({ html, text }) => {
         setText(text);
@@ -57,9 +51,8 @@ function CommentModal() {
         const result = await handlePostComment(newComment);
 
         if (result.errCode === 0) {
-            const result = await getAllComments(currentLesson._id);
-            setCommentItem(result);
             setIsChat(true);
+            setAllComment(result.data);
         } else {
             alert('Lỗi vui lòng liên hệ admin để khắc phục');
         }
@@ -75,7 +68,7 @@ function CommentModal() {
                 <div className={cx('content')} onClick={(event) => event.stopPropagation()}>
                     <div className={cx('detail')}>
                         <div className={cx('heading')}>
-                            <h4 className={cx('title')}>{currentLesson.comments?.length} hỏi đáp</h4>
+                            <h4 className={cx('title')}>{allComment?.length} hỏi đáp</h4>
                             <p className={cx('help')}>(Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)</p>
                         </div>
 
@@ -109,7 +102,7 @@ function CommentModal() {
                             </div>
                         </div>
 
-                        {commentItem?.map((comment) => (
+                        {allComment?.map((comment) => (
                             <CommentItem key={comment._id} comment={comment} />
                         ))}
                     </div>

@@ -13,7 +13,7 @@ function CommentItem({ comment }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
-                <Link>
+                <Link to={`/@${comment.author?.username}`}>
                     <img
                         src={comment.author?.avatar !== '' ? comment.author?.avatar : Image.avatar}
                         alt={comment.author?.name}
@@ -24,7 +24,7 @@ function CommentItem({ comment }) {
             <div className={cx('body')}>
                 <div className={cx('wrap')}>
                     <div className={cx('content')}>
-                        <Link>
+                        <Link to={`/@${comment.author?.username}`}>
                             <span className={cx('author')}>{comment.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
