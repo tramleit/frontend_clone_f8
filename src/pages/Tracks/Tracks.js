@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CommentModal from '~/components/CommentModal';
+import CourseDetail from '~/components/CourseDetail';
 import ContentTrack from '~/components/tracks/ContentTrack';
 import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
@@ -24,6 +25,9 @@ function Tracks() {
     const navigate = useNavigate();
     const location = useLocation();
     const slug = useParams().slug;
+
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     const currentLesson = useSelector((state) => state.lesson?.currentLesson);
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
     const lessonId = new URLSearchParams(location.search).get('id');
@@ -35,7 +39,7 @@ function Tracks() {
             if (result.errCode === 0) {
                 setCourse(result.data);
 
-                if (currentLesson._id !== lessonId) {
+                if (currentLesson._id !== lessonId && currentUser.myCourses.includes(result.data._id)) {
                     navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
                 }
             } else {
@@ -58,20 +62,28 @@ function Tracks() {
     };
 
     return (
-        <div className={cx('wrapper')}>
-            <HeaderTrack name={course.name} />
-            <SidebarTrack chapters={course.chapter} slug={slug} />
-            <ContentTrack />
-            <FooterTrack chapters={course.chapter} />
+        <>
+            {currentUser.myCourses.includes(course._id) ? (
+                <div className={cx('wrapper')}>
+                    <>
+                        <HeaderTrack name={course.name} />
+                        <SidebarTrack chapters={course.chapter} slug={slug} />
+                        <ContentTrack />
+                        <FooterTrack chapters={course.chapter} />
 
-            <div className={sidebarCourse ? cx('comment') : cx('comment', 'active')}>
-                <button className={cx('comment-btn')} onClick={handleOpenModalComment}>
-                    <FontAwesomeIcon icon={faComments} />
-                    <span>Hỏi đáp</span>
-                </button>
-            </div>
-            <CommentModal allComments={commentItem} />
-        </div>
+                        <div className={sidebarCourse ? cx('comment') : cx('comment', 'active')}>
+                            <button className={cx('comment-btn')} onClick={handleOpenModalComment}>
+                                <FontAwesomeIcon icon={faComments} />
+                                <span>Hỏi đáp</span>
+                            </button>
+                        </div>
+                        <CommentModal allComments={commentItem} />
+                    </>
+                </div>
+            ) : (
+                <CourseDetail course={course} />
+            )}
+        </>
     );
 }
 

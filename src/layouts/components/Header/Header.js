@@ -9,18 +9,20 @@ import Notify from '../Notify';
 import MyInfo from '../MyInfo';
 import BackButton from '~/components/BackButton';
 import PreviewPost from '~/components/PreviewPost';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Header({ post, activePublic, dataNewPost }) {
+    console.log('post: ', post);
     const [activePrevPost, setActivePrevPost] = useState(false);
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
-    const hasAtSymbol = pathName.includes('/@');
+    const checkPathProfile = pathName.includes('/@');
+    const checkPathNewPost = pathName.includes('/new-post');
 
     return (
-        <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>
+        <div className={checkPathProfile ? cx('wrapper', 'active') : cx('wrapper')}>
             {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} dataNewPost={dataNewPost} />}
 
             <div className={cx('logo')}>
@@ -30,7 +32,7 @@ function Header({ post, activePublic, dataNewPost }) {
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
-            {!hasAtSymbol || (post && <Search />)}
+            {checkPathProfile ? Fragment : !checkPathNewPost ? <Search /> : Fragment}
 
             <div className={cx('action')}>
                 {isUser !== null ? (
@@ -43,7 +45,7 @@ function Header({ post, activePublic, dataNewPost }) {
                                 Xuất bản
                             </button>
                         )}
-                        {!hasAtSymbol && <MyCourse />}
+                        {!checkPathProfile && <MyCourse />}
                         <Notify />
                         <MyInfo />
                     </div>
