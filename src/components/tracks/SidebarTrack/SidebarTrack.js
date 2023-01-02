@@ -17,7 +17,7 @@ function SidebarTrack({ chapters, slug }) {
 
                 <div className={cx('body')}>
                     {chapters?.map((chapter, index) => (
-                        <TrackItem active={chapters[0]} key={chapter._id} chapter={chapter} index={index} slug={slug} />
+                        <TrackItem key={chapter._id} chapter={chapter} index={index} slug={slug} />
                     ))}
                 </div>
             </div>

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import CommentModal from '~/components/CommentModal';
 import ContentTrack from '~/components/tracks/ContentTrack';
 import FooterTrack from '~/components/tracks/FooterTrack';
@@ -21,10 +21,12 @@ function Tracks() {
     const [commentItem, setCommentItem] = useState(null);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
     const slug = useParams().slug;
     const currentLesson = useSelector((state) => state.lesson?.currentLesson);
-
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
+    const lessonId = new URLSearchParams(location.search).get('id');
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -32,11 +34,17 @@ function Tracks() {
 
             if (result.errCode === 0) {
                 setCourse(result.data);
+
+                if (currentLesson._id !== lessonId) {
+                    navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
+                }
             } else {
                 alert('Lỗi gọi api lấy khóa học');
             }
         };
         fetchApi();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
 
     const handleGetAllCommentsLesson = async () => {
@@ -54,7 +62,7 @@ function Tracks() {
             <HeaderTrack name={course.name} />
             <SidebarTrack chapters={course.chapter} slug={slug} />
             <ContentTrack />
-            <FooterTrack />
+            <FooterTrack chapters={course.chapter} />
 
             <div className={sidebarCourse ? cx('comment') : cx('comment', 'active')}>
                 <button className={cx('comment-btn')} onClick={handleOpenModalComment}>

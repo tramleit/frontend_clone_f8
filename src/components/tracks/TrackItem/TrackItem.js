@@ -3,46 +3,26 @@ import classNames from 'classnames/bind';
 import { faChevronDown, faChevronUp, faCircleCheck, faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TrackItem.module.scss';
-import { getLessonById } from '~/services/apiCourse';
-import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
-function TrackItem({ active, chapter, index, slug }) {
-    console.log('chapter: ', chapter.lesson[0]._id);
+function TrackItem({ chapter, index, slug }) {
     const [activeIcon, setActiveIcon] = useState(true);
     const [activeItemId, setActiveItemId] = useState(null);
     const [numberTime, setNumberTime] = useState('');
 
-    const dispatch = useDispatch();
-
     const location = useLocation();
     const lessonId = new URLSearchParams(location.search).get('id');
-    console.log('lessonId: ', lessonId);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            console.log('re-render');
-            const result = await getLessonById(chapter.lesson[0]._id, dispatch);
-            console.log('result: ', result);
-        };
-        fetchApi();
-    }, []);
-
-    useEffect(() => {
-        if (active.lesson?.length > 0) {
-            setActiveItemId(active?.lesson[0]._id);
-        }
+        setActiveItemId(lessonId);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [active.lesson]);
+    }, [lessonId]);
 
-    const handleGetLesson = async () => {
-        await getLessonById(lessonId, dispatch);
-    };
-
+    // Tính tổng thời gian cần học hết chương
     useEffect(() => {
         let totalTime = 0;
 
@@ -83,9 +63,7 @@ function TrackItem({ active, chapter, index, slug }) {
                             className={cx('step-item', { active: lesson._id === activeItemId })}
                             key={lesson._id}
                             to={`/courses/${slug}?id=${lesson._id}`}
-                            onClick={handleGetLesson}
                         >
-                            {console.log('lesson :', lesson)}
                             <div className={cx('info')}>
                                 <h3 className={cx('step-title')}>
                                     {index + 1}. {lesson.nameLesson}

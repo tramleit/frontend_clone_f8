@@ -23,14 +23,14 @@ export const getCourseByPathName = async (pathName) => {
     }
 };
 
-export const getLessonById = async (lessonId) => {
+export const getLessonById = async (lessonId, dispatch) => {
     try {
         const res = await request.get('/course/lesson', {
             params: {
                 id: lessonId,
             },
         });
-        // dispatch(getCurrentLesson(res.data.data));
+        dispatch(getCurrentLesson(res.data.data));
 
         return res.data;
     } catch (error) {
