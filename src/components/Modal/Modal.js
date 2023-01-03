@@ -26,7 +26,7 @@ function Modal() {
 
     return (
         <>
-            <div className={cx('wrapper')}>
+            <div ref={modalRef} className={cx('wrapper')}>
                 <div className={cx('content')}>
                     <h2 className={cx('heading')}>Bảng Tin F8</h2>
 

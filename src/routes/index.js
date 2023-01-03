@@ -9,6 +9,7 @@ import Settings from '~/pages/Settings';
 import Tracks from '~/pages/Tracks';
 import NewPost from '~/pages/NewPost';
 import Posts from '~/pages/Posts';
+import FrontEnd from '~/pages/Learning/FrontEnd';
 
 // Public router
 const publicRoutes = [
@@ -23,6 +24,7 @@ const publicRoutes = [
     { path: '/register', component: Register, layout: null },
     { path: '/@:username', component: Profile },
     { path: '/settings', component: Settings },
+    { path: '/learning/front-end-development', component: FrontEnd },
 ];
 
 const privateRoutes = [];

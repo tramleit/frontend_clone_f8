@@ -23,6 +23,7 @@ function Profile() {
 
             if (result.errCode === 0) {
                 setInfoUser(result.data);
+                document.title = `${result.data.name}`;
             } else {
                 alert(`Lỗi: ${result.message}`);
             }
