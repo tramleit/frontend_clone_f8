@@ -14,7 +14,6 @@ import { Fragment, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function Header({ post, activePublic, dataNewPost }) {
-    console.log('post: ', post);
     const [activePrevPost, setActivePrevPost] = useState(false);
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;

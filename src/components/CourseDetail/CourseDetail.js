@@ -5,15 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import CourseCurriculum from './CourseCurriculum';
 import { useEffect, useState } from 'react';
+import PreviewCourse from './PreviewCourse';
 
 const cx = classNames.bind(styles);
 
 function CourseDetail({ course }) {
-    console.log('course: ', course);
     const [numberTime, setNumberTime] = useState('');
     const [allLesson, setAllLesson] = useState(0);
     const [allChapter, setAllChapter] = useState([]);
-
+    const [modalPrev, setModalPrev] = useState(false);
     useEffect(() => {
         setAllChapter(course.chapter);
     }, [course]);
@@ -145,7 +145,7 @@ function CourseDetail({ course }) {
 
                     <div className={cx('content-right')}>
                         <div className={cx('purchase')}>
-                            <div className={cx('preview')}>
+                            <div className={cx('preview')} onClick={() => setModalPrev(true)}>
                                 <div className={cx('img-bg')} style={{ backgroundImage: `url(${course.image})` }}></div>
 
                                 <FontAwesomeIcon icon={faCirclePlay} />
@@ -180,6 +180,7 @@ function CourseDetail({ course }) {
                     </div>
                 </div>
             </div>
+            <PreviewCourse modalPrev={modalPrev} setModalPrev={setModalPrev} />
         </DefaultLayout>
     );
 }
