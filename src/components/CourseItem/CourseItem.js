@@ -5,20 +5,17 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function CourseItem() {
+function CourseItem({ data }) {
     return (
         <div className={cx('wrapper')}>
-            <Link className={cx('thumb')}>
-                <img src="https://files.fullstack.edu.vn/f8-prod/courses/14/624faac11d109.png" alt="" />
+            <Link className={cx('thumb')} to={`/courses/${data.pathName}`}>
+                <img src={data.image} alt={data.name} />
             </Link>
             <div className={cx('info')}>
                 <h4 className={cx('title')}>
-                    <Link>Làm việc với Terminal & Ubuntu</Link>
+                    <Link to={`/courses/${data.pathName}`}>{data.name}</Link>
                 </h4>
-                <p className={cx('desc')}>
-                    Sở hữu một Terminal hiện đại, mạnh mẽ trong tùy biến và học cách làm việc với Ubuntu là một bước
-                    quan trọng trên con đường trở thành một Web Developer.
-                </p>
+                <p className={cx('desc')}>{data.description}</p>
             </div>
         </div>
     );

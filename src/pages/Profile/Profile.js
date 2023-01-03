@@ -1,17 +1,34 @@
 import { faCamera, faUpload, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Image } from '~/assets/image';
 import ActivityItem from '~/components/ActivityItem';
 import CourseItem from '~/components/CourseItem';
+import { getInfoUserByUsername } from '~/services/apiAuth';
 import styles from './Profile.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Profile() {
     const [upload, setUpload] = useState(false);
+    const [infoUser, setInfoUser] = useState(null);
+    const { username } = useParams();
 
-    const isActive = true;
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getInfoUserByUsername(username);
+
+            if (result.errCode === 0) {
+                setInfoUser(result.data);
+            } else {
+                alert(`Lỗi: ${result.message}`);
+            }
+        };
+        fetchApi();
+    }, [username]);
 
     return (
         <div className={cx('wrapper')}>
@@ -20,12 +37,12 @@ function Profile() {
                     <div className={cx('user-avatar')}>
                         <img
                             className={cx('avatar')}
-                            src="https://fullstack.edu.vn/static/media/fallback-avatar.155cdb2376c5d99ea151.jpg"
-                            alt=""
+                            src={infoUser?.avatar ? infoUser?.avatar : Image.avatar}
+                            alt={infoUser?.name}
                         />
                     </div>
                     <div className={cx('user-name')}>
-                        <span>Mã Việt Hà</span>
+                        <span>{infoUser?.name}</span>
                     </div>
                 </div>
                 <div className={cx('btn-change')} onClick={() => setUpload(true)}>
@@ -54,20 +71,20 @@ function Profile() {
                                 <div className={cx('participation')}>
                                     <FontAwesomeIcon icon={faUserGroup} />
                                     <span>
-                                        Thành viên của <strong>F8 - Học lập trình để đi làm</strong> từ 7 ngày trước
+                                        Thành viên của <strong>F8 - Học lập trình để đi làm </strong>
+                                        {moment(infoUser?.createdAt).fromNow()}
                                     </span>
                                 </div>
                             </div>
                             <div className={cx('box')}>
                                 <h4 className={cx('box-title')}>Hoạt động gần đây</h4>
                                 <div className={cx('no-participation')}>
-                                    {isActive ? (
-                                        <>
-                                            <ActivityItem />
-                                            <ActivityItem />
-                                            <ActivityItem />
-                                            <ActivityItem />
-                                        </>
+                                    {infoUser?.myComments.length > 0 ? (
+                                        infoUser?.myComments
+                                            .slice(-10)
+                                            .map((comment, index) => (
+                                                <ActivityItem key={index} info={infoUser} data={comment} />
+                                            ))
                                     ) : (
                                         <span>Chưa có hoạt động gần đây</span>
                                     )}
@@ -80,12 +97,10 @@ function Profile() {
                             <div className={cx('box')}>
                                 <h4 className={cx('box-title')}>Các khóa học đã tham gia</h4>
                                 <div className={cx('no-participation')}>
-                                    {isActive ? (
-                                        <>
-                                            <CourseItem />
-                                            <CourseItem />
-                                            <CourseItem />
-                                        </>
+                                    {infoUser?.myCourses.length > 0 ? (
+                                        infoUser?.myCourses
+                                            .slice(-10)
+                                            .map((course, index) => <CourseItem key={index} data={course} />)
                                     ) : (
                                         <span>Chưa có khóa học nào được đăng ký</span>
                                     )}

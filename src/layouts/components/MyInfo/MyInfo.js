@@ -56,7 +56,7 @@ function MyInfo() {
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link to="new-post">Viết blog</Link>
+                                <Link to="/new-post">Viết blog</Link>
                             </li>
                             <li className={cx('item')}>
                                 <Link to="/me/post/:tab">Bài viết của tôi</Link>

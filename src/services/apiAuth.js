@@ -101,3 +101,13 @@ export const getAllMyCourses = async (userId) => {
         return error.response.data;
     }
 };
+
+export const getInfoUserByUsername = async (username) => {
+    try {
+        const res = await request.get(`/user/get-info/${username}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
