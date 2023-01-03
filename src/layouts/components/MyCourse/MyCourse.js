@@ -3,22 +3,31 @@ import HandlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './MyCourse.module.scss';
 import { useSelector } from 'react-redux';
+import { getAllMyCourses } from '~/services/apiAuth';
 
 const cx = classNames.bind(styles);
 
 function MyCourse() {
     const [active, setActive] = useState(false);
-    const [courses, setCourses] = useState([]);
+    const [allMyCourse, setAllMyCourse] = useState([]);
 
-    const user = useSelector((state) => state.auth.login.currentUser);
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
-    useEffect(() => {
-        const myCourses = user.data;
-        setCourses(myCourses);
-    }, [user?.data]);
+    const handleGetAllMyCourses = async () => {
+        if (!active) {
+            setActive(!active);
+            const result = await getAllMyCourses(currentUser._id);
+
+            if (result.errCode === 0) {
+                setAllMyCourse(result.data);
+            } else {
+                alert('Lỗi api lấy khóa học đang học');
+            }
+        }
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -32,18 +41,18 @@ function MyCourse() {
                             <h4 className={cx('title')}>Khóa học của tôi</h4>
                         </div>
                         <div className={cx('content')}>
-                            {courses?.length > 0 ? (
-                                courses.map((course) => (
-                                    <div className={cx('item')}>
-                                        <Link>
+                            {allMyCourse?.length > 0 ? (
+                                allMyCourse.map((course) => (
+                                    <div className={cx('item')} key={course._id}>
+                                        <Link to={`/courses/${course.pathName}`}>
                                             <img className={cx('img')} src={course.image} alt={course.name} />
                                         </Link>
                                         <div className={cx('info')}>
                                             <h5 className={cx('info-title')}>
-                                                <Link>{course.name}</Link>
+                                                <Link to={`/courses/${course.pathName}`}>{course.name}</Link>
                                             </h5>
-                                            <p className={cx('complete')}>Học cách đây 7 ngày trước</p>
-                                            <Tippy content="20%" placement="bottom">
+                                            <p className={cx('complete')}>Vừa học xong</p>
+                                            <Tippy content="1%" placement="bottom">
                                                 <div className={cx('vertical')}></div>
                                             </Tippy>
                                         </div>
@@ -56,7 +65,7 @@ function MyCourse() {
                     </div>
                 )}
             >
-                <button className={cx('btn')} onClick={() => setActive(!active)}>
+                <button className={cx('btn')} onClick={handleGetAllMyCourses}>
                     Khóa học của tôi
                 </button>
             </HandlessTippy>

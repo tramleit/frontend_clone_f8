@@ -79,3 +79,25 @@ export const handlePostComment = async (newComment) => {
         return error.response.status;
     }
 };
+
+export const registerCourse = async (pathName, userId, dispatch) => {
+    try {
+        const res = await request.post(`/user/register-course/${pathName}`, { userId });
+        dispatch(loginSuccess(res.data));
+        const { data, ...other } = res;
+
+        return { ...other };
+    } catch (error) {
+        console.log('error: ', error);
+    }
+};
+
+export const getAllMyCourses = async (userId) => {
+    try {
+        const res = await request.post(`/user/get-myCourse/${userId}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};

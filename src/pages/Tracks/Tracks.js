@@ -81,7 +81,7 @@ function Tracks() {
                     </>
                 </div>
             ) : (
-                <CourseDetail course={course} />
+                <CourseDetail course={course} userId={currentUser._id} pathName={slug} />
             )}
         </>
     );

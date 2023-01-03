@@ -6,14 +6,19 @@ import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } fr
 import CourseCurriculum from './CourseCurriculum';
 import { useEffect, useState } from 'react';
 import PreviewCourse from './PreviewCourse';
+import { registerCourse } from '~/services/apiAuth';
+import { useDispatch } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
-function CourseDetail({ course }) {
+function CourseDetail({ course, userId, pathName }) {
     const [numberTime, setNumberTime] = useState('');
     const [allLesson, setAllLesson] = useState(0);
     const [allChapter, setAllChapter] = useState([]);
     const [modalPrev, setModalPrev] = useState(false);
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
         setAllChapter(course.chapter);
     }, [course]);
@@ -39,6 +44,15 @@ function CourseDetail({ course }) {
             setNumberTime(`${hours} giờ ${minutes} phút`);
         }
     }, [allChapter]);
+
+    const handleRegisterCourse = async () => {
+        if ((userId, pathName)) {
+            const result = await registerCourse(pathName, userId, dispatch);
+            if (result.errCode === 0) {
+                window.location.reload();
+            }
+        }
+    };
 
     return (
         <DefaultLayout>
@@ -152,7 +166,9 @@ function CourseDetail({ course }) {
                                 <p>Xem giới thiệu khóa học</p>
                             </div>
                             <h4>{course.price > 0 ? 'PRO' : 'Miễn phí'}</h4>
-                            <button className={cx('btn-register')}>ĐĂNG KÝ HỌC</button>
+                            <button className={cx('btn-register')} onClick={handleRegisterCourse}>
+                                ĐĂNG KÝ HỌC
+                            </button>
 
                             <ul>
                                 <li>
