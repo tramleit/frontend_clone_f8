@@ -7,6 +7,7 @@ const cx = classNames.bind(styles);
 
 function VideoTrack({ status }) {
     const lesson = useSelector((state) => state.lesson?.currentLesson);
+    const modalComment = useSelector((state) => state.modun.modalComment.status);
 
     return (
         <div className={status ? cx('wrapper') : cx('wrapper', 'active')}>
@@ -15,7 +16,7 @@ function VideoTrack({ status }) {
                     <ReactPlayer
                         width="100%"
                         height="100%"
-                        playing
+                        playing={!modalComment}
                         controls
                         light={lesson?.thumbNail}
                         url={`https://www.youtube.com/watch?v=${lesson?.urlVideo}`}

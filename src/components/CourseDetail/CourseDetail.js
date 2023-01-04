@@ -107,8 +107,8 @@ function CourseDetail({ course, userId, pathName }) {
                             </div>
 
                             <div className={cx('course-curriculum')}>
-                                {course.chapter?.map((chapters) => (
-                                    <CourseCurriculum key={chapters._id} chapters={chapters} />
+                                {course.chapter?.map((chapters, index) => (
+                                    <CourseCurriculum key={chapters._id} chapters={chapters} index={index} />
                                 ))}
                             </div>
                         </div>

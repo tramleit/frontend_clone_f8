@@ -6,7 +6,7 @@ import styles from './CourseCurriculum.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CourseCurriculum({ chapters }) {
+function CourseCurriculum({ chapters, index }) {
     const [activeItem, setActiveIcon] = useState(false);
 
     return (
@@ -16,7 +16,9 @@ function CourseCurriculum({ chapters }) {
                     <div className={cx('heading')}>
                         <div className={activeItem ? cx('title', 'active') : cx('title')}>
                             <span className={cx('name-chapter')}>
-                                <strong>{chapters.nameChapter}</strong>
+                                <strong>
+                                    {index + 1}. {chapters.nameChapter}
+                                </strong>
                             </span>
                             <div className={cx('number-lesson')}>{chapters.lesson.length} bài học</div>
                         </div>

@@ -102,8 +102,8 @@ function Posts() {
                                 </div>
 
                                 <div className={cx('tags-post')}>
-                                    {post?.tags.map((tag) => (
-                                        <Link to={`/blog/tag/${tag}`} className={cx('tags')}>
+                                    {post?.tags.map((tag, index) => (
+                                        <Link to={`/blog/tag/${tag}`} className={cx('tags')} key={index}>
                                             {tag}
                                         </Link>
                                     ))}
@@ -113,8 +113,8 @@ function Posts() {
                                     <h3 className={cx('same-title')}>Bài đăng cùng tác giả</h3>
 
                                     <ul className={cx('same-list')}>
-                                        {post?.author.myBlogs.slice(-5).map((blog) => (
-                                            <li>
+                                        {post?.author.myBlogs.slice(-5).map((blog, index) => (
+                                            <li key={index}>
                                                 <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
                                             </li>
                                         ))}

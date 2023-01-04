@@ -26,11 +26,22 @@
 
         .text-editor {
             margin-top: 16px;
+            font-size: 1.8rem;
 
             p img {
                 display: block;
                 margin: 16px auto;
                 cursor: pointer;
+            }
+
+            a[href] {
+                color: var(--color-primary);
+                text-decoration: underline;
+            }
+
+            & > div > div {
+                border-radius: 6px;
+                position: static !important;
             }
         }
     }

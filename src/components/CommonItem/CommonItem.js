@@ -19,9 +19,8 @@ function CommonItem({
     author,
     dataVideo,
     readingTime,
-    styles,
+    styles = null,
 }) {
-    console.log('styles: ', styles);
     return (
         <div className={cx('wrapper')} style={styles}>
             <div className={cx('item-course')}>

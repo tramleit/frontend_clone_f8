@@ -39,10 +39,11 @@ function Tracks() {
                 setCourse(result.data);
 
                 // Kiểm tra xem nếu id bài hiện tại và id bài đang chọn khác nhau và người dùng chưa đăng ký khóa học thì chuyển về bài đầu của khóa học
-                if (currentLesson) {
-                    if (currentLesson._id !== lessonId && currentUser.myCourses.includes(result.data._id)) {
-                        navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
-                    }
+                if (
+                    (currentLesson?._id !== lessonId && currentUser.myCourses.includes(result.data._id)) ||
+                    !currentLesson?._id
+                ) {
+                    navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
                 }
             } else {
                 alert('Lỗi gọi api lấy khóa học');

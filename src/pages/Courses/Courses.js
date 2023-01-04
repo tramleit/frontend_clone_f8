@@ -68,7 +68,7 @@ function Courses() {
                                 student={course.userLearning}
                                 name={course.name}
                                 image={course.image}
-                                pathName={course.pathName}
+                                pathName={course.slug}
                             />
                         ))}
                     </div>
