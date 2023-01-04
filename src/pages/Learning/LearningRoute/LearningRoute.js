@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CoursesPro from '~/components/CoursesPro';
 import Heading from '~/components/Heading';
 import { getLearningRouteBySlug } from '~/services/apiCourse';
 import LearningPath from './LearningPath';
@@ -35,6 +36,8 @@ function LearningRoute() {
                     {route?.groups.map((group) => (
                         <LearningPath key={group._id} group={group} />
                     ))}
+
+                    <CoursesPro />
                 </div>
             </div>
         </div>

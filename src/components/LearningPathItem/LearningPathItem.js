@@ -1,6 +1,5 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { IconCourse } from '~/assets/image';
 import CircularProgressBar from '../CircularProgressBar';
 import styles from './LearningPathItem.module.scss';
 

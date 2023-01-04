@@ -1,20 +1,19 @@
 import classNames from 'classnames/bind';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import styles from './SuggestionBox.module.scss';
 
 const cx = classNames.bind(styles);
 
 function SuggestionBox({ title, desc, path, nameBtn }) {
+    console.log('path: ', path);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info')}>
                 <h2>{title}</h2>
                 <p>{desc}</p>
                 {path === '/learning' ? (
-                    <RouterLink to={path} target="_blank" rel="noreferrer">
-                        {nameBtn}
-                    </RouterLink>
+                    <Link to={path}>{nameBtn}</Link>
                 ) : (
                     <a href={path} target="_blank" rel="noreferrer">
                         {nameBtn}

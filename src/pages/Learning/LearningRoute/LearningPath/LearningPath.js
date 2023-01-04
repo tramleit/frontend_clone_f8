@@ -7,7 +7,6 @@ const cx = classNames.bind(styles);
 
 function LearningPath({ group }) {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    console.log('currentUser: ', currentUser);
 
     return (
         <div className={cx('wrapper')}>
@@ -32,7 +31,6 @@ function LearningPath({ group }) {
                                         <span className={cx('free')}>{course.price > 0 ? 'Pro' : 'Miễn phí'}</span>
                                     </Link>
                                 </div>
-                                {console.log(course)}
                                 <p className={cx('desc-course')}>{course.description}</p>
                                 <Link className={cx('btn-course')} to={`/courses/${course.slug}`}>
                                     {currentUser.myCourses.includes(course._id) ? 'Tiếp tục học' : 'Xem khóa học'}

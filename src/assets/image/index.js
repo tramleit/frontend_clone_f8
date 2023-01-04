@@ -8,14 +8,3 @@ export const Image = {
     imageLearning: require('./imageLearning.png'),
     coverProfile: require('./cover-profile.png'),
 };
-
-export const IconCourse = {
-    iconKTNM: require('./ktnm.png'),
-    iconHTML: require('./html.png'),
-    iconCSS: require('./css.png'),
-    iconResponsive: require('./responsive.png'),
-    iconJs: require('./javascript.png'),
-    iconUbuntu: require('./ubuntu.png'),
-    iconReact: require('./reactjs.png'),
-    iconNode: require('./nodejs.png'),
-};
