@@ -4,7 +4,7 @@ import styles from './PreviewCourse.module.scss';
 
 const cx = classNames.bind(styles);
 
-function PreviewCourse({ modalPrev, setModalPrev }) {
+function PreviewCourse({ course, modalPrev, setModalPrev }) {
     return (
         <div className={modalPrev ? cx('wrapper') : cx('wrapper', 'active')} onClick={() => setModalPrev(false)}>
             <div className={cx('container')}>
@@ -16,7 +16,7 @@ function PreviewCourse({ modalPrev, setModalPrev }) {
                             </div>
 
                             <h4>Giới thiệu khóa học</h4>
-                            <h3>Kiến thức nhập môn IT</h3>
+                            <h3>{course.name}</h3>
 
                             <div className={cx('video')}>
                                 <div className={cx('play')}>
@@ -25,7 +25,7 @@ function PreviewCourse({ modalPrev, setModalPrev }) {
                                         height="100%"
                                         playing={modalPrev}
                                         controls
-                                        url="https://www.youtube.com/watch?v=M62l1xA5Eu8"
+                                        url={`https://www.youtube.com/watch?v=${course.video}`}
                                     />
                                 </div>
                             </div>

@@ -27,7 +27,6 @@ function Tracks() {
     const slug = useParams().slug;
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-
     const currentLesson = useSelector((state) => state.lesson?.currentLesson);
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
     const lessonId = new URLSearchParams(location.search).get('id');
@@ -39,8 +38,11 @@ function Tracks() {
             if (result.errCode === 0) {
                 setCourse(result.data);
 
-                if (currentLesson._id !== lessonId && currentUser.myCourses.includes(result.data._id)) {
-                    navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
+                // Kiểm tra xem nếu id bài hiện tại và id bài đang chọn khác nhau và người dùng chưa đăng ký khóa học thì chuyển về bài đầu của khóa học
+                if (currentLesson) {
+                    if (currentLesson._id !== lessonId && currentUser.myCourses.includes(result.data._id)) {
+                        navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
+                    }
                 }
             } else {
                 alert('Lỗi gọi api lấy khóa học');
@@ -63,7 +65,7 @@ function Tracks() {
 
     return (
         <>
-            {currentUser.myCourses.includes(course._id) ? (
+            {currentUser?.myCourses?.includes(course._id) ? (
                 <div className={cx('wrapper')}>
                     <>
                         <HeaderTrack name={course.name} />

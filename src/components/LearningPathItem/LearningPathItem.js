@@ -6,47 +6,31 @@ import styles from './LearningPathItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function LearningPathItem({ title, desc, image, path }) {
+function LearningPathItem({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
                 <div className={cx('info')}>
                     <h3 className={cx('title')}>
-                        <Link>{title}</Link>
+                        <Link>{data.title}</Link>
                     </h3>
-                    <p className={cx('desc')}>{desc}</p>
+                    <p className={cx('desc')}>{data.description}</p>
                 </div>
                 <div className={cx('thumb')}>
                     <Link>
-                        <img src={image} alt={title} />
+                        <img src={data.image} alt={data.title} />
                     </Link>
                 </div>
             </div>
 
             <div className={cx('list-course')}>
-                {title === 'Lộ trình học Front-end' ? (
-                    <>
-                        <CircularProgressBar content="Kiến Thức Nhập Môn IT" image={IconCourse.iconKTNM} />
-                        <CircularProgressBar content="HTML CSS từ Zero đến Hero" image={IconCourse.iconHTML} />
-                        <CircularProgressBar content="Responsive Với Grid System" image={IconCourse.iconResponsive} />
-                        <CircularProgressBar content="Lập Trình JavaScript Cơ Bản" image={IconCourse.iconJs} />
-                        <CircularProgressBar content="Lập Trình JavaScript Nâng Cao" image={IconCourse.iconJs} />
-                        <CircularProgressBar content="Làm việc với Terminal & Ubuntu" image={IconCourse.iconUbuntu} />
-                        <CircularProgressBar content="Xây Dựng Website với ReactJS" image={IconCourse.iconReact} />
-                    </>
-                ) : (
-                    <>
-                        <CircularProgressBar content="Kiến Thức Nhập Môn IT" image={IconCourse.iconKTNM} />
-                        <CircularProgressBar content="Lập Trình JavaScript Cơ Bản" image={IconCourse.iconJs} />
-                        <CircularProgressBar content="Lập Trình JavaScript Nâng Cao" image={IconCourse.iconJs} />
-                        <CircularProgressBar content="Làm việc với Terminal & Ubuntu" image={IconCourse.iconUbuntu} />
-                        <CircularProgressBar content="Node & ExpressJS" image={IconCourse.iconNode} />
-                    </>
-                )}
+                {data.courses.map((course) => (
+                    <CircularProgressBar key={course._id} course={course} />
+                ))}
             </div>
 
             <div className={cx('btn-detail')}>
-                <Link to={path}>Xem chi tiết</Link>
+                <Link to={data.slug}>Xem chi tiết</Link>
             </div>
         </div>
     );

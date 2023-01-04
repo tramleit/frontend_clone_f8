@@ -1,17 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Learning.module.scss';
 import Heading from '~/components/Heading';
 import LearningPathItem from '~/components/LearningPathItem';
 import { Image } from '~/assets/image';
 import SuggestionBox from '~/components/SuggestionBox';
+import { getLearningRoute } from '~/services/apiCourse';
 
 const cx = classNames.bind(styles);
 
 function Learning() {
+    const [learningRoute, setLearningRoute] = useState([]);
+
     useEffect(() => {
         document.title = 'Lộ trình học lập trình cho người mới tại F8';
     });
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getLearningRoute();
+
+            if (result.errCode === 0) {
+                setLearningRoute(result.data);
+            } else {
+                alert('Lỗi gọi api lấy lộ trình học');
+            }
+        };
+        fetchApi();
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <Heading
@@ -22,18 +38,9 @@ function Learning() {
 
             <div className={cx('body')}>
                 <div className={cx('content')}>
-                    <LearningPathItem
-                        title="Lộ trình học Front-end"
-                        desc="Lập trình viên Front-end là người xây dựng ra giao diện websites. Trong phần này F8 sẽ chia sẻ cho bạn lộ trình để trở thành lập trình viên Front-end nhé."
-                        image={Image.frontend}
-                        path="/learning/front-end-development"
-                    />
-                    <LearningPathItem
-                        title="Lộ trình học Back-end"
-                        desc="Trái với Front-end thì lập trình viên Back-end là người làm việc với dữ liệu, công việc thường nặng tính logic hơn. Chúng ta sẽ cùng tìm hiểu thêm về lộ trình học Back-end nhé."
-                        image={Image.backend}
-                        path="/learning/back-end-development"
-                    />
+                    {learningRoute.map((route) => (
+                        <LearningPathItem key={route._id} data={route} />
+                    ))}
                 </div>
 
                 <SuggestionBox

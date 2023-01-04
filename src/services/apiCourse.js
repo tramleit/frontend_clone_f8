@@ -48,3 +48,25 @@ export const getAllComments = async (lessonId) => {
         console.log('error: ', error);
     }
 };
+
+export const getLearningRoute = async () => {
+    try {
+        const res = await request.get('/learning/get');
+
+        return res.data;
+    } catch (error) {
+        console.log('error: ', error);
+        return error.response.data;
+    }
+};
+
+export const getLearningRouteBySlug = async (slug) => {
+    try {
+        const res = await request.get(`/learning/get-learning/${slug}`);
+
+        return res.data;
+    } catch (error) {
+        console.log('error: ', error);
+        return error.response.data;
+    }
+};

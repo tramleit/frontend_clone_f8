@@ -9,12 +9,13 @@ import Settings from '~/pages/Settings';
 import Tracks from '~/pages/Tracks';
 import NewPost from '~/pages/NewPost';
 import Posts from '~/pages/Posts';
-import FrontEnd from '~/pages/Learning/FrontEnd';
+import LearningRoute from '~/pages/Learning/LearningRoute';
 
 // Public router
 const publicRoutes = [
     { path: '/', component: Home },
     { path: '/learning', component: Learning },
+    { path: '/learning/:slug', component: LearningRoute },
     { path: '/courses', component: Courses },
     { path: '/courses/:slug', component: Tracks, layout: null },
     { path: '/blog', component: Blog },
@@ -24,7 +25,6 @@ const publicRoutes = [
     { path: '/register', component: Register, layout: null },
     { path: '/@:username', component: Profile },
     { path: '/settings', component: Settings },
-    { path: '/learning/front-end-development', component: FrontEnd },
 ];
 
 const privateRoutes = [];

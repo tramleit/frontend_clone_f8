@@ -196,7 +196,7 @@ function CourseDetail({ course, userId, pathName }) {
                     </div>
                 </div>
             </div>
-            <PreviewCourse modalPrev={modalPrev} setModalPrev={setModalPrev} />
+            <PreviewCourse course={course} modalPrev={modalPrev} setModalPrev={setModalPrev} />
         </DefaultLayout>
     );
 }
