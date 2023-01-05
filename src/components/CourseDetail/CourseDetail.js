@@ -7,17 +7,21 @@ import CourseCurriculum from './CourseCurriculum';
 import { useEffect, useState } from 'react';
 import PreviewCourse from './PreviewCourse';
 import { registerCourse } from '~/services/apiAuth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function CourseDetail({ course, userId, pathName }) {
+function CourseDetail({ course, pathName }) {
     const [numberTime, setNumberTime] = useState('');
     const [allLesson, setAllLesson] = useState(0);
     const [allChapter, setAllChapter] = useState([]);
     const [modalPrev, setModalPrev] = useState(false);
 
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setAllChapter(course.chapter);
@@ -46,11 +50,13 @@ function CourseDetail({ course, userId, pathName }) {
     }, [allChapter]);
 
     const handleRegisterCourse = async () => {
-        if ((userId, pathName)) {
-            const result = await registerCourse(pathName, userId, dispatch);
+        if (currentUser?._id && pathName) {
+            const result = await registerCourse(pathName, currentUser?._id, dispatch);
             if (result.errCode === 0) {
                 window.location.reload();
             }
+        } else {
+            navigate('/login');
         }
     };
 

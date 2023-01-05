@@ -86,7 +86,7 @@ function Search() {
                             {courses.length > 0 && (
                                 <div className={cx('search-heading')}>
                                     <h4>KHÓA HỌC</h4>
-                                    <Link to={`/search/${searchValue}`}>Xem thêm</Link>
+                                    <Link to={`/search/courses?q=${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
                             {courses?.map((course) => (
@@ -96,7 +96,7 @@ function Search() {
                             {blogs.length > 0 && (
                                 <div className={cx('search-heading')}>
                                     <h4>BÀI VIÊT</h4>
-                                    <Link to={`/search/${searchValue}`}>Xem thêm</Link>
+                                    <Link to={`/search/posts?q=${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
                             {blogs?.map((blog) => (
@@ -106,7 +106,7 @@ function Search() {
                             {videos.length > 0 && (
                                 <div className={cx('search-heading')}>
                                     <h4>VIDEO</h4>
-                                    <Link to={`/search/${searchValue}`}>Xem thêm</Link>
+                                    <Link to={`/search/videos?q=${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
                             {videos?.map((video) => (

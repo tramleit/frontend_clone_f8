@@ -33,6 +33,10 @@
                 text-decoration: underline;
             }
 
+            ul {
+                list-style: disc;
+            }
+
             & > div > div {
                 border-radius: 6px;
                 position: static !important;

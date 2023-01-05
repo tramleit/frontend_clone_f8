@@ -104,7 +104,7 @@ function CommonItem({
                 {type === 'blog' && (
                     <div className={cx('author')}>
                         <Link className={cx('avatar-wrap')} to={`/@${author.username}`}>
-                            <div className={cx('avatar')}>
+                            <div className={author?.admin ? cx('avatar', 'admin') : cx('avatar')}>
                                 <img src={author?.avatar !== '' ? author?.avatar : Image.avatar} alt={author?.name} />
                             </div>
                             {author?.admin && <IconCrownUser className={cx('crown-user')} />}
