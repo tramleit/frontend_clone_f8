@@ -7,14 +7,6 @@ const homeReducer = createSlice({
             currentCourses: null,
             error: false,
         },
-        blogs: {
-            currentBlogs: null,
-            error: false,
-        },
-        videos: {
-            currentVideos: null,
-            error: false,
-        },
     },
     reducers: {
         getAllCoursesSuccess: (state, action) => {
@@ -24,32 +16,9 @@ const homeReducer = createSlice({
         getAllCoursesFailed: (state) => {
             state.courses.error = false;
         },
-
-        getAllBlogsSuccess: (state, action) => {
-            state.blogs.currentBlogs = action.payload;
-            state.blogs.error = false;
-        },
-        getAllBlogsFailed: (state) => {
-            state.blogs.error = true;
-        },
-
-        getAllVideosSuccess: (state, action) => {
-            state.videos.currentVideos = action.payload;
-            state.videos.error = false;
-        },
-        getAllVideosFailed: (state) => {
-            state.videos.error = true;
-        },
     },
 });
 
-export const {
-    getAllCoursesSuccess,
-    getAllCoursesFailed,
-    getAllBlogsSuccess,
-    getAllBlogsFailed,
-    getAllVideosSuccess,
-    getAllVideosFailed,
-} = homeReducer.actions;
+export const { getAllCoursesSuccess, getAllCoursesFailed } = homeReducer.actions;
 
 export default homeReducer.reducer;

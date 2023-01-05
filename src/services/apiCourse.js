@@ -41,11 +41,10 @@ export const getLessonById = async (lessonId, dispatch) => {
 export const getAllComments = async (lessonId) => {
     try {
         const res = await request.post('/course/comment/get', { lessonId });
-        console.log('res: ', res);
 
         return res.data.data;
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
 
@@ -55,7 +54,6 @@ export const getLearningRoute = async () => {
 
         return res.data;
     } catch (error) {
-        console.log('error: ', error);
         return error.response.data;
     }
 };
@@ -66,7 +64,6 @@ export const getLearningRouteBySlug = async (slug) => {
 
         return res.data;
     } catch (error) {
-        console.log('error: ', error);
         return error.response.data;
     }
 };

@@ -1,17 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Heading from '~/components/Heading';
 import PostItem from '~/components/PostItem';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Pagination from '~/components/Pagination';
+import { getPageBlogs } from '~/services/apiBlog';
 
 import styles from './Blog.module.scss';
-import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 function Blog() {
-    const currentPage = useSelector((state) => state.pageBlog.currentPageBlogs);
+    const [dataPages, setDataPages] = useState([]);
+    const [totalPage, setTotalPage] = useState(0);
+
+    const location = useLocation();
+    const page = new URLSearchParams(location.search).get('page');
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getPageBlogs(page || 1);
+
+            if (result.errCode === 0) {
+                setDataPages(result.data);
+                setTotalPage(result.totalPages);
+            } else {
+                alert('Lỗi lấy dữ liệu bài viết');
+            }
+        };
+        fetchApi();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
 
     useEffect(() => {
         document.title = 'Danh sách bài viết về lĩnh vực IT';
@@ -27,11 +47,11 @@ function Blog() {
             <div className={cx('container')}>
                 <div className={cx('left')}>
                     <div className={cx('content-left')}>
-                        {currentPage?.map((post) => (
+                        {dataPages?.map((post) => (
                             <PostItem key={post._id} dataPost={post} />
                         ))}
 
-                        <Pagination />
+                        <Pagination totalPage={totalPage} />
                     </div>
                 </div>
                 <div className={cx('right')}>

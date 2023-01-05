@@ -16,7 +16,11 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResult, setSearchResult] = useState([]);
+
+    const [courses, setCourses] = useState([]);
+    const [blogs, setBlogs] = useState([]);
+    const [videos, setVideos] = useState([]);
+
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -25,7 +29,6 @@ function Search() {
 
     useEffect(() => {
         if (!debounced.trim()) {
-            setSearchResult([]);
             return;
         }
 
@@ -35,11 +38,13 @@ function Search() {
             const fetchApi = async () => {
                 const result = await search(debounced);
 
-                if (!result) {
-                    setSearchResult([]);
+                if (result.errCode === 0) {
+                    setCourses(result.data.courses);
+                    setBlogs(result.data.blogs);
+                    setVideos(result.data.videos);
+
                     setLoading(false);
                 } else {
-                    setSearchResult(result.data);
                     setLoading(false);
                 }
             };
@@ -50,7 +55,6 @@ function Search() {
 
     const handleClearInput = () => {
         setSearchValue('');
-        setSearchResult([]);
         inputRef.current.focus();
     };
 
@@ -74,19 +78,39 @@ function Search() {
                                     <FaSearch className={cx('icon-search-result')} />
                                 )}
                                 <p>
-                                    {searchResult.length < 1
+                                    {courses.length < 1 && blogs.length < 1 && videos.length < 1
                                         ? `Không có kết quả nào ${searchValue === '' ? '' : `cho '${searchValue}'`}`
                                         : `Kết quả cho '${searchValue}'`}
                                 </p>
                             </div>
-                            {!searchResult.length < 1 && (
+                            {courses.length > 0 && (
                                 <div className={cx('search-heading')}>
                                     <h4>KHÓA HỌC</h4>
                                     <Link to={`/search/${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
-                            {searchResult?.map((course) => (
-                                <SearchItem key={course._id} data={course} />
+                            {courses?.map((course) => (
+                                <SearchItem handleHideResult={handleHideResult} key={course._id} data={course} />
+                            ))}
+
+                            {blogs.length > 0 && (
+                                <div className={cx('search-heading')}>
+                                    <h4>BÀI VIÊT</h4>
+                                    <Link to={`/search/${searchValue}`}>Xem thêm</Link>
+                                </div>
+                            )}
+                            {blogs?.map((blog) => (
+                                <SearchItem handleHideResult={handleHideResult} key={blog._id} data={blog} />
+                            ))}
+
+                            {videos.length > 0 && (
+                                <div className={cx('search-heading')}>
+                                    <h4>VIDEO</h4>
+                                    <Link to={`/search/${searchValue}`}>Xem thêm</Link>
+                                </div>
+                            )}
+                            {videos?.map((video) => (
+                                <SearchItem handleHideResult={handleHideResult} key={video._id} data={video} />
                             ))}
                         </div>
                     </div>

@@ -103,13 +103,13 @@ function CommonItem({
 
                 {type === 'blog' && (
                     <div className={cx('author')}>
-                        <Link className={cx('avatar-wrap')}>
+                        <Link className={cx('avatar-wrap')} to={`/@${author.username}`}>
                             <div className={cx('avatar')}>
                                 <img src={author?.avatar !== '' ? author?.avatar : Image.avatar} alt={author?.name} />
                             </div>
                             {author?.admin && <IconCrownUser className={cx('crown-user')} />}
                         </Link>
-                        <Link className={cx('name-author')}>
+                        <Link className={cx('name-author')} to={`/@${author.username}`}>
                             <span className={cx('user-name')}>{author?.name}</span>
                             {author?.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                             <span className={cx('dot')}>·</span>

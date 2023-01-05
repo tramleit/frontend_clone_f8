@@ -8,18 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getAllVideos } from '~/services/apiVideo';
 import { getAllCourses } from '~/services/apiCourse';
-import { getAllBlogs } from '~/services/apiBlog';
+import { getDataHomePage } from '~/services/apiSearch';
 
 const cx = classNames.bind(styles);
 
 function Home() {
     const [countStudent, setCountStudent] = useState(0);
+    const [blogs, setBlogs] = useState([]);
+    const [videos, setVideos] = useState([]);
 
     const courses = useSelector((state) => state.home.courses?.currentCourses);
-    const blogs = useSelector((state) => state.home.blogs.currentBlogs);
-    const videos = useSelector((state) => state.home.videos.currentVideos);
 
     const dispatch = useDispatch();
 
@@ -40,8 +39,13 @@ function Home() {
     useEffect(() => {
         const fetchApi = async () => {
             await getAllCourses(dispatch);
-            await getAllBlogs(dispatch);
-            await getAllVideos(dispatch);
+
+            const dataHome = await getDataHomePage();
+
+            if (dataHome.errCode === 0) {
+                setBlogs(dataHome.data.homeBlogs);
+                setVideos(dataHome.data.homeVideos);
+            }
         };
         fetchApi();
 
@@ -121,7 +125,7 @@ function Home() {
                     <div className={cx('heading')}>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>Bài viết nổi bật</h4>
-                            <Link className={cx('view-all')} to="/blog">
+                            <Link className={cx('view-all')} to="/blog?page=1">
                                 Xem tất cả
                                 <FontAwesomeIcon icon={faChevronRight} />
                             </Link>

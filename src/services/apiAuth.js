@@ -88,7 +88,7 @@ export const registerCourse = async (pathName, userId, dispatch) => {
 
         return { ...other };
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
 

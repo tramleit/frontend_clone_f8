@@ -6,6 +6,6 @@ export const getAllSlideShow = async () => {
 
         return res;
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };

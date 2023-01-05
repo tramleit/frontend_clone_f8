@@ -6,7 +6,6 @@ import styles from './SuggestionBox.module.scss';
 const cx = classNames.bind(styles);
 
 function SuggestionBox({ title, desc, path, nameBtn }) {
-    console.log('path: ', path);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info')}>

@@ -1,40 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './Pagination.module.scss';
-import { useDispatch } from 'react-redux';
-import { getPageBlogs } from '~/services/apiBlog';
 
 const cx = classNames.bind(styles);
 
-function Pagination() {
+function Pagination({ totalPage }) {
     const savedPage = localStorage.getItem('currentPage');
     const initialPage = savedPage ? parseInt(savedPage, 10) : 1;
 
-    const [totalPage, setTotalPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(initialPage);
-
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const page = new URLSearchParams(location.search).get('page');
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getPageBlogs(page, dispatch);
-
-            if (result.errCode === 0) {
-                setTotalPage(result.totalPages);
-            } else {
-                alert('Lỗi lấy dữ liệu bài viết');
-            }
-        };
-        fetchApi();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
