@@ -112,8 +112,7 @@
                 color: #505050;
                 font-size: 1.5rem;
                 line-height: 1.6;
-                margin: 4px 0 15px 0;
-                white-space: pre-wrap;
+                margin-top: 4px;
             }
 
             .info {
@@ -148,6 +147,7 @@
                 overflow: hidden;
                 text-align: center;
                 width: 200px;
+                max-height: 170px;
             }
         }
     }

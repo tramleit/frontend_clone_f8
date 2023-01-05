@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 import './App.css';
 
 function App() {
-    const isFetching = useSelector((state) => state.auth.login.isFetching);
+    const isLoading = useSelector((state) => state.modun.loading?.status);
 
     return (
         <Router>
             <div className="App">
-                {isFetching && <Loading />}
+                {isLoading && <Loading />}
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;

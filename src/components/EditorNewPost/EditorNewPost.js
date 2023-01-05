@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
+import { useDispatch } from 'react-redux';
 import 'react-markdown-editor-lite/lib/index.css';
 import { handleUploadImage } from '~/services/apiImage';
 
@@ -11,6 +12,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
     const [html, setHtml] = useState('');
     const [image, setImage] = useState('');
 
+    const dispatch = useDispatch();
     const handleEditorChange = ({ html, text }) => {
         setText(text);
         setHtml(html);
@@ -26,7 +28,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
         const formData = new FormData();
         formData.append('image', file);
 
-        const result = await handleUploadImage(formData);
+        const result = await handleUploadImage(formData, dispatch);
         if (result.errCode === 0) {
             setImage(result.data.urlImage);
             return result.data.urlImage;
@@ -37,7 +39,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
 
     return (
         <MdEditor
-            style={{ height: '100vh' }}
+            style={{ height: '100vh', fontSize: '1.6rem' }}
             renderHTML={(text) => mdParser.render(text)}
             onChange={handleEditorChange}
             onImageUpload={handleUpload}

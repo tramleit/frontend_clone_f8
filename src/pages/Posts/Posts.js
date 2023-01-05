@@ -62,7 +62,9 @@ function Posts() {
                                                 alt={post?.author.name}
                                             />
                                         </div>
-                                        {post?.author.admin && <IconCrownUser className={cx('crown')} />}
+                                        {post?.author.admin && (
+                                            <IconCrownUser width="1.7rem" height="1.7rem" className={cx('crown')} />
+                                        )}
                                     </Link>
 
                                     <div className={cx('info-user')}>

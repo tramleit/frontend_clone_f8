@@ -1,6 +1,7 @@
 import request from '~/utils/request';
 import { getAllCoursesFailed, getAllCoursesSuccess } from '~/redux/reducer/homeReducer';
 import { getCurrentLesson } from '~/redux/reducer/lessonReducer';
+import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 
 export const getAllCourses = async (dispatch) => {
     try {
@@ -24,6 +25,7 @@ export const getCourseByPathName = async (pathName) => {
 };
 
 export const getLessonById = async (lessonId, dispatch) => {
+    dispatch(loadingStart());
     try {
         const res = await request.get('/course/lesson', {
             params: {
@@ -31,6 +33,7 @@ export const getLessonById = async (lessonId, dispatch) => {
             },
         });
         dispatch(getCurrentLesson(res.data.data));
+        dispatch(loadingSuccess());
 
         return res.data;
     } catch (error) {

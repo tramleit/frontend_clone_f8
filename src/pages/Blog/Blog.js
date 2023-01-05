@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import Heading from '~/components/Heading';
 import PostItem from '~/components/PostItem';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '~/components/Pagination';
 import { getPageBlogs } from '~/services/apiBlog';
 
@@ -14,18 +14,25 @@ function Blog() {
     const [dataPages, setDataPages] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
 
+    const navigate = useNavigate();
+
     const location = useLocation();
     const page = new URLSearchParams(location.search).get('page');
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getPageBlogs(page || 1);
+            if (!page) {
+                navigate('/blog?page=1');
+            }
+            if (page) {
+                const result = await getPageBlogs(page);
 
-            if (result.errCode === 0) {
-                setDataPages(result.data);
-                setTotalPage(result.totalPages);
-            } else {
-                alert('Lỗi lấy dữ liệu bài viết');
+                if (result.errCode === 0) {
+                    setDataPages(result.data);
+                    setTotalPage(result.totalPages);
+                } else {
+                    alert('Lỗi lấy dữ liệu bài viết');
+                }
             }
         };
         fetchApi();

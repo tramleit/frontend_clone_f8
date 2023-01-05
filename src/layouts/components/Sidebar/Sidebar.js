@@ -46,7 +46,7 @@ function Sidebar() {
                     <li className={cx('item')}>
                         <NavLink
                             className={(nav) => cx('link', { active: nav.isActive })}
-                            to="/blog?page=1"
+                            to="/blog"
                             onClick={() => localStorage.setItem('currentPage', 1)}
                         >
                             <FontAwesomeIcon icon={faNewspaper} />

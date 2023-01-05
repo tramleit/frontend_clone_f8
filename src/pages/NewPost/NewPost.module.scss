@@ -28,12 +28,6 @@
             margin-top: 16px;
             font-size: 1.8rem;
 
-            p img {
-                display: block;
-                margin: 16px auto;
-                cursor: pointer;
-            }
-
             a[href] {
                 color: var(--color-primary);
                 text-decoration: underline;
@@ -42,6 +36,32 @@
             & > div > div {
                 border-radius: 6px;
                 position: static !important;
+            }
+
+            section {
+                textarea {
+                    font-size: 1.5rem !important;
+                    line-height: 1.8 !important;
+                }
+            }
+
+            hr {
+                background-color: #ddd;
+                border: transparent;
+                height: 1px;
+                margin: 40px 0;
+            }
+
+            blockquote {
+                border-left: 3px solid var(--color-primary);
+                color: #757575;
+                margin-left: 0;
+                padding: 0 0 2px 20px;
+                margin-right: 40px;
+
+                p {
+                    margin: 0;
+                }
             }
         }
     }

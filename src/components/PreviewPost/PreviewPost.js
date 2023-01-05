@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './PreviewPost.module.scss';
 import { useRef, useState } from 'react';
 import { handleUploadImage } from '~/services/apiImage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleCreateNewPost } from '~/services/apiBlog';
 import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
@@ -20,6 +20,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
     const [image, setImage] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const inputRef = useRef();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -37,10 +38,10 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
             imagePreview: image,
             tags: tags,
         };
-        const result = await handleCreateNewPost(newPost);
+        const result = await handleCreateNewPost(newPost, dispatch);
 
         if (result.errCode === 0) {
-            navigate('/');
+            navigate(`/blog/${result.data.slug}`);
         } else {
             alert(`Lỗi : ${result.message}`);
         }
@@ -50,7 +51,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
 
-        const result = await handleUploadImage(formData);
+        const result = await handleUploadImage(formData, dispatch);
 
         if (result.errCode === 0) {
             setImage(result.data.urlImage);

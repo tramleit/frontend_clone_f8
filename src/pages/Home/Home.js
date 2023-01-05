@@ -133,7 +133,7 @@ function Home() {
                     </div>
 
                     <div className={cx('list')}>
-                        {blogs?.map((blog) => (
+                        {blogs?.slice(-8).map((blog) => (
                             <CommonItem
                                 type="blog"
                                 key={blog._id}
@@ -159,7 +159,7 @@ function Home() {
                     </div>
 
                     <div className={cx('list')}>
-                        {videos?.map((video) => (
+                        {videos?.slice(-8).map((video) => (
                             <CommonItem
                                 type="video"
                                 key={video._id}

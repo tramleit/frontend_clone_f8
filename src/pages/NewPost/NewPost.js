@@ -27,7 +27,7 @@ function NewPost() {
     const wordCount = (words.length / 60).toFixed();
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const author = currentUser._id;
+    const author = currentUser?._id;
 
     const handleGetDataNewPost = ({ text, html }) => {
         setText(text);

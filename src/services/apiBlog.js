@@ -1,11 +1,15 @@
+import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 import * as request from '~/utils/request';
 
-export const handleCreateNewPost = async (newPost) => {
+export const handleCreateNewPost = async (newPost, dispatch) => {
+    dispatch(loadingStart());
     try {
         const res = await request.post('/blog/create', newPost);
 
+        dispatch(loadingSuccess());
         return res;
     } catch (error) {
+        dispatch(loadingSuccess());
         return error.response.data;
     }
 };

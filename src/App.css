@@ -182,3 +182,9 @@ body .slick-dots li.slick-active button:before {
     top: 0;
     width: 20px;
 }
+
+.custom-html-style p {
+    font-size: 16px;
+    line-height: 2;
+    margin: 16px 0;
+}

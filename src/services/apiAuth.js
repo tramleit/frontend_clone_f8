@@ -1,63 +1,52 @@
 import * as request from '~/utils/request';
-import {
-    loginFailed,
-    loginStart,
-    loginSuccess,
-    logoutFailed,
-    logoutStart,
-    logoutSuccess,
-    registerFailed,
-    registerStart,
-    registerSuccess,
-} from '~/redux/reducer/authReducer';
+import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/authReducer';
+import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 
 export const loginUser = async (user, dispatch, navigate) => {
-    dispatch(loginStart());
+    dispatch(loadingStart());
     try {
         const res = await request.post('/user/login', user);
+
         dispatch(loginSuccess(res.data));
+        dispatch(loadingSuccess());
         navigate('/');
         return res;
     } catch (error) {
-        dispatch(loginFailed());
+        dispatch(loadingSuccess());
         return error.response;
     }
 };
 
 export const RegisterNewUser = async (newUser, dispatch, navigate) => {
-    dispatch(registerStart());
+    dispatch(loadingStart());
     try {
         const res = await request.post('/user/register', newUser);
+        console.log('res: ', res);
+
         dispatch(registerSuccess(res.data));
+        dispatch(loadingSuccess());
         navigate('/');
         return res;
     } catch (error) {
-        dispatch(registerFailed());
+        dispatch(loadingSuccess());
         return error.response;
     }
 };
 
 export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
-    dispatch(logoutStart());
+    dispatch(loadingStart());
     try {
         await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
             headers: {
                 token: token,
             },
         });
+
         dispatch(logoutSuccess());
+        dispatch(loadingSuccess());
         navigate('/login');
     } catch (error) {
-        dispatch(logoutFailed());
-    }
-};
-
-export const getUserById = async (idUser) => {
-    try {
-        const res = await request.get(`/user/${idUser}`);
-        return res;
-    } catch (error) {
-        return error;
+        dispatch(loadingSuccess());
     }
 };
 
@@ -81,13 +70,17 @@ export const handlePostComment = async (newComment) => {
 };
 
 export const registerCourse = async (pathName, userId, dispatch) => {
+    dispatch(loadingStart());
     try {
         const res = await request.post(`/user/register-course/${pathName}`, { userId });
+
         dispatch(loginSuccess(res.data));
+        dispatch(loadingSuccess());
         const { data, ...other } = res;
 
         return { ...other };
     } catch (error) {
+        dispatch(loadingSuccess());
         return error.response.data;
     }
 };

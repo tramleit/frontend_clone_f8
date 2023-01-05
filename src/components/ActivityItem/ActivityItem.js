@@ -7,6 +7,7 @@ import { Image } from '~/assets/image';
 const cx = classNames.bind(styles);
 
 function ActivityItem({ info, data }) {
+    console.log('data: ', data);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
@@ -17,8 +18,7 @@ function ActivityItem({ info, data }) {
                     <Link className={cx('author')}>
                         <span>{info.name}</span>
                     </Link>
-                    <span className={cx('reaction')}>&#128518;</span>
-                    <span>đã bình luận bài viết:</span>
+                    <span> đã bình luận bài viết:</span>
                     <Link className={cx('message')}>
                         <span>{data.contentMarkdown}</span>
                     </Link>

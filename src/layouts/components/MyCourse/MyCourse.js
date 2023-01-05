@@ -5,7 +5,7 @@ import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './MyCourse.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllMyCourses } from '~/services/apiAuth';
 
 const cx = classNames.bind(styles);
@@ -44,12 +44,12 @@ function MyCourse() {
                             {allMyCourse?.length > 0 ? (
                                 allMyCourse.map((course) => (
                                     <div className={cx('item')} key={course._id}>
-                                        <Link to={`/courses/${course.pathName}`}>
+                                        <Link to={`/courses/${course.slug}`}>
                                             <img className={cx('img')} src={course.image} alt={course.name} />
                                         </Link>
                                         <div className={cx('info')}>
                                             <h5 className={cx('info-title')}>
-                                                <Link to={`/courses/${course.pathName}`}>{course.name}</Link>
+                                                <Link to={`/courses/${course.slug}`}>{course.name}</Link>
                                             </h5>
                                             <p className={cx('complete')}>Vừa học xong</p>
                                             <Tippy content="1%" placement="bottom">
