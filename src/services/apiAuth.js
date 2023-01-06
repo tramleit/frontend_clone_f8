@@ -21,7 +21,6 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     dispatch(loadingStart());
     try {
         const res = await request.post('/user/register', newUser);
-        console.log('res: ', res);
 
         dispatch(registerSuccess(res.data));
         dispatch(loadingSuccess());

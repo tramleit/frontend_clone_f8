@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
-
-import styles from './PostItem.module.scss';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 import { Image } from '~/assets/image';
+
+import styles from './PostItem.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +18,7 @@ function PostItem({ dataPost }) {
                 <div className={cx('author')}>
                     <Link to={`/@${dataPost.author.username}`}>
                         <div className={cx('avatar-wrap')}>
-                            <div className={cx('avatar')}>
+                            <div className={dataPost.author.admin ? cx('avatar', 'admin') : cx('avatar')}>
                                 <img
                                     src={dataPost.author.avatar ? dataPost.author.avatar : Image.avatar}
                                     alt={dataPost.author.name}

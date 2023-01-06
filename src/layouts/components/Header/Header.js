@@ -18,7 +18,7 @@ function Header({ post, activePublic, dataNewPost }) {
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const checkPathProfile = pathName.includes('/@');
-    const checkPathNewPost = pathName.includes('/new-post');
+    const checkPathNewPost = pathName.includes('/new-post') || pathName.includes('/search');
 
     return (
         <div className={checkPathProfile ? cx('wrapper', 'active') : cx('wrapper')}>

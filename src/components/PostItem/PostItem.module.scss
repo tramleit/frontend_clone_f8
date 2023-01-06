@@ -20,13 +20,16 @@
                 position: relative;
 
                 .avatar {
-                    background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
                     padding: 3px;
                     position: relative;
                     align-items: center;
                     border-radius: 50%;
                     display: flex;
                     justify-content: center;
+
+                    &.admin {
+                        background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
+                    }
 
                     img {
                         border-radius: 50%;

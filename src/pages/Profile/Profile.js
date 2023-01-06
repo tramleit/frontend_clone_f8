@@ -15,7 +15,6 @@ const cx = classNames.bind(styles);
 function Profile() {
     const [upload, setUpload] = useState(false);
     const [infoUser, setInfoUser] = useState(null);
-    console.log('infoUser: ', infoUser);
     const { username } = useParams();
 
     useEffect(() => {
