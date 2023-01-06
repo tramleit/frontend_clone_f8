@@ -56,6 +56,10 @@ function Search() {
     const handleClearInput = () => {
         setSearchValue('');
         inputRef.current.focus();
+
+        setCourses([]);
+        setBlogs([]);
+        setVideos([]);
     };
 
     const handleHideResult = () => {

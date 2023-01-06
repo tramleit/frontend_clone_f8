@@ -11,6 +11,7 @@ import NewPost from '~/pages/NewPost';
 import Posts from '~/pages/Posts';
 import LearningRoute from '~/pages/Learning/LearningRoute';
 import Search from '~/pages/Search';
+import NotFound from '~/pages/NotFound';
 
 // Public router
 const publicRoutes = [
@@ -28,6 +29,7 @@ const publicRoutes = [
     { path: '/settings', component: Settings },
     { path: '/search', component: Search },
     { path: '/search/:slug', component: Search },
+    { path: '*', component: NotFound, layout: null },
 ];
 
 const privateRoutes = [];

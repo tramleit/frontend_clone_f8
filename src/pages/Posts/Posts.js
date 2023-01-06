@@ -21,6 +21,7 @@ function Posts() {
         const fetchApi = async () => {
             const result = await getPostBySlug(slug);
             setPost(result);
+            document.title = result.title;
         };
         fetchApi();
     }, [slug]);

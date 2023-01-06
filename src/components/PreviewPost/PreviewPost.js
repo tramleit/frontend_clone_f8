@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const options = [
-    { value: 'Front-end / Mobile apps', label: 'Front-end / Mobile apps' },
-    { value: 'Back-end / Devops', label: 'Back-end / Devops' },
-    { value: 'UI / UX / Design', label: 'UI / UX / Design' },
-    { value: 'Others', label: 'Others' },
+    { value: 'front-end-mobile-apps', label: 'Front-end / Mobile apps' },
+    { value: 'back-end-devops', label: 'Back-end / Devops' },
+    { value: 'ui-ux-design', label: 'UI / UX / Design' },
+    { value: 'others', label: 'Others' },
 ];
 
 function PreviewPost({ setActivePrevPost, dataNewPost }) {
