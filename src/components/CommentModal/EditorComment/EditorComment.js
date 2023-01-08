@@ -5,11 +5,14 @@ import 'react-markdown-editor-lite/lib/index.css';
 
 const mdParser = new MarkdownIt();
 
-function EditorComment({ handleGetDataChild }) {
+function EditorComment({ handleGetDataChild, authorCmt }) {
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
 
     const handleEditorChange = ({ html, text }) => {
+        // const newText = text.replace(/@[^:]+:/g, ' ');
+        // const newHTML = html.replace(/@[^:]+:/g, '');
+
         setText(text);
         setHtml(html);
     };
@@ -27,6 +30,8 @@ function EditorComment({ handleGetDataChild }) {
             onChange={handleEditorChange}
             placeholder="Bạn có thắc mắc gì trong bài học này?"
             view={{ html: false }}
+            defaultValue={authorCmt ? `@${authorCmt.name}: ` : ''}
+            autoFocus={true}
         />
     );
 }

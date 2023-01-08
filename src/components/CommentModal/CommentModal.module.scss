@@ -18,7 +18,8 @@
     }
 
     .container {
-        width: 720px;
+        min-width: 720px;
+        width: 43%;
         animation: Comment 0.5s ease;
         background-color: #fff;
         box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
@@ -71,7 +72,11 @@
                 .my-comment {
                     display: flex;
                     line-height: 1.6;
-                    padding-bottom: 48px;
+                    margin-bottom: 48px;
+
+                    &.active {
+                        margin-bottom: 0;
+                    }
 
                     .my-avatar {
                         margin-right: 12px;

@@ -6,24 +6,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import { closeModalComment } from '~/redux/reducer/modunReducer';
-import { handlePostComment } from '~/services/apiAuth';
 import CommentItem from './CommentItem';
-import EditorComment from './EditorComment';
 
 import styles from './CommentModal.module.scss';
+import { getAllComments } from '~/services/apiCourse';
+import ReplyBox from './ReplyBox';
 
 const cx = classNames.bind(styles);
 
-function CommentModal({ allComments }) {
-    const [isChat, setIsChat] = useState(true);
-    const [text, setText] = useState('');
-    const [html, setHtml] = useState('');
-
-    const [allComment, setAllComment] = useState(null);
-
-    useEffect(() => {
-        setAllComment(allComments);
-    }, [allComments]);
+function CommentModal() {
+    const [isChat, setIsChat] = useState(false);
+    const [allComment, setAllComment] = useState([]);
 
     const modalComment = useSelector((state) => state.modun.modalComment?.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -32,30 +25,22 @@ function CommentModal({ allComments }) {
     const location = useLocation();
     const lessonId = new URLSearchParams(location.search).get('id');
 
+    useEffect(() => {
+        if (modalComment) {
+            const fetchApi = async () => {
+                const result = await getAllComments(lessonId);
+                if (result.errCode === 0) {
+                    setAllComment(result.data);
+                } else {
+                    alert('Lỗi gọi api lấy bình luận');
+                }
+            };
+            fetchApi();
+        }
+    }, [lessonId, modalComment]);
+
     const handleCloseModalComment = () => {
         dispatch(closeModalComment());
-    };
-
-    const handleGetDataChild = ({ html, text }) => {
-        setText(text);
-        setHtml(html);
-    };
-
-    const handleComment = async () => {
-        const newComment = {
-            lessonId: lessonId,
-            author: currentUser._id,
-            contentHTML: html,
-            contentMarkdown: text,
-        };
-        const result = await handlePostComment(newComment);
-
-        if (result.errCode === 0) {
-            setIsChat(true);
-            setAllComment(result.data);
-        } else {
-            alert('Lỗi vui lòng liên hệ admin để khắc phục');
-        }
     };
 
     return (
@@ -72,38 +57,35 @@ function CommentModal({ allComments }) {
                             <p className={cx('help')}>(Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)</p>
                         </div>
 
-                        <div className={cx('my-comment')}>
-                            <div className={cx('my-avatar')}>
-                                <img
-                                    src={currentUser.avatar ? currentUser.avatar : Image.avatar}
-                                    alt={currentUser.name}
+                        <div className={isChat ? cx('my-comment', 'active') : cx('my-comment')}>
+                            {isChat ? (
+                                <ReplyBox
+                                    lessonId={lessonId}
+                                    type="create"
+                                    setIsChat={setIsChat}
+                                    fontSize="4.2px"
+                                    arrCmt={allComment}
+                                    setArrCmt={setAllComment}
                                 />
-                            </div>
-                            <div className={cx('comment-content')}>
-                                {isChat ? (
-                                    <div className={cx('placeholder')} onClick={() => setIsChat(false)}>
-                                        <span>Bạn có thắc mắc gì trong bài học này?</span>
+                            ) : (
+                                <>
+                                    <div className={cx('my-avatar')}>
+                                        <img
+                                            src={currentUser.avatar ? currentUser.avatar : Image.avatar}
+                                            alt={currentUser.name}
+                                        />
                                     </div>
-                                ) : (
-                                    <>
-                                        <div className={cx('text-editor')}>
-                                            <EditorComment handleGetDataChild={handleGetDataChild} />
+                                    <div className={cx('comment-content')}>
+                                        <div className={cx('placeholder')} onClick={() => setIsChat(true)}>
+                                            <span>Bạn có thắc mắc gì trong bài học này?</span>
                                         </div>
-                                        <div className={cx('action-chat')}>
-                                            <button className={cx('action-cancel')} onClick={() => setIsChat(true)}>
-                                                Hủy
-                                            </button>
-                                            <button className={cx('action-ok', 'active')} onClick={handleComment}>
-                                                Bình luận
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         {allComment?.map((comment) => (
-                            <CommentItem key={comment._id} comment={comment} />
+                            <CommentItem key={comment._id} comment={comment} ownerComment={comment._id} />
                         ))}
                     </div>
                 </div>

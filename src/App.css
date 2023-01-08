@@ -188,3 +188,8 @@ body .slick-dots li.slick-active button:before {
     line-height: 2;
     margin: 16px 0;
 }
+
+.author-comment {
+    color: #007575;
+    font-weight: 600;
+}

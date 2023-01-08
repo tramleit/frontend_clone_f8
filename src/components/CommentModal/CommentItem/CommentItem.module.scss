@@ -131,5 +131,54 @@
                 }
             }
         }
+
+        .replies-btn {
+            margin-bottom: 0.5rem;
+            margin-left: 1px;
+            user-select: none;
+
+            span {
+                font-size: 1.4rem;
+                font-weight: 600;
+                transition: all 0.2s ease-in-out;
+                color: #333;
+                line-height: 1.6;
+                margin-bottom: 0;
+                margin-top: 4px;
+                overflow: hidden;
+            }
+
+            svg {
+                font-size: 1.6rem;
+                margin-left: 8px;
+                position: relative;
+                transition: all 0.2s ease-in-out;
+                top: 1px;
+            }
+
+            .spinner {
+                animation: Spinner 0.8s linear infinite;
+            }
+
+            svg:hover,
+            span:hover {
+                color: #666;
+                cursor: pointer;
+            }
+        }
+
+        .replies-cmt {
+            border-left: 1px solid var(--color-primary);
+            padding: 0 0 0 16px;
+        }
+    }
+}
+
+@keyframes Spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

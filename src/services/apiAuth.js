@@ -58,16 +58,6 @@ export const handleSendMail = async (email) => {
     }
 };
 
-export const handlePostComment = async (newComment) => {
-    try {
-        const res = await request.post('/user/comment/create', newComment);
-
-        return res;
-    } catch (error) {
-        return error.response.status;
-    }
-};
-
 export const registerCourse = async (pathName, userId, dispatch) => {
     dispatch(loadingStart());
     try {

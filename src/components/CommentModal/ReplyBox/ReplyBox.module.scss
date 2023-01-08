@@ -1,0 +1,102 @@
+.wrapper {
+    line-height: 1.6;
+    margin: 16px 0 8px;
+    padding-bottom: 48px;
+
+    .content {
+        align-items: flex-start;
+        display: flex;
+
+        .wrap-avatar {
+            margin-right: 12px;
+            position: relative;
+
+            .avatar {
+                background: transparent;
+                border-radius: 50%;
+                font-size: 3px;
+
+                img {
+                    border-radius: 50%;
+                    height: 9em;
+                    object-fit: cover;
+                    width: 9em;
+                }
+            }
+        }
+    }
+
+    .content-wrap {
+        max-width: 710px;
+        flex: 1;
+
+        .text-editor {
+            border: 2px solid #d0d7de;
+            border-radius: 6px;
+
+            &:focus-within {
+                border-color: #000;
+            }
+
+            textarea {
+                font-size: 1.5rem;
+                line-height: 1.8;
+            }
+
+            textarea::placeholder {
+                color: #777;
+            }
+
+            & > div > div {
+                border-radius: 6px;
+                position: static !important;
+            }
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+
+            .action-ok,
+            .action-cancel {
+                border-radius: 20px;
+                color: #888;
+                display: inline-block;
+                font-weight: 600;
+                padding: 10px 16px;
+                font-size: 1.4rem;
+                transition: all 0.2s ease-in-out;
+                user-select: none;
+
+                margin-right: 16px;
+                background: transparent;
+                text-transform: uppercase;
+
+                &:hover {
+                    background: #ebebeb;
+                    color: #777;
+                    cursor: pointer;
+                    opacity: 0.8;
+                }
+            }
+
+            .action-ok {
+                background: #ccc;
+                color: var(--background-color);
+                pointer-events: none;
+
+                &.active {
+                    background: var(--color-primary);
+                    color: var(--background-color);
+                    pointer-events: auto;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+}

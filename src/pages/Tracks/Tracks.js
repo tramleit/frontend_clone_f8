@@ -11,7 +11,7 @@ import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
 import SidebarTrack from '~/components/tracks/SidebarTrack';
 import { openModalComment } from '~/redux/reducer/modunReducer';
-import { getAllComments, getCourseByPathName } from '~/services/apiCourse';
+import { getCourseByPathName } from '~/services/apiCourse';
 
 import styles from './Tracks.module.scss';
 
@@ -19,7 +19,6 @@ const cx = classNames.bind(styles);
 
 function Tracks() {
     const [course, setCourse] = useState({});
-    const [commentItem, setCommentItem] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -54,14 +53,8 @@ function Tracks() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
 
-    const handleGetAllCommentsLesson = async () => {
-        const result = await getAllComments(currentLesson._id);
-        setCommentItem(result);
-    };
-
     const handleOpenModalComment = () => {
         dispatch(openModalComment());
-        handleGetAllCommentsLesson();
     };
 
     return (
@@ -80,7 +73,7 @@ function Tracks() {
                                 <span>Hỏi đáp</span>
                             </button>
                         </div>
-                        <CommentModal allComments={commentItem} />
+                        <CommentModal />
                     </>
                 </div>
             ) : (
