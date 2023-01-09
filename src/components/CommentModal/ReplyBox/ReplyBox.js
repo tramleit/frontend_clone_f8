@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { createComment, createCommentReply } from '~/services/apiCourse';
+import { createComment } from '~/services/apiCourse';
 import EditorComment from '../EditorComment';
 import styles from './ReplyBox.module.scss';
 
@@ -17,7 +17,7 @@ function ReplyBox({
     arrCmt,
     setArrCmt,
     authorCmt,
-    handleSendCmtReplies,
+    handleReplyComment,
 }) {
     const [text, setText] = useState('');
     const [html, setHTML] = useState('');
@@ -41,7 +41,7 @@ function ReplyBox({
     const handleCreateComment = async () => {
         if (type === 'reply') {
             const newText = text.replace(/@[^:]+:/g, ' ');
-            const newHTML = html.replace(/@[^:]+:/g, '');
+            const newHTML = html.replace(/@[^:]+:/g, ' ');
 
             const replyComment = {
                 ownerComment,
@@ -51,15 +51,7 @@ function ReplyBox({
                 contentMarkdown: newText.trim(),
             };
 
-            const result = await createCommentReply(replyComment);
-
-            if (result.errCode === 0) {
-                setArrCmt([result.data, ...arrCmt]);
-                setIsChat(false);
-                handleSendCmtReplies(true);
-            } else {
-                alert('Lỗi thêm mới bình luận');
-            }
+            handleReplyComment(replyComment, ownerComment);
         } else {
             const newComment = {
                 lessonId: lessonId,

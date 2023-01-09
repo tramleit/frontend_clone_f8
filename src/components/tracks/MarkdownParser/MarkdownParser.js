@@ -3,16 +3,13 @@ import styles from './MarkdownParser.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MarkdownParser({ data, fontSize }) {
-    console.log('data: ', data);
+function MarkdownParser({ author = null, data, fontSize }) {
     return (
         <div
             className={cx('wrapper')}
             style={{ fontSize: fontSize }}
             dangerouslySetInnerHTML={
-                data.authorReply
-                    ? { __html: `<span class="author-comment">${data.authorReply.name}</span> ${data.contentHTML}` }
-                    : { __html: data.contentHTML }
+                author ? { __html: `<span class="author-comment">${author.name}</span> ${data}` } : { __html: data }
             }
         ></div>
     );

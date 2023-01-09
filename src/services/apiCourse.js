@@ -57,18 +57,17 @@ export const getCommentReply = async (commentId) => {
 
         return res;
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
 
 export const createComment = async (newComment) => {
     try {
         const res = await request.post('/user/comment/create', newComment);
-        console.log('res: ', res);
 
         return res;
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
 
@@ -78,7 +77,7 @@ export const createCommentReply = async (replyComment) => {
 
         return res;
     } catch (error) {
-        console.log('error: ', error);
+        return error.response.data;
     }
 };
 

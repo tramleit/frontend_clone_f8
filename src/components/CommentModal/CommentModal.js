@@ -1,16 +1,16 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import { closeModalComment } from '~/redux/reducer/modunReducer';
 import CommentItem from './CommentItem';
-
-import styles from './CommentModal.module.scss';
 import { getAllComments } from '~/services/apiCourse';
 import ReplyBox from './ReplyBox';
+
+import styles from './CommentModal.module.scss';
 
 const cx = classNames.bind(styles);
 

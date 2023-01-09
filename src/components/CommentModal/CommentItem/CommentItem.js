@@ -2,27 +2,28 @@ import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import moment from 'moment';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
-import { getCommentReply } from '~/services/apiCourse';
+import { createCommentReply, getCommentReply } from '~/services/apiCourse';
 import ReplyBox from '../ReplyBox';
 import styles from './CommentItem.module.scss';
 
 const cx = classNames.bind(styles);
 
 function CommentItem({ comment, ownerComment }) {
-    const [moreReplies, setMoreReplies] = useState(false);
     const [isChat, setIsChat] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [moreReplies, setMoreReplies] = useState(false);
     const [commentReply, setCommentReply] = useState([]);
 
-    const handleSendCmtReplies = async () => {
+    const handleSendCmtReplies = async (commentId) => {
         if (!moreReplies) {
             setLoading(true);
-            const result = await getCommentReply(comment._id);
+
+            const result = await getCommentReply(commentId);
+
             if (result.errCode === 0) {
                 setCommentReply(result.data);
                 setLoading(false);
@@ -32,6 +33,25 @@ function CommentItem({ comment, ownerComment }) {
             }
         } else {
             setMoreReplies(false);
+        }
+    };
+
+    const handleReplyComment = async (comment, commentId) => {
+        const result = await createCommentReply(comment);
+
+        if (!result) alert('Lỗi vui lòng liên hệ admin');
+
+        if (result.errCode === 0) {
+            if (!commentReply) {
+                handleSendCmtReplies(commentId);
+            } else {
+                setCommentReply([result.data, ...commentReply]);
+            }
+
+            setIsChat(false);
+            setMoreReplies(true);
+        } else {
+            alert('Lỗi thêm mới bình luận');
         }
     };
 
@@ -53,8 +73,28 @@ function CommentItem({ comment, ownerComment }) {
                             <span className={cx('author')}>{comment.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser data={comment} fontSize="1.4rem" />
+                            <MarkdownParser
+                                author={comment?.authorReply}
+                                data={comment.contentHTML}
+                                fontSize="1.4rem"
+                            />
                         </div>
+
+                        {comment.feel.length > 0 && (
+                            <div className={cx('count-feel')}>
+                                <div className={cx('feel')}>
+                                    <img
+                                        src="https://res.cloudinary.com/dwld3bqia/image/upload/v1673283027/Course/like_iwpexh.svg"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="https://res.cloudinary.com/dwld3bqia/image/upload/v1673283101/Course/haha_s7c8pj.svg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div className={cx('count')}>{comment.feel.length}</div>
+                            </div>
+                        )}
                     </div>
 
                     <div className={cx('time')}>
@@ -85,17 +125,15 @@ function CommentItem({ comment, ownerComment }) {
                         ownerComment={ownerComment}
                         authorReply={comment.author._id}
                         authorCmt={comment.author}
-                        arrCmt={commentReply}
-                        setArrCmt={setCommentReply}
-                        handleSendCmtReplies={handleSendCmtReplies}
+                        handleReplyComment={handleReplyComment}
                     />
                 )}
 
-                {comment.replies.length > 0 || commentReply.length ? (
-                    <div className={cx('replies-btn')} onClick={handleSendCmtReplies}>
+                {comment.replies?.length > 0 || commentReply?.length > 0 ? (
+                    <div className={cx('replies-btn')} onClick={() => handleSendCmtReplies(comment._id)}>
                         <span>
                             {!moreReplies
-                                ? `Xem ${commentReply.length || comment.replies.length} câu trả lời`
+                                ? `Xem ${comment.replies?.length || commentReply?.length} câu trả lời`
                                 : 'Ẩn câu trả lời'}
                         </span>
 
@@ -113,11 +151,11 @@ function CommentItem({ comment, ownerComment }) {
                     Fragment
                 )}
 
-                {moreReplies && (
+                {moreReplies && commentReply?.length > 0 && (
                     <div className={cx('replies-cmt')}>
-                        {commentReply.map((reply) => (
-                            <CommentItem key={reply._id} comment={reply} ownerComment={ownerComment} />
-                        ))}
+                        {commentReply.map((reply) => {
+                            return <CommentItem key={reply?._id} comment={reply} ownerComment={comment._id} />;
+                        })}
                     </div>
                 )}
             </div>
