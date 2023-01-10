@@ -1,7 +1,7 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
@@ -18,7 +18,7 @@ function CommentModal() {
     const [isChat, setIsChat] = useState(false);
     const [allComment, setAllComment] = useState([]);
 
-    const modalComment = useSelector((state) => state.modun.modalComment?.status);
+    const modalComment = useSelector((state) => state.modun.modalComment.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const dispatch = useDispatch();

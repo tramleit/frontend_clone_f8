@@ -43,7 +43,7 @@ export const getLessonById = async (lessonId, dispatch) => {
 
 export const getAllComments = async (lessonId) => {
     try {
-        const res = await request.post('/course/comment/get', { lessonId });
+        const res = await request.get(`/comments/${lessonId}`);
 
         return res;
     } catch (error) {
@@ -53,7 +53,7 @@ export const getAllComments = async (lessonId) => {
 
 export const getCommentReply = async (commentId) => {
     try {
-        const res = await request.get(`/course/comment/get/${commentId}`);
+        const res = await request.get(`/comments/replies/${commentId}`);
 
         return res;
     } catch (error) {
@@ -63,7 +63,7 @@ export const getCommentReply = async (commentId) => {
 
 export const createComment = async (newComment) => {
     try {
-        const res = await request.post('/user/comment/create', newComment);
+        const res = await request.post('/comments/create', newComment);
 
         return res;
     } catch (error) {
@@ -73,7 +73,7 @@ export const createComment = async (newComment) => {
 
 export const createCommentReply = async (replyComment) => {
     try {
-        const res = await request.post('/user/comment/replies', replyComment);
+        const res = await request.post('/comments/reply', replyComment);
 
         return res;
     } catch (error) {

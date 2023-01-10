@@ -51,7 +51,7 @@ function ReplyBox({
                 contentMarkdown: newText.trim(),
             };
 
-            handleReplyComment(replyComment, ownerComment);
+            handleReplyComment(replyComment);
         } else {
             const newComment = {
                 lessonId: lessonId,

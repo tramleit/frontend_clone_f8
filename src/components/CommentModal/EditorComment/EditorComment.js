@@ -10,9 +10,6 @@ function EditorComment({ handleGetDataChild, authorCmt }) {
     const [html, setHtml] = useState('');
 
     const handleEditorChange = ({ html, text }) => {
-        // const newText = text.replace(/@[^:]+:/g, ' ');
-        // const newHTML = html.replace(/@[^:]+:/g, '');
-
         setText(text);
         setHtml(html);
     };

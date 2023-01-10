@@ -192,4 +192,5 @@ body .slick-dots li.slick-active button:before {
 .author-comment {
     color: #007575;
     font-weight: 600;
+    display: inline-block;
 }

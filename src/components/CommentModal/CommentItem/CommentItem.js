@@ -1,13 +1,15 @@
+import { Fragment, useState } from 'react';
+import moment from 'moment';
+import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
-import moment from 'moment';
-import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
 import { createCommentReply, getCommentReply } from '~/services/apiCourse';
+import CommentReply from '../CommentReply';
 import ReplyBox from '../ReplyBox';
+
 import styles from './CommentItem.module.scss';
 
 const cx = classNames.bind(styles);
@@ -18,8 +20,9 @@ function CommentItem({ comment, ownerComment }) {
     const [moreReplies, setMoreReplies] = useState(false);
     const [commentReply, setCommentReply] = useState([]);
 
-    const handleSendCmtReplies = async (commentId) => {
-        if (!moreReplies) {
+    // Gọi api lấy comment con theo từng điều kiện
+    const handleGetCmtReplies = async (commentId) => {
+        if (!moreReplies && commentReply.length === 0) {
             setLoading(true);
 
             const result = await getCommentReply(commentId);
@@ -32,21 +35,21 @@ function CommentItem({ comment, ownerComment }) {
                 setLoading(false);
             }
         } else {
-            setMoreReplies(false);
+            if (commentReply.length > 0 && moreReplies) {
+                setMoreReplies(false);
+            } else {
+                setMoreReplies(true);
+            }
         }
     };
 
-    const handleReplyComment = async (comment, commentId) => {
+    // Trả lời comment cha
+    const handleReplyComment = async (comment) => {
         const result = await createCommentReply(comment);
 
         if (!result) alert('Lỗi vui lòng liên hệ admin');
-
         if (result.errCode === 0) {
-            if (!commentReply) {
-                handleSendCmtReplies(commentId);
-            } else {
-                setCommentReply([result.data, ...commentReply]);
-            }
+            setCommentReply([...commentReply, result.data]);
 
             setIsChat(false);
             setMoreReplies(true);
@@ -73,11 +76,7 @@ function CommentItem({ comment, ownerComment }) {
                             <span className={cx('author')}>{comment.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser
-                                author={comment?.authorReply}
-                                data={comment.contentHTML}
-                                fontSize="1.4rem"
-                            />
+                            <MarkdownParser data={comment.contentHTML} fontSize="1.4rem" />
                         </div>
 
                         {comment.feel.length > 0 && (
@@ -129,11 +128,11 @@ function CommentItem({ comment, ownerComment }) {
                     />
                 )}
 
-                {comment.replies?.length > 0 || commentReply?.length > 0 ? (
-                    <div className={cx('replies-btn')} onClick={() => handleSendCmtReplies(comment._id)}>
+                {comment.replies?.length > 0 || commentReply.length > 0 ? (
+                    <div className={cx('replies-btn')} onClick={() => handleGetCmtReplies(comment._id)}>
                         <span>
                             {!moreReplies
-                                ? `Xem ${comment.replies?.length || commentReply?.length} câu trả lời`
+                                ? `Xem ${commentReply?.length || comment.replies?.length} câu trả lời`
                                 : 'Ẩn câu trả lời'}
                         </span>
 
@@ -153,9 +152,15 @@ function CommentItem({ comment, ownerComment }) {
 
                 {moreReplies && commentReply?.length > 0 && (
                     <div className={cx('replies-cmt')}>
-                        {commentReply.map((reply) => {
-                            return <CommentItem key={reply?._id} comment={reply} ownerComment={comment._id} />;
-                        })}
+                        {commentReply.map((reply) => (
+                            <CommentReply
+                                key={reply._id}
+                                reply={reply}
+                                ownerComment={ownerComment}
+                                setCommentReply={setCommentReply}
+                                commentReply={commentReply}
+                            />
+                        ))}
                     </div>
                 )}
             </div>
