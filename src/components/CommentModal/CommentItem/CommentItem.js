@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import CommentReply from '../CommentReply';
 import ReplyBox from '../ReplyBox';
 
 import styles from './CommentItem.module.scss';
+import ReactionFeel from './ReactionFeel';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +19,7 @@ function CommentItem({ comment, ownerComment }) {
     const [isChat, setIsChat] = useState(false);
     const [loading, setLoading] = useState(false);
     const [moreReplies, setMoreReplies] = useState(false);
+
     const [commentReply, setCommentReply] = useState([]);
 
     // Gọi api lấy comment con theo từng điều kiện
@@ -99,7 +101,7 @@ function CommentItem({ comment, ownerComment }) {
                     <div className={cx('time')}>
                         <p className={cx('createdAt')}>
                             <button className={cx('icon')}>
-                                <span className={cx('like')}>Thích</span>
+                                <ReactionFeel />
                             </button>
                             <span>·</span>
                             <span className={cx('reply-comment')} onClick={() => setIsChat(true)}>

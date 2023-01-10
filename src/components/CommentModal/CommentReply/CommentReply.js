@@ -9,11 +9,14 @@ import ReplyBox from '../ReplyBox';
 import styles from '../CommentItem/CommentItem.module.scss';
 import { createCommentReply } from '~/services/apiCourse';
 import { Image } from '~/assets/image';
+import ReactionFeel from '../CommentItem/ReactionFeel';
 
 const cx = classNames.bind(styles);
 
 function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
     const [isChat, setIsChat] = useState(false);
+    const [activeFeel, setActiveFeel] = useState(false);
+    const [hoverTimer, setHoverTimer] = useState(null);
 
     // Trả lời comment con
     const handleReplyComment = async (comment) => {
@@ -27,6 +30,11 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
         } else {
             alert('Lỗi thêm mới bình luận');
         }
+    };
+
+    const handleMouseEnter = () => {
+        clearTimeout(hoverTimer);
+        setHoverTimer(setTimeout(() => setActiveFeel(true), 200));
     };
 
     return (
@@ -68,14 +76,15 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
 
                     <div className={cx('time')}>
                         <p className={cx('createdAt')}>
-                            <button className={cx('icon')}>
-                                <span className={cx('like')}>Thích</span>
+                            <button className={cx('icon')} onMouseEnter={handleMouseEnter}>
+                                <ReactionFeel />
                             </button>
                             <span>·</span>
                             <span className={cx('reply-comment')} onClick={() => setIsChat(true)}>
                                 Trả lời
                             </span>
                             <span>·</span>
+                            {activeFeel && <ReactionFeel />}
                             <span className={cx('create-time')}>{moment(reply?.createdAt).fromNow()}</span>
                             <span className={cx('more-btn-wrap')}>
                                 <button className={cx('more-btn')}>
