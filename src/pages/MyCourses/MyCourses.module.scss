@@ -1,0 +1,30 @@
+.wrapper {
+    margin-bottom: 60px;
+    padding: 8px 44px 0;
+
+    .body {
+        .container {
+            position: relative;
+            top: -16px;
+            margin-bottom: 8px;
+
+            .list {
+                min-height: 200px;
+                padding-bottom: 0;
+
+                .wrap {
+                    margin-left: -12px;
+                    margin-right: -12px;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .item {
+                        width: 25%;
+                        padding-left: 12px;
+                        padding-right: 12px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -12,6 +12,7 @@ import Posts from '~/pages/Posts';
 import LearningRoute from '~/pages/Learning/LearningRoute';
 import Search from '~/pages/Search';
 import NotFound from '~/pages/NotFound';
+import MyCourses from '~/pages/MyCourses';
 
 // Public router
 const publicRoutes = [
@@ -29,6 +30,7 @@ const publicRoutes = [
     { path: '/settings', component: Settings },
     { path: '/search', component: Search },
     { path: '/search/:slug', component: Search },
+    { path: '/my-courses', component: MyCourses },
     { path: '*', component: NotFound, layout: null },
 ];
 

@@ -85,7 +85,7 @@ export const getLearningRoute = async () => {
     try {
         const res = await request.get('/learning/get');
 
-        return res.data;
+        return res;
     } catch (error) {
         return error.response.data;
     }
@@ -96,6 +96,16 @@ export const getLearningRouteBySlug = async (slug) => {
         const res = await request.get(`/learning/get-learning/${slug}`);
 
         return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const getCoursesRegistered = async (userId) => {
+    try {
+        const res = await request.get(`/course/registered/${userId}`);
+
+        return res;
     } catch (error) {
         return error.response.data;
     }

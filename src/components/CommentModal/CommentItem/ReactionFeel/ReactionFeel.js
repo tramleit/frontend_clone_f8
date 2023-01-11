@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
+import { hideAll } from 'tippy.js';
+
 import styles from './ReactionFeel.module.scss';
 
 const cx = classNames.bind(styles);
@@ -7,6 +9,7 @@ const cx = classNames.bind(styles);
 function ReactionFeel() {
     return (
         <Tippy
+            trigger="mouseenter"
             interactive
             placement="top-start"
             offset={[-40, 8]}
@@ -22,7 +25,7 @@ function ReactionFeel() {
                                 alt="Thích"
                             />
                         </div>
-                        <div className={cx('icon')}>
+                        <div className={cx('icon')} onClick={hideAll}>
                             <div className={cx('title')}>Yêu Thích</div>
                             <img
                                 src="https://res.cloudinary.com/dwld3bqia/image/upload/v1673284171/Course/love_may2gp.svg"
