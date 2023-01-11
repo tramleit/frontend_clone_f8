@@ -1,0 +1,73 @@
+.wrapper {
+    margin-bottom: 30px;
+
+    .heading {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        color: #333;
+        font-size: 2.2rem;
+        margin: 0 0 20px;
+        padding: 10px 0;
+    }
+
+    .connections {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        .label {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .content {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+            justify-content: space-between;
+            margin-top: 8px;
+
+            div {
+                align-items: center;
+                display: flex;
+                gap: 8px;
+            }
+
+            .provider-name {
+                font-size: 1.4rem;
+            }
+
+            .no-connections {
+                font-size: 1.3rem;
+            }
+
+            .avatar {
+                background: transparent;
+                border-radius: 50%;
+                font-size: 5.6px;
+
+                img {
+                    border-radius: 50%;
+                    height: 9em;
+                    object-fit: cover;
+                    width: 9em;
+                }
+            }
+
+            .btn-connections {
+                align-items: center;
+                background-color: transparent;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                border-radius: 30px;
+                color: rgba(0, 0, 0, 0.54);
+                cursor: pointer;
+                display: flex;
+                font-size: 1.4rem;
+                gap: 8px;
+                height: 37px;
+                line-height: 37px;
+                padding: 0 16px;
+                transition: background-color 0.1s, border-color 0.1s, color 0.1s, fill 0.1s;
+            }
+        }
+    }
+}

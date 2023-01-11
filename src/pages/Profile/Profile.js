@@ -5,8 +5,8 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Image } from '~/assets/image';
-import ActivityItem from '~/components/ActivityItem';
-import CourseItem from '~/components/CourseItem';
+import ActivityItem from './ActivityItem';
+import CourseItem from './CourseItem';
 import { getInfoUserByUsername } from '~/services/apiAuth';
 import styles from './Profile.module.scss';
 

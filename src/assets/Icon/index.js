@@ -22,3 +22,26 @@ export const IconCrownUser = ({ width = '1rem', height = '1.1rem', className }) 
         />
     </svg>
 );
+
+export const IconFaceBook = ({ width = '1.8rem', height = '1.8rem', className }) => (
+    <svg className={className} width={width} height={height} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="m17.007 0h-16.014a.993.993 0 0 0 -.993.993v16.014a.993.993 0 0 0 .993.993h8.628v-6.961h-2.343v-2.725h2.343v-2a3.274 3.274 0 0 1 3.494-3.591 19.925 19.925 0 0 1 2.092.106v2.43h-1.428c-1.13 0-1.35.534-1.35 1.322v1.73h2.7l-.351 2.725h-2.364v6.964h4.593a.993.993 0 0 0 .993-.993v-16.014a.993.993 0 0 0 -.993-.993z"
+            fill="#4267b2"
+        />
+        <path
+            d="m28.586 24.041v-6.961h2.349l.351-2.725h-2.7v-1.734c0-.788.22-1.322 1.35-1.322h1.443v-2.434a19.924 19.924 0 0 0 -2.095-.106 3.27 3.27 0 0 0 -3.491 3.591v2h-2.343v2.73h2.343v6.961z"
+            fill="#fff"
+            transform="translate(-16.172 -6.041)"
+        />
+    </svg>
+);
+
+export const IconPhone = ({ width = '1.4rem', height = '1.4rem', className }) => (
+    <svg className={className} width={width} height={height} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <path
+            fill="currentColor"
+            d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z"
+        />
+    </svg>
+);

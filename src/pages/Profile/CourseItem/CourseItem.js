@@ -8,12 +8,12 @@ const cx = classNames.bind(styles);
 function CourseItem({ data }) {
     return (
         <div className={cx('wrapper')}>
-            <Link className={cx('thumb')} to={`/courses/${data.pathName}`}>
+            <Link className={cx('thumb')} to={`/courses/${data.slug}`}>
                 <img src={data.image} alt={data.name} />
             </Link>
             <div className={cx('info')}>
                 <h4 className={cx('title')}>
-                    <Link to={`/courses/${data.pathName}`}>{data.name}</Link>
+                    <Link to={`/courses/${data.slug}`}>{data.name}</Link>
                 </h4>
                 <p className={cx('desc')}>{data.description}</p>
             </div>

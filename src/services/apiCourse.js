@@ -95,7 +95,7 @@ export const getLearningRouteBySlug = async (slug) => {
     try {
         const res = await request.get(`/learning/get-learning/${slug}`);
 
-        return res.data;
+        return res;
     } catch (error) {
         return error.response.data;
     }
