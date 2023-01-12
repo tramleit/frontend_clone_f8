@@ -4,6 +4,8 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FallbackAvatar from '~/components/FallbackAvatar';
+import Notification from '~/components/Notification';
+import { showNotification } from '~/redux/reducer/modunReducer';
 import { changeAvatarUser } from '~/services/apiAuth';
 
 import styles from './PhotoField.module.scss';
@@ -25,17 +27,21 @@ function PhotoField({ avatar, name }) {
     }, [image]);
 
     const handleChangeAvatar = async () => {
-        const formData = new FormData();
+        if (image) {
+            const formData = new FormData();
 
-        formData.append('avatar', image);
-        formData.append('id', currentUser._id);
-        setActive(false);
+            formData.append('avatar', image);
+            formData.append('id', currentUser._id);
+            setActive(false);
 
-        const result = await changeAvatarUser(formData, dispatch);
-        if (result.errCode === 0) {
-            alert('Cập nhật thành công');
+            const result = await changeAvatarUser(formData, dispatch);
+            if (result.errCode === 0) {
+                dispatch(showNotification('Cập nhật thành công'));
+            } else {
+                dispatch(showNotification(`${result.message}`));
+            }
         } else {
-            alert(`Lỗi: ${result.message}`);
+            setActive(false);
         }
     };
 

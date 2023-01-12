@@ -15,6 +15,9 @@ const modunReducer = createSlice({
         loading: {
             status: false,
         },
+        notification: {
+            content: '',
+        },
     },
 
     reducers: {
@@ -43,6 +46,13 @@ const modunReducer = createSlice({
         loadingSuccess: (state) => {
             state.loading.status = false;
         },
+
+        showNotification: (state, action) => {
+            state.notification.content = action.payload;
+        },
+        hideNotification: (state) => {
+            state.notification.content = '';
+        },
     },
 });
 
@@ -55,6 +65,8 @@ export const {
     closeSidebarCourse,
     loadingStart,
     loadingSuccess,
+    showNotification,
+    hideNotification,
 } = modunReducer.actions;
 
 export default modunReducer.reducer;

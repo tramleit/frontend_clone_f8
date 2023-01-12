@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
 import './App.css';
+import Notification from '~/components/Notification';
 
 function App() {
     const isLoading = useSelector((state) => state.modun.loading?.status);
@@ -13,6 +14,7 @@ function App() {
         <Router>
             <div className="App">
                 {isLoading && <Loading />}
+                <Notification />
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;
