@@ -95,16 +95,30 @@ export const getInfoUserByUsername = async (username) => {
 };
 
 export const changeAvatarUser = async (avatar, dispatch) => {
+    dispatch(loadingStart());
     try {
         const res = await request.post('/user/change/avatar', avatar);
-
+        dispatch(loadingSuccess());
         dispatch(loginSuccess(res.data));
 
         const { data, ...other } = res;
 
         return { ...other };
     } catch (error) {
-        console.log('error: ', error);
+        dispatch(loadingSuccess());
+        return error.response.data;
+    }
+};
+
+export const changeInfoUser = async (info, userId, dispatch) => {
+    try {
+        const res = await request.post(`/user/change/${userId}`, info);
+
+        dispatch(loginSuccess(res.data));
+        const { data, ...other } = res;
+
+        return { ...other };
+    } catch (error) {
         return error.response.data;
     }
 };

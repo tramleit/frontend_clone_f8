@@ -58,28 +58,32 @@ function GroupField({ type, heading }) {
                 <>
                     <FieldWrapper>
                         <InputField
+                            type="name"
                             label="Họ tên"
                             placeholder="Thêm tên của bạn"
-                            defaultValue={currentUser?.name}
+                            defaultValue={currentUser.name}
                             desc="Tên của bạn xuất hiện trên trang cá nhân và bên cạnh các bình luận của bạn."
                         />
                     </FieldWrapper>
                     <FieldWrapper>
                         <InputField
+                            type="bio"
                             label="Bio"
                             placeholder="Thêm giới thiệu"
                             desc="Bio hiển thị trên trang cá nhân và trong các bài viết (blog) của bạn."
+                            defaultValue={currentUser.bio}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
-                        <PhotoField avatar={currentUser?.avatar} name={currentUser?.name} />
+                        <PhotoField avatar={currentUser.avatar} name={currentUser.name} />
                     </FieldWrapper>
 
                     <FieldWrapper>
                         <InputField
+                            type="email"
                             label="Email"
                             placeholder="Eg. hoclaptrinh@f8.edu.vn"
-                            defaultValue={currentUser?.email}
+                            defaultValue={currentUser.email}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -87,8 +91,8 @@ function GroupField({ type, heading }) {
                             type="username"
                             label="User Name"
                             placeholder="Thêm user name"
-                            defaultValue={currentUser?.username}
-                            desc={`https://fullstack.edu.vn/@${currentUser?.username}`}
+                            defaultValue={currentUser.username}
+                            desc={`https://fullstack.edu.vn/@${currentUser.username}`}
                         />
                     </FieldWrapper>
                 </>
@@ -98,34 +102,43 @@ function GroupField({ type, heading }) {
                 <>
                     <FieldWrapper>
                         <InputField
-                            type="social"
+                            type="facebook"
                             label="Facebook"
                             placeholder="Eg. https://www.facebook.com/hoclaptrinhf8"
+                            defaultValue={currentUser.facebook}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
                         <InputField
-                            type="social"
+                            type="youtube"
                             label="Youtube"
                             placeholder="Eg. https://www.youtube.com/c/F8VNOfficial"
+                            defaultValue={currentUser.youtube}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
                         <InputField
-                            type="social"
+                            type="linkedin"
                             label="Linkedin"
                             placeholder="Eg. https://www.linkedin.com/in/hoclaptrinhf8/"
+                            defaultValue={currentUser.linkedin}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
                         <InputField
-                            type="social"
+                            type="instagram"
                             label="Instagram"
                             placeholder="Eg. https://www.instagram.com/hoclaptrinhf8/"
+                            defaultValue={currentUser.instagram}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
-                        <InputField type="social" label="Twitter" placeholder="Eg. https://twitter.com/hoclaptrinhf8" />
+                        <InputField
+                            type="twitter"
+                            label="Twitter"
+                            placeholder="Eg. https://twitter.com/hoclaptrinhf8"
+                            defaultValue={currentUser.twitter}
+                        />
                     </FieldWrapper>
                 </>
             )}

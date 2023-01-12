@@ -3,14 +3,17 @@ import classNames from 'classnames/bind';
 import styles from './Learning.module.scss';
 import Heading from '~/components/Heading';
 import LearningPathItem from '~/components/LearningPathItem';
-import { Image } from '~/assets/image';
 import SuggestionBox from '~/components/SuggestionBox';
 import { getLearningRoute } from '~/services/apiCourse';
+import { useDispatch } from 'react-redux';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
 function Learning() {
     const [learningRoute, setLearningRoute] = useState([]);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         document.title = 'Lộ trình học lập trình cho người mới tại F8';
@@ -23,10 +26,12 @@ function Learning() {
             if (result.errCode === 0) {
                 setLearningRoute(result.data);
             } else {
-                alert('Lỗi gọi api lấy lộ trình học');
+                dispatch(showNotification('Lỗi gọi api lấy lộ trình học'));
             }
         };
         fetchApi();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <div className={cx('wrapper')}>

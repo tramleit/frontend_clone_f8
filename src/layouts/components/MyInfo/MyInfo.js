@@ -1,4 +1,4 @@
-import HandlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
 import { Image } from '~/assets/image';
@@ -29,7 +29,7 @@ function MyInfo() {
 
     return (
         <div className={cx('wrapper')}>
-            <HandlessTippy
+            <Tippy
                 interactive
                 visible={active}
                 onClickOutside={() => setActive(false)}
@@ -83,7 +83,7 @@ function MyInfo() {
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
                     <img src={currentUser.avatar !== '' ? currentUser.avatar : Image.avatar} alt={currentUser.name} />
                 </div>
-            </HandlessTippy>
+            </Tippy>
         </div>
     );
 }

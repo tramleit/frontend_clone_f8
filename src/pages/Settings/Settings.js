@@ -9,6 +9,7 @@ function Settings() {
     useEffect(() => {
         document.title = 'Thiết lập về tôi tại F8';
     }, []);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>

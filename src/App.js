@@ -1,11 +1,11 @@
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 import { Fragment } from 'react';
-import Loading from './components/Loading';
-import { useSelector } from 'react-redux';
-import './App.css';
+import Loading from '~/components/Loading';
 import Notification from '~/components/Notification';
+import './App.css';
 
 function App() {
     const isLoading = useSelector((state) => state.modun.loading?.status);
@@ -15,6 +15,7 @@ function App() {
             <div className="App">
                 {isLoading && <Loading />}
                 <Notification />
+
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Layout = DefaultLayout;

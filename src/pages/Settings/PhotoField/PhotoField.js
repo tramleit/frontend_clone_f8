@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FallbackAvatar from '~/components/FallbackAvatar';
-import Notification from '~/components/Notification';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { changeAvatarUser } from '~/services/apiAuth';
 

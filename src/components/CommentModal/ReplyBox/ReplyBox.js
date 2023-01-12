@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { Image } from '~/assets/image';
 import { createComment } from '~/services/apiCourse';
 import EditorComment from '../EditorComment';
 import styles from './ReplyBox.module.scss';
@@ -75,7 +76,7 @@ function ReplyBox({
             <div className={cx('content')}>
                 <div className={cx('wrap-avatar')}>
                     <div className={cx('avatar')} style={{ fontSize }}>
-                        <img src={currentUser.avatar} alt={currentUser.name} />
+                        <img src={currentUser.avatar ? currentUser.avatar : Image.avatar} alt={currentUser.name} />
                     </div>
                 </div>
 

@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CommonItem from '~/components/CommonItem';
 import Heading from '~/components/Heading';
+import { showNotification } from '~/redux/reducer/modunReducer';
 import { getCoursesRegistered } from '~/services/apiCourse';
 import styles from './MyCourses.module.scss';
 
@@ -10,6 +11,8 @@ const cx = classNames.bind(styles);
 
 function MyCourses() {
     const [courses, setCourses] = useState([]);
+
+    const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
@@ -19,13 +22,15 @@ function MyCourses() {
             if (result.errCode === 0) {
                 setCourses(result.data);
             } else {
-                alert(`Lỗi lấy dữ liệu khóa học của bạn ${currentUser.name}`);
+                dispatch(showNotification(`Lỗi lấy dữ liệu khóa học của ${currentUser.name}`));
             }
         };
         fetchApi();
 
         document.title = 'Khóa học bạn đã đăng ký tại F8';
-    }, [currentUser._id]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser._id, currentUser.name]);
 
     return (
         <div className={cx('wrapper')}>

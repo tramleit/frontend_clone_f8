@@ -39,10 +39,11 @@ input::placeholder {
     }
 }
 
-.btn {
+.btn,
+.more-btn {
     display: flex;
 
-    .btn-edit {
+    button {
         background-color: transparent;
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 30px;
@@ -53,11 +54,21 @@ input::placeholder {
         line-height: 37px;
         padding: 0 16px;
         transition: background-color 0.1s, border-color 0.1s, color 0.1s, fill 0.1s;
-        user-select: none;
 
         &:hover {
             border-color: rgba(0, 0, 0, 0.54);
             color: rgba(0, 0, 0, 0.68);
+        }
+    }
+
+    .save-btn {
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+        margin-right: 8px;
+
+        &:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
         }
     }
 }

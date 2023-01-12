@@ -18,11 +18,13 @@ const Notification = () => {
             const timeout = setTimeout(() => {
                 setVisible(false);
                 dispatch(hideNotification());
-            }, 3000);
+            }, 2000);
             return () => clearTimeout(timeout);
         } else {
             setVisible(false);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content]);
 
     if (!visible) return null;
