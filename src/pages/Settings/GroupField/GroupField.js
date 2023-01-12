@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind';
+import { useSelector } from 'react-redux';
 import { IconFaceBook, IconPhone } from '~/assets/Icon';
+import { Image } from '~/assets/image';
 import FieldWrapper from '../FieldWrapper';
 import InputField from '../InputField';
 import PhotoField from '../PhotoField';
@@ -7,7 +9,9 @@ import styles from './GroupField.module.scss';
 
 const cx = classNames.bind(styles);
 
-function GroupField({ type, heading, title_1, title_2, title_3 }) {
+function GroupField({ type, heading }) {
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('heading')}>{heading}</h2>
@@ -15,21 +19,21 @@ function GroupField({ type, heading, title_1, title_2, title_3 }) {
             {type === 'link' && (
                 <div className={cx('connections')}>
                     <div>
-                        <div className={cx('label')}>{title_1}</div>
+                        <div className={cx('label')}>Liên kết Google</div>
                         <div className={cx('content')}>
                             <div>
                                 <div className={cx('avatar')}>
                                     <img
-                                        src="https://lh3.googleusercontent.com/a/AEdFTp7kuWva8xM4O4Ul2V3364dvtKTxEYYaqKMXNyNg=s96-c"
-                                        alt=""
+                                        src={currentUser?.avatar ? currentUser?.avatar : Image.avatar}
+                                        alt={currentUser?.name}
                                     />
                                 </div>
-                                <span className={cx('provider-name')}>mavietha.info@gmail.com</span>
+                                <span className={cx('provider-name')}>{currentUser?.email}</span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <div className={cx('label')}>{title_2}</div>
+                        <div className={cx('label')}>Liên kết Facebook</div>
                         <div className={cx('content')}>
                             <span className={cx('no-connections')}>Chưa liên kết tài khoản Facebook</span>
                             <button className={cx('btn-connections')}>
@@ -38,7 +42,7 @@ function GroupField({ type, heading, title_1, title_2, title_3 }) {
                         </div>
                     </div>
                     <div>
-                        <div className={cx('label')}>{title_3}</div>
+                        <div className={cx('label')}>Liên kết số điện thoại</div>
                         <div className={cx('content')}>
                             <span className={cx('no-connections')}>Chưa liên kết số điện thoại nào</span>
                             <button className={cx('btn-connections')}>
@@ -46,7 +50,7 @@ function GroupField({ type, heading, title_1, title_2, title_3 }) {
                             </button>
                         </div>
                     </div>
-                    <div></div>
+                    <div />
                 </div>
             )}
 
@@ -56,7 +60,7 @@ function GroupField({ type, heading, title_1, title_2, title_3 }) {
                         <InputField
                             label="Họ tên"
                             placeholder="Thêm tên của bạn"
-                            defaultValue="Name You"
+                            defaultValue={currentUser?.name}
                             desc="Tên của bạn xuất hiện trên trang cá nhân và bên cạnh các bình luận của bạn."
                         />
                     </FieldWrapper>
@@ -68,24 +72,23 @@ function GroupField({ type, heading, title_1, title_2, title_3 }) {
                         />
                     </FieldWrapper>
                     <FieldWrapper>
-                        <PhotoField />
+                        <PhotoField avatar={currentUser?.avatar} name={currentUser?.name} />
                     </FieldWrapper>
 
                     <FieldWrapper>
                         <InputField
-                            type="info"
                             label="Email"
                             placeholder="Eg. hoclaptrinh@f8.edu.vn"
-                            defaultValue="mavietha.info@gmail.com"
+                            defaultValue={currentUser?.email}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
                         <InputField
-                            type="info"
+                            type="username"
                             label="User Name"
                             placeholder="Thêm user name"
-                            defaultValue="nameyou"
-                            desc="URL: https://fullstack.edu.vn/@nameyou"
+                            defaultValue={currentUser?.username}
+                            desc={`https://fullstack.edu.vn/@${currentUser?.username}`}
                         />
                     </FieldWrapper>
                 </>

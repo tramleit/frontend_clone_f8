@@ -54,5 +54,10 @@ input::placeholder {
         padding: 0 16px;
         transition: background-color 0.1s, border-color 0.1s, color 0.1s, fill 0.1s;
         user-select: none;
+
+        &:hover {
+            border-color: rgba(0, 0, 0, 0.54);
+            color: rgba(0, 0, 0, 0.68);
+        }
     }
 }

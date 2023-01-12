@@ -12,15 +12,12 @@ function InputField({ type = null, label, placeholder, defaultValue = '', desc =
                 <div className={cx('content-edit')}>
                     <input type="text" maxLength={50} placeholder={placeholder} disabled defaultValue={defaultValue} />
 
-                    {!type ||
-                        (type === 'info' && (
-                            <div className={cx('description')}>
-                                <p>
-                                    <span>URL: </span>
-                                    {desc}
-                                </p>
-                            </div>
-                        ))}
+                    <div className={cx('description')}>
+                        <p>
+                            {type === 'username' && <span>URL: </span>}
+                            {desc}
+                        </p>
+                    </div>
                 </div>
             </div>
             {type !== 'info' && (

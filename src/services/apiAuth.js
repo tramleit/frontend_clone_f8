@@ -93,3 +93,18 @@ export const getInfoUserByUsername = async (username) => {
         return error.response.data;
     }
 };
+
+export const changeAvatarUser = async (avatar, dispatch) => {
+    try {
+        const res = await request.post('/user/change/avatar', avatar);
+
+        dispatch(loginSuccess(res.data));
+
+        const { data, ...other } = res;
+
+        return { ...other };
+    } catch (error) {
+        console.log('error: ', error);
+        return error.response.data;
+    }
+};
