@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Courses from './Courses';
 import Posts from './Posts';
 import styles from './Search.module.scss';
@@ -7,6 +7,7 @@ import Videos from './Videos';
 import useDebounce from '~/hooks/useDebounce';
 import { useEffect, useState } from 'react';
 import { search } from '~/services/apiSearch';
+import HeadingTabs from '~/components/HeadingTabs';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +27,13 @@ function Search() {
     const debounced = useDebounce(searchValue, 600);
 
     useEffect(() => {
-        setSearchValue(q);
+        if (!q) {
+            navigate('/search/courses?q=');
+        } else {
+            setSearchValue(q);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [q]);
 
     useEffect(() => {
@@ -87,35 +94,14 @@ function Search() {
                 <div className={cx('result')}>
                     <div className={cx('content')}>
                         {activeTab && searchValue !== '' && (
-                            <div className={cx('heading')}>
-                                <ul className={cx('tabs')}>
-                                    <li>
-                                        <NavLink
-                                            className={(nav) => cx({ active: nav.isActive })}
-                                            to={`/search/courses?q=${searchValue}`}
-                                        >
-                                            Khóa học
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            className={(nav) => cx({ active: nav.isActive })}
-                                            to={`/search/posts?q=${searchValue}`}
-                                        >
-                                            Bài viết
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            className={(nav) => cx({ active: nav.isActive })}
-                                            to={`/search/videos?q=${searchValue}`}
-                                        >
-                                            Video
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                                <div className={cx('divider')}></div>
-                            </div>
+                            <HeadingTabs
+                                searchValue={searchValue}
+                                titles={[
+                                    { title: 'Khóa học', pathname: `/search/courses?q=${searchValue}` },
+                                    { title: 'Bài viết', pathname: `/search/posts?q=${searchValue}` },
+                                    { title: 'Video', pathname: `/search/videos?q=${searchValue}` },
+                                ]}
+                            />
                         )}
 
                         {searchValue !== '' && (

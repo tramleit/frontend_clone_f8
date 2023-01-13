@@ -1,0 +1,45 @@
+.wrapper {
+    .tabs {
+        display: flex;
+        list-style: none;
+        margin-bottom: 0;
+        margin-top: 16px;
+        padding-left: 0;
+
+        li + li {
+            margin-left: 24px;
+        }
+
+        a {
+            color: #0000008a;
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 500;
+            padding-bottom: 14px;
+
+            &:hover {
+                color: var(--color-black);
+            }
+
+            &.active {
+                font-weight: 700;
+                position: relative;
+                color: var(--color-black);
+
+                &::after {
+                    border-bottom: 2px solid var(--color-black);
+                    bottom: -1px;
+                    content: '';
+                    display: block;
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+    }
+
+    .divider {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}

@@ -19,55 +19,59 @@ function InputField({ type, label, placeholder, defaultValue = '', desc = '' }) 
     }, [defaultValue]);
 
     const handleChangeInfo = async () => {
-        let formData;
-        switch (type) {
-            case 'name':
-                formData = {
-                    name: value,
-                };
-                break;
-            case 'bio':
-                formData = {
-                    bio: value,
-                };
-                break;
-            case 'facebook':
-                formData = {
-                    facebook: value,
-                };
-                break;
-            case 'youtube':
-                formData = {
-                    youtube: value,
-                };
-                break;
-            case 'linkedin':
-                formData = {
-                    linkedin: value,
-                };
-                break;
-            case 'instagram':
-                formData = {
-                    instagram: value,
-                };
-                break;
-            case 'twitter':
-                formData = {
-                    twitter: value,
-                };
-                break;
-            default:
-                return;
-        }
+        if (value !== defaultValue) {
+            let formData;
+            switch (type) {
+                case 'name':
+                    formData = {
+                        name: value,
+                    };
+                    break;
+                case 'bio':
+                    formData = {
+                        bio: value,
+                    };
+                    break;
+                case 'facebook':
+                    formData = {
+                        facebook: value,
+                    };
+                    break;
+                case 'youtube':
+                    formData = {
+                        youtube: value,
+                    };
+                    break;
+                case 'linkedin':
+                    formData = {
+                        linkedin: value,
+                    };
+                    break;
+                case 'instagram':
+                    formData = {
+                        instagram: value,
+                    };
+                    break;
+                case 'twitter':
+                    formData = {
+                        twitter: value,
+                    };
+                    break;
+                default:
+                    return;
+            }
 
-        setActive(false);
-        const result = await changeInfoUser(formData, currentUser._id, dispatch);
+            setActive(false);
+            const result = await changeInfoUser(formData, currentUser._id, dispatch);
 
-        if (result.errCode === 0) {
-            dispatch(showNotification(result.message));
+            if (result.errCode === 0) {
+                dispatch(showNotification(result.message));
+            } else {
+                dispatch(showNotification(result.message));
+                setValue(defaultValue);
+            }
         } else {
-            dispatch(showNotification(result.message));
-            setValue(defaultValue);
+            setActive(false);
         }
     };
 

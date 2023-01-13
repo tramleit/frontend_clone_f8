@@ -3,7 +3,7 @@ import styles from './Heading.module.scss';
 
 const cx = className.bind(styles);
 
-function Heading({ name, desc }) {
+function Heading({ name, desc = '' }) {
     return (
         <div className={cx('wrapper')}>
             <h2>{name}</h2>
