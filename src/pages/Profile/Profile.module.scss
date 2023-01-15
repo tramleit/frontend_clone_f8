@@ -7,7 +7,6 @@
     .banner {
         background-image: url('./../../assets/image/cover-profile.png');
         position: relative;
-        // background: top/cover no-repeat;
         border-bottom-left-radius: 16px;
         border-bottom-right-radius: 16px;
         margin-top: -66px;
@@ -23,17 +22,49 @@
             z-index: 1;
 
             .user-avatar {
+                align-items: center;
                 background-color: #fff;
                 border-radius: 50%;
-                height: 168px;
-                padding: 4px;
-                width: 168px;
+                display: flex;
+                height: 172px;
+                justify-content: center;
+                width: 172px;
+                position: relative;
+                cursor: pointer;
 
-                img {
+                &.pro {
+                    background-color: transparent;
+                    padding: 0;
+                }
+
+                .choose-avatar {
+                    background: rgba(0, 0, 0, 0.54);
                     border-radius: 50%;
-                    height: 168px;
-                    object-fit: cover;
-                    width: 100%;
+                    bottom: 0;
+                    cursor: pointer;
+                    display: flex;
+                    height: 90%;
+                    justify-content: center;
+                    align-items: center;
+                    left: 9px;
+                    position: absolute;
+                    right: 0;
+                    top: 8px;
+                    transition: all 1s ease;
+                    width: 90%;
+                    z-index: 6;
+
+                    &:hover {
+                        svg {
+                            opacity: 1;
+                        }
+                    }
+
+                    svg {
+                        color: #fff;
+                        font-size: 3.2rem;
+                        opacity: 0.6;
+                    }
                 }
             }
 
@@ -43,6 +74,12 @@
                 margin-bottom: 16px;
                 margin-left: 16px;
                 text-align: center;
+
+                svg {
+                    color: #1b74e4;
+                    margin-left: 4px;
+                    font-size: 1.8rem;
+                }
             }
         }
 
@@ -156,12 +193,52 @@
                     margin: 0 0 8px;
                 }
 
+                .bio {
+                    border-bottom: 1px solid #d0d7de;
+                    font-size: 1.4rem;
+                    margin-top: 20px;
+                    padding-bottom: 15px;
+                    text-align: center;
+                }
+
                 .participation {
                     align-items: flex-start;
                     display: flex;
                     font-size: 1.4rem;
                     line-height: 1.8rem;
                     margin-top: 15px;
+                }
+
+                .social-link {
+                    align-items: flex-start;
+                    display: flex;
+                    font-size: 1.4rem;
+                    line-height: 1.8rem;
+                    margin-top: 15px;
+
+                    .social-icon {
+                        color: #808990;
+                        font-size: 1.6rem;
+                        margin-right: 8px;
+                        margin-top: 2px;
+                        padding-top: 1px;
+                        text-align: center;
+                        width: 20px;
+                    }
+
+                    .link {
+                        word-wrap: break-word;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        color: #0056d6;
+                        display: -webkit-box;
+                        overflow: hidden;
+                        margin-top: 4px;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
                 }
 
                 svg {

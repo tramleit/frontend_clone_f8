@@ -6,6 +6,9 @@ export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loadingStart());
     try {
         const res = await request.post('/user/login', user);
+        console.log('res: ', res);
+        const headers = res.headers;
+        console.log(headers);
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
@@ -112,7 +115,9 @@ export const changeAvatarUser = async (avatar, dispatch) => {
 
 export const changeInfoUser = async (info, userId, dispatch) => {
     try {
-        const res = await request.post(`/user/change/${userId}`, info);
+        const res = await request.post(`/user/change/${userId}`, info, {
+            withCredentials: true,
+        });
 
         dispatch(loginSuccess(res.data));
         const { data, ...other } = res;

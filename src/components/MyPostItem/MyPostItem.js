@@ -1,31 +1,31 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
-import styles from './PostSave.module.scss';
+import styles from './MyPostItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-
 const cx = classNames.bind(styles);
 
-function PostSave() {
+function MyPostItem({ type, title, path, time, author, readingTime }) {
     const [active, setActive] = useState(false);
 
     return (
         <div className={cx('wrapper')}>
-            <h3
-                className={cx('title')}
-                title={`Bỏ túi 21 lệnh Git cơ bản + Cách nhớ, giúp newDev làm chủ Git quản lý tốt mã nguồn!`}
-            >
-                <Link>
-                    <span>Bỏ túi 21 lệnh Git cơ bản + Cách nhớ, giúp newDev làm chủ Git quản lý tốt mã nguồn!</span>
+            <h3 className={cx('title')} title={title}>
+                <Link to={`/blog/${path}`}>
+                    <span>{title}</span>
                 </Link>
             </h3>
+
             <div className={cx('author')}>
-                <Link>Đã lưu vài giây trước</Link>
+                <Link to={`/blog/${path}`}>
+                    {type !== 'my-post' ? 'Đã lưu' : 'Xuất bản'} {time}
+                </Link>
                 <span className={cx('dot')}>·</span>
                 <span>
-                    Tác giả <strong>Nguyễn Thanh Hòa</strong>
+                    {type !== 'my-post' ? 'Tác giả' : `${readingTime} phút đọc`}
+                    <strong>{author}</strong>
                 </span>
             </div>
 
@@ -36,7 +36,7 @@ function PostSave() {
                 placement="bottom-end"
                 render={(attrs) => (
                     <div className={cx('more-tippy')} tabIndex="-1" {...attrs}>
-                        <span>Xóa khỏi mục đã lưu</span>
+                        <span>Xóa {type !== 'my-post' ? 'khỏi mục đã lưu' : 'bài viết'}</span>
                     </div>
                 )}
             >
@@ -48,4 +48,4 @@ function PostSave() {
     );
 }
 
-export default PostSave;
+export default MyPostItem;

@@ -14,6 +14,7 @@ import Search from '~/pages/Search';
 import NotFound from '~/pages/NotFound';
 import MyCourses from '~/pages/MyCourses';
 import BookMark from '~/pages/BookMark';
+import MyPost from '~/pages/MyPost';
 
 // Public router
 const publicRoutes = [
@@ -33,6 +34,7 @@ const publicRoutes = [
     { path: '/search/:slug', component: Search },
     { path: '/my-courses', component: MyCourses },
     { path: '/me/bookmark/posts', component: BookMark },
+    { path: '/me/posts/:tab', component: MyPost },
     { path: '*', component: NotFound, layout: null },
 ];
 

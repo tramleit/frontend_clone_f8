@@ -33,3 +33,13 @@ export const getPostBySlug = async (slug) => {
         return error.response;
     }
 };
+
+export const getMyPosts = async (userId) => {
+    try {
+        const res = await request.get(`/blog/my-posts?q=${userId}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};

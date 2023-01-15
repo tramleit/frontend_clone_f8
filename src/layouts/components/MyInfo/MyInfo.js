@@ -15,9 +15,7 @@ function MyInfo() {
     const [active, setActive] = useState(false);
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-
     const accessToken = currentUser?.accessToken;
-
     const id = currentUser?._id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -59,7 +57,7 @@ function MyInfo() {
                                 <Link to="/new-post">Viết blog</Link>
                             </li>
                             <li className={cx('item')}>
-                                <Link to="/me/post/:tab">Bài viết của tôi</Link>
+                                <Link to="/me/posts/drafts">Bài viết của tôi</Link>
                             </li>
                         </ul>
                         <hr />

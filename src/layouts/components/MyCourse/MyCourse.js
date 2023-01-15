@@ -5,7 +5,7 @@ import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './MyCourse.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAllMyCourses } from '~/services/apiAuth';
 
 const cx = classNames.bind(styles);
