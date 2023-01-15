@@ -78,6 +78,10 @@
             .btn-save {
                 cursor: pointer;
                 padding: 4px 8px;
+
+                .book-mark {
+                    color: var(--color-primary);
+                }
             }
 
             .btn-option {

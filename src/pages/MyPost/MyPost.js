@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind';
-import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -14,8 +13,6 @@ const cx = classNames.bind(styles);
 
 function MyPost() {
     const [myPosts, setMyPosts] = useState([]);
-    console.log('myPosts: ', myPosts);
-
     const { tab } = useParams();
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -31,7 +28,9 @@ function MyPost() {
             }
         };
         fetchApi();
-    }, []);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser._id]);
 
     return (
         <div className={cx('wrapper')}>
@@ -56,16 +55,17 @@ function MyPost() {
                         </div>
                     ) : (
                         <>
-                            {myPosts.slice(-10).map((myPost) => (
-                                <MyPostItem
-                                    key={myPost._id}
-                                    type="my-post"
-                                    title={myPost.title}
-                                    time={moment(myPost.createdAt).fromNow()}
-                                    readingTime={myPost.readingTime}
-                                    path={myPost.slug}
-                                />
-                            ))}
+                            {myPosts.length > 0 ? (
+                                myPosts.map((myPost) => <MyPostItem key={myPost._id} type="my-post" myPost={myPost} />)
+                            ) : (
+                                <div className={cx('no-result')}>
+                                    <p>Bạn chưa xuất bản bài viết nào.</p>
+                                    <p>
+                                        Bạn có thể <Link to="/new-post">viết bài mới</Link> hoặc
+                                        <Link to="/blog"> đọc bài viết</Link> khác trên F8 nhé.
+                                    </p>
+                                </div>
+                            )}
                         </>
                     )}
                 </div>

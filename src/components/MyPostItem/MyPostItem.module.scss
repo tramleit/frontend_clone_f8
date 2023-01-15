@@ -46,8 +46,7 @@
     }
 
     .more-tippy {
-        min-width: 200px;
-        padding: 8px 0;
+        padding: 2px 0;
         animation: Tippy 0.3s ease;
         background: var(--background-color);
         border-radius: 10px;
@@ -57,6 +56,7 @@
         overflow: hidden;
         transition: all 0.3s ease-in-out;
         will-change: opacity, transform;
+        text-align: center;
 
         span {
             color: #444;

@@ -76,7 +76,7 @@ function Profile() {
                     </div>
                     <div className={cx('user-name')}>
                         <span>{infoUser?.name}</span>
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        {infoUser?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
                     </div>
                 </div>
                 <div className={cx('btn-change')} onClick={() => setUpload(true)}>

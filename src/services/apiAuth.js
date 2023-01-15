@@ -6,9 +6,6 @@ export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loadingStart());
     try {
         const res = await request.post('/user/login', user);
-        console.log('res: ', res);
-        const headers = res.headers;
-        console.log(headers);
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
@@ -123,6 +120,29 @@ export const changeInfoUser = async (info, userId, dispatch) => {
         const { data, ...other } = res;
 
         return { ...other };
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const toggleSavaPost = async (postId, userId, dispatch) => {
+    try {
+        const res = await request.post(`/user/toggle/bookmark?post=${postId}&user=${userId}`);
+
+        dispatch(loginSuccess(res.data));
+        const { data, ...other } = res;
+
+        return { ...other };
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const getPostSave = async (userId) => {
+    try {
+        const res = await request.get(`/user/?bookmark=${userId}`);
+
+        return res;
     } catch (error) {
         return error.response.data;
     }

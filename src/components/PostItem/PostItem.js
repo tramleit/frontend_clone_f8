@@ -4,14 +4,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark as faBookmarkSave } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { Image } from '~/assets/image';
-
 import styles from './PostItem.module.scss';
+import { toggleSavaPost } from '~/services/apiAuth';
+import { useDispatch, useSelector } from 'react-redux';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
 function PostItem({ dataPost }) {
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+    const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost._id);
+
+    const handleSavePost = async () => {
+        const result = await toggleSavaPost(dataPost._id, currentUser._id, dispatch);
+
+        if (result.errCode === 0) {
+            dispatch(showNotification(result.message));
+        } else {
+            dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -34,8 +51,12 @@ function PostItem({ dataPost }) {
                 </div>
 
                 <div className={cx('actions')}>
-                    <div className={cx('btn-save')}>
-                        <FontAwesomeIcon icon={faBookmark} />
+                    <div className={cx('btn-save')} onClick={handleSavePost}>
+                        {checkSavePost === -1 ? (
+                            <FontAwesomeIcon icon={faBookmark} />
+                        ) : (
+                            <FontAwesomeIcon icon={faBookmarkSave} className={cx('book-mark')} />
+                        )}
                     </div>
                     <div className={cx('btn-option')}>
                         <FontAwesomeIcon icon={faEllipsis} />
