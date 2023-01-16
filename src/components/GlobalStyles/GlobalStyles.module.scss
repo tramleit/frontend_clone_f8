@@ -32,6 +32,11 @@ html {
     font-size: 62.5%;
 }
 
+html {
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.15;
+}
+
 html ::-webkit-scrollbar {
     border-radius: 0;
     height: 8px;

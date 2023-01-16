@@ -39,7 +39,12 @@ function BookMark() {
             <div className={cx('container')}>
                 <div className={cx('content')}>
                     <HeadingTabs
-                        titles={[{ title: `Bài viết (${postSaves.length})`, pathname: config.routes.bookmark }]}
+                        titles={[
+                            {
+                                title: `Bài viết (${postSaves.length})`,
+                                pathname: config.routes.bookmark,
+                            },
+                        ]}
                     />
 
                     {postSaves.length > 0 ? (

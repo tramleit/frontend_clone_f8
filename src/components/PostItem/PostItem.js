@@ -28,7 +28,7 @@ function PostItem({ dataPost }) {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
     const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost._id);
 
-    const url = `${config.routes.url}${config.routes.blog}/${dataPost.slug}`;
+    const url = `${window.location.host}${config.routes.blog}/${dataPost.slug}`;
 
     const handleSavePost = async () => {
         const result = await toggleSavaPost(dataPost._id, currentUser._id, dispatch);
@@ -44,7 +44,6 @@ function PostItem({ dataPost }) {
         dispatch(showNotification('Đã sao chép liên kết'));
         setOption(false);
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>

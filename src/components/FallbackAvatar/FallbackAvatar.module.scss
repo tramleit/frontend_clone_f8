@@ -12,7 +12,7 @@
         position: relative;
     }
 
-    img:not(.crown) {
+    .image:not(.crown) {
         border-radius: 50%;
         height: 9em;
         object-fit: cover;

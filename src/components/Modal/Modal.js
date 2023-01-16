@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '~/redux/reducer/modunReducer';
 import styles from './Modal.module.scss';
@@ -24,11 +25,11 @@ function Modal() {
         }
     }, []);
 
-    return (
+    return createPortal(
         <>
-            <div ref={modalRef} className={cx('wrapper')}>
-                <div className={cx('content')}>
-                    <h2 className={cx('heading')}>Bảng Tin F8</h2>
+            <div className={cx('wrapper')} ref={modalRef}>
+                <div className={cx('content')} ref={modalRef}>
+                    <h2 className={cx('heading')}>Bảng Tin</h2>
 
                     <div className={cx('list')}>
                         <div className={cx('item')}>
@@ -59,7 +60,8 @@ function Modal() {
                 </div>
             </div>
             <div ref={modalRef} className={cx('overlay')} onClick={handleCloseModal}></div>
-        </>
+        </>,
+        document.body
     );
 }
 

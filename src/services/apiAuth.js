@@ -45,6 +45,7 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
         dispatch(logoutSuccess());
         dispatch(loadingSuccess());
         navigate('/login');
+        window.location.reload();
     } catch (error) {
         dispatch(loadingSuccess());
     }

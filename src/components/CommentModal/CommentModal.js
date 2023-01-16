@@ -4,13 +4,14 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { Image } from '~/assets/image';
 import { closeModalComment } from '~/redux/reducer/modunReducer';
 import CommentItem from './CommentItem';
 import { getAllComments } from '~/services/apiCourse';
 import ReplyBox from './ReplyBox';
 
 import styles from './CommentModal.module.scss';
+import FallbackAvatar from '../FallbackAvatar';
+import { createPortal } from 'react-dom';
 
 const cx = classNames.bind(styles);
 
@@ -43,7 +44,7 @@ function CommentModal() {
         dispatch(closeModalComment());
     };
 
-    return (
+    return createPortal(
         <div className={modalComment ? cx('wrapper') : cx('wrapper', 'open')} onClick={handleCloseModalComment}>
             <div className={cx('container')}>
                 <div className={cx('close-modal')} onClick={handleCloseModalComment}>
@@ -63,15 +64,15 @@ function CommentModal() {
                                     lessonId={lessonId}
                                     type="create"
                                     setIsChat={setIsChat}
-                                    fontSize="4.2px"
                                     arrCmt={allComment}
                                     setArrCmt={setAllComment}
                                 />
                             ) : (
                                 <>
                                     <div className={cx('my-avatar')}>
-                                        <img
-                                            src={currentUser.avatar ? currentUser.avatar : Image.avatar}
+                                        <FallbackAvatar
+                                            style={{ '--font-size': '4.2px' }}
+                                            image={currentUser.avatar}
                                             alt={currentUser.name}
                                         />
                                     </div>
@@ -90,7 +91,8 @@ function CommentModal() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
 

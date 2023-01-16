@@ -2,7 +2,10 @@
     line-height: 1.6;
     margin: 16px 0 8px;
     padding-bottom: 48px;
-    max-width: 600px;
+
+    &.create {
+        margin-top: 0;
+    }
 
     .content {
         align-items: flex-start;

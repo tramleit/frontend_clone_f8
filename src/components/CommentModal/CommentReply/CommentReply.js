@@ -8,8 +8,8 @@ import MarkdownParser from '~/components/tracks/MarkdownParser';
 import ReplyBox from '../ReplyBox';
 import styles from '../CommentItem/CommentItem.module.scss';
 import { createCommentReply } from '~/services/apiCourse';
-import { Image } from '~/assets/image';
 import ReactionFeel from '../CommentItem/ReactionFeel';
+import FallbackAvatar from '~/components/FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -41,8 +41,9 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
                 <Link to={`/@${reply.author?.username}`}>
-                    <img
-                        src={reply.author?.avatar !== '' ? reply.author?.avatar : Image.avatar}
+                    <FallbackAvatar
+                        style={{ '--font-size': '4px' }}
+                        image={reply.author?.avatar}
                         alt={reply.author?.name}
                     />
                 </Link>
@@ -99,7 +100,6 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
                     <ReplyBox
                         type="reply"
                         setIsChat={setIsChat}
-                        fontSize="3.2px"
                         ownerComment={ownerComment}
                         authorReply={reply.author._id}
                         authorCmt={reply.author}

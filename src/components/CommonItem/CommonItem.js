@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './CommonItem.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { IconCrownUser } from '~/assets/Icon';
-import { Image } from '~/assets/image';
+import FallbackAvatar from '../FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -104,10 +103,12 @@ function CommonItem({
                 {type === 'blog' && (
                     <div className={cx('author')}>
                         <Link className={cx('avatar-wrap')} to={`/@${author?.username}`}>
-                            <div className={author?.admin ? cx('avatar', 'admin') : cx('avatar')}>
-                                <img src={author?.avatar !== '' ? author?.avatar : Image.avatar} alt={author?.name} />
-                            </div>
-                            {author?.admin && <IconCrownUser className={cx('crown-user')} />}
+                            <FallbackAvatar
+                                style={{ '--font-size': '2.32px' }}
+                                image={author?.avatar}
+                                alt={author?.name}
+                                admin={author?.admin}
+                            />
                         </Link>
                         <Link className={cx('name-author')} to={`/@${author?.username}`}>
                             <span className={cx('user-name')}>{author?.name}</span>

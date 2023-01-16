@@ -1,7 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
-import { Image } from '~/assets/image';
 import { Link, useNavigate } from 'react-router-dom';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import { logoutUser } from '~/services/apiAuth';
 import { loginSuccess } from '~/redux/reducer/authReducer';
 import { createAxios } from '~/redux/createInstance';
 import config from '~/config';
+import FallbackAvatar from '~/components/FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -39,8 +39,9 @@ function MyInfo() {
                     <div className={cx('my-info')} tabIndex="-1" {...attrs}>
                         <div className={cx('user')}>
                             <div className={cx('avatar')}>
-                                <img
-                                    src={currentUser.avatar !== '' ? currentUser.avatar : Image.avatar}
+                                <FallbackAvatar
+                                    style={{ '--font-size': '5.6px' }}
+                                    image={currentUser.avatar}
                                     alt={currentUser.name}
                                 />
                             </div>
@@ -78,7 +79,11 @@ function MyInfo() {
                 )}
             >
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
-                    <img src={currentUser.avatar !== '' ? currentUser.avatar : Image.avatar} alt={currentUser.name} />
+                    <FallbackAvatar
+                        style={{ '--font-size': '3.2px' }}
+                        image={currentUser.avatar}
+                        alt={currentUser.name}
+                    />
                 </div>
             </Tippy>
         </div>

@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 function FallbackAvatar({ style, image, alt, admin = false }) {
     return (
         <div className={admin ? cx('avatar', 'pro') : cx('avatar')} style={style}>
-            <img src={image || Image.avatar} alt={alt || 'Avatar'} />
+            <img className={cx('image')} src={image || Image.avatar} alt={alt || 'Avatar'} />
 
             {admin && (
                 <img

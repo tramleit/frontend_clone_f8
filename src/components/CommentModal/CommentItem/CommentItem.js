@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Image } from '~/assets/image';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
 import { createCommentReply, getCommentReply } from '~/services/apiCourse';
 import CommentReply from '../CommentReply';
@@ -12,6 +11,7 @@ import ReplyBox from '../ReplyBox';
 
 import styles from './CommentItem.module.scss';
 import ReactionFeel from './ReactionFeel';
+import FallbackAvatar from '~/components/FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -64,8 +64,9 @@ function CommentItem({ comment, ownerComment }) {
         <div className={cx('wrapper')}>
             <div className={cx('avatar')}>
                 <Link to={`/@${comment.author?.username}`}>
-                    <img
-                        src={comment.author?.avatar !== '' ? comment.author?.avatar : Image.avatar}
+                    <FallbackAvatar
+                        style={{ '--font-size': '4.2px' }}
+                        image={comment.author?.avatar}
                         alt={comment.author?.name}
                     />
                 </Link>
@@ -122,7 +123,6 @@ function CommentItem({ comment, ownerComment }) {
                     <ReplyBox
                         type="reply"
                         setIsChat={setIsChat}
-                        fontSize="3.2px"
                         ownerComment={ownerComment}
                         authorReply={comment.author._id}
                         authorCmt={comment.author}
