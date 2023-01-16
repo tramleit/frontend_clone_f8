@@ -9,9 +9,10 @@ import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSavaPost } from '~/services/apiAuth';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import { deletePostById } from '~/services/apiBlog';
 const cx = classNames.bind(styles);
 
-function MyPostItem({ type, postSave = null, setPostSaves = null, myPost = null }) {
+function MyPostItem({ type = false, setPostSaves = null, myPost = null }) {
     const [active, setActive] = useState(false);
 
     const dispatch = useDispatch();
@@ -19,34 +20,48 @@ function MyPostItem({ type, postSave = null, setPostSaves = null, myPost = null 
 
     const handleRemovePostSave = async () => {
         if (!type) {
-            const result = await toggleSavaPost(postSave.post._id, currentUser._id, dispatch);
-
-            if (result.errCode === 0) {
-                dispatch(showNotification(result.message));
-                setPostSaves([]);
+            // Xóa bài viết đã lưu
+            if (myPost.post) {
+                const result = await toggleSavaPost(myPost.post._id, currentUser._id, dispatch);
+                if (result.errCode === 0) {
+                    dispatch(showNotification(result.message));
+                    setPostSaves([]);
+                } else {
+                    dispatch(showNotification(result.message || 'Lỗi xóa bài viết đã lưu'));
+                }
             } else {
-                dispatch(showNotification(result.message || 'Lỗi xóa bài viết đã lưu'));
+                dispatch(showNotification('Bài viết không tồn tại'));
+            }
+        } else {
+            // Xóa bài viết
+            const resultDelete = await deletePostById(myPost._id);
+
+            if (resultDelete.errCode === 0) {
+                setPostSaves([]);
+                dispatch(showNotification(resultDelete.message));
+            } else {
+                dispatch(showNotification(resultDelete.message || 'Lỗi xóa bài viết'));
             }
         }
     };
 
     return (
         <div className={cx('wrapper')}>
-            <h3 className={cx('title')} title={postSave?.post.title || myPost.title}>
-                <Link to={`/blog/${postSave?.post.slug || myPost.slug}`}>
-                    <span>{postSave?.post.title || myPost.title}</span>
+            <h3 className={cx('title')} title={!type ? myPost.post?.title : myPost?.title}>
+                <Link to={`/blog/${!type ? myPost.post?.slug : myPost?.slug}`}>
+                    <span>{!type ? myPost.post?.title : myPost?.title}</span>
                 </Link>
             </h3>
 
             <div className={cx('author')}>
-                <Link to={`/blog/${postSave?.post.slug || myPost.slug}`}>
-                    {type !== 'my-post' ? 'Đã lưu' : 'Xuất bản'}{' '}
-                    {moment(postSave?.timestamps).fromNow() || moment(myPost.createdAt).fromNow()}
+                <Link to={`/blog/${!type ? myPost.post?.slug : myPost?.slug}`}>
+                    {type !== 'my-post' ? 'Đã lưu ' : 'Xuất bản '}
+                    {moment(!type ? myPost.timestamps : myPost.createdAt).fromNow()}
                 </Link>
                 <span className={cx('dot')}>·</span>
                 <span>
-                    {type !== 'my-post' ? 'Tác giả' : `${myPost.readingTime} phút đọc`}
-                    <strong> {postSave?.post.author.name}</strong>
+                    {type !== 'my-post' ? 'Tác giả ' : `${myPost.readingTime} phút đọc`}
+                    {!type && <strong>{myPost.post?.author.name}</strong>}
                 </span>
             </div>
 

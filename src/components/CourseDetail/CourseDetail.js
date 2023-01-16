@@ -1,3 +1,5 @@
+import config from '~/config';
+
 import { DefaultLayout } from '~/layouts';
 import classNames from 'classnames/bind';
 import styles from './CourseDetail.module.scss';
@@ -56,7 +58,7 @@ function CourseDetail({ course, pathName }) {
                 window.location.reload();
             }
         } else {
-            navigate('/login');
+            navigate(config.routes.login);
         }
     };
 

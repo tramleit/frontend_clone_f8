@@ -1,3 +1,5 @@
+import config from '~/config';
+
 import Home from '~/pages/Home';
 import Learning from '~/pages/Learning';
 import Courses from '~/pages/Courses';
@@ -16,28 +18,25 @@ import MyCourses from '~/pages/MyCourses';
 import BookMark from '~/pages/BookMark';
 import MyPost from '~/pages/MyPost';
 
-// Public router
 const publicRoutes = [
-    { path: '/', component: Home },
-    { path: '/learning', component: Learning },
-    { path: '/learning/:slug', component: LearningRoute },
-    { path: '/courses', component: Courses },
-    { path: '/courses/:slug', component: Tracks, layout: null },
-    { path: '/blog', component: Blog },
-    { path: '/blog/:slug', component: Posts },
-    { path: '/new-post', component: NewPost, layout: null },
-    { path: '/login', component: Login, layout: null },
-    { path: '/register', component: Register, layout: null },
-    { path: '/@:username', component: Profile },
-    { path: '/settings', component: Settings },
-    { path: '/search', component: Search },
-    { path: '/search/:slug', component: Search },
-    { path: '/my-courses', component: MyCourses },
-    { path: '/me/bookmark/posts', component: BookMark },
-    { path: '/me/posts/:tab', component: MyPost },
+    { path: config.routes.home, component: Home },
+    { path: config.routes.learning, component: Learning },
+    { path: config.routes.learningRoute, component: LearningRoute },
+    { path: config.routes.courses, component: Courses },
+    { path: config.routes.tracks, component: Tracks, layout: null },
+    { path: config.routes.blog, component: Blog },
+    { path: config.routes.post, component: Posts },
+    { path: config.routes.newPost, component: NewPost, layout: null },
+    { path: config.routes.login, component: Login, layout: null },
+    { path: config.routes.register, component: Register, layout: null },
+    { path: config.routes.profile, component: Profile },
+    { path: config.routes.settings, component: Settings },
+    { path: config.routes.search, component: Search },
+    { path: config.routes.searchSlug, component: Search },
+    { path: config.routes.myCourses, component: MyCourses },
+    { path: config.routes.bookmark, component: BookMark },
+    { path: config.routes.myPost, component: MyPost },
     { path: '*', component: NotFound, layout: null },
 ];
 
-const privateRoutes = [];
-
-export { publicRoutes, privateRoutes };
+export { publicRoutes };

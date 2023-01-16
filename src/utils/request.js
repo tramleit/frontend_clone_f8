@@ -16,4 +16,10 @@ export const post = async (path, option = {}) => {
     return res.data;
 };
 
+export const remove = async (path, option = {}) => {
+    const res = await request.delete(path, option);
+
+    return res.data;
+};
+
 export default request;

@@ -43,3 +43,13 @@ export const getMyPosts = async (userId) => {
         return error.response.data;
     }
 };
+
+export const deletePostById = async (postId) => {
+    try {
+        const res = await request.remove(`/blog/delete/${postId}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};

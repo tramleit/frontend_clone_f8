@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -15,8 +16,7 @@ function DefaultLayout({ children }) {
     const modal = useSelector((state) => state.modun.modal.status);
 
     const pathname = useLocation().pathname;
-
-    const settings = pathname.includes('/settings');
+    const settings = pathname.includes(config.routes.settings);
 
     return (
         <>

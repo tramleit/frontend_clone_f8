@@ -1,3 +1,5 @@
+import config from '~/config';
+
 import classNames from 'classnames/bind';
 import Form from '~/components/Form';
 import styles from './Register.module.scss';
@@ -11,7 +13,7 @@ function Register() {
                 name="Đăng ký tài khoản F8"
                 nameBtn="Đăng ký"
                 question="Bạn đã có tài khoản?"
-                path="/login"
+                path={config.routes.login}
                 action="Đăng nhập"
                 role={false}
             />

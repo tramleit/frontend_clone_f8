@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
@@ -9,11 +10,11 @@ function NotFound() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
-                <Link className={cx('logo')} to="/">
+                <Link className={cx('logo')} to={config.routes.home}>
                     <img src={Image.iconLogo} alt="Logo" />
                 </Link>
                 <p className={cx('name')}>
-                    <Link to="/">Học Lập Trình Để Đi Làm</Link>
+                    <Link to={config.routes.home}>Học Lập Trình Để Đi Làm</Link>
                 </p>
             </div>
 
@@ -32,14 +33,14 @@ function NotFound() {
                 </ul>
 
                 <p>
-                    <Link className={cx('back-home')} to="/">
+                    <Link className={cx('back-home')} to={config.routes.home}>
                         Truy cập trang chủ
                     </Link>
                 </p>
 
                 <p>
                     &#128073; hoặc đi tới
-                    <Link className={cx('my-courses')} to="/my-courses">
+                    <Link className={cx('my-courses')} to={config.routes.myCourses}>
                         Khóa học của tôi
                     </Link>
                 </p>

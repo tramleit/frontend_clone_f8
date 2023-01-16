@@ -1,3 +1,4 @@
+import config from '~/config';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
@@ -54,7 +55,7 @@ function MyInfo() {
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link to="/new-post">Viết blog</Link>
+                                <Link to={config.routes.newPost}>Viết blog</Link>
                             </li>
                             <li className={cx('item')}>
                                 <Link to="/me/posts/drafts">Bài viết của tôi</Link>
@@ -63,13 +64,13 @@ function MyInfo() {
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link to="/me/bookmark/posts">Bài viết đã lưu</Link>
+                                <Link to={config.routes.bookmark}>Bài viết đã lưu</Link>
                             </li>
                         </ul>
                         <hr />
                         <ul className={cx('list')}>
                             <li className={cx('item')}>
-                                <Link to="/settings">Cài đặt</Link>
+                                <Link to={config.routes.settings}>Cài đặt</Link>
                             </li>
                             <li className={cx('item')} onClick={handleLout}>
                                 <Link>Đăng xuất</Link>

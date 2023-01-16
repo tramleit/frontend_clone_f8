@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import HandlessTippy from '@tippyjs/react/headless';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +20,7 @@ function CreateButton() {
             onClickOutside={() => setClick(false)}
             render={(attrs) => (
                 <div className={cx('new-post')} tabIndex="-1" {...attrs}>
-                    <Link to="/new-post">
+                    <Link to={config.routes.newPost}>
                         <FontAwesomeIcon icon={faPen} />
                         <span>Viết blog</span>
                     </Link>

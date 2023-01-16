@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 import Form from '~/components/Form';
@@ -17,7 +18,7 @@ function Login() {
                 name="Đăng nhập vào F8"
                 nameBtn="Đăng nhập"
                 question="Bạn chưa có tài khoản?"
-                path="/register"
+                path={config.routes.register}
                 action="Đăng ký"
                 role={true}
             />

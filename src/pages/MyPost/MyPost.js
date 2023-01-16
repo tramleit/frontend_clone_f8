@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,7 +31,7 @@ function MyPost() {
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser._id]);
+    }, [currentUser._id, myPosts.length]);
 
     return (
         <div className={cx('wrapper')}>
@@ -49,20 +50,27 @@ function MyPost() {
                         <div className={cx('no-result')}>
                             <p>Chức năng này đang trong quá trình phát triển</p>
                             <p>
-                                Bạn có thể <Link to="/new-post">viết bài mới</Link> hoặc
-                                <Link to="/blog"> đọc bài viết</Link> khác trên F8 nhé.
+                                Bạn có thể <Link to={config.routes.newPost}>viết bài mới</Link> hoặc
+                                <Link to={config.routes.blog}> đọc bài viết</Link> khác trên F8 nhé.
                             </p>
                         </div>
                     ) : (
                         <>
                             {myPosts.length > 0 ? (
-                                myPosts.map((myPost) => <MyPostItem key={myPost._id} type="my-post" myPost={myPost} />)
+                                myPosts.map((myPost) => (
+                                    <MyPostItem
+                                        key={myPost._id}
+                                        type="my-post"
+                                        setPostSaves={setMyPosts}
+                                        myPost={myPost}
+                                    />
+                                ))
                             ) : (
                                 <div className={cx('no-result')}>
                                     <p>Bạn chưa xuất bản bài viết nào.</p>
                                     <p>
-                                        Bạn có thể <Link to="/new-post">viết bài mới</Link> hoặc
-                                        <Link to="/blog"> đọc bài viết</Link> khác trên F8 nhé.
+                                        Bạn có thể <Link to={config.routes.newPost}>viết bài mới</Link> hoặc
+                                        <Link to={config.routes.blog}> đọc bài viết</Link> khác trên F8 nhé.
                                     </p>
                                 </div>
                             )}

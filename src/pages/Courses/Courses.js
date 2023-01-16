@@ -1,3 +1,4 @@
+import config from '~/config';
 import { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import Heading from '~/components/Heading';
@@ -77,7 +78,7 @@ function Courses() {
                 <SuggestionBox
                     title="Bạn đang tìm kiếm lộ trình học cho người mới?"
                     desc="Các khóa học được thiết kế phù hợp cho người mới, lộ trình học rõ ràng, nội dung dễ hiểu."
-                    path="/learning"
+                    path={config.routes.learning}
                     nameBtn="Xem lộ trình"
                 />
             </div>

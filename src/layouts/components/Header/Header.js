@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
 import { Image } from '~/assets/image';
@@ -18,14 +19,14 @@ function Header({ post, activePublic, dataNewPost }) {
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const checkPathProfile = pathName.includes('/@');
-    const checkPathNewPost = pathName.includes('/new-post') || pathName.includes('/search');
+    const checkPathNewPost = pathName.includes(config.routes.newPost) || pathName.includes(config.routes.search);
 
     return (
         <div className={checkPathProfile ? cx('wrapper', 'active') : cx('wrapper')}>
             {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} dataNewPost={dataNewPost} />}
 
             <div className={cx('logo')}>
-                <Link to="/">
+                <Link to={config.routes.home}>
                     <img src={Image.iconLogo} alt="logo F8" />
                 </Link>
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
@@ -50,7 +51,7 @@ function Header({ post, activePublic, dataNewPost }) {
                     </div>
                 ) : (
                     <div className={cx('btn-login')}>
-                        <Link to="/login">Đăng nhập</Link>
+                        <Link to={config.routes.login}>Đăng nhập</Link>
                     </div>
                 )}
             </div>

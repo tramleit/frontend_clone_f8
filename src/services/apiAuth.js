@@ -1,3 +1,4 @@
+import config from '~/config';
 import * as request from '~/utils/request';
 import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/authReducer';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
@@ -9,7 +10,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
-        navigate('/');
+        navigate(config.routes.home);
         return res;
     } catch (error) {
         dispatch(loadingSuccess());
@@ -24,7 +25,7 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
 
         dispatch(registerSuccess(res.data));
         dispatch(loadingSuccess());
-        navigate('/');
+        navigate(config.routes.home);
         return res;
     } catch (error) {
         dispatch(loadingSuccess());

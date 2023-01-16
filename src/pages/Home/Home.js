@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Banner from '~/components/Banner';
@@ -97,7 +98,7 @@ function Home() {
                         </p>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>Khóa học miễn phí</h4>
-                            <Link className={cx('view-all')} to="/learning">
+                            <Link className={cx('view-all')} to={config.routes.learning}>
                                 Xem lộ trình
                                 <FontAwesomeIcon icon={faChevronRight} />
                             </Link>

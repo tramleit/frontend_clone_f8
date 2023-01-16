@@ -1,3 +1,4 @@
+import config from '~/config';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -26,19 +27,19 @@ function Sidebar() {
                 </div>
                 <ul className={cx('list')}>
                     <li className={cx('item')}>
-                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to={config.routes.home}>
                             <FontAwesomeIcon icon={faHome} />
                             <span>Home</span>
                         </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/learning">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to={config.routes.learning}>
                             <FontAwesomeIcon icon={faRoad} />
                             <span>Lộ trình</span>
                         </NavLink>
                     </li>
                     <li className={cx('item')}>
-                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to="/courses">
+                        <NavLink className={(nav) => cx('link', { active: nav.isActive })} to={config.routes.courses}>
                             <FontAwesomeIcon icon={faLightbulb} />
                             <span>Học</span>
                         </NavLink>
@@ -46,7 +47,7 @@ function Sidebar() {
                     <li className={cx('item')}>
                         <NavLink
                             className={(nav) => cx('link', { active: nav.isActive })}
-                            to="/blog"
+                            to={config.routes.blog}
                             onClick={() => localStorage.setItem('currentPage', 1)}
                         >
                             <FontAwesomeIcon icon={faNewspaper} />

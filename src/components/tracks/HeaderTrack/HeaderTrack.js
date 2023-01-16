@@ -1,3 +1,4 @@
+import config from '~/config';
 import { faChevronLeft, faCircleQuestion, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
@@ -14,7 +15,7 @@ function HeaderTrack({ name }) {
             <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate('/')}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <RouterLink className={cx('logo')} to="/">
+            <RouterLink className={cx('logo')} to={config.routes.home}>
                 <img src={Image.iconLogo} alt="Logo" />
             </RouterLink>
             <div className={cx('title')}>{name}</div>
