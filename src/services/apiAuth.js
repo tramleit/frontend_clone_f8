@@ -148,3 +148,33 @@ export const getPostSave = async (userId) => {
         return error.response.data;
     }
 };
+
+export const getNotifyById = async (userId) => {
+    try {
+        const res = await request.get(`/user/alert/${userId}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const setAlertWatchNotify = async (data) => {
+    try {
+        const res = await request.post(`/user/alert/watch`, data);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const markAllNotifyAsRead = async (userId) => {
+    try {
+        const res = await request.post(`/user/alert/watch/${userId}`);
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};

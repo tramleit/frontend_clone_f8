@@ -102,7 +102,6 @@
                 margin: 0 8px 8px 8px;
                 transition: background-color 0.3s;
                 align-items: center;
-                background-color: var(--background-color);
                 cursor: pointer;
                 flex-direction: row;
                 padding: 8px 36px 8px 12px;
@@ -134,7 +133,7 @@
                 .message {
                     color: #333;
                     flex: 1 1;
-                    font-size: 1.4rem;
+                    font-size: 1.3rem;
                     line-height: 18px;
                     padding: 0 10px 0 16px;
                     word-break: break-word;
