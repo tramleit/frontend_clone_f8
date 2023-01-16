@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import HandlessTippy from '@tippyjs/react/headless';
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react/headless';
+import TippyVertical from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -17,8 +17,8 @@ function MyCourse() {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handleGetAllMyCourses = async () => {
+        setActive(!active);
         if (!active) {
-            setActive(!active);
             const result = await getAllMyCourses(currentUser._id);
 
             if (result.errCode === 0) {
@@ -31,7 +31,7 @@ function MyCourse() {
 
     return (
         <div className={cx('wrapper')}>
-            <HandlessTippy
+            <Tippy
                 interactive
                 visible={active}
                 onClickOutside={() => setActive(false)}
@@ -52,9 +52,9 @@ function MyCourse() {
                                                 <Link to={`/courses/${course.slug}`}>{course.name}</Link>
                                             </h5>
                                             <p className={cx('complete')}>Vừa học xong</p>
-                                            <Tippy content="1%" placement="bottom">
+                                            <TippyVertical content="1%" placement="bottom">
                                                 <div className={cx('vertical')}></div>
-                                            </Tippy>
+                                            </TippyVertical>
                                         </div>
                                     </div>
                                 ))
@@ -68,7 +68,7 @@ function MyCourse() {
                 <button className={cx('btn')} onClick={handleGetAllMyCourses}>
                     Khóa học của tôi
                 </button>
-            </HandlessTippy>
+            </Tippy>
         </div>
     );
 }

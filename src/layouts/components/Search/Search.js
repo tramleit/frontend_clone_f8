@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import HandlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { BiLoaderCircle } from 'react-icons/bi';
@@ -68,7 +68,7 @@ function Search() {
 
     return (
         <div className={cx('body')}>
-            <HandlessTippy
+            <Tippy
                 visible={showResult && searchValue !== ''}
                 interactive
                 onClickOutside={handleHideResult}
@@ -99,7 +99,7 @@ function Search() {
 
                             {blogs.length > 0 && (
                                 <div className={cx('search-heading')}>
-                                    <h4>BÀI VIÊT</h4>
+                                    <h4>BÀI VIẾT</h4>
                                     <Link to={`/search/posts?q=${searchValue}`}>Xem thêm</Link>
                                 </div>
                             )}
@@ -135,7 +135,7 @@ function Search() {
                     />
                     <div className={cx('icon-clear')}>{!!searchValue && <MdClear onClick={handleClearInput} />}</div>
                 </div>
-            </HandlessTippy>
+            </Tippy>
         </div>
     );
 }

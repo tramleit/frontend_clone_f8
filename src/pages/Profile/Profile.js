@@ -1,6 +1,5 @@
-import { faCamera, faCheckCircle, faUpload, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -9,8 +8,9 @@ import CourseItem from './CourseItem';
 import { getInfoUserByUsername } from '~/services/apiAuth';
 import styles from './Profile.module.scss';
 import FallbackAvatar from '~/components/FallbackAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera, faCheckCircle, faUpload, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagram, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { useDispatch } from 'react-redux';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);

@@ -61,7 +61,7 @@ function GroupField({ type, heading }) {
                             type="name"
                             label="Họ tên"
                             placeholder="Thêm tên của bạn"
-                            defaultValue={currentUser.name}
+                            defaultValue={currentUser?.name}
                             desc="Tên của bạn xuất hiện trên trang cá nhân và bên cạnh các bình luận của bạn."
                         />
                     </FieldWrapper>
@@ -71,11 +71,11 @@ function GroupField({ type, heading }) {
                             label="Bio"
                             placeholder="Thêm giới thiệu"
                             desc="Bio hiển thị trên trang cá nhân và trong các bài viết (blog) của bạn."
-                            defaultValue={currentUser.bio}
+                            defaultValue={currentUser?.bio}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
-                        <PhotoField avatar={currentUser.avatar} name={currentUser.name} />
+                        <PhotoField avatar={currentUser?.avatar} name={currentUser?.name} />
                     </FieldWrapper>
 
                     <FieldWrapper>
@@ -83,7 +83,7 @@ function GroupField({ type, heading }) {
                             type="email"
                             label="Email"
                             placeholder="Eg. hoclaptrinh@f8.edu.vn"
-                            defaultValue={currentUser.email}
+                            defaultValue={currentUser?.email}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -91,8 +91,8 @@ function GroupField({ type, heading }) {
                             type="username"
                             label="User Name"
                             placeholder="Thêm user name"
-                            defaultValue={currentUser.username}
-                            desc={`https://fullstack.edu.vn/@${currentUser.username}`}
+                            defaultValue={currentUser?.username}
+                            desc={`https://fullstack.edu.vn/@${currentUser?.username}`}
                         />
                     </FieldWrapper>
                 </>
@@ -105,7 +105,7 @@ function GroupField({ type, heading }) {
                             type="facebook"
                             label="Facebook"
                             placeholder="Eg. https://www.facebook.com/hoclaptrinhf8"
-                            defaultValue={currentUser.facebook}
+                            defaultValue={currentUser?.facebook}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -113,7 +113,7 @@ function GroupField({ type, heading }) {
                             type="youtube"
                             label="Youtube"
                             placeholder="Eg. https://www.youtube.com/c/F8VNOfficial"
-                            defaultValue={currentUser.youtube}
+                            defaultValue={currentUser?.youtube}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -121,7 +121,7 @@ function GroupField({ type, heading }) {
                             type="linkedin"
                             label="Linkedin"
                             placeholder="Eg. https://www.linkedin.com/in/hoclaptrinhf8/"
-                            defaultValue={currentUser.linkedin}
+                            defaultValue={currentUser?.linkedin}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -129,7 +129,7 @@ function GroupField({ type, heading }) {
                             type="instagram"
                             label="Instagram"
                             placeholder="Eg. https://www.instagram.com/hoclaptrinhf8/"
-                            defaultValue={currentUser.instagram}
+                            defaultValue={currentUser?.instagram}
                         />
                     </FieldWrapper>
                     <FieldWrapper>
@@ -137,7 +137,7 @@ function GroupField({ type, heading }) {
                             type="twitter"
                             label="Twitter"
                             placeholder="Eg. https://twitter.com/hoclaptrinhf8"
-                            defaultValue={currentUser.twitter}
+                            defaultValue={currentUser?.twitter}
                         />
                     </FieldWrapper>
                 </>

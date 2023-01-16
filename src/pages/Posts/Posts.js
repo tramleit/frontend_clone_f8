@@ -20,6 +20,7 @@ function Posts() {
     useEffect(() => {
         const fetchApi = async () => {
             const result = await getPostBySlug(slug);
+
             setPost(result);
             document.title = result.title;
         };
@@ -115,13 +116,17 @@ function Posts() {
                                 <div className={cx('same-author')}>
                                     <h3 className={cx('same-title')}>Bài đăng cùng tác giả</h3>
 
-                                    <ul className={cx('same-list')}>
-                                        {post?.author.myBlogs.slice(-5).map((blog, index) => (
-                                            <li key={index}>
-                                                <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {post?.author.myBlogs.length > 0 ? (
+                                        <ul className={cx('same-list')}>
+                                            {post?.author.myBlogs.slice(-5).map((blog, index) => (
+                                                <li key={index}>
+                                                    <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <span className={cx('no-result')}>Tác giả chưa có bài đăng nào khác.</span>
+                                    )}
                                 </div>
                             </div>
                         </div>

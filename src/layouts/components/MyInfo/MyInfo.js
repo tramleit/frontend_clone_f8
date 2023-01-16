@@ -1,14 +1,14 @@
-import config from '~/config';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import styles from './MyInfo.module.scss';
 import { Image } from '~/assets/image';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '~/services/apiAuth';
 import { loginSuccess } from '~/redux/reducer/authReducer';
 import { createAxios } from '~/redux/createInstance';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -21,9 +21,12 @@ function MyInfo() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLout = async () => {
-        const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
-        await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
+    const handleClick = async (path) => {
+        setActive(false);
+        if (!path) {
+            const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
+            await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
+        }
     };
 
     return (
@@ -47,35 +50,30 @@ function MyInfo() {
                             </div>
                         </div>
                         <hr />
-                        <ul className={cx('list')}>
-                            <li className={cx('item')}>
-                                <Link to={`/@${currentUser.username}`}>Trang cá nhân</Link>
-                            </li>
-                        </ul>
-                        <hr />
-                        <ul className={cx('list')}>
-                            <li className={cx('item')}>
-                                <Link to={config.routes.newPost}>Viết blog</Link>
-                            </li>
-                            <li className={cx('item')}>
-                                <Link to="/me/posts/drafts">Bài viết của tôi</Link>
-                            </li>
-                        </ul>
-                        <hr />
-                        <ul className={cx('list')}>
-                            <li className={cx('item')}>
-                                <Link to={config.routes.bookmark}>Bài viết đã lưu</Link>
-                            </li>
-                        </ul>
-                        <hr />
-                        <ul className={cx('list')}>
-                            <li className={cx('item')}>
-                                <Link to={config.routes.settings}>Cài đặt</Link>
-                            </li>
-                            <li className={cx('item')} onClick={handleLout}>
-                                <Link>Đăng xuất</Link>
-                            </li>
-                        </ul>
+                        {config.menu.map((menu, index) => (
+                            <Fragment key={index}>
+                                <ul className={cx('list')}>
+                                    {menu.map((menu, index) => (
+                                        <li key={index} onClick={() => handleClick(menu.path)}>
+                                            {menu.path ? (
+                                                <Link
+                                                    to={
+                                                        menu.path === 'profile'
+                                                            ? `/@${currentUser.username}`
+                                                            : menu.path
+                                                    }
+                                                >
+                                                    {menu.title}
+                                                </Link>
+                                            ) : (
+                                                <span>Đăng xuất</span>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                                {index !== config.menu.length - 1 && <hr />}
+                            </Fragment>
+                        ))}
                     </div>
                 )}
             >

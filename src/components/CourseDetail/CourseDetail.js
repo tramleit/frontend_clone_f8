@@ -11,6 +11,7 @@ import PreviewCourse from './PreviewCourse';
 import { registerCourse } from '~/services/apiAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +60,7 @@ function CourseDetail({ course, pathName }) {
             }
         } else {
             navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập'));
         }
     };
 

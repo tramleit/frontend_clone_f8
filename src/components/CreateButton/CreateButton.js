@@ -1,6 +1,6 @@
 import config from '~/config';
 import classNames from 'classnames/bind';
-import HandlessTippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,7 +14,7 @@ function CreateButton() {
     const [click, setClick] = useState(false);
 
     return (
-        <HandlessTippy
+        <Tippy
             interactive
             visible={click}
             onClickOutside={() => setClick(false)}
@@ -30,7 +30,7 @@ function CreateButton() {
             <div className={click ? cx('create-blog', 'active') : cx('create-blog')} onClick={() => setClick(!click)}>
                 <FontAwesomeIcon icon={faPlus} />
             </div>
-        </HandlessTippy>
+        </Tippy>
     );
 }
 

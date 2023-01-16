@@ -9,13 +9,14 @@ const routes = {
     newPost: '/new-post',
     login: '/login',
     register: '/register',
-    profile: '/@:nickname',
+    profile: '/@:username',
     settings: '/settings',
     search: '/search',
     searchSlug: '/search/:slug',
     myCourses: '/my-courses',
     bookmark: '/me/bookmark/posts',
     myPost: '/me/posts/:tab',
+    drafts: '/me/posts/drafts',
 };
 
 export default routes;
