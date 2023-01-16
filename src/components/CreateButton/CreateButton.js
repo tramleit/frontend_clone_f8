@@ -3,10 +3,10 @@ import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import styles from './CreateButton.module.scss';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+
+import styles from './CreateButton.module.scss';
 
 const cx = classNames.bind(styles);
 

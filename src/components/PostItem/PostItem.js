@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faEllipsis, faEnvelope, faFlag, faLink } from '@fortawesome/free-solid-svg-icons';
 import { IconCrownUser } from '~/assets/Icon';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark as faBookmarkSave } from '@fortawesome/free-solid-svg-icons';
@@ -11,13 +11,24 @@ import styles from './PostItem.module.scss';
 import { toggleSavaPost } from '~/services/apiAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import Tippy from '@tippyjs/react/headless';
+import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import config from '~/config';
+
+import { FacebookShareButton, TwitterShareButton, EmailShareButton } from 'react-share';
 
 const cx = classNames.bind(styles);
 
 function PostItem({ dataPost }) {
+    const [option, setOption] = useState(false);
+
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
     const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost._id);
+
+    const url = `${config.routes.url}${config.routes.blog}/${dataPost.slug}`;
 
     const handleSavePost = async () => {
         const result = await toggleSavaPost(dataPost._id, currentUser._id, dispatch);
@@ -27,6 +38,11 @@ function PostItem({ dataPost }) {
         } else {
             dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
         }
+    };
+
+    const handleCopyUrl = () => {
+        dispatch(showNotification('Đã sao chép liên kết'));
+        setOption(false);
     };
 
     return (
@@ -58,9 +74,51 @@ function PostItem({ dataPost }) {
                             <FontAwesomeIcon icon={faBookmarkSave} className={cx('book-mark')} />
                         )}
                     </div>
-                    <div className={cx('btn-option')}>
-                        <FontAwesomeIcon icon={faEllipsis} />
-                    </div>
+
+                    <Tippy
+                        visible={option}
+                        interactive
+                        placement="bottom-end"
+                        onClickOutside={() => setOption(false)}
+                        render={(attrs) => (
+                            <ul className={cx('options')} tabIndex="-1" {...attrs}>
+                                <FacebookShareButton url={url} quote={dataPost.title}>
+                                    <li onClick={() => setOption(false)}>
+                                        <FontAwesomeIcon icon={faFacebook} />
+                                        <span>Chia sẻ lên Facebook</span>
+                                    </li>
+                                </FacebookShareButton>
+
+                                <TwitterShareButton url={url}>
+                                    <li onClick={() => setOption(false)}>
+                                        <FontAwesomeIcon icon={faTwitter} />
+                                        <span>Chia sẻ lên Twitter</span>
+                                    </li>
+                                </TwitterShareButton>
+                                <EmailShareButton url={url} subject={dataPost.title}>
+                                    <li onClick={() => setOption(false)}>
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                        <span>Chia sẻ tới Email</span>
+                                    </li>
+                                </EmailShareButton>
+                                <CopyToClipboard text={url} onCopy={handleCopyUrl}>
+                                    <li>
+                                        <FontAwesomeIcon icon={faLink} />
+                                        <span>Sao chép liên kết</span>
+                                    </li>
+                                </CopyToClipboard>
+
+                                <li onClick={() => setOption(false)}>
+                                    <FontAwesomeIcon icon={faFlag} />
+                                    <span>Báo cáo bài viết</span>
+                                </li>
+                            </ul>
+                        )}
+                    >
+                        <div className={cx('btn-option')} onClick={() => setOption(!option)}>
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </div>
+                    </Tippy>
                 </div>
             </div>
 

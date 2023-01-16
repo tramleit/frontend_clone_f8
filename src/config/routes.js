@@ -1,4 +1,5 @@
 const routes = {
+    url: 'http://localhost:3000',
     home: '/',
     learning: '/learning',
     learningRoute: '/learning/:slug',

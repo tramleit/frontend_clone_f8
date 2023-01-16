@@ -84,6 +84,42 @@
                 }
             }
 
+            .options {
+                animation: Tippy 0.3s ease;
+                background: var(--background-color);
+                border-radius: 10px;
+                box-shadow: 0 -4px 32px rgb(0 0 0 / 20%);
+                color: #1d2129;
+                margin: 0;
+                overflow: hidden;
+                transition: all 0.3s ease-in-out;
+                will-change: opacity, transform;
+                padding: 8px 0;
+                min-width: 230px;
+
+                li {
+                    color: #444;
+                    cursor: pointer;
+                    display: block;
+                    font-size: 1.4rem;
+                    padding: 12px 20px;
+                    transition: 0.3s;
+
+                    &:hover {
+                        background-color: #f0f0f0;
+                        color: #292929;
+                    }
+
+                    svg {
+                        font-size: 1.6rem;
+                    }
+
+                    span {
+                        margin-left: 16px;
+                    }
+                }
+            }
+
             .btn-option {
                 cursor: pointer;
                 padding: 4px 8px;
@@ -157,5 +193,16 @@
                 max-height: 170px;
             }
         }
+    }
+}
+
+@keyframes Tippy {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
