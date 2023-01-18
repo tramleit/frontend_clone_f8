@@ -1,32 +1,25 @@
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ActivityItem from './ActivityItem';
 import CourseItem from './CourseItem';
 import { getInfoUserByUsername } from '~/services/apiAuth';
 import styles from './Profile.module.scss';
-import FallbackAvatar from '~/components/FallbackAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faCheckCircle, faUpload, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 import { faFacebookSquare, faInstagram, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import CoverImage from './CoverImage';
 
 const cx = classNames.bind(styles);
 
 function Profile() {
-    const [upload, setUpload] = useState(false);
-    const [active, setActive] = useState(false);
     const [infoUser, setInfoUser] = useState(null);
 
     const dispatch = useDispatch();
     const { username } = useParams();
-    const inputRef = useRef();
-
-    const handlePreviewAvatar = (file) => {
-        console.log('file: ', file);
-    };
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -46,55 +39,7 @@ function Profile() {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('banner')}>
-                <div className={cx('user')}>
-                    <div
-                        className={infoUser?.admin ? cx('user-avatar', 'pro') : cx('user-avatar')}
-                        onMouseEnter={() => setActive(true)}
-                        onMouseLeave={() => setActive(false)}
-                    >
-                        <FallbackAvatar
-                            style={{ '--font-size': '17.2px' }}
-                            image={infoUser?.avatar}
-                            alt={infoUser?.name}
-                            admin={infoUser?.admin}
-                        />
-
-                        {active && (
-                            <div className={cx('choose-avatar')} onClick={() => inputRef.current.click()}>
-                                <FontAwesomeIcon icon={faCamera} />
-
-                                <input
-                                    ref={inputRef}
-                                    onChange={handlePreviewAvatar}
-                                    type="file"
-                                    accept="image/jpg, image/jpeg, image/png"
-                                    hidden
-                                />
-                            </div>
-                        )}
-                    </div>
-                    <div className={cx('user-name')}>
-                        <span>{infoUser?.name}</span>
-                        {infoUser?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
-                    </div>
-                </div>
-                <div className={cx('btn-change')} onClick={() => setUpload(true)}>
-                    <FontAwesomeIcon icon={faCamera} />
-                    <span>Chỉnh sửa ảnh bìa</span>
-                </div>
-                {upload && (
-                    <div className={cx('upload')}>
-                        <label className={cx('label')}>
-                            <div className={cx('label-item')}>
-                                <FontAwesomeIcon icon={faUpload} />
-                                <span>Tải ảnh lên</span>
-                            </div>
-                        </label>
-                        <input type="file" accept="image/jpg, image/jpeg, image/png" />
-                    </div>
-                )}
-            </div>
+            <CoverImage infoUser={infoUser} />
 
             <div className={cx('container')}>
                 <div className={cx('content')}>
@@ -202,9 +147,7 @@ function Profile() {
                                     {infoUser?.myComments.length > 0 ? (
                                         infoUser?.myComments
                                             .slice(-10)
-                                            .map((comment, index) => (
-                                                <ActivityItem key={index} info={infoUser} data={comment} />
-                                            ))
+                                            .map((comment, index) => <ActivityItem key={index} data={comment} />)
                                     ) : (
                                         <span>Chưa có hoạt động gần đây</span>
                                     )}

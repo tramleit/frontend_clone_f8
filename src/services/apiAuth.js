@@ -112,6 +112,22 @@ export const changeAvatarUser = async (avatar, dispatch) => {
     }
 };
 
+export const changeCoverUser = async (cover, dispatch) => {
+    dispatch(loadingStart());
+    try {
+        const res = await request.post('/user/change/cover', cover);
+        dispatch(loadingSuccess());
+        dispatch(loginSuccess(res.data));
+
+        const { data, ...other } = res;
+
+        return { ...other };
+    } catch (error) {
+        dispatch(loadingSuccess());
+        return error.response.data;
+    }
+};
+
 export const changeInfoUser = async (info, userId, dispatch) => {
     try {
         const res = await request.post(`/user/change/${userId}`, info, {

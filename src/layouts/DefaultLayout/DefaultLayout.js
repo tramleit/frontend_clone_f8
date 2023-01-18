@@ -17,6 +17,7 @@ function DefaultLayout({ children }) {
 
     const pathname = useLocation().pathname;
     const settings = pathname.includes(config.routes.settings);
+    const checkProfile = pathname.includes('/@');
 
     return (
         <>
@@ -24,7 +25,7 @@ function DefaultLayout({ children }) {
             <div className={cx('container')}>
                 {!settings && <Sidebar />}
 
-                <div className={cx('content')}>
+                <div className={checkProfile ? cx('content', 'hidden') : cx('content')}>
                     {children}
                     {currentUser && !settings && <NewFeed />}
                 </div>

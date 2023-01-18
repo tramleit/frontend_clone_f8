@@ -22,5 +22,9 @@
         width: 22px;
         margin-left: 7px;
         margin-top: 7px;
+
+        &.active {
+            filter: grayscale(100%);
+        }
     }
 }
