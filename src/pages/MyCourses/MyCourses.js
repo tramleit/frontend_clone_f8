@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonItem from '~/components/CommonItem';
 import Heading from '~/components/Heading';
+import LayoutWrapper from '~/components/LayoutWrapper';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { getCoursesRegistered } from '~/services/apiCourse';
 import styles from './MyCourses.module.scss';
@@ -33,7 +34,7 @@ function MyCourses() {
     }, [currentUser._id, currentUser.name]);
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading name="Khóa học của tôi" desc="Bạn chưa hoàn thành khóa học nào." />
 
             <div className={cx('body')}>
@@ -57,7 +58,7 @@ function MyCourses() {
                     </div>
                 </div>
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

@@ -7,6 +7,7 @@ import SuggestionBox from '~/components/SuggestionBox';
 import { getLearningRoute } from '~/services/apiCourse';
 import { useDispatch } from 'react-redux';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import LayoutWrapper from '~/components/LayoutWrapper';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,7 @@ function Learning() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading
                 name="Lộ trình học"
                 desc="Để bắt đầu một cách thuận lợi, bạn nên tập trung vào một lộ trình học. Ví dụ: Để đi làm với vị trí
@@ -56,7 +57,7 @@ function Learning() {
                     nameBtn="Tham gia nhóm"
                 />
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

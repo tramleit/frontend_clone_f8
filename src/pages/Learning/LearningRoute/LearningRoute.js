@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CoursesPro from '~/components/CoursesPro';
 import Heading from '~/components/Heading';
+import LayoutWrapper from '~/components/LayoutWrapper';
 import { getLearningRouteBySlug } from '~/services/apiCourse';
 import LearningPath from './LearningPath';
 
@@ -28,7 +29,7 @@ function LearningRoute() {
     }, [slug]);
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading name={route?.title} desc={route?.content} />
 
             <div className={cx('container')}>
@@ -40,7 +41,7 @@ function LearningRoute() {
                     <CoursesPro />
                 </div>
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

@@ -9,6 +9,7 @@ import MyPostItem from '~/components/MyPostItem';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { getMyPosts } from '~/services/apiBlog';
 import styles from './MyPost.module.scss';
+import LayoutWrapper from '~/components/LayoutWrapper';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,7 @@ function MyPost() {
     }, [currentUser._id, myPosts.length]);
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading name="Bài viết của tôi" />
 
             <div className={cx('container')}>
@@ -78,7 +79,7 @@ function MyPost() {
                     )}
                 </div>
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

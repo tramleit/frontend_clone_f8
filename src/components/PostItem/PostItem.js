@@ -22,6 +22,7 @@ import { FacebookShareButton, TwitterShareButton, EmailShareButton } from 'react
 const cx = classNames.bind(styles);
 
 function PostItem({ dataPost }) {
+    console.log('dataPost: ', dataPost);
     const [option, setOption] = useState(false);
 
     const dispatch = useDispatch();
@@ -48,20 +49,20 @@ function PostItem({ dataPost }) {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('author')}>
-                    <Link to={`/@${dataPost.author.username}`}>
+                    <Link to={`/@${dataPost.author?.username}`}>
                         <div className={cx('avatar-wrap')}>
-                            <div className={dataPost.author.admin ? cx('avatar', 'admin') : cx('avatar')}>
+                            <div className={dataPost.author?.admin ? cx('avatar', 'admin') : cx('avatar')}>
                                 <img
-                                    src={dataPost.author.avatar ? dataPost.author.avatar : Image.avatar}
-                                    alt={dataPost.author.name}
+                                    src={dataPost.author?.avatar ? dataPost.author?.avatar : Image.avatar}
+                                    alt={dataPost.author?.name}
                                 />
                             </div>
-                            {dataPost.author.admin && <IconCrownUser />}
+                            {dataPost.author?.admin && <IconCrownUser />}
                         </div>
                     </Link>
-                    <Link to={`/@${dataPost.author.username}`}>
-                        <span>{dataPost.author.name}</span>
-                        {dataPost.author.tick && <FontAwesomeIcon icon={faCircleCheck} />}
+                    <Link to={`/@${dataPost.author?.username}`}>
+                        <span>{dataPost.author?.name}</span>
+                        {dataPost.author?.tick && <FontAwesomeIcon icon={faCircleCheck} />}
                     </Link>
                 </div>
 

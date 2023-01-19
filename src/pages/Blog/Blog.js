@@ -7,6 +7,7 @@ import Pagination from '~/components/Pagination';
 import { getPageBlogs } from '~/services/apiBlog';
 
 import styles from './Blog.module.scss';
+import LayoutWrapper from '~/components/LayoutWrapper';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +46,7 @@ function Blog() {
     });
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading
                 name="Bài viết nổi bật"
                 desc="Tổng hợp các bài viết chia sẻ về kinh nghiệm tự học lập trình online và các kỹ thuật lập trình web."
@@ -79,7 +80,7 @@ function Blog() {
                     </ul>
                 </div>
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

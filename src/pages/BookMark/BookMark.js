@@ -9,6 +9,7 @@ import MyPostItem from '~/components/MyPostItem';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { getPostSave } from '~/services/apiAuth';
 import styles from './BookMark.module.scss';
+import LayoutWrapper from '~/components/LayoutWrapper';
 const cx = classNames.bind(styles);
 
 function BookMark() {
@@ -33,7 +34,7 @@ function BookMark() {
     }, [currentUser._id, postSaves.length]);
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading name="Bài viết đã lưu" />
 
             <div className={cx('container')}>
@@ -61,7 +62,7 @@ function BookMark() {
                     )}
                 </div>
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

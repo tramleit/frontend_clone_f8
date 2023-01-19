@@ -1,11 +1,12 @@
-import config from '~/config';
 import { useEffect } from 'react';
 import classNames from 'classnames/bind';
-import Heading from '~/components/Heading';
 import { useSelector } from 'react-redux';
+import config from '~/config';
+import Heading from '~/components/Heading';
 import CommonItem from '~/components/CommonItem';
-import styles from './Courses.module.scss';
 import SuggestionBox from '~/components/SuggestionBox';
+import LayoutWrapper from '~/components/LayoutWrapper';
+import styles from './Courses.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,7 @@ function Courses() {
     });
 
     return (
-        <div className={cx('wrapper')}>
+        <LayoutWrapper>
             <Heading
                 name="Khóa học"
                 desc="Các khóa học được thiết kế phù hợp cho cả người mới, nhiều khóa học miễn phí, chất lượng, nội dung dễ hiểu."
@@ -82,7 +83,7 @@ function Courses() {
                     nameBtn="Xem lộ trình"
                 />
             </div>
-        </div>
+        </LayoutWrapper>
     );
 }
 

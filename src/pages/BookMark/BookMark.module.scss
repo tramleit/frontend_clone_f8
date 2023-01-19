@@ -1,28 +1,23 @@
-.wrapper {
-    margin-bottom: 60px;
-    padding: 8px 44px 0;
+.container {
+    margin-left: -12px;
+    margin-right: -12px;
+    display: flex;
+    flex-wrap: wrap;
 
-    .container {
-        margin-left: -12px;
-        margin-right: -12px;
-        display: flex;
-        flex-wrap: wrap;
+    .content {
+        padding-left: 12px;
+        padding-right: 12px;
+        width: 66.66667%;
 
-        .content {
-            padding-left: 12px;
-            padding-right: 12px;
-            width: 66.66667%;
+        .no-result {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-top: 32px;
 
-            .no-result {
-                font-size: 1.4rem;
-                line-height: 1.6;
-                margin-top: 32px;
-
-                a {
-                    color: #029e74;
-                    font-weight: 600;
-                    text-decoration: underline;
-                }
+            a {
+                color: #029e74;
+                font-weight: 600;
+                text-decoration: underline;
             }
         }
     }
