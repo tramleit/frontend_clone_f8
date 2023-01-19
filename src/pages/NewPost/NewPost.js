@@ -1,6 +1,6 @@
-import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames/bind';
 import EditorNewPost from '~/components/EditorNewPost';
 import Footer from '~/layouts/components/Footer';
 import Header from '~/layouts/components/Header';
@@ -9,6 +9,7 @@ import styles from './NewPost.module.scss';
 const cx = classNames.bind(styles);
 
 function NewPost() {
+    const [activePublic, setActivePublic] = useState(false);
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
@@ -21,13 +22,10 @@ function NewPost() {
         }
     }, [title]);
 
-    const [activePublic, setActivePublic] = useState(false);
-
     const words = text.split(' ');
     const wordCount = (words.length / 60).toFixed();
-
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const author = currentUser?._id;
+    const author = currentUser._id;
 
     const handleGetDataNewPost = ({ text, html }) => {
         setText(text);

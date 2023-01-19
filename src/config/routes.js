@@ -5,6 +5,7 @@ const routes = {
     courses: '/courses',
     tracks: '/courses/:slug',
     blog: '/blog',
+    blogTopic: '/blog/topic/:slug',
     post: '/blog/:slug',
     newPost: '/new-post',
     login: '/login',
@@ -17,6 +18,7 @@ const routes = {
     bookmark: '/me/bookmark/posts',
     myPost: '/me/posts/:tab',
     drafts: '/me/posts/drafts',
+    topic: '/topic',
 };
 
 export default routes;

@@ -1,5 +1,5 @@
-import { faBookmark, faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faCircleCheck, faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import moment from 'moment';
@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IconCrownUser } from '~/assets/Icon';
 import { Image } from '~/assets/image';
+import ActionPost from '~/components/ActionPost';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
+import config from '~/config';
 import { getPostBySlug } from '~/services/apiBlog';
 import styles from './Posts.module.scss';
 
@@ -81,14 +83,7 @@ function Posts() {
                                     </div>
                                 </div>
 
-                                <div className={cx('author-action')}>
-                                    <div className={cx('toggle-btn', 'option-btn')}>
-                                        <FontAwesomeIcon icon={faBookmark} />
-                                    </div>
-                                    <div className={cx('option-btn')}>
-                                        <FontAwesomeIcon icon={faEllipsis} />
-                                    </div>
-                                </div>
+                                <ActionPost dataPost={post} />
                             </div>
 
                             <MarkdownParser data={post?.contentHTML} fontSize="1.8rem" />
@@ -107,8 +102,12 @@ function Posts() {
 
                                 <div className={cx('tags-post')}>
                                     {post?.tags.map((tag, index) => (
-                                        <Link to={`/blog/tag/${tag}`} className={cx('tags')} key={index}>
-                                            {tag}
+                                        <Link
+                                            to={`${config.routes.blog}${config.routes.topic}/${tag.value}`}
+                                            className={cx('tags')}
+                                            key={index}
+                                        >
+                                            {tag.label}
                                         </Link>
                                     ))}
                                 </div>

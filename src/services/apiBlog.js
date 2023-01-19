@@ -53,3 +53,18 @@ export const deletePostById = async (postId) => {
         return error.response.data;
     }
 };
+
+export const getTopic = async (topic, page) => {
+    try {
+        const res = await request.get(`/blog`, {
+            params: {
+                topic: topic,
+                page: page,
+            },
+        });
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};

@@ -59,8 +59,8 @@ function Home() {
                 <Banner />
             </div>
 
-            <div className={cx('course')}>
-                <div className={cx('course-wrapper')}>
+            <div className={cx('content')}>
+                <div className={cx('content-wrap')}>
                     <div className={cx('heading')}>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>
@@ -90,7 +90,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className={cx('course-wrapper')}>
+                <div className={cx('content-wrap')}>
                     <div className={cx('heading')}>
                         <p className={cx('sub-heading')}>
                             <strong>{countStudent}+</strong>
@@ -122,7 +122,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className={cx('course-wrapper')}>
+                <div className={cx('content-wrap')}>
                     <div className={cx('heading')}>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>Bài viết nổi bật</h4>
@@ -148,7 +148,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className={cx('course-wrapper')}>
+                <div className={cx('content-wrap')}>
                     <div className={cx('heading')}>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>Videos nổi bật</h4>

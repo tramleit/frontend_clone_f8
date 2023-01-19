@@ -26,9 +26,6 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handlePublicNewPost = async () => {
-        const tags = selectedOption?.map((option) => {
-            return option.value;
-        });
         const newPost = {
             title: dataNewPost.title,
             author: currentUser._id,
@@ -36,8 +33,9 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
             contentMarkdown: dataNewPost.text,
             readingTime: dataNewPost.wordCount,
             imagePreview: image,
-            tags: tags,
+            tags: selectedOption,
         };
+
         const result = await handleCreateNewPost(newPost, dispatch);
 
         if (result.errCode === 0) {

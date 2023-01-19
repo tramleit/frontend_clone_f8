@@ -25,6 +25,7 @@ const publicRoutes = [
     { path: config.routes.courses, component: Courses },
     { path: config.routes.tracks, component: Tracks, layout: null },
     { path: config.routes.blog, component: Blog },
+    { path: config.routes.blogTopic, component: Blog },
     { path: config.routes.post, component: Posts },
     { path: config.routes.newPost, component: NewPost, layout: null },
     { path: config.routes.login, component: Login, layout: null },

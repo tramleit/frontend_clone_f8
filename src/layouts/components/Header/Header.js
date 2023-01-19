@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 
 function Header({ post, activePublic, dataNewPost }) {
     const [activePrevPost, setActivePrevPost] = useState(false);
+
     const isUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const checkPathProfile = pathName.includes('/@');
