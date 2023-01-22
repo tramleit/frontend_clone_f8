@@ -50,7 +50,7 @@ function Banner() {
         slidesToScroll: 1,
         autoplay: true,
         speed: 1000,
-        autoplaySpeed: 6000,
+        autoplaySpeed: 10000,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
     };

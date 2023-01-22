@@ -13,7 +13,7 @@ function Sidebar() {
     const [isHovered, setIsHovered] = useState(false);
 
     const pathName = useLocation().pathname;
-    const hasAtSymbol = pathName.includes('/@') || pathName.includes('/blog/');
+    const hasAtSymbol = pathName.includes('/@') || (pathName.includes('/blog/') && !pathName.includes('/blog/topic/'));
 
     return (
         <div className={hasAtSymbol ? cx('wrapper', 'active') : cx('wrapper')}>

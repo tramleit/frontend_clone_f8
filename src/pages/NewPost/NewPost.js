@@ -46,7 +46,12 @@ function NewPost() {
 
             <div className={cx('container')}>
                 <div className={cx('title')}>
-                    <input type="text" placeholder="Tiêu đề" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <input
+                        type="text"
+                        placeholder="Tiêu đề bài viết"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
                 </div>
                 <div className={cx('text-editor')}>
                     <EditorNewPost handleGetDataNewPost={handleGetDataNewPost} />

@@ -23,7 +23,7 @@ function ActionPost({ dataPost }) {
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost._id);
+    const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost?._id);
     const url = `${window.location.host}${config.routes.blog}/${dataPost?.slug}`;
 
     const handleCopyUrl = () => {

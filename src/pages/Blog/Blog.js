@@ -90,11 +90,17 @@ function Blog() {
             <div className={cx('container')}>
                 <div className={cx('left')}>
                     <div className={cx('content-left')}>
-                        {dataPages?.map((post) => (
-                            <PostItem key={post._id} dataPost={post} />
-                        ))}
+                        {dataPages.length > 0 ? (
+                            dataPages?.map((post) => <PostItem key={post._id} dataPost={post} />)
+                        ) : (
+                            <div className={cx('no-result')}>
+                                {slug
+                                    ? `Chưa có bài viết nào về chủ đề ${nameHeading} `
+                                    : 'Chưa có bài biết nào được đăng'}
+                            </div>
+                        )}
 
-                        <Pagination totalPage={totalPage} />
+                        {totalPage > 0 && <Pagination totalPage={totalPage} />}
                     </div>
                 </div>
                 <div className={cx('right')}>

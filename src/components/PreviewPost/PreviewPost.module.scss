@@ -118,11 +118,16 @@
                             border-bottom: 1px solid rgba(0, 0, 0, 0.15);
                             margin: 1.6rem 0 4px;
                             padding-bottom: 4px;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-                            font-size: 2rem;
+                            font-size: 1.8rem;
                             font-weight: 600;
+                            line-height: 1.4;
+                            outline: none;
+
+                            &:empty::before {
+                                content: 'Tiêu đề khi hiển thị';
+                                color: #b3b3b1;
+                                font-size: 1.6rem;
+                            }
                         }
 
                         .prev-desc {
@@ -130,15 +135,29 @@
                             margin: 1.6rem 0 4px;
                             padding-bottom: 4px;
                             font-size: 1.4rem;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
+                            line-height: 1.4;
+                            outline: none;
+
+                            &:empty::before {
+                                content: 'Mô tả khi tin được hiển thị';
+                                color: #b3b3b1;
+                                font-size: 1.3rem;
+                            }
+                        }
+
+                        .limit {
+                            color: #0000008a;
+                            font-size: 1rem;
                         }
 
                         .note {
                             color: #0000008a;
                             font-size: 1.4rem;
                             margin-top: 2.4rem;
+
+                            span {
+                                font-size: 1.3rem;
+                            }
                         }
                     }
 

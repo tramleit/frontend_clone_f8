@@ -43,6 +43,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
             renderHTML={(text) => mdParser.render(text)}
             onChange={handleEditorChange}
             onImageUpload={handleUpload}
+            placeholder="Nội dung viết ở đây"
         />
     );
 }

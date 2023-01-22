@@ -6,9 +6,10 @@ import { Image } from '~/assets/image';
 import { faCamera, faCheckCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
 import styles from './CoverImage.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeAvatarUser, changeCoverUser } from '~/services/apiAuth';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import { useParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,8 @@ function CoverImage({ infoUser }) {
     const inputRef = useRef();
     const fileRef = useRef();
     const dispatch = useDispatch();
+    const { username } = useParams();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];
@@ -81,6 +84,13 @@ function CoverImage({ infoUser }) {
         setCover(file);
         setUpload(false);
     };
+
+    const handleSetActive = () => {
+        if (username === currentUser.username) {
+            setActive(true);
+        }
+    };
+
     return (
         <div
             className={cx('banner')}
@@ -101,7 +111,7 @@ function CoverImage({ infoUser }) {
             <div className={cx('user')}>
                 <div
                     className={infoUser?.admin ? cx('user-avatar', 'pro') : cx('user-avatar')}
-                    onClick={() => setActive(true)}
+                    onClick={handleSetActive}
                     onMouseLeave={() => setActive(false)}
                 >
                     <FallbackAvatar
@@ -140,16 +150,19 @@ function CoverImage({ infoUser }) {
                     {infoUser?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
                 </div>
             </div>
-            <div
-                className={cx('btn-change')}
-                onClick={() => {
-                    setUpload(!upload);
-                    setCover(null);
-                }}
-            >
-                <FontAwesomeIcon icon={faCamera} />
-                <span>Chỉnh sửa ảnh bìa</span>
-            </div>
+
+            {username === currentUser.username && (
+                <div
+                    className={cx('btn-change')}
+                    onClick={() => {
+                        setUpload(!upload);
+                        setCover(null);
+                    }}
+                >
+                    <FontAwesomeIcon icon={faCamera} />
+                    <span>Chỉnh sửa ảnh bìa</span>
+                </div>
+            )}
             {upload && (
                 <div className={cx('upload')}>
                     <label className={cx('label')} onClick={() => fileRef.current.click()}>
