@@ -28,7 +28,7 @@ export const getPostBySlug = async (slug) => {
     try {
         const res = await request.get(`/blog/get-post/${slug}`);
 
-        return res.data;
+        return res;
     } catch (error) {
         return error.response;
     }
@@ -62,6 +62,16 @@ export const getTopic = async (topic, page) => {
                 page: page,
             },
         });
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const reactionPost = async (data) => {
+    try {
+        const res = await request.post(`/blog/reaction`, data);
 
         return res;
     } catch (error) {

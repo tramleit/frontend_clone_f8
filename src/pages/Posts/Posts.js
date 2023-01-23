@@ -3,13 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { IconCrownUser } from '~/assets/Icon';
 import { Image } from '~/assets/image';
 import ActionPost from '~/components/ActionPost';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
 import config from '~/config';
-import { getPostBySlug } from '~/services/apiBlog';
+import { showNotification } from '~/redux/reducer/modunReducer';
+import { getPostBySlug, reactionPost } from '~/services/apiBlog';
 import styles from './Posts.module.scss';
 import Reaction from './Reaction';
 
@@ -17,17 +19,40 @@ const cx = classNames.bind(styles);
 
 function Posts() {
     const [post, setPost] = useState(null);
-    const slug = useParams().slug;
+
+    const { slug } = useParams();
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
         const fetchApi = async () => {
             const result = await getPostBySlug(slug);
 
-            setPost(result);
-            document.title = result.title;
+            if (result.errCode === 0) {
+                setPost(result.data);
+                document.title = `${result.data.title} | by ${result.data.author.name} | 'F8`;
+            } else {
+                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết'));
+            }
         };
         fetchApi();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slug]);
+
+    const handleReaction = async () => {
+        const data = {
+            postId: post._id,
+            userId: currentUser._id,
+        };
+        const result = await reactionPost(data);
+
+        if (result.errCode === 0) {
+            setPost(result.data);
+        } else {
+            dispatch(showNotification(result.message || 'Lỗi yêu thích bài viết'));
+        }
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -41,7 +66,7 @@ function Posts() {
                             <p className={cx('author-bio')}>{post?.author.bio}</p>
                             <hr />
 
-                            <Reaction like={post?.reactionsCount} comment={post?.comments} />
+                            <Reaction handleReaction={handleReaction} post={post} userId={currentUser._id} />
                         </div>
                     </div>
 
@@ -81,7 +106,7 @@ function Posts() {
                             <MarkdownParser data={post?.contentHTML} fontSize="1.8rem" />
 
                             <div className={cx('footer-post')}>
-                                <Reaction like={post?.reactionsCount} comment={post?.comments} />
+                                <Reaction handleReaction={handleReaction} post={post} userId={currentUser._id} />
 
                                 {post?.tags && (
                                     <div className={cx('tags-post')}>
@@ -99,7 +124,7 @@ function Posts() {
 
                                 <div className={cx('same-author')}>
                                     <h3 className={cx('same-title')}>Bài đăng cùng tác giả</h3>
-                                    {post?.author.myBlogs.length > 0 ? (
+                                    {post?.author.myBlogs?.length > 1 ? (
                                         <ul className={cx('same-list')}>
                                             {post?.author.myBlogs.slice(-5).map((blog, index) => {
                                                 return (
