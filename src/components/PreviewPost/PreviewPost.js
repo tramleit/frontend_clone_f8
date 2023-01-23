@@ -1,13 +1,14 @@
 import Select from 'react-select';
 import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';
-import ContentEditable from 'react-contenteditable';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { handleCreateNewPost } from '~/services/apiBlog';
 
 import styles from './PreviewPost.module.scss';
+import { handleUploadImage } from '~/services/apiImage';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
@@ -15,57 +16,73 @@ const options = [
     { value: 'front-end-mobile-apps', label: 'Front-end / Mobile apps' },
     { value: 'back-end-devops', label: 'Back-end / Devops' },
     { value: 'ui-ux-design', label: 'UI / UX / Design' },
-    { value: 'others', label: 'Others' },
+    // { value: 'others', label: 'Others' },
 ];
 
 function PreviewPost({ setActivePrevPost, dataNewPost }) {
     const [image, setImage] = useState(null);
-    const [selectedOption, setSelectedOption] = useState(null);
-    const [metaTitle, setMetaTitle] = useState('');
-    console.log('metaTitle: ', metaTitle);
-    const [metaDesc, setMetaDesc] = useState('');
-    console.log('metaDesc: ', metaDesc);
+    const [tags, setTags] = useState(null);
+    const [prevTitle, setPrevTitle] = useState('');
+    const [prevDesc, setPrevDesc] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const inputRef = useRef();
+    const titleRef = useRef();
+    const descRef = useRef();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
         const subTitle = dataNewPost.title.substring(0, 100);
-        const subDesc = dataNewPost.text.substring(0, 160);
+        setPrevTitle(subTitle);
+        titleRef.current.innerHTML = subTitle;
 
-        setMetaTitle(subTitle);
-        setMetaDesc(subDesc);
+        if (dataNewPost.text.length > 50) {
+            const subDesc =
+                dataNewPost.text
+                    .substring(0, 150)
+                    .replace(/[#*_`)(~+>[|\-\]]/g, '')
+                    .trim() + '...';
+
+            setPrevDesc(subDesc);
+            descRef.current.innerHTML = subDesc;
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleOnChangeMetaTitle = (e) => {
-        console.log('innerHTML: ', e.target.innerHTML);
-        console.log('textContent: ', e.target.textContent);
-        const value = e.target.innerHTML;
-        console.log('value.length: ', value.length);
-        console.log('value: ', value);
-        if (value.length <= 100) {
-            setMetaTitle(value);
+    const handleOnInput = (e, type) => {
+        const value = e.target.textContent;
+
+        if (type === 'title') {
+            if (value.length <= 100) {
+                setPrevTitle(value);
+            } else {
+                titleRef.current.innerHTML = prevTitle;
+            }
+        } else {
+            if (value.length <= 160) {
+                setPrevDesc(value);
+            } else {
+                descRef.current.innerHTML = prevDesc;
+            }
         }
     };
 
     const handlePublicNewPost = async () => {
-        const tagsString = JSON.stringify(selectedOption);
+        const newPost = {
+            title: dataNewPost.title,
+            metaTitle: prevTitle,
+            metaDescription: prevDesc,
+            author: currentUser._id,
+            contentHTML: dataNewPost.html,
+            contentMarkdown: dataNewPost.text,
+            readingTime: dataNewPost.wordCount,
+            imagePreview: image,
+            tags: tags,
+        };
 
-        let formData = new FormData();
-        formData.append('title', dataNewPost.title);
-        formData.append('author', currentUser._id);
-        formData.append('contentHTML', dataNewPost.html);
-        formData.append('contentMarkdown', dataNewPost.text);
-        formData.append('readingTime', dataNewPost.wordCount);
-        formData.append('image', image);
-        formData.append('tags', tagsString);
-
-        const result = await handleCreateNewPost(formData, dispatch);
-
+        const result = await handleCreateNewPost(newPost, dispatch);
         if (result.errCode === 0) {
             navigate(`/blog/${result.data.slug}`);
         } else {
@@ -73,11 +90,16 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
         }
     };
 
-    const handlePreviewImage = (e) => {
-        let file = e.target.files[0];
-        file.preview = URL.createObjectURL(file);
+    const handlePreviewImage = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
 
-        setImage(file);
+        const result = await handleUploadImage(formData, dispatch);
+        if (result.errCode === 0) {
+            setImage(result.data.urlImage);
+        } else {
+            dispatch(showNotification(result.message || 'Lỗi lấy đường dẫn ảnh'));
+        }
     };
 
     return (
@@ -96,7 +118,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
                                 <div
                                     className={cx('image-prev')}
                                     onClick={() => inputRef.current.click()}
-                                    style={image && { backgroundImage: `url(${image.preview})` }}
+                                    style={image && { backgroundImage: `url(${image})` }}
                                 >
                                     <input ref={inputRef} onChange={handlePreviewImage} type="file" />
                                     <p>
@@ -104,27 +126,29 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
                                     </p>
                                     <span>Bấm vào đây để chọn ảnh</span>
                                 </div>
-                                {/* <ContentEditable
-                                    className={cx('prev-title')}
-                                    html={metaTitle}
-                                    onChange={(e) => handleOnChangeMetaTitle(e)}
-                                /> */}
                                 <div
                                     className={cx('prev-title')}
                                     contentEditable
-                                    spellCheck={false}
-                                    // onInput={handleOnChangeMetaTitle}
-                                    onChange={handleOnChangeMetaTitle}
-                                    dangerouslySetInnerHTML={{ __html: metaTitle }}
-                                ></div>
-                                {metaTitle?.length > 70 && <div className={cx('limit')}>{metaTitle.length}/100</div>}
-
-                                <ContentEditable
-                                    className={cx('prev-desc')}
-                                    html={metaDesc}
-                                    onChange={(e) => setMetaDesc(e.target.value)}
+                                    onInput={(e) => handleOnInput(e, 'title')}
+                                    ref={titleRef}
                                 />
-                                {metaDesc?.length > 100 && <div className={cx('limit')}>{metaDesc.length}/160</div>}
+                                {prevTitle.length > 80 && (
+                                    <div className={prevTitle.length === 100 ? cx('limit', 'max') : cx('limit')}>
+                                        {prevTitle.length}/100
+                                    </div>
+                                )}
+
+                                <div
+                                    className={cx('prev-desc')}
+                                    contentEditable
+                                    onInput={(e) => handleOnInput(e, 'desc')}
+                                    ref={descRef}
+                                />
+                                {prevDesc.length > 120 && (
+                                    <div className={prevDesc.length === 160 ? cx('limit', 'max') : cx('limit')}>
+                                        {prevDesc.length}/160
+                                    </div>
+                                )}
 
                                 <p className={cx('note')}>
                                     <strong>Lưu ý: </strong>
@@ -143,7 +167,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
                                 <Select
                                     isMulti
                                     placeholder="Chọn thẻ phù hợp với chủ đề của bạn"
-                                    onChange={setSelectedOption}
+                                    onChange={setTags}
                                     options={options}
                                 />
 

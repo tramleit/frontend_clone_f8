@@ -21,14 +21,19 @@ function ContentTrack() {
     const location = useLocation();
     const lessonId = new URLSearchParams(location.search).get('id');
 
+    const currentLesson = localStorage.getItem('currentLesson');
+    console.log('currentLesson: ', currentLesson);
+
     useEffect(() => {
-        if (lessonId) {
+        if (currentLesson) {
             const fetchApi = async () => {
-                await getLessonById(lessonId, dispatch);
+                await getLessonById(currentLesson, dispatch);
             };
             fetchApi();
         }
-    }, [lessonId, dispatch]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentLesson]);
 
     return (
         <div className={sidebarCourse ? cx('wrapper') : cx('wrapper', 'active')}>

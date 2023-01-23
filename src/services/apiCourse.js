@@ -37,6 +37,7 @@ export const getLessonById = async (lessonId, dispatch) => {
 
         return res.data;
     } catch (error) {
+        dispatch(loadingSuccess());
         return error.response.data;
     }
 };

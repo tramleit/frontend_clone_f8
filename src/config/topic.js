@@ -14,11 +14,11 @@ const topics = [
         slug: 'ui-ux-design',
         desc: 'Thiết kế giao diện và trải nghiệm người dùng',
     },
-    {
-        label: 'Others',
-        slug: 'others',
-        desc: 'Các chủ đề khác',
-    },
+    // {
+    //     label: 'Others',
+    //     slug: 'others',
+    //     desc: 'Các chủ đề khác',
+    // },
 ];
 
 export default topics;

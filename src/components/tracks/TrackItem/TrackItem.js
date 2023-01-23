@@ -42,6 +42,10 @@ function TrackItem({ chapter, index, slug }) {
         setNumberTime(formatted);
     }, [chapter]);
 
+    const handleSetCurrentLesson = (id) => {
+        localStorage.setItem('currentLesson', id);
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('track-wrap')} onClick={() => setActiveIcon(!activeIcon)}>
@@ -63,6 +67,7 @@ function TrackItem({ chapter, index, slug }) {
                             className={cx('step-item', { active: lesson._id === activeItemId })}
                             key={lesson._id}
                             to={`/courses/${slug}?id=${lesson._id}`}
+                            onClick={() => handleSetCurrentLesson(lesson._id)}
                         >
                             <div className={cx('info')}>
                                 <h3 className={cx('step-title')}>

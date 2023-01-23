@@ -39,6 +39,7 @@ function Tracks() {
 
                 // Kiểm tra xem nếu id bài hiện tại và id bài đang chọn khác nhau và người dùng
                 // chưa đăng ký khóa học thì chuyển về bài đầu của khóa học
+
                 if (
                     (currentLesson?._id !== lessonId && currentUser?.myCourses.includes(result.data._id)) ||
                     !currentLesson?._id

@@ -4,11 +4,10 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import config from '~/config';
-import { Image } from '~/assets/image';
 import ActionPost from '../ActionPost';
-import { IconCrownUser } from '~/assets/Icon';
 
 import styles from './PostItem.module.scss';
+import FallbackAvatar from '../FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -20,12 +19,13 @@ function PostItem({ dataPost }) {
                     <Link to={`/@${dataPost.author?.username}`}>
                         <div className={cx('avatar-wrap')}>
                             <div className={dataPost.author?.admin ? cx('avatar', 'admin') : cx('avatar')}>
-                                <img
-                                    src={dataPost.author?.avatar ? dataPost.author?.avatar : Image.avatar}
+                                <FallbackAvatar
+                                    style={{ '--font-size': '2.9px' }}
+                                    image={dataPost.author?.avatar}
                                     alt={dataPost.author?.name}
+                                    admin={dataPost.author?.admin}
                                 />
                             </div>
-                            {dataPost.author?.admin && <IconCrownUser />}
                         </div>
                     </Link>
                     <Link to={`/@${dataPost.author?.username}`}>
@@ -42,13 +42,9 @@ function PostItem({ dataPost }) {
                     <Link to={`/blog/${dataPost.slug}`}>
                         <h2 className={cx('title')}>{dataPost.title}</h2>
                     </Link>
-                    <p className={cx('desc')}>
-                        {dataPost.contentMarkdown.length > 130
-                            ? dataPost.contentMarkdown.substring(0, 130) + '...'
-                            : dataPost.contentMarkdown}
-                    </p>
+                    <p className={cx('desc')}>{dataPost.metaDescription}</p>
                     <div className={cx('info')}>
-                        {dataPost.tags.length > 0 && (
+                        {dataPost?.tags?.length > 0 && (
                             <Link
                                 className={cx('tags')}
                                 to={`${config.routes.blog}${config.routes.topic}/${dataPost.tags[0].value}`}
@@ -62,6 +58,7 @@ function PostItem({ dataPost }) {
                         <span>{dataPost.readingTime > 0 ? dataPost.readingTime : 0} phút đọc</span>
                     </div>
                 </div>
+
                 {dataPost.imagePreview && (
                     <div className={cx('thumb')}>
                         <Link to={`/blog/${dataPost.slug}`}>

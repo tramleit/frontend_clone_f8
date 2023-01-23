@@ -127,6 +127,7 @@
                                 content: 'Tiêu đề khi hiển thị';
                                 color: #b3b3b1;
                                 font-size: 1.6rem;
+                                cursor: text;
                             }
                         }
 
@@ -142,12 +143,17 @@
                                 content: 'Mô tả khi tin được hiển thị';
                                 color: #b3b3b1;
                                 font-size: 1.3rem;
+                                cursor: text;
                             }
                         }
 
                         .limit {
                             color: #0000008a;
                             font-size: 1rem;
+
+                            &.max {
+                                color: red;
+                            }
                         }
 
                         .note {

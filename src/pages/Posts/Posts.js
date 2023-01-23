@@ -1,4 +1,3 @@
-import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
@@ -12,6 +11,7 @@ import MarkdownParser from '~/components/tracks/MarkdownParser';
 import config from '~/config';
 import { getPostBySlug } from '~/services/apiBlog';
 import styles from './Posts.module.scss';
+import Reaction from './Reaction';
 
 const cx = classNames.bind(styles);
 
@@ -40,16 +40,8 @@ function Posts() {
                             </Link>
                             <p className={cx('author-bio')}>{post?.author.bio}</p>
                             <hr />
-                            <div className={cx('reaction')}>
-                                <div className={cx('reaction-btn')}>
-                                    <FontAwesomeIcon icon={faHeart} />
-                                    <span>915</span>
-                                </div>
-                                <div className={cx('reaction-btn')}>
-                                    <FontAwesomeIcon icon={faComment} />
-                                    <span>41</span>
-                                </div>
-                            </div>
+
+                            <Reaction like={post?.reactionsCount} comment={post?.comments} />
                         </div>
                     </div>
 
@@ -89,39 +81,35 @@ function Posts() {
                             <MarkdownParser data={post?.contentHTML} fontSize="1.8rem" />
 
                             <div className={cx('footer-post')}>
-                                <div className={cx('reaction')}>
-                                    <div className={cx('reaction-btn')}>
-                                        <FontAwesomeIcon icon={faHeart} />
-                                        <span>915</span>
-                                    </div>
-                                    <div className={cx('reaction-btn')}>
-                                        <FontAwesomeIcon icon={faComment} />
-                                        <span>41</span>
-                                    </div>
-                                </div>
+                                <Reaction like={post?.reactionsCount} comment={post?.comments} />
 
-                                <div className={cx('tags-post')}>
-                                    {post?.tags.map((tag, index) => (
-                                        <Link
-                                            to={`${config.routes.blog}${config.routes.topic}/${tag.value}`}
-                                            className={cx('tags')}
-                                            key={index}
-                                        >
-                                            {tag.label}
-                                        </Link>
-                                    ))}
-                                </div>
+                                {post?.tags && (
+                                    <div className={cx('tags-post')}>
+                                        {post?.tags.map((tag, index) => (
+                                            <Link
+                                                to={`${config.routes.blog}${config.routes.topic}/${tag.value}`}
+                                                className={cx('tags')}
+                                                key={index}
+                                            >
+                                                {tag.label}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                )}
 
                                 <div className={cx('same-author')}>
                                     <h3 className={cx('same-title')}>Bài đăng cùng tác giả</h3>
-
                                     {post?.author.myBlogs.length > 0 ? (
                                         <ul className={cx('same-list')}>
-                                            {post?.author.myBlogs.slice(-5).map((blog, index) => (
-                                                <li key={index}>
-                                                    <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
-                                                </li>
-                                            ))}
+                                            {post?.author.myBlogs.slice(-5).map((blog, index) => {
+                                                return (
+                                                    blog.slug !== slug && (
+                                                        <li key={index}>
+                                                            <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                                                        </li>
+                                                    )
+                                                );
+                                            })}
                                         </ul>
                                     ) : (
                                         <span className={cx('no-result')}>Tác giả chưa có bài đăng nào khác.</span>
