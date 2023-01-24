@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CommonItem from '~/components/CommonItem';
+
 import Heading from '~/components/Heading';
+import CommonItem from '~/components/CommonItem';
 import LayoutWrapper from '~/components/LayoutWrapper';
-import { showNotification } from '~/redux/reducer/modunReducer';
 import { getCoursesRegistered } from '~/services/apiCourse';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
 import styles from './MyCourses.module.scss';
 
 const cx = classNames.bind(styles);
@@ -27,7 +29,6 @@ function MyCourses() {
             }
         };
         fetchApi();
-
         document.title = 'Khóa học bạn đã đăng ký tại F8';
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -45,12 +46,13 @@ function MyCourses() {
                                 <div className={cx('item')} key={course._id}>
                                     <CommonItem
                                         styles={{ width: '100%' }}
-                                        type="free"
+                                        type="my"
                                         key={course._id}
                                         student={course.userLearning}
-                                        name={course.name}
+                                        title={course.title}
                                         image={course.image}
                                         pathName={`/courses/${course.slug}`}
+                                        progress={course.userProgress}
                                     />
                                 </div>
                             ))}

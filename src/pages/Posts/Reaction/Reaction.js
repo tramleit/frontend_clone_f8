@@ -8,10 +8,16 @@ import styles from './Reaction.module.scss';
 const cx = classNames.bind(styles);
 
 function Reaction({ handleReaction, post, userId }) {
+    const isLiked = post?.reactions.includes(userId);
+
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('btn')} onClick={handleReaction}>
-                {post?.reactions.includes(userId) ? (
+            <div
+                className={cx('btn')}
+                onClick={handleReaction}
+                title={isLiked ? 'Bạn đã thích bài này' : 'Nhấn để thích bài này'}
+            >
+                {isLiked ? (
                     <FontAwesomeIcon className={cx('active')} icon={activeHeart} />
                 ) : (
                     <FontAwesomeIcon icon={faHeart} />

@@ -7,10 +7,15 @@ export const getAllCourses = async (dispatch) => {
     try {
         const res = await request.get('/course/get');
         dispatch(getAllCoursesSuccess(res.data));
+
+        return res;
     } catch (error) {
         dispatch(getAllCoursesFailed());
+
+        return error.response.data;
     }
 };
+
 export const getCourseByPathName = async (pathName) => {
     try {
         const res = await request.get('/course/get/path', {

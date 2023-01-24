@@ -1,0 +1,14 @@
+.stats {
+    color: #757575;
+    display: flex;
+    font-size: 1.4rem;
+    margin-left: -24px;
+
+    .stats-box {
+        margin-left: 24px;
+
+        span {
+            margin-left: 8px;
+        }
+    }
+}

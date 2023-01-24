@@ -1,13 +1,39 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import styles from './LinkCommon.module.scss';
 
 const cx = classNames.bind(styles);
 
-function LinkCommon() {
+function LinkCommon({ type, pathName, title, image, coming, dataVideo, imageComing }) {
+    let Component, buttonText;
+
+    switch (type) {
+        case 'video':
+            Component = 'a';
+            buttonText = 'Xem video';
+            break;
+        case 'blog':
+            Component = Link;
+            buttonText = 'Xem bài viết';
+            break;
+        default:
+            Component = Link;
+            buttonText = 'Xem khóa học';
+    }
+
     return (
-        <a className={coming ? cx('link', 'disabled') : cx('link')} href={pathName} target="_blank" rel="noreferrer">
-            <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
-            <button className={cx('btn-view')}>Xem khóa học</button>
+        <Component
+            className={coming ? cx('link', 'disabled') : cx('link')}
+            href={pathName}
+            target={type === 'video' ? '_blank' : null}
+            rel={type === 'video' ? 'noreferrer' : null}
+            title={title}
+        >
+            <img className={cx('image')} src={coming ? imageComing : image} alt={title} />
+            <button className={cx('btn-view')}>{buttonText}</button>
 
             {type === 'pro' && (
                 <div className={cx('crown')}>
@@ -28,7 +54,7 @@ function LinkCommon() {
                     </div>
                 </div>
             )}
-        </a>
+        </Component>
     );
 }
 

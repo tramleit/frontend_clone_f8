@@ -28,7 +28,7 @@ function CoursesPro() {
                         <CommonItem
                             styles={{ width: '100%' }}
                             type="pro"
-                            name="HTML CSS Pro"
+                            title="HTML CSS Pro"
                             image="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
                         />
                     </div>
@@ -37,7 +37,7 @@ function CoursesPro() {
                             styles={{ width: '100%' }}
                             type="pro"
                             coming={true}
-                            name="JavaScript Pro"
+                            title="JavaScript Pro"
                             imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
                         />
                     </div>
@@ -46,7 +46,7 @@ function CoursesPro() {
                             styles={{ width: '100%' }}
                             type="pro"
                             coming={true}
-                            name="ReactJS Pro"
+                            title="ReactJS Pro"
                             imageComing="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
                         />
                     </div>

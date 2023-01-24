@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import FallbackAvatar from '~/components/FallbackAvatar';
 import Cropper from 'react-easy-crop';
@@ -25,6 +25,13 @@ function CoverImage({ infoUser }) {
     const dispatch = useDispatch();
     const { username } = useParams();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
+
+    useEffect(() => {
+        return () => {
+            avatar && URL.revokeObjectURL(avatar.preview);
+            cover && URL.revokeObjectURL(cover.preview);
+        };
+    }, [avatar, cover]);
 
     const handlePreviewAvatar = (e) => {
         let file = e.target.files[0];

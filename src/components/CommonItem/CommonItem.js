@@ -1,9 +1,14 @@
-import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import styles from './CommonItem.module.scss';
+import classNames from 'classnames/bind';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faComment, faEye, faPlay, faThumbsUp, faUsers } from '@fortawesome/free-solid-svg-icons';
-import FallbackAvatar from '../FallbackAvatar';
+
+import LinkCommon from './LinkCommon';
+import PostCommon from './PostCommon';
+import VideoCommon from './VideoCommon';
+import VerticalProgressBar from '../VerticalProgressBar';
+
+import styles from './CommonItem.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -12,77 +17,31 @@ function CommonItem({
     pathName,
     student,
     coming = false,
-    name,
+    title,
     imageComing,
     image,
     author,
     dataVideo,
     readingTime,
+    progress,
     styles = null,
 }) {
     return (
         <div className={cx('wrapper')} style={styles}>
-            <div className={cx('item-course')}>
-                {type === 'video' ? (
-                    <a
-                        className={coming ? cx('link', 'disabled') : cx('link')}
-                        href={pathName}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
-                        <button className={cx('btn-view')}>Xem khóa học</button>
+            <div className={cx('item')}>
+                <LinkCommon
+                    type={type}
+                    pathName={pathName}
+                    title={title}
+                    image={image}
+                    coming={coming}
+                    dataVideo={dataVideo}
+                    imageComing={imageComing}
+                />
 
-                        {type === 'pro' && (
-                            <div className={cx('crown')}>
-                                <img
-                                    src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
-                                    alt="Crown"
-                                />
-                            </div>
-                        )}
-
-                        {type === 'video' && (
-                            <div className={cx('video-wrap')}>
-                                <div className={cx('play')}>
-                                    <FontAwesomeIcon icon={faPlay} />
-                                </div>
-                                <div className={cx('duration')}>
-                                    <span>{dataVideo.timeVideo}</span>
-                                </div>
-                            </div>
-                        )}
-                    </a>
-                ) : (
-                    <Link className={coming ? cx('link', 'disabled') : cx('link')} to={pathName}>
-                        <img className={cx('image')} src={coming ? imageComing : image} alt={name} />
-                        <button className={cx('btn-view')}>Xem khóa học</button>
-
-                        {type === 'pro' && (
-                            <div className={cx('crown')}>
-                                <img
-                                    src="https://fullstack.edu.vn/static/media/crown_icon.3e4800f7485935ab6ea312a7080a85fe.svg"
-                                    alt="Crown"
-                                />
-                            </div>
-                        )}
-
-                        {type === 'video' && (
-                            <div className={cx('video-wrap')}>
-                                <div className={cx('play')}>
-                                    <FontAwesomeIcon icon={faPlay} />
-                                </div>
-                                <div className={cx('duration')}>
-                                    <span>{dataVideo.timeVideo}</span>
-                                </div>
-                            </div>
-                        )}
-                    </Link>
-                )}
-
-                <h4 className={cx('name-course')}>
-                    <Link to={pathName} className={coming ? cx('disabled-name') : ''}>
-                        {name}
+                <h4 className={cx('name')}>
+                    <Link to={pathName} className={coming ? cx('disabled-name') : ''} title={title}>
+                        {title}
                     </Link>
                 </h4>
 
@@ -100,39 +59,14 @@ function CommonItem({
                     </div>
                 )}
 
-                {type === 'blog' && (
-                    <div className={cx('author')}>
-                        <Link className={cx('avatar-wrap')} to={`/@${author?.username}`}>
-                            <FallbackAvatar
-                                style={{ '--font-size': '2.32px' }}
-                                image={author?.avatar}
-                                alt={author?.name}
-                                admin={author?.admin}
-                            />
-                        </Link>
-                        <Link className={cx('name-author')} to={`/@${author?.username}`}>
-                            <span className={cx('user-name')}>{author?.name}</span>
-                            {author?.tick && <FontAwesomeIcon icon={faCircleCheck} />}
-                            <span className={cx('dot')}>·</span>
-                            <span>{readingTime > 0 ? readingTime : '1'} phút đọc</span>
-                        </Link>
-                    </div>
-                )}
+                {type === 'blog' && <PostCommon author={author} readingTime={readingTime} />}
 
-                {type === 'video' && (
-                    <div className={cx('stats')}>
-                        <div className={cx('stats-box')}>
-                            <FontAwesomeIcon icon={faEye} />
-                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.view)}</span>
-                        </div>
-                        <div className={cx('stats-box')}>
-                            <FontAwesomeIcon icon={faThumbsUp} />
-                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.like.toLocaleString())}</span>
-                        </div>
-                        <div className={cx('stats-box')}>
-                            <FontAwesomeIcon icon={faComment} />
-                            <span>{new Intl.NumberFormat('it-IT').format(dataVideo.comment)}</span>
-                        </div>
+                {type === 'video' && <VideoCommon dataVideo={dataVideo} />}
+
+                {type === 'my' && (
+                    <div className={cx('progress')}>
+                        <p className={cx('last-completed')}>Học cách đây 2 tháng trước</p>
+                        <VerticalProgressBar progress={progress} />
                     </div>
                 )}
             </div>

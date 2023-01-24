@@ -144,8 +144,8 @@ function Profile() {
                             <div className={cx('box')}>
                                 <h4 className={cx('box-title')}>Hoạt động gần đây</h4>
                                 <div className={cx('no-participation')}>
-                                    {infoUser?.myComments.length > 0 ? (
-                                        infoUser?.myComments
+                                    {infoUser?.activities.length > 0 ? (
+                                        infoUser?.activities
                                             .slice(-10)
                                             .map((comment, index) => <ActivityItem key={index} data={comment} />)
                                     ) : (

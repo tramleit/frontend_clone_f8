@@ -37,19 +37,19 @@ function Courses() {
                     <div className={cx('list')}>
                         <CommonItem
                             type="pro"
-                            name="HTML CSS Pro"
+                            title="HTML CSS Pro"
                             image="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
                         />
                         <CommonItem
                             type="pro"
                             coming={true}
-                            name="JavaScript Pro"
+                            title="JavaScript Pro"
                             imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
                         />
                         <CommonItem
                             type="pro"
                             coming={true}
-                            name="ReactJS Pro"
+                            title="ReactJS Pro"
                             imageComing="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
                         />
                     </div>
@@ -68,7 +68,7 @@ function Courses() {
                                 type="free"
                                 key={course._id}
                                 student={course.userLearning}
-                                name={course.name}
+                                title={course.name}
                                 image={course.image}
                                 pathName={course.slug}
                             />

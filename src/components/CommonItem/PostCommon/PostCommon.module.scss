@@ -1,0 +1,62 @@
+.author {
+    align-items: center;
+    display: flex;
+
+    .avatar-wrap {
+        margin-right: 8px;
+        position: relative;
+        color: #757575;
+        font-size: 1.4rem;
+
+        .avatar {
+            padding: 3px;
+            position: relative;
+            align-items: center;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+
+            &.admin {
+                background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
+            }
+
+            img {
+                border-radius: 50%;
+                flex-shrink: 0;
+                height: 20px;
+                object-fit: cover;
+                width: 20px;
+            }
+        }
+
+        .crown-user {
+            height: auto;
+            position: absolute;
+            right: -6px;
+            top: -3px;
+            width: 9px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .name-author {
+        color: #757575;
+        font-size: 1.4rem;
+
+        .user-name {
+            color: #292929;
+            font-weight: 600;
+        }
+
+        svg {
+            font-size: 1.2rem;
+            color: #1b74e4;
+            margin-left: 4px;
+        }
+
+        .dot {
+            margin: 0 8px;
+        }
+    }
+}

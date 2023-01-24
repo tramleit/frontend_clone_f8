@@ -19,13 +19,8 @@ function Home() {
     const [blogs, setBlogs] = useState([]);
     const [videos, setVideos] = useState([]);
 
-    const courses = useSelector((state) => state.home.courses?.currentCourses);
-
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        document.title = 'F8 - Học lâp trình để đi làm!';
-    }, []);
+    const courses = useSelector((state) => state.home.courses.currentCourses);
 
     useEffect(() => {
         let totalStudent = 0;
@@ -50,6 +45,7 @@ function Home() {
         };
         fetchApi();
 
+        document.title = 'F8 - Học lâp trình để đi làm!';
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -70,23 +66,22 @@ function Home() {
                         </div>
                     </div>
                     <div className={cx('list')}>
-                        <CommonItem
-                            type="pro"
-                            name="HTML CSS Pro"
-                            image="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
-                        />
-                        <CommonItem
-                            type="pro"
-                            coming={true}
-                            name="JavaScript Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
-                        />
-                        <CommonItem
-                            type="pro"
-                            coming={true}
-                            name="ReactJS Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
-                        />
+                        {courses &&
+                            [...courses]
+                                .sort((a, b) => a.priority - b.priority)
+                                .map(
+                                    (course) =>
+                                        course.price > 0 && (
+                                            <CommonItem
+                                                type="pro"
+                                                key={course._id}
+                                                title={course.title}
+                                                image={course.image}
+                                                coming={course.comingSoon}
+                                                imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
+                                            />
+                                        )
+                                )}
                     </div>
                 </div>
 
@@ -105,20 +100,24 @@ function Home() {
                         </div>
                     </div>
 
+                    {/* Tạo ra bản sao của mảng rồi sắp xếp theo thứ tự ưu tiên tăng dần và có giá = 0 */}
                     <div className={cx('list')}>
-                        {courses?.map(
-                            (course) =>
-                                course.price === 0 && (
-                                    <CommonItem
-                                        type="free"
-                                        key={course._id}
-                                        student={course.userLearning}
-                                        name={course.name}
-                                        image={course.image}
-                                        pathName={`/courses/${course.slug}`}
-                                    />
-                                )
-                        )}
+                        {courses &&
+                            [...courses]
+                                .sort((a, b) => a.priority - b.priority)
+                                .map(
+                                    (course) =>
+                                        course.price === 0 && (
+                                            <CommonItem
+                                                type="free"
+                                                key={course._id}
+                                                student={course.userLearning}
+                                                title={course.title}
+                                                image={course.image}
+                                                pathName={`/courses/${course.slug}`}
+                                            />
+                                        )
+                                )}
                     </div>
                 </div>
 
@@ -134,17 +133,22 @@ function Home() {
                     </div>
 
                     <div className={cx('list')}>
-                        {blogs?.slice(-8).map((blog) => (
-                            <CommonItem
-                                type="blog"
-                                key={blog._id}
-                                name={blog.title}
-                                image={blog.imagePreview}
-                                author={blog.author}
-                                readingTime={blog.readingTime}
-                                pathName={`/blog/${blog.slug}`}
-                            />
-                        ))}
+                        {blogs
+                            .slice(-8)
+                            .map(
+                                (blog) =>
+                                    blog.homePage && (
+                                        <CommonItem
+                                            type="blog"
+                                            key={blog._id}
+                                            title={blog.title}
+                                            image={blog.imagePreview}
+                                            author={blog.author}
+                                            readingTime={blog.readingTime}
+                                            pathName={`/blog/${blog.slug}`}
+                                        />
+                                    )
+                            )}
                     </div>
                 </div>
 
@@ -160,16 +164,19 @@ function Home() {
                     </div>
 
                     <div className={cx('list')}>
-                        {videos?.slice(-8).map((video) => (
-                            <CommonItem
-                                type="video"
-                                key={video._id}
-                                name={video.title}
-                                image={video.image}
-                                pathName={`https://www.youtube.com/watch?v=${video.urlVideo}`}
-                                dataVideo={video}
-                            />
-                        ))}
+                        {videos.map(
+                            (video) =>
+                                video.status && (
+                                    <CommonItem
+                                        type="video"
+                                        key={video._id}
+                                        title={video.title}
+                                        image={video.image}
+                                        pathName={`https://www.youtube.com/watch?v=${video.urlVideo}`}
+                                        dataVideo={video}
+                                    />
+                                )
+                        )}
                     </div>
                 </div>
             </div>

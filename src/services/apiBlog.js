@@ -30,7 +30,7 @@ export const getPostBySlug = async (slug) => {
 
         return res;
     } catch (error) {
-        return error.response;
+        return error.response.data;
     }
 };
 
