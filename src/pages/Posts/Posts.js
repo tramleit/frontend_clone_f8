@@ -11,7 +11,7 @@ import ActionPost from '~/components/ActionPost';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
 import config from '~/config';
 import { showNotification } from '~/redux/reducer/modunReducer';
-import { getPostBySlug, reactionPost } from '~/services/apiBlog';
+import { getPostBySlug, reactionPosts } from '~/services/apiBlog';
 import styles from './Posts.module.scss';
 import Reaction from './Reaction';
 
@@ -28,7 +28,7 @@ function Posts() {
         const fetchApi = async () => {
             const result = await getPostBySlug(slug);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setPost(result.data);
                 document.title = `${result.data.title} | by ${result.data.author.name} | 'F8`;
             } else {
@@ -45,9 +45,9 @@ function Posts() {
             postId: post._id,
             userId: currentUser._id,
         };
-        const result = await reactionPost(data);
+        const result = await reactionPosts(data);
 
-        if (result.errCode === 0) {
+        if (result.statusCode === 0) {
             setPost(result.data);
         } else {
             dispatch(showNotification(result.message || 'Lỗi yêu thích bài viết'));
@@ -130,7 +130,7 @@ function Posts() {
                                                 return (
                                                     blog.slug !== slug && (
                                                         <li key={index}>
-                                                            <Link to={`/blog/${blog.slug}`}>{blog.title}</Link>
+                                                            <Link to={`/blog/${blog.slug}`}>{blog.metaTitle}</Link>
                                                         </li>
                                                     )
                                                 );

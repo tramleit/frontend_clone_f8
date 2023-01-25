@@ -12,7 +12,7 @@ import { showNotification } from '~/redux/reducer/modunReducer';
 import { deletePostById } from '~/services/apiBlog';
 const cx = classNames.bind(styles);
 
-function MyPostItem({ type = false, setPostSaves = null, myPost = null }) {
+function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
     const [active, setActive] = useState(false);
 
     const dispatch = useDispatch();
@@ -23,9 +23,9 @@ function MyPostItem({ type = false, setPostSaves = null, myPost = null }) {
             // Xóa bài viết đã lưu
             if (myPost.post) {
                 const result = await toggleSavaPost(myPost.post._id, currentUser._id, dispatch);
-                if (result.errCode === 0) {
-                    dispatch(showNotification(result.message));
-                    setPostSaves([]);
+                if (result.statusCode === 0) {
+                    dispatch(showNotification('Xóa khỏi mục đã lưu'));
+                    setMyPosts([]);
                 } else {
                     dispatch(showNotification(result.message || 'Lỗi xóa bài viết đã lưu'));
                 }
@@ -36,9 +36,9 @@ function MyPostItem({ type = false, setPostSaves = null, myPost = null }) {
             // Xóa bài viết
             const resultDelete = await deletePostById(myPost._id);
 
-            if (resultDelete.errCode === 0) {
-                setPostSaves([]);
-                dispatch(showNotification(resultDelete.message));
+            if (resultDelete.statusCode === 0) {
+                setMyPosts([]);
+                dispatch(showNotification('Xóa bài viết thành công'));
             } else {
                 dispatch(showNotification(resultDelete.message || 'Lỗi xóa bài viết'));
             }

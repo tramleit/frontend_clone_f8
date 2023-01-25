@@ -14,9 +14,13 @@ export const search = async (params) => {
     }
 };
 
-export const getDataHomePage = async () => {
+export const getDataHomePage = async (type) => {
     try {
-        const res = await request.get('/banners/home/get');
+        const res = await request.get('/home', {
+            params: {
+                type,
+            },
+        });
 
         return res;
     } catch (error) {

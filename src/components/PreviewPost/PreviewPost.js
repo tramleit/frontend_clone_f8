@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { handleCreateNewPost } from '~/services/apiBlog';
+import { createNewPosts } from '~/services/apiBlog';
 
 import styles from './PreviewPost.module.scss';
 import { handleUploadImage } from '~/services/apiImage';
@@ -82,11 +82,11 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
             tags: tags,
         };
 
-        const result = await handleCreateNewPost(newPost, dispatch);
-        if (result.errCode === 0) {
+        const result = await createNewPosts(newPost, dispatch);
+        if (result.statusCode === 0) {
             navigate(`/blog/${result.data.slug}`);
         } else {
-            alert(`Lỗi : ${result.message}`);
+            dispatch(result.message || 'Lỗi tạo mới bài viết');
         }
     };
 

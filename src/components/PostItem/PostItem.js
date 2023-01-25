@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+
 import config from '~/config';
 import ActionPost from '../ActionPost';
+import FallbackAvatar from '../FallbackAvatar';
 
 import styles from './PostItem.module.scss';
-import FallbackAvatar from '../FallbackAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +41,7 @@ function PostItem({ dataPost }) {
             <div className={cx('body')}>
                 <div className={cx('content')}>
                     <Link to={`/blog/${dataPost.slug}`}>
-                        <h2 className={cx('title')}>{dataPost.title}</h2>
+                        <h2 className={cx('title')}>{dataPost.metaTitle}</h2>
                     </Link>
                     <p className={cx('desc')}>{dataPost.metaDescription}</p>
                     <div className={cx('info')}>
@@ -55,14 +56,14 @@ function PostItem({ dataPost }) {
 
                         <span>{moment(dataPost.createdAt).fromNow()}</span>
                         <span className={cx('dot')}>·</span>
-                        <span>{dataPost.readingTime > 0 ? dataPost.readingTime : 0} phút đọc</span>
+                        <span>{dataPost.readingTime} phút đọc</span>
                     </div>
                 </div>
 
                 {dataPost.imagePreview && (
                     <div className={cx('thumb')}>
                         <Link to={`/blog/${dataPost.slug}`}>
-                            <img src={dataPost.imagePreview} alt={dataPost.title} />
+                            <img src={dataPost.imagePreview} alt={dataPost.metaTitle} />
                         </Link>
                     </div>
                 )}

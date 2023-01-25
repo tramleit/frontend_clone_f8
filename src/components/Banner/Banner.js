@@ -4,8 +4,6 @@ import Slider from 'react-slick';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import Slideshow from './Slideshow';
-import { useEffect, useState } from 'react';
-import { getAllSlideShow } from '~/services/apiBanner';
 
 const cx = classNames.bind(styles);
 
@@ -27,22 +25,7 @@ function PrevArrow(props) {
     );
 }
 
-function Banner() {
-    const [slideshows, setSlideShows] = useState([]);
-
-    useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getAllSlideShow();
-
-            if (result.errCode === 0) {
-                setSlideShows(result.data);
-            } else {
-                alert('Lỗi gọi api lấy slideshow');
-            }
-        };
-        fetchApi();
-    }, []);
-
+function Banner({ slideshows }) {
     const settings = {
         dots: true,
         infinite: true,

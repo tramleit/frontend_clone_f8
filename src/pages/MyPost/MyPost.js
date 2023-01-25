@@ -1,15 +1,17 @@
-import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import config from '~/config';
 import Heading from '~/components/Heading';
-import HeadingTabs from '~/components/HeadingTabs';
-import MyPostItem from '~/components/MyPostItem';
-import { showNotification } from '~/redux/reducer/modunReducer';
 import { getMyPosts } from '~/services/apiBlog';
-import styles from './MyPost.module.scss';
+import MyPostItem from '~/components/MyPostItem';
+import HeadingTabs from '~/components/HeadingTabs';
 import LayoutWrapper from '~/components/LayoutWrapper';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './MyPost.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -23,8 +25,8 @@ function MyPost() {
         const fetchApi = async () => {
             const result = await getMyPosts(currentUser._id);
 
-            if (result.errCode === 0) {
-                setMyPosts(result.data.myBlogs);
+            if (result.statusCode === 0) {
+                setMyPosts(result.data);
             } else {
                 dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết đã xuất bản'));
             }
@@ -32,7 +34,7 @@ function MyPost() {
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser._id, myPosts.length]);
+    }, [myPosts.length]);
 
     return (
         <LayoutWrapper>
@@ -62,7 +64,7 @@ function MyPost() {
                                     <MyPostItem
                                         key={myPost._id}
                                         type="my-post"
-                                        setPostSaves={setMyPosts}
+                                        setMyPosts={setMyPosts}
                                         myPost={myPost}
                                     />
                                 ))

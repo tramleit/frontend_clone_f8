@@ -1,10 +1,10 @@
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 import * as request from '~/utils/request';
 
-export const handleCreateNewPost = async (newPost, dispatch) => {
+export const createNewPosts = async (newPost, dispatch) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/blog/create', newPost);
+        const res = await request.post('/post/create', newPost);
 
         dispatch(loadingSuccess());
         return res;
@@ -14,19 +14,23 @@ export const handleCreateNewPost = async (newPost, dispatch) => {
     }
 };
 
-export const getPageBlogs = async (page) => {
+export const getPostByPage = async (page) => {
     try {
-        const res = await request.get(`/blog/get-page?page=${page}`);
+        const res = await request.get('/post', {
+            params: {
+                page,
+            },
+        });
 
         return res;
     } catch (error) {
-        return error.response;
+        return error.response.data;
     }
 };
 
 export const getPostBySlug = async (slug) => {
     try {
-        const res = await request.get(`/blog/get-post/${slug}`);
+        const res = await request.get(`post/${slug}`);
 
         return res;
     } catch (error) {
@@ -36,7 +40,11 @@ export const getPostBySlug = async (slug) => {
 
 export const getMyPosts = async (userId) => {
     try {
-        const res = await request.get(`/blog/my-posts?q=${userId}`);
+        const res = await request.get('/my-posts', {
+            params: {
+                id: userId,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -46,7 +54,7 @@ export const getMyPosts = async (userId) => {
 
 export const deletePostById = async (postId) => {
     try {
-        const res = await request.remove(`/blog/delete/${postId}`);
+        const res = await request.remove(`/post/delete/${postId}`);
 
         return res;
     } catch (error) {
@@ -56,9 +64,8 @@ export const deletePostById = async (postId) => {
 
 export const getTopic = async (topic, page) => {
     try {
-        const res = await request.get(`/blog`, {
+        const res = await request.get(`/topic/${topic}`, {
             params: {
-                topic: topic,
                 page: page,
             },
         });
@@ -69,9 +76,9 @@ export const getTopic = async (topic, page) => {
     }
 };
 
-export const reactionPost = async (data) => {
+export const reactionPosts = async (data) => {
     try {
-        const res = await request.post(`/blog/reaction`, data);
+        const res = await request.post('/reaction', data);
 
         return res;
     } catch (error) {

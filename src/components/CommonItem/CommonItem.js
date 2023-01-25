@@ -6,62 +6,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LinkCommon from './LinkCommon';
 import PostCommon from './PostCommon';
 import VideoCommon from './VideoCommon';
+
 import VerticalProgressBar from '../VerticalProgressBar';
 
 import styles from './CommonItem.module.scss';
 
 const cx = classNames.bind(styles);
 
-function CommonItem({
-    type,
-    pathName,
-    student,
-    coming = false,
-    title,
-    imageComing,
-    image,
-    author,
-    dataVideo,
-    readingTime,
-    progress,
-    styles = null,
-}) {
+function CommonItem({ type, data, progress, styles = null }) {
     return (
         <div className={cx('wrapper')} style={styles}>
             <div className={cx('item')}>
                 <LinkCommon
                     type={type}
-                    pathName={pathName}
-                    title={title}
-                    image={image}
-                    coming={coming}
-                    dataVideo={dataVideo}
-                    imageComing={imageComing}
+                    pathName={data}
+                    title={data?.title}
+                    image={data?.image}
+                    coming={data?.comingSoon}
+                    dataVideo={data}
                 />
 
                 <h4 className={cx('name')}>
-                    <Link to={pathName} className={coming ? cx('disabled-name') : ''} title={title}>
-                        {title}
+                    <Link to={'pathName'} className={data?.comingSoon ? cx('disabled-name') : ''} title={data?.title}>
+                        {data?.title}
                     </Link>
                 </h4>
 
-                {type === 'pro' && !coming && (
+                {type === 'pro' && !data?.comingSoon && (
                     <div className={cx('price')}>
-                        <span className={cx('old-price')}>2.499.000đ</span>
-                        <span className={cx('new-price')}>1.299.000đ</span>
+                        <span className={cx('old-price')}>{data?.oldPrice.toLocaleString()}đ</span>
+                        <span className={cx('new-price')}>{data?.price.toLocaleString()}đ</span>
                     </div>
                 )}
 
                 {type === 'free' && (
                     <div className={cx('studying')}>
                         <FontAwesomeIcon icon={faUsers} />
-                        <span>{student}</span>
+                        <span>{data?.userLearning}</span>
                     </div>
                 )}
 
-                {type === 'blog' && <PostCommon author={author} readingTime={readingTime} />}
+                {type === 'blog' && <PostCommon author={data?.author} readingTime={data?.readingTime} />}
 
-                {type === 'video' && <VideoCommon dataVideo={dataVideo} />}
+                {type === 'video' && <VideoCommon dataVideo={data} />}
 
                 {type === 'my' && (
                     <div className={cx('progress')}>

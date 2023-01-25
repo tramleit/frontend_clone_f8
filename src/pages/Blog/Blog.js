@@ -8,7 +8,7 @@ import Heading from '~/components/Heading';
 import PostItem from '~/components/PostItem';
 import Pagination from '~/components/Pagination';
 import LayoutWrapper from '~/components/LayoutWrapper';
-import { getPageBlogs, getTopic } from '~/services/apiBlog';
+import { getPostByPage, getTopic } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Blog.module.scss';
@@ -51,9 +51,9 @@ function Blog() {
             }
 
             if (page && !slug) {
-                const result = await getPageBlogs(page);
+                const result = await getPostByPage(page);
 
-                if (result.errCode === 0) {
+                if (result.statusCode === 0) {
                     setDataPages(result.data);
                     setTotalPage(result.totalPages);
                 } else {
@@ -62,7 +62,7 @@ function Blog() {
             } else if (slug && page) {
                 const result = await getTopic(slug, page);
 
-                if (result.errCode === 0) {
+                if (result.statusCode === 0) {
                     setDataPages(result.data);
                     setTotalPage(result.totalPages);
                 } else {

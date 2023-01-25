@@ -195,3 +195,23 @@ export const markAllNotifyAsRead = async (userId) => {
         return error.response.data;
     }
 };
+
+export const refreshUser = async (dispatch, token, axiosJWT) => {
+    try {
+        const res = await axiosJWT.get('http://localhost:8080/api/user/current-user', {
+            headers: {
+                token: token,
+            },
+            params: {
+                v: Math.random(),
+            },
+        });
+
+        const { data, ...other } = res.data;
+        dispatch(loginSuccess(data));
+
+        return { ...other };
+    } catch (error) {
+        return error.response.data;
+    }
+};

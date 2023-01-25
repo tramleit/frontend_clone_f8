@@ -11,15 +11,15 @@ function VideoCommon({ dataVideo }) {
         <div className={cx('stats')}>
             <div className={cx('stats-box')}>
                 <FontAwesomeIcon icon={faEye} />
-                <span>{new Intl.NumberFormat('it-IT').format(dataVideo.view)}</span>
+                <span>{new Intl.NumberFormat('it-IT').format(dataVideo?.view)}</span>
             </div>
             <div className={cx('stats-box')}>
                 <FontAwesomeIcon icon={faThumbsUp} />
-                <span>{new Intl.NumberFormat('it-IT').format(dataVideo.like.toLocaleString())}</span>
+                <span>{new Intl.NumberFormat('it-IT').format(dataVideo?.like.toLocaleString())}</span>
             </div>
             <div className={cx('stats-box')}>
                 <FontAwesomeIcon icon={faComment} />
-                <span>{new Intl.NumberFormat('it-IT').format(dataVideo.comment)}</span>
+                <span>{new Intl.NumberFormat('it-IT').format(dataVideo?.comment)}</span>
             </div>
         </div>
     );

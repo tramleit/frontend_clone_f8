@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import Tippy from '@tippyjs/react/headless';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useDispatch, useSelector } from 'react-redux';
-import Tippy from '@tippyjs/react/headless';
-import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faBookmark as faBookmarkSave } from '@fortawesome/free-solid-svg-icons';
 import { FacebookShareButton, TwitterShareButton, EmailShareButton } from 'react-share';
