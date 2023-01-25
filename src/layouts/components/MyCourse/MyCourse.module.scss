@@ -54,6 +54,7 @@
 
                 .info {
                     margin-left: 12px;
+                    flex: 1;
 
                     .info-title {
                         font-size: 1.4rem;
@@ -69,28 +70,14 @@
                         font-size: 1.2rem;
                         margin: 4px 0 0;
                     }
+                }
+            }
 
-                    .vertical {
-                        background-color: #ddd;
-                        border-radius: 4px;
-                        height: 8px;
-                        margin-top: 8px;
-                        overflow: hidden;
-                        position: relative;
-                        --progress: 7%;
+            .loading {
+                padding: 8px 26px;
 
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            display: block;
-                            background-color: #f05123;
-                            bottom: 0;
-                            left: 0;
-                            top: 0;
-                            transition: width 1s ease;
-                            width: var(--progress);
-                        }
-                    }
+                svg {
+                    animation: Spinner 1s linear infinite;
                 }
             }
 
@@ -118,6 +105,7 @@
         font-weight: 600;
     }
 }
+
 @keyframes Tippy-animation {
     0% {
         opacity: 0;
@@ -126,5 +114,14 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes Spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

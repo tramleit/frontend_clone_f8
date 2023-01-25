@@ -125,7 +125,7 @@ function Home() {
                     <div className={cx('heading')}>
                         <div className={cx('heading-wrap')}>
                             <h4 className={cx('title')}>Bài viết nổi bật</h4>
-                            <Link className={cx('view-all')} to="/blog?page=1">
+                            <Link className={cx('view-all')} to="/blog">
                                 Xem tất cả
                                 <FontAwesomeIcon icon={faChevronRight} />
                             </Link>

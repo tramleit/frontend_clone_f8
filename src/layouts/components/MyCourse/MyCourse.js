@@ -1,30 +1,37 @@
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
-import TippyVertical from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './MyCourse.module.scss';
 import { useSelector } from 'react-redux';
 import { getAllMyCourses } from '~/services/apiAuth';
+import VerticalProgressBar from '~/components/VerticalProgressBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
 function MyCourse() {
-    const [active, setActive] = useState(false);
     const [allMyCourse, setAllMyCourse] = useState([]);
+    const [active, setActive] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handleGetAllMyCourses = async () => {
         setActive(!active);
+        setLoading(true);
         if (!active) {
             const result = await getAllMyCourses(currentUser._id);
 
             if (result.errCode === 0) {
                 setAllMyCourse(result.data);
+                setLoading(false);
             } else {
                 alert('Lỗi api lấy khóa học đang học');
+                setLoading(false);
             }
         }
     };
@@ -44,22 +51,34 @@ function MyCourse() {
                             {allMyCourse?.length > 0 ? (
                                 allMyCourse.map((course) => (
                                     <div className={cx('item')} key={course._id}>
-                                        <Link to={`/courses/${course.slug}`}>
-                                            <img className={cx('img')} src={course.image} alt={course.name} />
+                                        <Link to={`/courses/${course.course.slug}`}>
+                                            <img
+                                                className={cx('img')}
+                                                src={course.course.image}
+                                                alt={course.course.title}
+                                            />
                                         </Link>
                                         <div className={cx('info')}>
                                             <h5 className={cx('info-title')}>
-                                                <Link to={`/courses/${course.slug}`}>{course.name}</Link>
+                                                <Link to={`/courses/${course.course.slug}`}>{course.course.title}</Link>
                                             </h5>
-                                            <p className={cx('complete')}>Vừa học xong</p>
-                                            <TippyVertical content="1%" placement="bottom">
-                                                <div className={cx('vertical')}></div>
-                                            </TippyVertical>
+                                            <p className={cx('complete')}>{`Học cách đây ${moment(
+                                                course.lastCompletedAt
+                                            ).fromNow()}`}</p>
+                                            <VerticalProgressBar progress={course.progression} />
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className={cx('unregistered')}>Bạn chưa đăng ký khóa học nào</div>
+                                <>
+                                    {loading ? (
+                                        <div className={cx('loading')}>
+                                            <FontAwesomeIcon icon={faSpinner} />
+                                        </div>
+                                    ) : (
+                                        <div className={cx('unregistered')}>Bạn chưa đăng ký khóa học nào</div>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>

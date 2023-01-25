@@ -18,7 +18,7 @@ import styles from './Tracks.module.scss';
 const cx = classNames.bind(styles);
 
 function Tracks() {
-    const [course, setCourse] = useState({});
+    const [courses, setCourse] = useState({});
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,14 +36,16 @@ function Tracks() {
 
             if (result.errCode === 0) {
                 setCourse(result.data);
+                console.log('result.data: ', result.data);
 
                 // Kiểm tra xem nếu id bài hiện tại và id bài đang chọn khác nhau và người dùng
                 // chưa đăng ký khóa học thì chuyển về bài đầu của khóa học
 
-                if (
-                    (currentLesson?._id !== lessonId && currentUser?.myCourses.includes(result.data._id)) ||
-                    !currentLesson?._id
-                ) {
+                const checkRegister = currentUser?.myCourses.find((course) => {
+                    return course.course === result.data._id;
+                });
+
+                if (currentLesson?._id !== lessonId && !!checkRegister) {
                     navigate(`/courses/${slug}?id=${result.data.chapter[0].lesson[0]._id}`);
                 }
             } else {
@@ -61,13 +63,15 @@ function Tracks() {
 
     return (
         <>
-            {currentUser?.myCourses?.includes(course._id) ? (
+            {!!currentUser?.myCourses.find((course) => {
+                return course.course === courses._id;
+            }) ? (
                 <div className={cx('wrapper')}>
                     <>
-                        <HeaderTrack name={course.name} />
-                        <SidebarTrack chapters={course.chapter} slug={slug} />
+                        <HeaderTrack name={courses.name} />
+                        <SidebarTrack chapters={courses.chapter} slug={slug} />
                         <ContentTrack />
-                        <FooterTrack chapters={course.chapter} />
+                        <FooterTrack chapters={courses.chapter} />
 
                         <div className={sidebarCourse ? cx('comment') : cx('comment', 'active')}>
                             <button className={cx('comment-btn')} onClick={handleOpenModalComment}>
@@ -79,7 +83,7 @@ function Tracks() {
                     </>
                 </div>
             ) : (
-                <CourseDetail course={course} pathName={slug} />
+                <CourseDetail course={courses} pathName={slug} />
             )}
         </>
     );

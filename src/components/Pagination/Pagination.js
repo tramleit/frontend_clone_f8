@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import queryString from 'query-string';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,13 +8,16 @@ import styles from './Pagination.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Pagination({ totalPage }) {
-    const savedPage = localStorage.getItem('currentPage');
-    const initialPage = savedPage ? parseInt(savedPage, 10) : 1;
-
-    const [currentPage, setCurrentPage] = useState(initialPage);
+function Pagination({ totalPage, currentPage, setCurrentPage }) {
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handlePageChange = (page) => {
+        const parsed = queryString.parse(location.search);
+        parsed.page = page;
+        const stringified = queryString.stringify(parsed);
+        location.search = stringified;
+        navigate(`${location.pathname}?${location.search}`);
         setCurrentPage(page);
         localStorage.setItem('currentPage', page);
     };
@@ -22,36 +25,35 @@ function Pagination({ totalPage }) {
     const pages = [];
     for (let i = 1; i <= totalPage; i++) {
         pages.push(
-            <Link
+            <span
                 key={i}
-                className={cx('page', { active: currentPage === i })}
-                to={`/blog?page=${i}`}
-                onClick={() => handlePageChange(i)}
+                className={cx('page', { active: Number(currentPage) === i })}
+                onClick={Number(currentPage) !== i ? () => handlePageChange(i) : undefined}
             >
                 {i}
-            </Link>
+            </span>
         );
     }
 
     return (
         <div className={cx('wrapper')}>
-            <Link
-                to={currentPage === 1 ? `/blog?page=${1}` : `/blog?page=${currentPage - 1}`}
-                className={cx('page', { disabled: currentPage === 1 })}
-                onClick={currentPage === 1 ? null : () => handlePageChange(currentPage - 1)}
+            <span
+                className={cx('page', { disabled: Number(currentPage) === 1 })}
+                onClick={Number(currentPage) !== 1 ? () => handlePageChange(Number(currentPage) - 1) : undefined}
             >
                 <FontAwesomeIcon icon={faAnglesLeft} />
-            </Link>
+            </span>
 
             {pages.map((page) => page)}
 
-            <Link
-                to={currentPage === totalPage ? `/blog?page=${totalPage}` : `/blog?page=${currentPage + 1}`}
-                className={cx('page', { disabled: currentPage === totalPage })}
-                onClick={currentPage === totalPage ? null : () => handlePageChange(currentPage + 1)}
+            <span
+                className={cx('page', { disabled: Number(currentPage) === totalPage })}
+                onClick={
+                    Number(currentPage) !== totalPage ? () => handlePageChange(Number(currentPage) + 1) : undefined
+                }
             >
                 <FontAwesomeIcon icon={faAnglesRight} />
-            </Link>
+            </span>
         </div>
     );
 }

@@ -18,6 +18,12 @@ const cx = classNames.bind(styles);
 function Blog() {
     const [dataPages, setDataPages] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(() => {
+        const savedPage = localStorage.getItem('currentPage');
+        const initialPage = savedPage ? parseInt(savedPage, 10) : 1;
+
+        return initialPage;
+    });
 
     const [nameHeading, setNameHeading] = useState(null);
     const [descHeading, setDescHeading] = useState(null);
@@ -27,6 +33,14 @@ function Blog() {
     const location = useLocation();
     const { slug } = useParams();
     const page = new URLSearchParams(location.search).get('page');
+
+    useEffect(() => {
+        if (!currentPage) {
+            setCurrentPage(page);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         const fetchApi = async () => {
@@ -100,7 +114,13 @@ function Blog() {
                             </div>
                         )}
 
-                        {totalPage > 0 && <Pagination totalPage={totalPage} />}
+                        {totalPage > 0 && (
+                            <Pagination
+                                totalPage={totalPage}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                            />
+                        )}
                     </div>
                 </div>
                 <div className={cx('right')}>

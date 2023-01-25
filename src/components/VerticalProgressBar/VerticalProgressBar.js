@@ -5,7 +5,7 @@ import styles from './VerticalProgressBar.module.scss';
 
 const cx = classNames.bind(styles);
 
-function VerticalProgressBar({ progress }) {
+function VerticalProgressBar({ progress = 0 }) {
     const style = { [`--progress`]: `${progress}%` };
 
     return (

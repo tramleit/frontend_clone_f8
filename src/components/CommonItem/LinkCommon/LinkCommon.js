@@ -28,6 +28,7 @@ function LinkCommon({ type, pathName, title, image, coming, dataVideo, imageComi
         <Component
             className={coming ? cx('link', 'disabled') : cx('link')}
             href={pathName}
+            to={pathName}
             target={type === 'video' ? '_blank' : null}
             rel={type === 'video' ? 'noreferrer' : null}
             title={title}
