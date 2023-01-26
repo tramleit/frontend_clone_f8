@@ -1,38 +1,48 @@
-import classNames from 'classnames/bind';
-import { useDispatch } from 'react-redux';
 import moment from 'moment';
+import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ActivityItem from './ActivityItem';
-import CourseItem from './CourseItem';
-import { getInfoUserByUsername } from '~/services/apiAuth';
-import styles from './Profile.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookSquare, faInstagram, faLinkedin, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { showNotification } from '~/redux/reducer/modunReducer';
+
+import config from '~/config';
 import CoverImage from './CoverImage';
+import CourseItem from './CourseItem';
+import ActivityItem from './ActivityItem';
+import { getInfoUserByUsername } from '~/services/apiAuth';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './Profile.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Profile() {
     const [infoUser, setInfoUser] = useState(null);
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { username } = useParams();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getInfoUserByUsername(username);
+        if (currentUser) {
+            const fetchApi = async () => {
+                const result = await getInfoUserByUsername(username, currentUser.accessToken);
 
-            if (result.errCode === 0) {
-                setInfoUser(result.data);
-                document.title = `${result.data.name}`;
-            } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu trang cá nhân người dùng'));
-            }
-        };
-        fetchApi();
+                if (result.statusCode === 0) {
+                    setInfoUser(result.data);
+                    document.title = `${result.data.name}`;
+                } else {
+                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu trang cá nhân người dùng'));
+                }
+            };
+            fetchApi();
+        } else {
+            navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập để có thể xem'));
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [username]);

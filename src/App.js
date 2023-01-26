@@ -1,29 +1,26 @@
+import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
-import { Fragment, useEffect } from 'react';
 import Loading from '~/components/Loading';
+import { refreshUser } from './services/apiAuth';
 import Notification from '~/components/Notification';
 import './App.css';
-import { refreshUser } from './services/apiAuth';
-import { loginSuccess } from './redux/reducer/authReducer';
-import { createAxios } from './redux/createInstance';
 
 function App() {
     const isLoading = useSelector((state) => state.modun.loading?.status);
-
     const dispatch = useDispatch();
 
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
 
     useEffect(() => {
         if (window.performance) {
             if (performance.navigation.type === 1) {
                 if (currentUser) {
                     const fetchApi = async () => {
-                        await refreshUser(dispatch, currentUser.accessToken, axiosJWT);
+                        await refreshUser(dispatch, currentUser.accessToken);
                     };
                     fetchApi();
                 }

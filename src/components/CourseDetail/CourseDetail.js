@@ -53,10 +53,13 @@ function CourseDetail({ course, pathName }) {
     }, [allChapter]);
 
     const handleRegisterCourse = async () => {
-        if (currentUser?._id && pathName) {
-            const result = await registerCourse(pathName, currentUser?._id, dispatch);
-            if (result.errCode === 0) {
+        if (currentUser._id && pathName) {
+            const result = await registerCourse(pathName, dispatch, currentUser.accessToken);
+
+            if (result.statusCode === 0) {
                 window.location.reload();
+            } else {
+                dispatch(showNotification(result.message || 'Lỗi đăng ký khóa học'));
             }
         } else {
             navigate(config.routes.login);
@@ -69,7 +72,7 @@ function CourseDetail({ course, pathName }) {
             <div className={cx('wrapper')}>
                 <div className={cx('container')}>
                     <div className={cx('content-left')}>
-                        <h1 className={cx('course-name')}>{course.name}</h1>
+                        <h1 className={cx('course-name')}>{course.title}</h1>
                         <div className={cx('course-des')}>{course.description}</div>
 
                         <div className={cx('what-list')}>

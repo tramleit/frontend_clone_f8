@@ -20,12 +20,12 @@ function MyCourses() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getCoursesRegistered(currentUser._id);
+            const result = await getCoursesRegistered(currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setCourses(result.data);
             } else {
-                dispatch(showNotification(`Lỗi lấy dữ liệu khóa học của ${currentUser.name}`));
+                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học đã đăng ký'));
             }
         };
         fetchApi();
@@ -45,14 +45,12 @@ function MyCourses() {
                             {courses.map((course) => (
                                 <div className={cx('item')} key={course._id}>
                                     <CommonItem
-                                        styles={{ width: '100%' }}
                                         type="my"
                                         key={course._id}
-                                        student={course.userLearning}
-                                        title={course.title}
-                                        image={course.image}
-                                        pathName={`/courses/${course.slug}`}
+                                        data={course.course}
+                                        styles={{ width: '100%' }}
                                         progress={course.userProgress}
+                                        lastCompletedAt={course.lastCompletedAt}
                                     />
                                 </div>
                             ))}

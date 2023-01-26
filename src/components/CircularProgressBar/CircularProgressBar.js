@@ -12,12 +12,12 @@ function CircularProgressBar({ course }) {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     return (
-        <Tippy content={course.name}>
+        <Tippy content={course.title}>
             <Link className={cx('wrapper')} to={`${config.routes.courses}/${course.slug}`}>
                 <img
                     className={currentUser.myCourses.includes(course._id) ? '' : cx('active')}
                     src={course.icon}
-                    alt={course.name}
+                    alt={course.title}
                 />
             </Link>
         </Tippy>

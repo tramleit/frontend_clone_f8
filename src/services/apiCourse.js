@@ -1,26 +1,15 @@
 import * as request from '~/utils/request';
-import { getAllCoursesFailed, getAllCoursesSuccess } from '~/redux/reducer/homeReducer';
 import { getCurrentLesson } from '~/redux/reducer/lessonReducer';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 
-export const getAllCourses = async (dispatch) => {
+export const getCourseByPathName = async (slug, token) => {
     try {
-        const res = await request.get('/course/get');
-        dispatch(getAllCoursesSuccess(res.data));
-
-        return res;
-    } catch (error) {
-        dispatch(getAllCoursesFailed());
-
-        return error.response.data;
-    }
-};
-
-export const getCourseByPathName = async (pathName) => {
-    try {
-        const res = await request.get('/course/get/path', {
+        const res = await request.get('/course/path', {
+            headers: {
+                token,
+            },
             params: {
-                pathName: pathName,
+                course: slug,
             },
         });
         return res;
@@ -29,27 +18,37 @@ export const getCourseByPathName = async (pathName) => {
     }
 };
 
-export const getLessonById = async (lessonId, dispatch) => {
+export const getLessonById = async (lessonId, dispatch, token) => {
     dispatch(loadingStart());
     try {
-        const res = await request.get('/course/lesson', {
+        const res = await request.get('/lesson', {
             params: {
                 id: lessonId,
+            },
+            headers: {
+                token,
             },
         });
         dispatch(getCurrentLesson(res.data));
         dispatch(loadingSuccess());
 
-        return res.data;
+        return res;
     } catch (error) {
         dispatch(loadingSuccess());
         return error.response.data;
     }
 };
 
-export const getAllComments = async (lessonId) => {
+export const getAllComments = async (lessonId, token) => {
     try {
-        const res = await request.get(`/comments/${lessonId}`);
+        const res = await request.get(`/comment`, {
+            params: {
+                id: lessonId,
+            },
+            headers: {
+                token,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -57,9 +56,16 @@ export const getAllComments = async (lessonId) => {
     }
 };
 
-export const getCommentReply = async (commentId) => {
+export const getCommentReply = async (commentId, token) => {
     try {
-        const res = await request.get(`/comments/replies/${commentId}`);
+        const res = await request.get(`/comment/replies`, {
+            headers: {
+                token,
+            },
+            params: {
+                id: commentId,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -67,9 +73,13 @@ export const getCommentReply = async (commentId) => {
     }
 };
 
-export const createComment = async (newComment) => {
+export const createComment = async (newComment, token) => {
     try {
-        const res = await request.post('/comments/create', newComment);
+        const res = await request.post('/comment/create', newComment, {
+            headers: {
+                token,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -77,9 +87,13 @@ export const createComment = async (newComment) => {
     }
 };
 
-export const createCommentReply = async (replyComment) => {
+export const createCommentReply = async (replyComment, token) => {
     try {
-        const res = await request.post('/comments/reply', replyComment);
+        const res = await request.post('/comment/reply', replyComment, {
+            headers: {
+                token,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -87,9 +101,13 @@ export const createCommentReply = async (replyComment) => {
     }
 };
 
-export const getLearningRoute = async () => {
+export const getLearningRoute = async (type) => {
     try {
-        const res = await request.get('/learning/get');
+        const res = await request.get('/learning', {
+            params: {
+                type,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -99,7 +117,7 @@ export const getLearningRoute = async () => {
 
 export const getLearningRouteBySlug = async (slug) => {
     try {
-        const res = await request.get(`/learning/get-learning/${slug}`);
+        const res = await request.get(`/learning/path/${slug}`);
 
         return res;
     } catch (error) {
@@ -107,9 +125,27 @@ export const getLearningRouteBySlug = async (slug) => {
     }
 };
 
-export const getCoursesRegistered = async (userId) => {
+export const getCoursesRegistered = async (token) => {
     try {
-        const res = await request.get(`/course/registered/${userId}`);
+        const res = await request.get('/course/registered', {
+            headers: {
+                token,
+            },
+        });
+
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const getCombinedCourses = async (type) => {
+    try {
+        const res = await request.get('/course', {
+            params: {
+                type,
+            },
+        });
 
         return res;
     } catch (error) {

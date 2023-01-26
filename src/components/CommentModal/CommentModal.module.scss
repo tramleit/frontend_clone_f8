@@ -59,6 +59,12 @@
                     .title {
                         font-size: 1.8rem;
                         margin: 0px auto 0px 0px;
+
+                        .spinner {
+                            font-size: 1.6rem;
+                            margin-right: 6px;
+                            animation: Spinner 0.8s linear infinite;
+                        }
                     }
 
                     .help {
@@ -211,5 +217,14 @@
     }
     100% {
         transform: translateX(0);
+    }
+}
+
+@keyframes Spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

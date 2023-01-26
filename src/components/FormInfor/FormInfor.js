@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { handleSendMail, loginUser, RegisterNewUser } from '~/services/apiAuth';
+import { sendEmailVerify, loginUser, RegisterNewUser } from '~/services/apiAuth';
 import { openModal } from '~/redux/reducer/modunReducer';
 import styles from './FormInfor.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -83,14 +83,14 @@ function FormInfor({ role, nameBtn }) {
                 };
                 const result = await loginUser(user, dispatch, navigate);
 
-                if (result?.data.errCode === 1) {
-                    setValidEmail(result.data.message);
-                } else if (result?.data.errCode === 2) {
-                    setValidPassword(result.data.message);
-                } else if (result === undefined) {
-                    setValidEmail('Kết nối database thất bại');
-                } else if (result.errCode === 0) {
+                if (result.statusCode === 0) {
                     dispatch(openModal());
+                } else if (result.statusCode === 1) {
+                    setValidPassword(result.message);
+                } else if (result.statusCode === 2) {
+                    setValidEmail(result.message);
+                } else {
+                    setValidEmail(result.message || 'Kết nối database thất bại');
                 }
             } else {
                 const newUser = {
@@ -138,9 +138,10 @@ function FormInfor({ role, nameBtn }) {
             setActiveInputCode(true);
             setActiveBtnCode(false);
             setLoading(true);
-            const result = await handleSendMail(email);
+            const result = await sendEmailVerify(email);
             setCode('');
-            if (result.errCode === 0) {
+
+            if (result.statusCode === 0) {
                 setBtnCount(120);
                 setLoading(false);
             } else {

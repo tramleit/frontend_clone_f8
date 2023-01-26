@@ -44,10 +44,9 @@ function CoverImage({ infoUser }) {
         if (avatar) {
             let formData = new FormData();
             formData.append('avatar', avatar);
-            formData.append('id', infoUser._id);
 
-            const result = await changeAvatarUser(formData, dispatch);
-            if (result.errCode === 0) {
+            const result = await changeAvatarUser(formData, currentUser.accessToken, dispatch);
+            if (result.statusCode === 0) {
                 setAvatar(null);
                 window.location.reload();
                 dispatch(showNotification(result.message));
@@ -68,10 +67,10 @@ function CoverImage({ infoUser }) {
         if (cover) {
             let formData = new FormData();
             formData.append('cover', cover);
-            formData.append('id', infoUser._id);
 
-            const result = await changeCoverUser(formData, dispatch);
-            if (result.errCode === 0) {
+            const result = await changeCoverUser(formData, currentUser.accessToken, dispatch);
+
+            if (result.statusCode === 0) {
                 setUpload(false);
                 setCover(null);
                 window.location.reload();
@@ -158,7 +157,7 @@ function CoverImage({ infoUser }) {
                 </div>
             </div>
 
-            {username === currentUser.username && (
+            {username === currentUser?.username && (
                 <div
                     className={cx('btn-change')}
                     onClick={() => {

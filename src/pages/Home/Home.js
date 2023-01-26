@@ -1,12 +1,8 @@
-import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Banner from '~/components/Banner';
 import styles from './Home.module.scss';
-import CommonItem from '~/components/CommonItem';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDataHomePage } from '~/services/apiSearch';
 import { showNotification } from '~/redux/reducer/modunReducer';

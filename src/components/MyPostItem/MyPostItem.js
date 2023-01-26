@@ -22,7 +22,8 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
         if (!type) {
             // Xóa bài viết đã lưu
             if (myPost.post) {
-                const result = await toggleSavaPost(myPost.post._id, currentUser._id, dispatch);
+                const result = await toggleSavaPost(myPost.post._id, currentUser.accessToken, dispatch);
+
                 if (result.statusCode === 0) {
                     dispatch(showNotification('Xóa khỏi mục đã lưu'));
                     setMyPosts([]);
@@ -34,7 +35,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
             }
         } else {
             // Xóa bài viết
-            const resultDelete = await deletePostById(myPost._id);
+            const resultDelete = await deletePostById(myPost._id, currentUser.accessToken);
 
             if (resultDelete.statusCode === 0) {
                 setMyPosts([]);
@@ -61,7 +62,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
                 <span className={cx('dot')}>·</span>
                 <span>
                     {type !== 'my-post' ? 'Tác giả ' : `${myPost.readingTime} phút đọc`}
-                    {!type && <strong>{myPost.post?.author.name}</strong>}
+                    {!type && <strong>{myPost.post?.author?.name}</strong>}
                 </span>
             </div>
 

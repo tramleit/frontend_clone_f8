@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import styles from './MyCourse.module.scss';
 import { useSelector } from 'react-redux';
-import { getAllMyCourses } from '~/services/apiAuth';
 import VerticalProgressBar from '~/components/VerticalProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
+import { getCoursesRegistered } from '~/services/apiCourse';
 
 const cx = classNames.bind(styles);
 
 function MyCourse() {
-    const [allMyCourse, setAllMyCourse] = useState([]);
+    const [myCourses, setMyCourses] = useState([]);
     const [active, setActive] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -24,10 +24,10 @@ function MyCourse() {
         setActive(!active);
         setLoading(true);
         if (!active) {
-            const result = await getAllMyCourses(currentUser._id);
+            const result = await getCoursesRegistered(currentUser.accessToken);
 
-            if (result.errCode === 0) {
-                setAllMyCourse(result.data);
+            if (result.statusCode === 0) {
+                setMyCourses(result.data);
                 setLoading(false);
             } else {
                 alert('Lỗi api lấy khóa học đang học');
@@ -48,8 +48,8 @@ function MyCourse() {
                             <h4 className={cx('title')}>Khóa học của tôi</h4>
                         </div>
                         <div className={cx('content')}>
-                            {allMyCourse?.length > 0 ? (
-                                allMyCourse.map((course) => (
+                            {myCourses?.length > 0 ? (
+                                myCourses.map((course) => (
                                     <div className={cx('item')} key={course._id}>
                                         <Link to={`/courses/${course.course.slug}`}>
                                             <img

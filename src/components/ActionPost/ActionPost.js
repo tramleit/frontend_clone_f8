@@ -23,17 +23,18 @@ function ActionPost({ dataPost }) {
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const checkSavePost = currentUser.postSave.findIndex((postId) => postId.post === dataPost?._id);
+    const checkSavePost = currentUser?.postSave.findIndex((postId) => postId.post === dataPost?._id);
     const url = `${window.location.host}${config.routes.blog}/${dataPost?.slug}`;
 
     const handleCopyUrl = () => {
         dispatch(showNotification('Đã sao chép liên kết'));
         setOption(false);
     };
-    const handleSavePost = async () => {
-        const result = await toggleSavaPost(dataPost._id, currentUser._id, dispatch);
 
-        if (result.errCode === 0) {
+    const handleSavePost = async () => {
+        const result = await toggleSavaPost(dataPost._id, currentUser.accessToken, dispatch);
+
+        if (result.statusCode === 0) {
             dispatch(showNotification(result.message));
         } else {
             dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));

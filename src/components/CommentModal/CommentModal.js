@@ -1,10 +1,10 @@
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { closeModalComment } from '~/redux/reducer/modunReducer';
+import { closeModalComment, showNotification } from '~/redux/reducer/modunReducer';
 import CommentItem from './CommentItem';
 import { getAllComments } from '~/services/apiCourse';
 import ReplyBox from './ReplyBox';
@@ -17,28 +17,33 @@ const cx = classNames.bind(styles);
 
 function CommentModal() {
     const [isChat, setIsChat] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [allComment, setAllComment] = useState([]);
-
-    const modalComment = useSelector((state) => state.modun.modalComment.status);
-    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const dispatch = useDispatch();
     const location = useLocation();
+
+    const modalComment = useSelector((state) => state.modun.modalComment.status);
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
     const lessonId = new URLSearchParams(location.search).get('id');
 
     useEffect(() => {
         if (modalComment) {
+            setLoading(true);
             const fetchApi = async () => {
-                const result = await getAllComments(lessonId);
-                if (result.errCode === 0) {
+                const result = await getAllComments(lessonId, currentUser.accessToken);
+                setLoading(false);
+                if (result.statusCode === 0) {
                     setAllComment(result.data);
                 } else {
-                    alert('Lỗi gọi api lấy bình luận');
+                    dispatch(showNotification(result.message || 'Lỗi gọi api lấy bình luận'));
                 }
             };
             fetchApi();
         }
-    }, [lessonId, modalComment]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lessonId, modalComment, currentUser.accessToken]);
 
     const handleCloseModalComment = () => {
         dispatch(closeModalComment());
@@ -54,8 +59,20 @@ function CommentModal() {
                 <div className={cx('content')} onClick={(event) => event.stopPropagation()}>
                     <div className={cx('detail')}>
                         <div className={cx('heading')}>
-                            <h4 className={cx('title')}>{allComment?.length} hỏi đáp</h4>
-                            <p className={cx('help')}>(Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)</p>
+                            <h4 className={cx('title')}>
+                                {loading ? (
+                                    <FontAwesomeIcon icon={faSpinner} className={cx('spinner')} />
+                                ) : (
+                                    <>{allComment?.length} </>
+                                )}
+                                hỏi đáp
+                            </h4>
+
+                            {!loading && (
+                                <p className={cx('help')}>
+                                    (Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)
+                                </p>
+                            )}
                         </div>
 
                         <div className={isChat ? cx('my-comment', 'active') : cx('my-comment')}>
@@ -85,9 +102,10 @@ function CommentModal() {
                             )}
                         </div>
 
-                        {allComment?.map((comment) => (
-                            <CommentItem key={comment._id} comment={comment} ownerComment={comment._id} />
-                        ))}
+                        {!loading &&
+                            allComment?.map((comment) => (
+                                <CommentItem key={comment._id} comment={comment} ownerComment={comment._id} />
+                            ))}
                     </div>
                 </div>
             </div>

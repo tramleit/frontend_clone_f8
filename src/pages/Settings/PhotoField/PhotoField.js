@@ -30,10 +30,9 @@ function PhotoField({ avatar, name }) {
             const formData = new FormData();
 
             formData.append('avatar', image);
-            formData.append('id', currentUser._id);
             setActive(false);
 
-            const result = await changeAvatarUser(formData, dispatch);
+            const result = await changeAvatarUser(formData, currentUser.accessToken, dispatch);
             if (result.errCode === 0) {
                 dispatch(showNotification('Cập nhật thành công'));
             } else {

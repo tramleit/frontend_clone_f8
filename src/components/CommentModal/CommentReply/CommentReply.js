@@ -10,6 +10,7 @@ import styles from '../CommentItem/CommentItem.module.scss';
 import { createCommentReply } from '~/services/apiCourse';
 import ReactionFeel from '../CommentItem/ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
@@ -18,17 +19,20 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
     const [activeFeel, setActiveFeel] = useState(false);
     const [hoverTimer, setHoverTimer] = useState(null);
 
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     // Trả lời comment con
     const handleReplyComment = async (comment) => {
-        const result = await createCommentReply(comment);
+        const result = await createCommentReply(comment, currentUser.accessToken);
 
         if (!result) alert('Lỗi vui lòng liên hệ admin');
-        if (result.errCode === 0) {
+        if (result.statusCode === 0) {
             setCommentReply([...commentReply, result.data]);
 
             setIsChat(false);
         } else {
-            alert('Lỗi thêm mới bình luận');
+            dispatch(result.message || 'Lỗi thêm mới bình luận');
         }
     };
 

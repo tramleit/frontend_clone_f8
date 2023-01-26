@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createNewPosts } from '~/services/apiBlog';
-
-import styles from './PreviewPost.module.scss';
 import { handleUploadImage } from '~/services/apiImage';
 import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './PreviewPost.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,6 @@ const options = [
     { value: 'front-end-mobile-apps', label: 'Front-end / Mobile apps' },
     { value: 'back-end-devops', label: 'Back-end / Devops' },
     { value: 'ui-ux-design', label: 'UI / UX / Design' },
-    // { value: 'others', label: 'Others' },
 ];
 
 function PreviewPost({ setActivePrevPost, dataNewPost }) {
@@ -74,7 +73,6 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
             title: dataNewPost.title,
             metaTitle: prevTitle,
             metaDescription: prevDesc,
-            author: currentUser._id,
             contentHTML: dataNewPost.html,
             contentMarkdown: dataNewPost.text,
             readingTime: dataNewPost.wordCount,
@@ -82,7 +80,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
             tags: tags,
         };
 
-        const result = await createNewPosts(newPost, dispatch);
+        const result = await createNewPosts(newPost, dispatch, currentUser.accessToken);
         if (result.statusCode === 0) {
             navigate(`/blog/${result.data.slug}`);
         } else {

@@ -1,21 +1,51 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import config from '~/config';
 import Heading from '~/components/Heading';
 import CommonItem from '~/components/CommonItem';
 import SuggestionBox from '~/components/SuggestionBox';
 import LayoutWrapper from '~/components/LayoutWrapper';
 import styles from './Courses.module.scss';
+import { getCombinedCourses } from '~/services/apiCourse';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
 function Courses() {
-    const courses = useSelector((state) => state.home.courses?.currentCourses);
+    const [courseFree, setCourseFree] = useState([]);
+    const [coursePro, setCoursePro] = useState([]);
+
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const type = new URLSearchParams(location.search).get('type');
 
     useEffect(() => {
-        document.title = 'Danh sách các khóa học lập trình tại F8';
-    });
+        if (!type) {
+            navigate(`${config.routes.courses}/?type=tab`);
+        }
+    }, [type, navigate]);
+
+    useEffect(() => {
+        if (type) {
+            const fetchApi = async () => {
+                const result = await getCombinedCourses(type);
+
+                if (result.statusCode === 0) {
+                    setCourseFree(result.data.coursesFree);
+                    setCoursePro(result.data.coursesPro);
+                } else {
+                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học'));
+                }
+            };
+            fetchApi();
+            document.title = 'Danh sách các khóa học lập trình tại F8';
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [type]);
 
     return (
         <LayoutWrapper>
@@ -35,23 +65,9 @@ function Courses() {
                         </div>
                     </div>
                     <div className={cx('list')}>
-                        <CommonItem
-                            type="pro"
-                            title="HTML CSS Pro"
-                            image="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
-                        />
-                        <CommonItem
-                            type="pro"
-                            coming={true}
-                            title="JavaScript Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
-                        />
-                        <CommonItem
-                            type="pro"
-                            coming={true}
-                            title="ReactJS Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
-                        />
+                        {coursePro.map((course) => (
+                            <CommonItem type="pro" key={course._id} data={course} />
+                        ))}
                     </div>
                 </div>
 
@@ -63,15 +79,8 @@ function Courses() {
                     </div>
 
                     <div className={cx('list')}>
-                        {courses?.map((course) => (
-                            <CommonItem
-                                type="free"
-                                key={course._id}
-                                student={course.userLearning}
-                                title={course.name}
-                                image={course.image}
-                                pathName={course.slug}
-                            />
+                        {courseFree?.map((course) => (
+                            <CommonItem type="free" key={course._id} data={course} />
                         ))}
                     </div>
                 </div>

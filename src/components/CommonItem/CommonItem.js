@@ -10,10 +10,11 @@ import VideoCommon from './VideoCommon';
 import VerticalProgressBar from '../VerticalProgressBar';
 
 import styles from './CommonItem.module.scss';
+import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
-function CommonItem({ type, data, progress, styles = null }) {
+function CommonItem({ type, data, progress, lastCompletedAt, styles = null }) {
     return (
         <div className={cx('wrapper')} style={styles}>
             <div className={cx('item')}>
@@ -52,7 +53,7 @@ function CommonItem({ type, data, progress, styles = null }) {
 
                 {type === 'my' && (
                     <div className={cx('progress')}>
-                        <p className={cx('last-completed')}>Học cách đây 2 tháng trước</p>
+                        <p className={cx('last-completed')}>Học cách đây {moment(lastCompletedAt).fromNow()}</p>
                         <VerticalProgressBar progress={progress} />
                     </div>
                 )}

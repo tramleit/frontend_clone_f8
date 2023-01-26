@@ -20,12 +20,12 @@ function BookMark() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getPostSave(currentUser._id);
+            const result = await getPostSave(currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setPostSaves(result.data);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết đã lưu'));
+                dispatch(showNotification(result.message || 'Lỗi lấy bài viết đã lưu'));
             }
         };
         fetchApi();

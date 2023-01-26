@@ -23,7 +23,7 @@ function MyPost() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getMyPosts(currentUser._id);
+            const result = await getMyPosts(currentUser.accessToken);
 
             if (result.statusCode === 0) {
                 setMyPosts(result.data);

@@ -1,31 +1,37 @@
 import config from '~/config';
 import * as request from '~/utils/request';
-import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/authReducer';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
+import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/authReducer';
 
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/user/login', user);
+        const res = await request.post('/auth/login', user, {
+            params: {
+                role: 'user',
+            },
+        });
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
         navigate(config.routes.home);
+
         return res;
     } catch (error) {
         dispatch(loadingSuccess());
-        return error.response;
+        return error.response.data;
     }
 };
 
 export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/user/register', newUser);
+        const res = await request.post('/auth/register', newUser);
 
         dispatch(registerSuccess(res.data));
         dispatch(loadingSuccess());
         navigate(config.routes.home);
+
         return res;
     } catch (error) {
         dispatch(loadingSuccess());
@@ -33,14 +39,18 @@ export const RegisterNewUser = async (newUser, dispatch, navigate) => {
     }
 };
 
-export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
+export const logoutUser = async (dispatch, navigate, token) => {
     dispatch(loadingStart());
     try {
-        await axiosJWT.post('http://localhost:8080/api/user/logout', id, {
-            headers: {
-                token: token,
-            },
-        });
+        await request.post(
+            '/auth/logout',
+            {},
+            {
+                headers: {
+                    token: token,
+                },
+            }
+        );
 
         dispatch(logoutSuccess());
         dispatch(loadingSuccess());
@@ -51,89 +61,121 @@ export const logoutUser = async (dispatch, id, navigate, token, axiosJWT) => {
     }
 };
 
-export const handleSendMail = async (email) => {
+export const sendEmailVerify = async (email) => {
     try {
-        const res = await request.post('/user/verify-email', { email });
+        const res = await request.post('/auth/verify-email', { email });
         return res;
     } catch (error) {
         return error.response.data;
     }
 };
 
-export const registerCourse = async (pathName, userId, dispatch) => {
+export const registerCourse = async (pathName, dispatch, token) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post(`/user/register-course/${pathName}`, { userId });
-
-        dispatch(loginSuccess(res.data));
+        const res = await request.post(
+            `/user/registered-course`,
+            {},
+            {
+                headers: {
+                    token,
+                },
+                params: {
+                    path: pathName,
+                },
+            }
+        );
         dispatch(loadingSuccess());
-        const { data, ...other } = res;
-
-        return { ...other };
-    } catch (error) {
-        dispatch(loadingSuccess());
-        return error.response.data;
-    }
-};
-
-export const getAllMyCourses = async (userId) => {
-    try {
-        const res = await request.post(`/user/get-myCourse/${userId}`);
 
         return res;
     } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const getInfoUserByUsername = async (username) => {
-    try {
-        const res = await request.get(`/user/get-info/${username}`);
-
-        return res;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const changeAvatarUser = async (avatar, dispatch) => {
-    dispatch(loadingStart());
-    try {
-        const res = await request.post('/user/change/avatar', avatar);
-        dispatch(loadingSuccess());
-        dispatch(loginSuccess(res.data));
-
-        const { data, ...other } = res;
-
-        return { ...other };
-    } catch (error) {
         dispatch(loadingSuccess());
         return error.response.data;
     }
 };
 
-export const changeCoverUser = async (cover, dispatch) => {
-    dispatch(loadingStart());
+export const getInfoUserByUsername = async (username, token) => {
     try {
-        const res = await request.post('/user/change/cover', cover);
-        dispatch(loadingSuccess());
-        dispatch(loginSuccess(res.data));
-
-        const { data, ...other } = res;
-
-        return { ...other };
-    } catch (error) {
-        dispatch(loadingSuccess());
-        return error.response.data;
-    }
-};
-
-export const changeInfoUser = async (info, userId, dispatch) => {
-    try {
-        const res = await request.post(`/user/change/${userId}`, info, {
-            withCredentials: true,
+        const res = await request.get(`/user/get-info/${username}`, {
+            headers: {
+                token,
+            },
         });
 
+        return res;
+    } catch (error) {
+        return error.response.data;
+    }
+};
+
+export const changeAvatarUser = async (avatar, token, dispatch) => {
+    dispatch(loadingStart());
+    try {
+        const res = await request.post('/user/avatar', avatar, {
+            headers: {
+                token,
+            },
+        });
+
+        dispatch(loadingSuccess());
+        return res;
+    } catch (error) {
+        dispatch(loadingSuccess());
+        return error.response.data;
+    }
+};
+
+export const changeCoverUser = async (cover, token, dispatch) => {
+    dispatch(loadingStart());
+    try {
+        const res = await request.post('/user/cover', cover, {
+            headers: {
+                token,
+            },
+        });
+        dispatch(loadingSuccess());
+
+        return res;
+    } catch (error) {
+        dispatch(loadingSuccess());
+        return error.response.data;
+    }
+};
+
+export const changeInfoUser = async (info, token, dispatch) => {
+    dispatch(loadingStart());
+    try {
+        const res = await request.post(`/user/info`, info, {
+            headers: {
+                token,
+            },
+        });
+
+        dispatch(loadingSuccess());
+
+        return res;
+    } catch (error) {
+        dispatch(loadingSuccess());
+        return error.response.data;
+    }
+};
+
+export const toggleSavaPost = async (postId, token, dispatch) => {
+    try {
+        const res = await request.post(
+            `/user/toggle/bookmark`,
+            {},
+            {
+                headers: {
+                    token,
+                },
+
+                params: {
+                    postId,
+                },
+            }
+        );
+
         dispatch(loginSuccess(res.data));
         const { data, ...other } = res;
 
@@ -143,22 +185,13 @@ export const changeInfoUser = async (info, userId, dispatch) => {
     }
 };
 
-export const toggleSavaPost = async (postId, userId, dispatch) => {
+export const getPostSave = async (token) => {
     try {
-        const res = await request.post(`/user/toggle/bookmark?post=${postId}&user=${userId}`);
-
-        dispatch(loginSuccess(res.data));
-        const { data, ...other } = res;
-
-        return { ...other };
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const getPostSave = async (userId) => {
-    try {
-        const res = await request.get(`/user/?bookmark=${userId}`);
+        const res = await request.get('/user/bookmark', {
+            headers: {
+                token,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -166,9 +199,13 @@ export const getPostSave = async (userId) => {
     }
 };
 
-export const getNotifyById = async (userId) => {
+export const getNotifyUser = async (token) => {
     try {
-        const res = await request.get(`/user/alert/${userId}`);
+        const res = await request.get(`/user/alert`, {
+            headers: {
+                token,
+            },
+        });
 
         return res;
     } catch (error) {
@@ -176,9 +213,21 @@ export const getNotifyById = async (userId) => {
     }
 };
 
-export const setAlertWatchNotify = async (data) => {
+export const markWatched = async (notiId = null, type, token) => {
     try {
-        const res = await request.post(`/user/alert/watch`, data);
+        const res = await request.post(
+            `/user/alert/mark`,
+            {},
+            {
+                headers: {
+                    token,
+                },
+                params: {
+                    watch: notiId,
+                    type,
+                },
+            }
+        );
 
         return res;
     } catch (error) {
@@ -186,19 +235,9 @@ export const setAlertWatchNotify = async (data) => {
     }
 };
 
-export const markAllNotifyAsRead = async (userId) => {
+export const refreshUser = async (dispatch, token) => {
     try {
-        const res = await request.post(`/user/alert/watch/${userId}`);
-
-        return res;
-    } catch (error) {
-        return error.response.data;
-    }
-};
-
-export const refreshUser = async (dispatch, token, axiosJWT) => {
-    try {
-        const res = await axiosJWT.get('http://localhost:8080/api/user/current-user', {
+        const res = await request.get('/auth/current-user', {
             headers: {
                 token: token,
             },
@@ -207,7 +246,7 @@ export const refreshUser = async (dispatch, token, axiosJWT) => {
             },
         });
 
-        const { data, ...other } = res.data;
+        const { data, ...other } = res;
         dispatch(loginSuccess(data));
 
         return { ...other };

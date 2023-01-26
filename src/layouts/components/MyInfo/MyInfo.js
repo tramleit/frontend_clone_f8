@@ -1,31 +1,28 @@
-import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import styles from './MyInfo.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
 import { Fragment, useState } from 'react';
+import Tippy from '@tippyjs/react/headless';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '~/services/apiAuth';
-import { loginSuccess } from '~/redux/reducer/authReducer';
-import { createAxios } from '~/redux/createInstance';
+
 import config from '~/config';
+import { logoutUser } from '~/services/apiAuth';
 import FallbackAvatar from '~/components/FallbackAvatar';
+
+import styles from './MyInfo.module.scss';
 
 const cx = classNames.bind(styles);
 
 function MyInfo() {
     const [active, setActive] = useState(false);
 
-    const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const accessToken = currentUser?.accessToken;
-    const id = currentUser?._id;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handleClick = async (path) => {
         setActive(false);
         if (!path) {
-            const axiosJWT = createAxios(currentUser, dispatch, loginSuccess);
-            await logoutUser(dispatch, id, navigate, accessToken, axiosJWT);
+            await logoutUser(dispatch, navigate, currentUser.accessToken);
         }
     };
 
@@ -41,13 +38,13 @@ function MyInfo() {
                             <div className={cx('avatar')}>
                                 <FallbackAvatar
                                     style={{ '--font-size': '5.6px' }}
-                                    image={currentUser.avatar}
-                                    alt={currentUser.name}
+                                    image={currentUser?.avatar}
+                                    alt={currentUser?.name}
                                 />
                             </div>
                             <div className={cx('info')}>
-                                <span className={cx('name')}>{currentUser.name}</span>
-                                <div className={cx('username')}>@{currentUser.username}</div>
+                                <span className={cx('name')}>{currentUser?.name}</span>
+                                <div className={cx('username')}>@{currentUser?.username}</div>
                             </div>
                         </div>
                         <hr />
@@ -60,7 +57,7 @@ function MyInfo() {
                                                 <Link
                                                     to={
                                                         menu.path === 'profile'
-                                                            ? `/@${currentUser.username}`
+                                                            ? `/@${currentUser?.username}`
                                                             : menu.path
                                                     }
                                                 >
@@ -81,8 +78,8 @@ function MyInfo() {
                 <div className={cx('btn-info')} onClick={() => setActive(!active)}>
                     <FallbackAvatar
                         style={{ '--font-size': '3.2px' }}
-                        image={currentUser.avatar}
-                        alt={currentUser.name}
+                        image={currentUser?.avatar}
+                        alt={currentUser?.name}
                     />
                 </div>
             </Tippy>

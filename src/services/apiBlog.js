@@ -1,12 +1,17 @@
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 import * as request from '~/utils/request';
 
-export const createNewPosts = async (newPost, dispatch) => {
+export const createNewPosts = async (newPost, dispatch, token) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/post/create', newPost);
+        const res = await request.post('/post/create', newPost, {
+            headers: {
+                token: token,
+            },
+        });
 
         dispatch(loadingSuccess());
+
         return res;
     } catch (error) {
         dispatch(loadingSuccess());
@@ -38,11 +43,11 @@ export const getPostBySlug = async (slug) => {
     }
 };
 
-export const getMyPosts = async (userId) => {
+export const getMyPosts = async (token) => {
     try {
         const res = await request.get('/my-posts', {
-            params: {
-                id: userId,
+            headers: {
+                token,
             },
         });
 
@@ -52,9 +57,16 @@ export const getMyPosts = async (userId) => {
     }
 };
 
-export const deletePostById = async (postId) => {
+export const deletePostById = async (postId, token) => {
     try {
-        const res = await request.remove(`/post/delete/${postId}`);
+        const res = await request.remove(`/post/delete`, {
+            headers: {
+                token,
+            },
+            params: {
+                id: postId,
+            },
+        });
 
         return res;
     } catch (error) {

@@ -62,10 +62,11 @@ function InputField({ type, label, placeholder, defaultValue = '', desc = '' }) 
             }
 
             setActive(false);
-            const result = await changeInfoUser(formData, currentUser._id, dispatch);
+            const result = await changeInfoUser(formData, currentUser.accessToken, dispatch);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 dispatch(showNotification(result.message));
+                window.location.reload();
             } else {
                 dispatch(showNotification(result.message));
                 setValue(defaultValue);

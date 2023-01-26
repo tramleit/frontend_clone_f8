@@ -5,6 +5,7 @@ import moment from 'moment';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { showNotification } from '~/redux/reducer/modunReducer';
 import { getLessonById } from '~/services/apiCourse';
 import MarkdownParser from '../MarkdownParser';
 import VideoTrack from '../VideoTrack';
@@ -13,27 +14,30 @@ import styles from './ContentTrack.module.scss';
 const cx = classNames.bind(styles);
 
 function ContentTrack() {
-    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
     const lesson = useSelector((state) => state.lesson?.currentLesson);
-    const date = moment(lesson?.updatedAt);
+    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
-    const dispatch = useDispatch();
     const location = useLocation();
     const lessonId = new URLSearchParams(location.search).get('id');
 
-    const currentLesson = localStorage.getItem('currentLesson');
-    console.log('currentLesson: ', currentLesson);
+    const dispatch = useDispatch();
+    const date = moment(lesson?.updatedAt);
 
     useEffect(() => {
-        if (currentLesson) {
+        if (lessonId) {
             const fetchApi = async () => {
-                await getLessonById(currentLesson, dispatch);
+                const result = await getLessonById(lessonId, dispatch, currentUser.accessToken);
+
+                if (result.statusCode !== 0) {
+                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài'));
+                }
             };
             fetchApi();
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentLesson]);
+    }, [lessonId]);
 
     return (
         <div className={sidebarCourse ? cx('wrapper') : cx('wrapper', 'active')}>

@@ -1,16 +1,18 @@
+import 'moment/locale/vi';
+import moment from 'moment/moment';
 import classNames from 'classnames/bind';
-import HandlessTippy from '@tippyjs/react/headless';
-import styles from './Notify.module.scss';
+import { HiCheck } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { HiDotsHorizontal } from 'react-icons/hi';
-import { HiCheck } from 'react-icons/hi';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import HandlessTippy from '@tippyjs/react/headless';
 import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment/moment';
-import { getNotifyById, markAllNotifyAsRead, setAlertWatchNotify } from '~/services/apiAuth';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { getNotifyUser, markWatched } from '~/services/apiAuth';
 import { showNotification } from '~/redux/reducer/modunReducer';
-import 'moment/locale/vi';
+
+import styles from './Notify.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -24,9 +26,9 @@ function Notify() {
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getNotifyById(currentUser._id);
+            const result = await getNotifyUser(currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setNotify(result.data);
             } else {
                 dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu thông báo'));
@@ -35,13 +37,13 @@ function Notify() {
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser._id, notify.length]);
+    }, []);
 
-    const handleWatching = async (notiId, watch) => {
+    const handleMarkWatch = async (notiId, watch) => {
         if (!watch) {
-            const result = await setAlertWatchNotify({ notiId, userId: currentUser._id });
+            const result = await markWatched(notiId, 'odd', currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setNotify([]);
             } else {
                 dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
@@ -49,13 +51,13 @@ function Notify() {
         }
     };
 
-    const handleMarkAllNotifyAsRead = async () => {
+    const handleBookmarkSeeAll = async () => {
         const allWatch = !notify.some((notify) => !notify.watch);
 
         if (!allWatch) {
-            const result = await markAllNotifyAsRead(currentUser._id);
+            const result = await markWatched('all', currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setNotify([]);
             } else {
                 dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
@@ -81,7 +83,7 @@ function Notify() {
                                 onClickOutside={() => setWatch(false)}
                                 render={(attrs) => (
                                     <div className={cx('watched')} tabIndex="-1" {...attrs}>
-                                        <div className={cx('send')} onClick={handleMarkAllNotifyAsRead}>
+                                        <div className={cx('send')} onClick={handleBookmarkSeeAll}>
                                             <HiCheck />
                                             <span>Đánh dấu tất cả đã đọc</span>
                                         </div>
@@ -98,14 +100,14 @@ function Notify() {
                                 <div
                                     className={noti.watch ? cx('item', 'read') : cx('item')}
                                     key={noti.timestamps}
-                                    onClick={() => handleWatching(noti._id, noti.watch)}
+                                    onClick={() => handleMarkWatch(noti._id, noti.watch)}
                                 >
                                     <div className={cx('avatar')}>
                                         <img src={noti.avatar} alt={noti.description} />
                                     </div>
                                     <div className={cx('message')}>
                                         <div className={cx('message-tt')}>
-                                            Chào mừng<strong> {currentUser.name} </strong>đã gia nhập F8.{' '}
+                                            Chào mừng<strong> {currentUser?.name} </strong>đã gia nhập F8.{' '}
                                             {noti.description} &#129505;
                                         </div>
                                         <div className={cx('time')}>{moment(noti.timestamps).fromNow()}</div>

@@ -12,6 +12,7 @@ import ReplyBox from '../ReplyBox';
 import styles from './CommentItem.module.scss';
 import ReactionFeel from './ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
+import { useDispatch, useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
@@ -19,15 +20,17 @@ function CommentItem({ comment, ownerComment }) {
     const [isChat, setIsChat] = useState(false);
     const [loading, setLoading] = useState(false);
     const [moreReplies, setMoreReplies] = useState(false);
-
     const [commentReply, setCommentReply] = useState([]);
+
+    const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     // Gọi api lấy comment con theo từng điều kiện
     const handleGetCmtReplies = async (commentId) => {
         if (!moreReplies && commentReply.length === 0) {
             setLoading(true);
 
-            const result = await getCommentReply(commentId);
+            const result = await getCommentReply(commentId, currentUser.accessToken);
 
             if (result.errCode === 0) {
                 setCommentReply(result.data);
@@ -47,16 +50,16 @@ function CommentItem({ comment, ownerComment }) {
 
     // Trả lời comment cha
     const handleReplyComment = async (comment) => {
-        const result = await createCommentReply(comment);
+        const result = await createCommentReply(comment, currentUser.accessToken);
 
         if (!result) alert('Lỗi vui lòng liên hệ admin');
-        if (result.errCode === 0) {
+        if (result.statusCode === 0) {
             setCommentReply([...commentReply, result.data]);
 
             setIsChat(false);
             setMoreReplies(true);
         } else {
-            alert('Lỗi thêm mới bình luận');
+            dispatch(result.message || 'Lỗi thêm mới bình luận');
         }
     };
 
