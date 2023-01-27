@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-markdown-editor-lite/lib/index.css';
-import { handleUploadImage } from '~/services/apiImage';
+import { uploadImage } from '~/services/apiImage';
 
 const mdParser = new MarkdownIt();
 
@@ -13,6 +13,8 @@ function EditorNewPost({ handleGetDataNewPost }) {
     const [image, setImage] = useState('');
 
     const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     const handleEditorChange = ({ html, text }) => {
         setText(text);
         setHtml(html);
@@ -28,7 +30,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
         const formData = new FormData();
         formData.append('image', file);
 
-        const result = await handleUploadImage(formData, dispatch);
+        const result = await uploadImage(formData, dispatch, currentUser.accessToken);
         if (result.errCode === 0) {
             setImage(result.data.urlImage);
             return result.data.urlImage;

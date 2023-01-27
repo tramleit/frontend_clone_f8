@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import config from '~/config';
 import { logoutUser } from '~/services/apiAuth';
 import FallbackAvatar from '~/components/FallbackAvatar';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './MyInfo.module.scss';
 
@@ -21,8 +22,16 @@ function MyInfo() {
 
     const handleClick = async (path) => {
         setActive(false);
+
         if (!path) {
-            await logoutUser(dispatch, navigate, currentUser.accessToken);
+            const result = await logoutUser(dispatch, currentUser.accessToken);
+
+            if (result.statusCode === 0) {
+                navigate(config.routes.login);
+                window.location.reload();
+            } else {
+                dispatch(showNotification('Đăng xuất thất bại'));
+            }
         }
     };
 

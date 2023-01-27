@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function CourseItem({ data }) {
+    console.log('data: ', data);
     return (
         <div className={cx('wrapper')}>
-            <Link className={cx('thumb')} to={`/courses/${data.slug}`}>
-                <img src={data.image} alt={data.name} />
+            <Link className={cx('thumb')} to={`/courses/${data.course.slug}`}>
+                <img src={data.course.image} alt={data.course.title} />
             </Link>
             <div className={cx('info')}>
                 <h4 className={cx('title')}>
-                    <Link to={`/courses/${data.slug}`}>{data.name}</Link>
+                    <Link to={`/courses/${data.course.slug}`}>{data.course.title}</Link>
                 </h4>
-                <p className={cx('desc')}>{data.description}</p>
+                <p className={cx('desc')}>{data.course.description}</p>
             </div>
         </div>
     );

@@ -8,8 +8,9 @@ import styles from './HeaderTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
-function HeaderTrack({ name }) {
+function HeaderTrack({ title }) {
     const navigate = useNavigate();
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('back-btn')} title="Rời khỏi đây" onClick={() => navigate('/')}>
@@ -18,7 +19,7 @@ function HeaderTrack({ name }) {
             <RouterLink className={cx('logo')} to={config.routes.home}>
                 <img src={Image.iconLogo} alt="Logo" />
             </RouterLink>
-            <div className={cx('title')}>{name}</div>
+            <div className={cx('title')}>{title}</div>
 
             <div className={cx('actions')}>
                 <div className={cx('progress-wrap')}>

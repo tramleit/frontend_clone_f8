@@ -1,18 +1,19 @@
-import { faComments } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import config from '~/config';
 import CommentModal from '~/components/CommentModal';
 import CourseDetail from '~/components/CourseDetail';
-import ContentTrack from '~/components/tracks/ContentTrack';
 import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
-import SidebarTrack from '~/components/tracks/SidebarTrack';
-import config from '~/config';
-import { openModalComment, showNotification } from '~/redux/reducer/modunReducer';
 import { getCourseByPathName } from '~/services/apiCourse';
+import SidebarTrack from '~/components/tracks/SidebarTrack';
+import ContentTrack from '~/components/tracks/ContentTrack';
+import { openModalComment, showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Tracks.module.scss';
 
@@ -30,9 +31,7 @@ function Tracks() {
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
 
     useEffect(() => {
-        if (!currentUser) {
-            navigate(config.routes.login);
-        } else {
+        if (currentUser) {
             const fetchApi = async () => {
                 const result = await getCourseByPathName(slug, currentUser.accessToken);
 
@@ -48,6 +47,9 @@ function Tracks() {
                 }
             };
             fetchApi();
+        } else {
+            navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập'));
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +64,7 @@ function Tracks() {
             {registered ? (
                 <div className={cx('wrapper')}>
                     <>
-                        <HeaderTrack name={courses.name} />
+                        <HeaderTrack title={courses.title} />
                         <SidebarTrack chapters={courses.chapter} slug={slug} />
                         <ContentTrack />
                         <FooterTrack chapters={courses.chapter} />

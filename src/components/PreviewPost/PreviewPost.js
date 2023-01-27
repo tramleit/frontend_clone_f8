@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { createNewPosts } from '~/services/apiBlog';
-import { handleUploadImage } from '~/services/apiImage';
+import { uploadImage } from '~/services/apiImage';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './PreviewPost.module.scss';
@@ -92,7 +92,7 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
 
-        const result = await handleUploadImage(formData, dispatch);
+        const result = await uploadImage(formData, dispatch, currentUser.accessToken);
         if (result.errCode === 0) {
             setImage(result.data.urlImage);
         } else {

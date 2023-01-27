@@ -103,6 +103,10 @@
         font-family: inherit;
         margin-bottom: 2px;
         font-weight: 600;
+
+        &.active {
+            color: var(--color-primary);
+        }
     }
 }
 

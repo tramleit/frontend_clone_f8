@@ -2,7 +2,7 @@ import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Heading from '~/components/Heading';
 import HeadingTabs from '~/components/HeadingTabs';
 import MyPostItem from '~/components/MyPostItem';
@@ -16,22 +16,28 @@ function BookMark() {
     const [postSaves, setPostSaves] = useState([]);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getPostSave(currentUser.accessToken);
+        if (currentUser) {
+            const fetchApi = async () => {
+                const result = await getPostSave(currentUser.accessToken);
 
-            if (result.statusCode === 0) {
-                setPostSaves(result.data);
-            } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy bài viết đã lưu'));
-            }
-        };
-        fetchApi();
+                if (result.statusCode === 0) {
+                    setPostSaves(result.data);
+                } else {
+                    dispatch(showNotification(result.message || 'Lỗi lấy bài viết đã lưu'));
+                }
+            };
+            fetchApi();
+        } else {
+            navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập'));
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser._id, postSaves.length]);
+    }, [postSaves.length]);
 
     return (
         <LayoutWrapper>

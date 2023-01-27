@@ -1,10 +1,15 @@
 import * as request from '~/utils/request';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 
-export const handleUploadImage = async (file, dispatch) => {
+// Ok
+export const uploadImage = async (file, dispatch, token) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/upload/image', file);
+        const res = await request.post('/upload/image', file, {
+            headers: {
+                token,
+            },
+        });
 
         dispatch(loadingSuccess());
         return res;

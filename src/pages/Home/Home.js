@@ -1,12 +1,14 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import Banner from '~/components/Banner';
-import styles from './Home.module.scss';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import HomeContent from './HomeContent';
+import Banner from '~/components/Banner';
 import { getDataHomePage } from '~/services/apiSearch';
 import { showNotification } from '~/redux/reducer/modunReducer';
-import HomeContent from './HomeContent';
+
+import styles from './Home.module.scss';
 
 const cx = classNames.bind(styles);
 

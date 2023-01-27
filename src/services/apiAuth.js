@@ -39,10 +39,10 @@ export const registerNewUser = async (newUser, dispatch) => {
 };
 
 // Ok
-export const logoutUser = async (dispatch, navigate, token) => {
+export const logoutUser = async (dispatch, token) => {
     dispatch(loadingStart());
     try {
-        await request.post(
+        const res = await request.post(
             '/auth/logout',
             {},
             {
@@ -54,13 +54,14 @@ export const logoutUser = async (dispatch, navigate, token) => {
 
         dispatch(logoutSuccess());
         dispatch(loadingSuccess());
-        navigate('/login');
-        window.location.reload();
+        return res;
     } catch (error) {
         dispatch(loadingSuccess());
+        return error.response.data;
     }
 };
 
+// Ok
 export const sendEmailVerify = async (email) => {
     try {
         const res = await request.post('/auth/verify-email', { email });
@@ -70,6 +71,7 @@ export const sendEmailVerify = async (email) => {
     }
 };
 
+// Ok
 export const registerCourse = async (pathName, dispatch, token) => {
     dispatch(loadingStart());
     try {
@@ -94,6 +96,7 @@ export const registerCourse = async (pathName, dispatch, token) => {
     }
 };
 
+// Ok
 export const getInfoUserByUsername = async (username, token) => {
     try {
         const res = await request.get(`/user/get-info/${username}`, {
@@ -108,6 +111,7 @@ export const getInfoUserByUsername = async (username, token) => {
     }
 };
 
+// Ok
 export const changeAvatarUser = async (avatar, token, dispatch) => {
     dispatch(loadingStart());
     try {
@@ -125,6 +129,7 @@ export const changeAvatarUser = async (avatar, token, dispatch) => {
     }
 };
 
+// Ok
 export const changeCoverUser = async (cover, token, dispatch) => {
     dispatch(loadingStart());
     try {
@@ -142,6 +147,7 @@ export const changeCoverUser = async (cover, token, dispatch) => {
     }
 };
 
+// Ok
 export const changeInfoUser = async (info, token, dispatch) => {
     dispatch(loadingStart());
     try {
@@ -160,6 +166,7 @@ export const changeInfoUser = async (info, token, dispatch) => {
     }
 };
 
+// Ok
 export const toggleSavaPost = async (postId, token, dispatch) => {
     try {
         const res = await request.post(
@@ -185,6 +192,7 @@ export const toggleSavaPost = async (postId, token, dispatch) => {
     }
 };
 
+// Ok
 export const getPostSave = async (token) => {
     try {
         const res = await request.get('/user/bookmark', {
@@ -199,6 +207,7 @@ export const getPostSave = async (token) => {
     }
 };
 
+// Ok
 export const getNotifyUser = async (token) => {
     try {
         const res = await request.get(`/user/alert`, {
@@ -213,7 +222,8 @@ export const getNotifyUser = async (token) => {
     }
 };
 
-export const markWatched = async (notiId = null, type, token) => {
+// Ok
+export const markWatched = async (type, token, notiId = null) => {
     try {
         const res = await request.post(
             `/user/alert/mark`,
@@ -235,6 +245,7 @@ export const markWatched = async (notiId = null, type, token) => {
     }
 };
 
+// Ok
 export const refreshUser = async (dispatch, token) => {
     try {
         const res = await request.get('/auth/current-user', {

@@ -1,15 +1,18 @@
-import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import styles from './MyCourse.module.scss';
+import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
-import VerticalProgressBar from '~/components/VerticalProgressBar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tippy from '@tippyjs/react/headless';
+import { Link, useLocation } from 'react-router-dom';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import moment from 'moment';
+import config from '~/config';
 import { getCoursesRegistered } from '~/services/apiCourse';
+import VerticalProgressBar from '~/components/VerticalProgressBar';
+
+import styles from './MyCourse.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -18,20 +21,23 @@ function MyCourse() {
     const [active, setActive] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const { pathname } = useLocation();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handleGetAllMyCourses = async () => {
-        setActive(!active);
-        setLoading(true);
-        if (!active) {
-            const result = await getCoursesRegistered(currentUser.accessToken);
+        if (pathname !== config.routes.myCourses) {
+            setActive(!active);
+            setLoading(true);
+            if (!active) {
+                const result = await getCoursesRegistered(currentUser.accessToken);
 
-            if (result.statusCode === 0) {
-                setMyCourses(result.data);
-                setLoading(false);
-            } else {
-                alert('Lỗi api lấy khóa học đang học');
-                setLoading(false);
+                if (result.statusCode === 0) {
+                    setMyCourses(result.data);
+                    setLoading(false);
+                } else {
+                    alert('Lỗi api lấy khóa học đang học');
+                    setLoading(false);
+                }
             }
         }
     };
@@ -84,7 +90,10 @@ function MyCourse() {
                     </div>
                 )}
             >
-                <button className={cx('btn')} onClick={handleGetAllMyCourses}>
+                <button
+                    className={cx('btn', { active: pathname === config.routes.myCourses })}
+                    onClick={handleGetAllMyCourses}
+                >
                     Khóa học của tôi
                 </button>
             </Tippy>

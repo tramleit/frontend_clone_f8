@@ -37,11 +37,11 @@ function Notify() {
         fetchApi();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [notify.length]);
 
     const handleMarkWatch = async (notiId, watch) => {
         if (!watch) {
-            const result = await markWatched(notiId, 'odd', currentUser.accessToken);
+            const result = await markWatched('odd', currentUser.accessToken, notiId);
 
             if (result.statusCode === 0) {
                 setNotify([]);

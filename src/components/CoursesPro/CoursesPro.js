@@ -1,10 +1,33 @@
 import classNames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { showNotification } from '~/redux/reducer/modunReducer';
+import { getCombinedCourses } from '~/services/apiCourse';
 import CommonItem from '../CommonItem';
 import styles from './CoursesPro.module.scss';
 
 const cx = classNames.bind(styles);
 
 function CoursesPro() {
+    const [courses, setCourses] = useState([]);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchApi = async () => {
+            const result = await getCombinedCourses('pro');
+
+            if (result.statusCode === 0) {
+                setCourses(result.data);
+            } else {
+                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học pro'));
+            }
+        };
+        fetchApi();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <h2 className={cx('title')}>
@@ -24,32 +47,11 @@ function CoursesPro() {
 
             <div className={cx('courses')}>
                 <div className={cx('wrap')}>
-                    <div className={cx('content')}>
-                        <CommonItem
-                            styles={{ width: '100%' }}
-                            type="pro"
-                            title="HTML CSS Pro"
-                            image="https://files.fullstack.edu.vn/f8-prod/courses/15/62f13d2424a47.png"
-                        />
-                    </div>
-                    <div className={cx('content')}>
-                        <CommonItem
-                            styles={{ width: '100%' }}
-                            type="pro"
-                            coming={true}
-                            title="JavaScript Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/19/62f13cb607b4b.png"
-                        />
-                    </div>
-                    <div className={cx('content')}>
-                        <CommonItem
-                            styles={{ width: '100%' }}
-                            type="pro"
-                            coming={true}
-                            title="ReactJS Pro"
-                            imageComing="https://files.fullstack.edu.vn/f8-prod/courses/20/62f13dded314e.png"
-                        />
-                    </div>
+                    {courses.map((course) => (
+                        <div className={cx('content')} key={course._id}>
+                            <CommonItem styles={{ width: '100%' }} type="pro" data={course} />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

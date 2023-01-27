@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import config from '~/config';
@@ -17,21 +17,28 @@ const cx = classNames.bind(styles);
 
 function MyPost() {
     const [myPosts, setMyPosts] = useState([]);
+
     const { tab } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            const result = await getMyPosts(currentUser.accessToken);
+        if (currentUser) {
+            const fetchApi = async () => {
+                const result = await getMyPosts(currentUser.accessToken);
 
-            if (result.statusCode === 0) {
-                setMyPosts(result.data);
-            } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết đã xuất bản'));
-            }
-        };
-        fetchApi();
+                if (result.statusCode === 0) {
+                    setMyPosts(result.data);
+                } else {
+                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết đã xuất bản'));
+                }
+            };
+            fetchApi();
+        } else {
+            navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập'));
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [myPosts.length]);
