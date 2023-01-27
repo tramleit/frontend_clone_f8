@@ -4,13 +4,10 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import styles from './CircularProgressBar.module.scss';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
-function CircularProgressBar({ course }) {
-    const currentUser = useSelector((state) => state.auth.login.currentUser);
-
+function CircularProgressBar({ course, currentUser }) {
     return (
         <Tippy content={course.title}>
             <Link className={cx('wrapper')} to={`${config.routes.courses}/${course.slug}`}>

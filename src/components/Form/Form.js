@@ -7,13 +7,13 @@ import { FcGoogle } from 'react-icons/fc';
 import { HiChevronLeft } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { Image } from '~/assets/image';
-import FormInfor from '~/components/FormInfor';
+import FormWrap from '~/components/FormWrap';
 
 import styles from './Form.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Form({ name, nameBtn, question, path, action, role }) {
+function Form({ name, textBtn, question, path, action, role }) {
     const [loginEmail, setLoginEmail] = useState(true);
 
     useEffect(() => {
@@ -60,7 +60,7 @@ function Form({ name, nameBtn, question, path, action, role }) {
                                 </div>
                             </div>
                         ) : (
-                            <FormInfor role={role} nameBtn={nameBtn} />
+                            <FormWrap role={role} textBtn={textBtn} />
                         )}
                         <p className={cx('question')}>
                             {question} <Link to={path}>{action}</Link>

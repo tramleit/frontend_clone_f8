@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { IconCrownUser } from '~/assets/Icon';
 import { Image } from '~/assets/image';
 import ActionPost from '~/components/ActionPost';
@@ -21,6 +21,7 @@ function Posts() {
     const [post, setPost] = useState(null);
 
     const { slug } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
@@ -41,16 +42,17 @@ function Posts() {
     }, [slug]);
 
     const handleReaction = async () => {
-        const data = {
-            postId: post._id,
-            userId: currentUser._id,
-        };
-        const result = await reactionPosts(data);
+        if (currentUser) {
+            const result = await reactionPosts(post._id, currentUser.accessToken);
 
-        if (result.statusCode === 0) {
-            setPost(result.data);
+            if (result.statusCode === 0) {
+                setPost(result.data);
+            } else {
+                dispatch(showNotification(result.message || 'Lỗi yêu thích bài viết'));
+            }
         } else {
-            dispatch(showNotification(result.message || 'Lỗi yêu thích bài viết'));
+            navigate(config.routes.login);
+            dispatch(showNotification('Vui lòng đăng nhập'));
         }
     };
 
@@ -66,7 +68,7 @@ function Posts() {
                             <p className={cx('author-bio')}>{post?.author.bio}</p>
                             <hr />
 
-                            <Reaction handleReaction={handleReaction} post={post} userId={currentUser._id} />
+                            <Reaction handleReaction={handleReaction} post={post} userId={currentUser?._id} />
                         </div>
                     </div>
 
@@ -106,7 +108,7 @@ function Posts() {
                             <MarkdownParser data={post?.contentHTML} fontSize="1.8rem" />
 
                             <div className={cx('footer-post')}>
-                                <Reaction handleReaction={handleReaction} post={post} userId={currentUser._id} />
+                                <Reaction handleReaction={handleReaction} post={post} userId={currentUser?._id} />
 
                                 {post?.tags && (
                                     <div className={cx('tags-post')}>

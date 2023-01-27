@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
+import { useNavigate } from 'react-router-dom';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,6 +22,7 @@ const cx = classNames.bind(styles);
 function ActionPost({ dataPost }) {
     const [option, setOption] = useState(false);
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
     const checkSavePost = currentUser?.postSave.findIndex((postId) => postId.post === dataPost?._id);
@@ -32,18 +34,22 @@ function ActionPost({ dataPost }) {
     };
 
     const handleSavePost = async () => {
-        const result = await toggleSavaPost(dataPost._id, currentUser.accessToken, dispatch);
+        if (currentUser) {
+            const result = await toggleSavaPost(dataPost._id, currentUser.accessToken, dispatch);
 
-        if (result.statusCode === 0) {
-            dispatch(showNotification(result.message));
+            if (result.statusCode === 0) {
+                dispatch(showNotification(result.message));
+            } else {
+                dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
+            }
         } else {
-            dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
+            navigate(config.routes.login);
         }
     };
     return (
         <div className={cx('actions')}>
             <div className={cx('btn-save')} onClick={handleSavePost}>
-                {checkSavePost === -1 ? (
+                {checkSavePost === -1 || !currentUser ? (
                     <FontAwesomeIcon icon={faBookmark} />
                 ) : (
                     <FontAwesomeIcon icon={faBookmarkSave} className={cx('book-mark')} />

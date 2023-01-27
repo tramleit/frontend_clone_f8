@@ -88,9 +88,17 @@ export const getTopic = async (topic, page) => {
     }
 };
 
-export const reactionPosts = async (data) => {
+export const reactionPosts = async (postId, token) => {
     try {
-        const res = await request.post('/reaction', data);
+        const res = await request.post(
+            '/reaction',
+            { postId },
+            {
+                headers: {
+                    token,
+                },
+            }
+        );
 
         return res;
     } catch (error) {

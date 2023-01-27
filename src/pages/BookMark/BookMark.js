@@ -50,7 +50,7 @@ function BookMark() {
 
                     {postSaves.length > 0 ? (
                         postSaves.map((postSave) => (
-                            <MyPostItem key={postSave._id} myPost={postSave} setPostSaves={setPostSaves} />
+                            <MyPostItem key={postSave._id} myPost={postSave} setMyPosts={setPostSaves} />
                         ))
                     ) : (
                         <div className={cx('no-result')}>

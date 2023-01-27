@@ -16,7 +16,7 @@ function Login() {
             {isFetching && <Loading />}
             <Form
                 name="Đăng nhập vào F8"
-                nameBtn="Đăng nhập"
+                textBtn="Đăng nhập"
                 question="Bạn chưa có tài khoản?"
                 path={config.routes.register}
                 action="Đăng ký"

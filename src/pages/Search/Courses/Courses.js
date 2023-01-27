@@ -12,11 +12,11 @@ function Courses({ courses, loading }) {
                     {courses.map((course) => (
                         <div className={cx('item')} key={course._id}>
                             <Link to={`/courses/${course.slug}`}>
-                                <img src={course.image} alt={course.name} />
+                                <img src={course.image} alt={course.title} />
                             </Link>
                             <div className={cx('info')}>
                                 <h2>
-                                    <Link to={`/courses/${course.slug}`}>{course.name}</Link>
+                                    <Link to={`/courses/${course.slug}`}>{course.title}</Link>
                                 </h2>
                                 <p>{course.description}</p>
                             </div>

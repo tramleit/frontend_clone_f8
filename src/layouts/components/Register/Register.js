@@ -11,7 +11,7 @@ function Register() {
         <div className={cx('wrapper')}>
             <Form
                 name="Đăng ký tài khoản F8"
-                nameBtn="Đăng ký"
+                textBtn="Đăng ký"
                 question="Bạn đã có tài khoản?"
                 path={config.routes.login}
                 action="Đăng nhập"

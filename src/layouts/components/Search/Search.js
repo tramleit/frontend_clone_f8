@@ -1,25 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { BiLoaderCircle } from 'react-icons/bi';
 import { MdClear } from 'react-icons/md';
-import SearchItem from '~/components/SearchItem';
 import useDebounce from '~/hooks/useDebounce';
-import { search } from '~/services/apiSearch';
+import { searchByName } from '~/services/apiSearch';
 
 import styles from './Search.module.scss';
+import SearchResult from './SearchResult';
 
 const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
 
-    const [courses, setCourses] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [videos, setVideos] = useState([]);
+    const [dataSearch, setDataSearch] = useState([]);
 
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
@@ -36,16 +33,11 @@ function Search() {
             setLoading(true);
 
             const fetchApi = async () => {
-                const result = await search(debounced);
+                const result = await searchByName(debounced, 'all');
 
-                if (result.errCode === 0) {
-                    setCourses(result.data.courses);
-                    setBlogs(result.data.blogs);
-                    setVideos(result.data.videos);
-
-                    setLoading(false);
-                } else {
-                    setLoading(false);
+                setLoading(false);
+                if (result.statusCode === 0) {
+                    setDataSearch(result.data);
                 }
             };
             fetchApi();
@@ -56,10 +48,6 @@ function Search() {
     const handleClearInput = () => {
         setSearchValue('');
         inputRef.current.focus();
-
-        setCourses([]);
-        setBlogs([]);
-        setVideos([]);
     };
 
     const handleHideResult = () => {
@@ -82,39 +70,20 @@ function Search() {
                                     <FaSearch className={cx('icon-search-result')} />
                                 )}
                                 <p>
-                                    {courses.length < 1 && blogs.length < 1 && videos.length < 1
+                                    {dataSearch.length < 1
                                         ? `Không có kết quả nào ${searchValue === '' ? '' : `cho '${searchValue}'`}`
                                         : `Kết quả cho '${searchValue}'`}
                                 </p>
                             </div>
-                            {courses.length > 0 && (
-                                <div className={cx('search-heading')}>
-                                    <h4>KHÓA HỌC</h4>
-                                    <Link to={`/search/courses?q=${searchValue}`}>Xem thêm</Link>
-                                </div>
-                            )}
-                            {courses?.map((course) => (
-                                <SearchItem handleHideResult={handleHideResult} key={course._id} data={course} />
-                            ))}
 
-                            {blogs.length > 0 && (
-                                <div className={cx('search-heading')}>
-                                    <h4>BÀI VIẾT</h4>
-                                    <Link to={`/search/posts?q=${searchValue}`}>Xem thêm</Link>
-                                </div>
-                            )}
-                            {blogs?.map((blog) => (
-                                <SearchItem handleHideResult={handleHideResult} key={blog._id} data={blog} />
-                            ))}
-
-                            {videos.length > 0 && (
-                                <div className={cx('search-heading')}>
-                                    <h4>VIDEO</h4>
-                                    <Link to={`/search/videos?q=${searchValue}`}>Xem thêm</Link>
-                                </div>
-                            )}
-                            {videos?.map((video) => (
-                                <SearchItem handleHideResult={handleHideResult} key={video._id} data={video} />
+                            {dataSearch.map((data, index) => (
+                                <SearchResult
+                                    key={index}
+                                    data={data}
+                                    index={index}
+                                    handleHideResult={handleHideResult}
+                                    searchValue={searchValue}
+                                />
                             ))}
                         </div>
                     </div>

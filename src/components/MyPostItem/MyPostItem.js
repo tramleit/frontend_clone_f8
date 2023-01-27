@@ -27,6 +27,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
                 if (result.statusCode === 0) {
                     dispatch(showNotification('Xóa khỏi mục đã lưu'));
                     setMyPosts([]);
+                    setActive(false);
                 } else {
                     dispatch(showNotification(result.message || 'Lỗi xóa bài viết đã lưu'));
                 }

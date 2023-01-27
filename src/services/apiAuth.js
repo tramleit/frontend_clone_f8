@@ -1,9 +1,9 @@
-import config from '~/config';
 import * as request from '~/utils/request';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/authReducer';
 
-export const loginUser = async (user, dispatch, navigate) => {
+// Ok
+export const loginUser = async (user, dispatch) => {
     dispatch(loadingStart());
     try {
         const res = await request.post('/auth/login', user, {
@@ -14,7 +14,6 @@ export const loginUser = async (user, dispatch, navigate) => {
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
-        navigate(config.routes.home);
 
         return res;
     } catch (error) {
@@ -23,22 +22,23 @@ export const loginUser = async (user, dispatch, navigate) => {
     }
 };
 
-export const RegisterNewUser = async (newUser, dispatch, navigate) => {
+// Ok
+export const registerNewUser = async (newUser, dispatch) => {
     dispatch(loadingStart());
     try {
         const res = await request.post('/auth/register', newUser);
 
         dispatch(registerSuccess(res.data));
         dispatch(loadingSuccess());
-        navigate(config.routes.home);
 
         return res;
     } catch (error) {
         dispatch(loadingSuccess());
-        return error.response;
+        return error.response.data;
     }
 };
 
+// Ok
 export const logoutUser = async (dispatch, navigate, token) => {
     dispatch(loadingStart());
     try {

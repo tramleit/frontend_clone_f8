@@ -10,15 +10,19 @@ function Videos({ videos, loading }) {
                 <>
                     {videos.map((video) => (
                         <div className={cx('item')} key={video._id}>
-                            <a href={`https://youtu.be/${video.urlVideo}`}>
+                            <a href={`https://youtu.be/${video.urlVideo}`} target="_blank" rel="noreferrer">
                                 <img src={video.image} alt={video.title} />
                             </a>
                             <div className={cx('info')}>
                                 <h2>
-                                    <a href={`https://youtu.be/${video.urlVideo}`}>{video.title}</a>
+                                    <a href={`https://youtu.be/${video.urlVideo}`} target="_blank" rel="noreferrer">
+                                        {video.title}
+                                    </a>
                                 </h2>
                                 <p>
-                                    <a href={`https://youtu.be/${video.urlVideo}`}>Xem trên youtube</a>
+                                    <a href={`https://youtu.be/${video.urlVideo}`} target="_blank" rel="noreferrer">
+                                        Xem trên youtube
+                                    </a>
                                 </p>
                             </div>
                         </div>

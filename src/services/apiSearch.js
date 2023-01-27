@@ -1,9 +1,10 @@
 import * as request from '~/utils/request';
 
-export const search = async (params) => {
+export const searchByName = async (params, type) => {
     try {
-        const res = await request.get('upload/search', {
+        const res = await request.get('/search', {
             params: {
+                type,
                 q: params,
             },
         });

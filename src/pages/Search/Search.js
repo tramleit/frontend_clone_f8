@@ -6,7 +6,7 @@ import styles from './Search.module.scss';
 import Videos from './Videos';
 import useDebounce from '~/hooks/useDebounce';
 import { useEffect, useState } from 'react';
-import { search } from '~/services/apiSearch';
+import { searchByName } from '~/services/apiSearch';
 import HeadingTabs from '~/components/HeadingTabs';
 
 const cx = classNames.bind(styles);
@@ -52,10 +52,10 @@ function Search() {
         if (debounced.length > 1) {
             setLoading(true);
             const fetchApi = async () => {
-                const result = await search(debounced);
+                const result = await searchByName(debounced, 'odd');
                 setActiveTab(true);
 
-                if (result.errCode === 0) {
+                if (result.statusCode === 0) {
                     setLoading(false);
                     setCourses(result.data.courses);
                     setPost(result.data.blogs);

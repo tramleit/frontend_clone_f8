@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CircularProgressBar from '../CircularProgressBar';
 import styles from './LearningPathItem.module.scss';
@@ -6,6 +7,8 @@ import styles from './LearningPathItem.module.scss';
 const cx = classNames.bind(styles);
 
 function LearningPathItem({ data }) {
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -22,14 +25,18 @@ function LearningPathItem({ data }) {
                 </div>
             </div>
 
-            <div className={cx('list-course')}>
-                {data.courses.map((course) => (
-                    <CircularProgressBar key={course._id} course={course} />
-                ))}
-            </div>
+            {currentUser && (
+                <div className={cx('list-course')}>
+                    {data.courses.map((course) => (
+                        <CircularProgressBar key={course._id} course={course} currentUser={currentUser} />
+                    ))}
+                </div>
+            )}
 
-            <div className={cx('btn-detail')}>
-                <Link to={data.slug}>Xem chi tiết</Link>
+            <div>
+                <div className={cx('btn-detail')}>
+                    <Link to={data.slug}>Xem chi tiết</Link>
+                </div>
             </div>
         </div>
     );
