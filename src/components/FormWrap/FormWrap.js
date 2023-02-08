@@ -68,6 +68,8 @@ function FormWrap({ role, textBtn }) {
                     setValidPassword(result.message);
                 } else if (result.statusCode === 4) {
                     setValidCode(result.message);
+                } else if (result.statusCode === 6) {
+                    setValidName(result.message);
                 } else {
                     setValidEmail(result.message || 'Lỗi đăng ký tài khoản');
                 }
@@ -86,6 +88,10 @@ function FormWrap({ role, textBtn }) {
 
             if (result.statusCode === 0) {
                 setBtnCount(120);
+                setValidName('');
+                setValidEmail('');
+                setValidPassword('');
+                setValidCode('');
             } else {
                 setValidEmail(result.message);
                 setActiveCode(true);

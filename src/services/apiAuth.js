@@ -6,11 +6,7 @@ import { loginSuccess, logoutSuccess, registerSuccess } from '~/redux/reducer/au
 export const loginUser = async (user, dispatch) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/auth/login', user, {
-            params: {
-                role: 'user',
-            },
-        });
+        const res = await request.post('/auth/login', user);
 
         dispatch(loginSuccess(res.data));
         dispatch(loadingSuccess());
@@ -170,7 +166,7 @@ export const changeInfoUser = async (info, token, dispatch) => {
 export const toggleSavaPost = async (postId, token, dispatch) => {
     try {
         const res = await request.post(
-            `/user/toggle/bookmark`,
+            `/auth/toggle/bookmark`,
             {},
             {
                 headers: {
@@ -210,7 +206,7 @@ export const getPostSave = async (token) => {
 // Ok
 export const getNotifyUser = async (token) => {
     try {
-        const res = await request.get(`/user/alert`, {
+        const res = await request.get(`/auth/alert`, {
             headers: {
                 token,
             },

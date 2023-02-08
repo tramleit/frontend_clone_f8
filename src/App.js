@@ -7,12 +7,12 @@ import { DefaultLayout } from '~/layouts';
 import Loading from '~/components/Loading';
 import { refreshUser } from './services/apiAuth';
 import Notification from '~/components/Notification';
+import { logoutSuccess } from './redux/reducer/authReducer';
 import './App.css';
 
 function App() {
-    const isLoading = useSelector((state) => state.modun.loading?.status);
     const dispatch = useDispatch();
-
+    const isLoading = useSelector((state) => state.modun.loading.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
@@ -20,7 +20,13 @@ function App() {
             if (performance.navigation.type === 1) {
                 if (currentUser) {
                     const fetchApi = async () => {
-                        await refreshUser(dispatch, currentUser.accessToken);
+                        const result = await refreshUser(dispatch, currentUser.accessToken);
+
+                        if (result.statusCode !== 0) {
+                            dispatch(logoutSuccess());
+                            window.location.href = '/login';
+                            window.location.reload();
+                        }
                     };
                     fetchApi();
                 }

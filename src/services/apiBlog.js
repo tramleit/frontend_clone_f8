@@ -5,7 +5,7 @@ import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 export const createNewPosts = async (newPost, dispatch, token) => {
     dispatch(loadingStart());
     try {
-        const res = await request.post('/post/create', newPost, {
+        const res = await request.post('/posts/create', newPost, {
             headers: {
                 token: token,
             },
@@ -23,7 +23,7 @@ export const createNewPosts = async (newPost, dispatch, token) => {
 // Ok
 export const getPostByPage = async (page) => {
     try {
-        const res = await request.get('/post', {
+        const res = await request.get('/posts', {
             params: {
                 page,
             },
@@ -38,7 +38,7 @@ export const getPostByPage = async (page) => {
 // Ok
 export const getPostBySlug = async (slug) => {
     try {
-        const res = await request.get(`post/${slug}`);
+        const res = await request.get(`posts/${slug}`);
 
         return res;
     } catch (error) {
@@ -64,7 +64,7 @@ export const getMyPosts = async (token) => {
 // Ok
 export const deletePostById = async (postId, token) => {
     try {
-        const res = await request.remove(`/post/delete`, {
+        const res = await request.remove(`/posts/delete`, {
             headers: {
                 token,
             },
@@ -95,11 +95,11 @@ export const getTopic = async (topic, page) => {
 };
 
 // Ok
-export const reactionPosts = async (postId, token) => {
+export const reactionPosts = async (postsId, token) => {
     try {
         const res = await request.post(
             '/reaction',
-            { postId },
+            { postsId },
             {
                 headers: {
                     token,

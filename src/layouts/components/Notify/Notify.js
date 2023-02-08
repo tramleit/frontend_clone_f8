@@ -3,6 +3,7 @@ import moment from 'moment/moment';
 import classNames from 'classnames/bind';
 import { HiCheck } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HiDotsHorizontal } from 'react-icons/hi';
 import HandlessTippy from '@tippyjs/react/headless';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,17 +22,19 @@ function Notify() {
     const [active, setActive] = useState(false);
     const [watch, setWatch] = useState(false);
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
         const fetchApi = async () => {
-            const result = await getNotifyUser(currentUser.accessToken);
+            const result = await getNotifyUser(currentUser?.accessToken);
 
             if (result.statusCode === 0) {
                 setNotify(result.data);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu thông báo'));
+                navigate('/login');
+                dispatch(showNotification(result.message));
             }
         };
         fetchApi();

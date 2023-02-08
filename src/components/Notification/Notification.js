@@ -9,8 +9,9 @@ const cx = classNames.bind(styles);
 
 const Notification = () => {
     const [visible, setVisible] = useState(false);
-    const content = useSelector((state) => state.modun.notification?.content);
+
     const dispatch = useDispatch();
+    const content = useSelector((state) => state.modun.notification?.content);
 
     useEffect(() => {
         if (content !== '') {

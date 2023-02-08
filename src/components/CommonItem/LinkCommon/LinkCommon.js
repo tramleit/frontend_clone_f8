@@ -30,7 +30,7 @@ function LinkCommon({ type, pathName, title, image, coming, dataVideo }) {
             break;
 
         case 'pro':
-            Component = Link;
+            Component = coming ? 'div' : Link;
             buttonText = 'Xem khóa học';
             slug = `/landing/${pathName?.slug}`;
             break;
