@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import config from '~/config';
 import Heading from '~/components/Heading';
@@ -31,7 +31,7 @@ function MyPost() {
                 if (result.statusCode === 0) {
                     setMyPosts(result.data);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết đã xuất bản'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
@@ -65,7 +65,7 @@ function MyPost() {
                             </p>
                         </div>
                     ) : (
-                        <>
+                        <Fragment>
                             {myPosts.length > 0 ? (
                                 myPosts.map((myPost) => (
                                     <MyPostItem
@@ -84,7 +84,7 @@ function MyPost() {
                                     </p>
                                 </div>
                             )}
-                        </>
+                        </Fragment>
                     )}
                 </div>
             </div>

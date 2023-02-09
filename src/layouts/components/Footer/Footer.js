@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function Footer() {
     return (
-        <div className={cx('wrapper')}>
+        <footer className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('content')}>
                     <div className={cx('colum')}>
@@ -163,7 +163,7 @@ function Footer() {
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     );
 }
 

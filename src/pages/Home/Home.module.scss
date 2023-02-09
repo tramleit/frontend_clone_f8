@@ -11,3 +11,12 @@
         padding: 0 44px 74px;
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .content {
+            margin-top: 60px;
+            padding: 0 0 22px;
+        }
+    }
+}

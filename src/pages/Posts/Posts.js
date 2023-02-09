@@ -1,19 +1,21 @@
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
 import moment from 'moment';
+import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { IconCrownUser } from '~/assets/Icon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+
+import config from '~/config';
+import Reaction from './Reaction';
 import { Image } from '~/assets/image';
+import { IconCrownUser } from '~/assets/Icon';
 import ActionPost from '~/components/ActionPost';
 import MarkdownParser from '~/components/tracks/MarkdownParser';
-import config from '~/config';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { getPostBySlug, reactionPosts } from '~/services/apiBlog';
+
 import styles from './Posts.module.scss';
-import Reaction from './Reaction';
 
 const cx = classNames.bind(styles);
 

@@ -1,12 +1,11 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import config from '~/config';
-import CommentModal from '~/components/CommentModal';
 import CourseDetail from '~/components/CourseDetail';
 import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
@@ -25,8 +24,9 @@ function Tracks() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const slug = useParams().slug;
-
+    const { slug } = useParams();
+    const location = useLocation();
+    const lessonId = new URLSearchParams(location.search).get('id');
     const currentUser = useSelector((state) => state.auth.login.currentUser);
     const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
 
@@ -56,14 +56,18 @@ function Tracks() {
     }, [slug]);
 
     const handleOpenModalComment = () => {
-        dispatch(openModalComment());
+        const action = {
+            type: 'lesson',
+            uid: lessonId,
+        };
+        dispatch(openModalComment(action));
     };
 
     return (
         <>
             {registered ? (
                 <div className={cx('wrapper')}>
-                    <>
+                    <Fragment>
                         <HeaderTrack title={courses.title} />
                         <SidebarTrack chapters={courses.chapter} slug={slug} />
                         <ContentTrack />
@@ -75,8 +79,7 @@ function Tracks() {
                                 <span>Hỏi đáp</span>
                             </button>
                         </div>
-                        <CommentModal />
-                    </>
+                    </Fragment>
                 </div>
             ) : (
                 <CourseDetail course={courses} pathName={slug} />

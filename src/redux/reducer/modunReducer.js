@@ -8,6 +8,11 @@ const modunReducer = createSlice({
         },
         modalComment: {
             status: false,
+            type: '',
+            uid: '',
+        },
+        modalMobile: {
+            status: false,
         },
         sidebarCourse: {
             status: true,
@@ -27,12 +32,25 @@ const modunReducer = createSlice({
         closeModal: (state) => {
             state.modal.status = false;
         },
-        openModalComment: (state) => {
+
+        openModalComment: (state, action) => {
             state.modalComment.status = true;
+            state.modalComment.type = action.payload.type;
+            state.modalComment.uid = action.payload.uid;
         },
         closeModalComment: (state) => {
             state.modalComment.status = false;
+            state.modalComment.type = '';
+            state.modalComment.uid = '';
         },
+
+        openModalMobile: (state) => {
+            state.modalMobile.status = true;
+        },
+        closeModalMobile: (state) => {
+            state.modalMobile.status = false;
+        },
+
         openSidebarCourse: (state) => {
             state.sidebarCourse.status = true;
         },
@@ -67,6 +85,8 @@ export const {
     loadingSuccess,
     showNotification,
     hideNotification,
+    openModalMobile,
+    closeModalMobile,
 } = modunReducer.actions;
 
 export default modunReducer.reducer;

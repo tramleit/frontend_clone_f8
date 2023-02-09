@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import HomeContent from './HomeContent';
 import Banner from '~/components/Banner';
@@ -13,24 +13,21 @@ import styles from './Home.module.scss';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [blogs, setBlogs] = useState([]);
+    const [videos, setVideos] = useState([]);
     const [slideshow, setSlideshow] = useState([]);
     const [coursePro, setCoursePro] = useState([]);
     const [courseFree, setCourseFree] = useState([]);
-    const [blogs, setBlogs] = useState([]);
-    const [videos, setVideos] = useState([]);
-
     const [countStudent, setCountStudent] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const location = useLocation();
-    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const type = new URLSearchParams(location.search).get('type');
+    const type = searchParams.get('type');
 
     useEffect(() => {
-        if (!type) {
-            navigate('/?type=tab');
-        }
-    }, [type, navigate]);
+        setSearchParams({ type: 'tab' });
+        document.title = 'F8 - Học lâp trình để đi làm!';
+    }, [setSearchParams]);
 
     useEffect(() => {
         let totalStudent = 0;
@@ -54,13 +51,11 @@ function Home() {
                     setBlogs(result.data.blogs);
                     setVideos(result.data.videos);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu trang chủ'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
         }
-        document.title = 'F8 - Học lâp trình để đi làm!';
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type]);
 

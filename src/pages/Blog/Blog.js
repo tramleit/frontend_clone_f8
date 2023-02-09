@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 
 import config from '~/config';
 import Heading from '~/components/Heading';
@@ -18,21 +18,19 @@ const cx = classNames.bind(styles);
 function Blog() {
     const [dataPages, setDataPages] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(() => {
         const savedPage = localStorage.getItem('currentPage');
         const initialPage = savedPage ? parseInt(savedPage, 10) : 1;
-
         return initialPage;
     });
 
     const [nameHeading, setNameHeading] = useState(null);
     const [descHeading, setDescHeading] = useState(null);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
     const { slug } = useParams();
-    const page = new URLSearchParams(location.search).get('page');
+    const dispatch = useDispatch();
+    const page = searchParams.get('page');
 
     useEffect(() => {
         if (!currentPage) {
@@ -43,41 +41,36 @@ function Blog() {
     }, []);
 
     useEffect(() => {
-        const fetchApi = async () => {
-            if (!page && !slug) {
-                navigate(`${config.routes.blog}?page=1`);
-            } else if (slug && !page) {
-                navigate(`${config.routes.blog}${config.routes.topic}/${slug}?page=1`);
-            }
+        document.title = 'Danh sách bài viết về lĩnh vực IT';
+        setSearchParams({ page: 1 });
 
-            if (page && !slug) {
-                const result = await getPostByPage(page);
+        if (page) {
+            const fetchApi = async () => {
+                if (page && !slug) {
+                    const result = await getPostByPage(page);
 
-                if (result.statusCode === 0) {
-                    setDataPages(result.data);
-                    setTotalPage(result.totalPages);
-                } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết'));
+                    if (result.statusCode === 0) {
+                        setDataPages(result.data);
+                        setTotalPage(result.totalPages);
+                    } else {
+                        dispatch(showNotification(result.message));
+                    }
+                } else if (slug && page) {
+                    const result = await getTopic(slug, page);
+
+                    if (result.statusCode === 0) {
+                        setDataPages(result.data);
+                        setTotalPage(result.totalPages);
+                    } else {
+                        dispatch(showNotification(result.message));
+                    }
                 }
-            } else if (slug && page) {
-                const result = await getTopic(slug, page);
-
-                if (result.statusCode === 0) {
-                    setDataPages(result.data);
-                    setTotalPage(result.totalPages);
-                } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết'));
-                }
-            }
-        };
-        fetchApi();
+            };
+            fetchApi();
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page, slug]);
-
-    useEffect(() => {
-        document.title = 'Danh sách bài viết về lĩnh vực IT';
-    }, []);
 
     useEffect(() => {
         config.topics.filter((topic) => {

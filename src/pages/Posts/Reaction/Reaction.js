@@ -3,12 +3,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faHeart as activeHeart } from '@fortawesome/free-solid-svg-icons';
 
+import { useDispatch } from 'react-redux';
+import { openModalComment } from '~/redux/reducer/modunReducer';
+
 import styles from './Reaction.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Reaction({ handleReaction, post, userId }) {
     const isLiked = post?.reactions.includes(userId);
+
+    const dispatch = useDispatch();
+
+    const handleOpenComment = () => {
+        const action = {
+            type: 'posts',
+            uid: post._id,
+        };
+        dispatch(openModalComment(action));
+    };
 
     return (
         <div className={cx('wrapper')}>
@@ -25,7 +38,7 @@ function Reaction({ handleReaction, post, userId }) {
 
                 <span>{post?.reactions.length}</span>
             </div>
-            <div className={cx('btn')}>
+            <div className={cx('btn')} onClick={handleOpenComment}>
                 <FontAwesomeIcon icon={faComment} />
                 <span>{post?.comments.length}</span>
             </div>

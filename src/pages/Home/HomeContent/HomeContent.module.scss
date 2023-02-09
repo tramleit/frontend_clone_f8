@@ -72,3 +72,27 @@
         margin-right: -12px;
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .content-wrap {
+        .heading {
+            .title {
+                font-size: 2rem;
+            }
+
+            .course-new {
+                padding: 2px 4px;
+            }
+        }
+
+        .list {
+            padding-top: 3px;
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 16px;
+            min-height: 180px;
+            flex-wrap: nowrap;
+        }
+    }
+}

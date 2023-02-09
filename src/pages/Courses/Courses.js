@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import config from '~/config';
 import Heading from '~/components/Heading';
 import CommonItem from '~/components/CommonItem';
@@ -8,25 +10,22 @@ import SuggestionBox from '~/components/SuggestionBox';
 import LayoutWrapper from '~/components/LayoutWrapper';
 import styles from './Courses.module.scss';
 import { getCombinedCourses } from '~/services/apiCourse';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
 function Courses() {
-    const [courseFree, setCourseFree] = useState([]);
     const [coursePro, setCoursePro] = useState([]);
+    const [courseFree, setCourseFree] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const type = new URLSearchParams(location.search).get('type');
+    const type = searchParams.get('type');
 
     useEffect(() => {
-        if (!type) {
-            navigate(`${config.routes.courses}/?type=tab`);
-        }
-    }, [type, navigate]);
+        setSearchParams({ type: 'tab' });
+        document.title = 'Danh sách các khóa học lập trình tại F8';
+    }, [setSearchParams]);
 
     useEffect(() => {
         if (type) {
@@ -37,11 +36,10 @@ function Courses() {
                     setCourseFree(result.data.coursesFree);
                     setCoursePro(result.data.coursesPro);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
-            document.title = 'Danh sách các khóa học lập trình tại F8';
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

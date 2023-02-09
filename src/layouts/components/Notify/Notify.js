@@ -80,6 +80,10 @@ function Notify() {
                         <div className={cx('header')}>
                             <h4 className={cx('title')}>Thông báo</h4>
 
+                            <button className={cx('view-all')} onClick={handleBookmarkSeeAll}>
+                                Đánh dấu đã đọc
+                            </button>
+
                             <HandlessTippy
                                 interactive
                                 visible={watch}

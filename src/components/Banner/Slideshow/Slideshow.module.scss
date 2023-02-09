@@ -63,3 +63,25 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .item {
+        .left {
+            .heading a,
+            .desc {
+                word-wrap: break-word;
+                -webkit-box-orient: vertical;
+                display: -webkit-box;
+                overflow: hidden;
+            }
+
+            .heading a {
+                -webkit-line-clamp: 2;
+            }
+
+            .desc {
+                -webkit-line-clamp: 3;
+            }
+        }
+    }
+}

@@ -13,6 +13,7 @@ import styles from './CommentItem.module.scss';
 import ReactionFeel from './ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
 import { useDispatch, useSelector } from 'react-redux';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +33,7 @@ function CommentItem({ comment, ownerComment }) {
 
             const result = await getCommentReply(commentId, currentUser.accessToken);
 
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 setCommentReply(result.data);
                 setLoading(false);
                 setMoreReplies(true);
@@ -52,14 +53,12 @@ function CommentItem({ comment, ownerComment }) {
     const handleReplyComment = async (comment) => {
         const result = await createCommentReply(comment, currentUser.accessToken);
 
-        if (!result) alert('Lỗi vui lòng liên hệ admin');
         if (result.statusCode === 0) {
             setCommentReply([...commentReply, result.data]);
-
             setIsChat(false);
             setMoreReplies(true);
         } else {
-            dispatch(result.message || 'Lỗi thêm mới bình luận');
+            dispatch(showNotification(result.message));
         }
     };
 
@@ -127,7 +126,7 @@ function CommentItem({ comment, ownerComment }) {
                         type="reply"
                         setIsChat={setIsChat}
                         ownerComment={ownerComment}
-                        authorReply={comment.author._id}
+                        authorReply={comment.author?._id}
                         authorCmt={comment.author}
                         handleReplyComment={handleReplyComment}
                     />

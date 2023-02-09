@@ -31,7 +31,7 @@ function MyCourses() {
                 if (result.statusCode === 0) {
                     setCourses(result.data);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học đã đăng ký'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();

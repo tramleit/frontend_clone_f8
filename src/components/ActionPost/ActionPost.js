@@ -35,7 +35,7 @@ function ActionPost({ dataPost }) {
 
     const handleSavePost = async () => {
         if (currentUser) {
-            const result = await toggleSavaPost(dataPost._id, currentUser.accessToken, dispatch);
+            const result = await toggleSavaPost(currentUser.accessToken, dispatch, dataPost._id);
 
             if (result.statusCode === 0) {
                 dispatch(showNotification(result.message));
@@ -89,7 +89,12 @@ function ActionPost({ dataPost }) {
                             </li>
                         </CopyToClipboard>
 
-                        <li onClick={() => setOption(false)}>
+                        <li
+                            onClick={() => {
+                                setOption(false);
+                                dispatch(showNotification('Báo cáo thành công'));
+                            }}
+                        >
                             <FontAwesomeIcon icon={faFlag} />
                             <span>Báo cáo bài viết</span>
                         </li>

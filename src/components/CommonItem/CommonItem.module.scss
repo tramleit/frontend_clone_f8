@@ -70,3 +70,32 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        overflow: unset;
+        position: relative;
+        margin-bottom: 0;
+        width: 60vw;
+        padding: 0;
+        flex-shrink: 0;
+        height: 186px;
+
+        & + .wrapper {
+            margin-left: 16px;
+        }
+
+        .item {
+            margin-bottom: 0;
+            min-height: 0;
+
+            &:first-child {
+                padding-left: 12px;
+            }
+        }
+
+        .studying {
+            display: none;
+        }
+    }
+}

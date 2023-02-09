@@ -7,12 +7,15 @@ import { DefaultLayout } from '~/layouts';
 import Loading from '~/components/Loading';
 import { refreshUser } from './services/apiAuth';
 import Notification from '~/components/Notification';
+import CommentModal from './components/CommentModal';
 import { logoutSuccess } from './redux/reducer/authReducer';
+
 import './App.css';
 
 function App() {
     const dispatch = useDispatch();
     const isLoading = useSelector((state) => state.modun.loading.status);
+    const { status } = useSelector((state) => state.modun.modalComment);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     useEffect(() => {
@@ -41,6 +44,8 @@ function App() {
             <div className="App">
                 {isLoading && <Loading />}
                 <Notification />
+
+                {status && <CommentModal />}
 
                 <Routes>
                     {publicRoutes.map((route, index) => {

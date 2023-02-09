@@ -39,6 +39,10 @@
         }
     }
 
+    .mobile-menu {
+        display: none;
+    }
+
     .action {
         display: flex;
         align-items: center;
@@ -48,6 +52,10 @@
             display: flex;
             align-items: center;
             position: relative;
+
+            .action-btn {
+                display: none;
+            }
 
             .public-post {
                 margin-right: 16px;
@@ -93,6 +101,52 @@
                 color: #fff;
                 text-decoration: none;
                 font-weight: 600;
+            }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        padding: 0 16px;
+        z-index: 20;
+
+        .logo {
+            display: none;
+        }
+
+        .mobile-menu {
+            align-items: center;
+            display: flex;
+            background-color: transparent;
+
+            .menu {
+                color: #707070;
+                flex: 1 1;
+                font-size: 2rem;
+                margin-right: 16px;
+                padding: 8px 0;
+            }
+        }
+
+        .action {
+            .is-login {
+                .action-btn {
+                    padding: 8px 12px;
+                    user-select: none;
+                    display: block;
+
+                    &:hover {
+                        .icon {
+                            color: #333;
+                        }
+                    }
+
+                    .icon {
+                        color: #707070;
+                        font-size: 2rem;
+                    }
+                }
             }
         }
     }

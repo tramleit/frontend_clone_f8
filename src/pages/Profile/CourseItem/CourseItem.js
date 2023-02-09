@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function CourseItem({ data }) {
-    console.log('data: ', data);
     return (
         <div className={cx('wrapper')}>
             <Link className={cx('thumb')} to={`/courses/${data.course.slug}`}>

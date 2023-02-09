@@ -144,3 +144,33 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .link {
+        min-height: 0;
+
+        &:hover .btn-view {
+            display: none;
+        }
+
+        &:hover.link::after {
+            display: none;
+        }
+
+        &.disabled:hover .btn-view {
+            display: none;
+        }
+
+        &.disabled:hover::after {
+            display: none;
+        }
+
+        &::after {
+            display: none;
+        }
+
+        .image {
+            height: 100%;
+        }
+    }
+}

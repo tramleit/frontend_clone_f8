@@ -1,15 +1,18 @@
-import config from '~/config';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import config from '~/config';
 import Heading from '~/components/Heading';
-import HeadingTabs from '~/components/HeadingTabs';
 import MyPostItem from '~/components/MyPostItem';
-import { showNotification } from '~/redux/reducer/modunReducer';
 import { getPostSave } from '~/services/apiAuth';
-import styles from './BookMark.module.scss';
+import HeadingTabs from '~/components/HeadingTabs';
 import LayoutWrapper from '~/components/LayoutWrapper';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './BookMark.module.scss';
+
 const cx = classNames.bind(styles);
 
 function BookMark() {
@@ -27,7 +30,7 @@ function BookMark() {
                 if (result.statusCode === 0) {
                     setPostSaves(result.data);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy bài viết đã lưu'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
@@ -37,7 +40,7 @@ function BookMark() {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [postSaves.length]);
+    }, []);
 
     return (
         <LayoutWrapper>

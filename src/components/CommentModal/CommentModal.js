@@ -1,17 +1,17 @@
-import { faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { closeModalComment, showNotification } from '~/redux/reducer/modunReducer';
-import CommentItem from './CommentItem';
-import { getAllComments } from '~/services/apiCourse';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
+
 import ReplyBox from './ReplyBox';
+import CommentItem from './CommentItem';
+import { createPortal } from 'react-dom';
+import FallbackAvatar from '../FallbackAvatar';
+import { getAllComments } from '~/services/apiCourse';
+import { closeModalComment, showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './CommentModal.module.scss';
-import FallbackAvatar from '../FallbackAvatar';
-import { createPortal } from 'react-dom';
 
 const cx = classNames.bind(styles);
 
@@ -21,36 +21,35 @@ function CommentModal() {
     const [allComment, setAllComment] = useState([]);
 
     const dispatch = useDispatch();
-    const location = useLocation();
-
-    const modalComment = useSelector((state) => state.modun.modalComment.status);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const lessonId = new URLSearchParams(location.search).get('id');
+    const { status, type, uid } = useSelector((state) => state.modun.modalComment);
 
     useEffect(() => {
-        if (modalComment) {
+        if (status) {
             setLoading(true);
+
             const fetchApi = async () => {
-                const result = await getAllComments(lessonId, currentUser.accessToken);
+                const result = await getAllComments(currentUser.accessToken, type, uid);
                 setLoading(false);
+
                 if (result.statusCode === 0) {
                     setAllComment(result.data);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi gọi api lấy bình luận'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lessonId, modalComment, currentUser.accessToken]);
+    }, [status]);
 
     const handleCloseModalComment = () => {
         dispatch(closeModalComment());
     };
 
     return createPortal(
-        <div className={modalComment ? cx('wrapper') : cx('wrapper', 'open')} onClick={handleCloseModalComment}>
+        <div className={status ? cx('wrapper') : cx('wrapper', 'open')} onClick={handleCloseModalComment}>
             <div className={cx('container')}>
                 <div className={cx('close-modal')} onClick={handleCloseModalComment}>
                     <FontAwesomeIcon icon={faXmark} />
@@ -78,7 +77,6 @@ function CommentModal() {
                         <div className={isChat ? cx('my-comment', 'active') : cx('my-comment')}>
                             {isChat ? (
                                 <ReplyBox
-                                    lessonId={lessonId}
                                     type="create"
                                     setIsChat={setIsChat}
                                     arrCmt={allComment}

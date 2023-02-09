@@ -1,10 +1,11 @@
-import classNames from 'classnames/bind';
 import { useState } from 'react';
+import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import FallbackAvatar from '~/components/FallbackAvatar';
-import { createComment } from '~/services/apiCourse';
+
 import EditorComment from '../EditorComment';
+import { createComment } from '~/services/apiCourse';
+import FallbackAvatar from '~/components/FallbackAvatar';
+
 import styles from './ReplyBox.module.scss';
 
 const cx = classNames.bind(styles);
@@ -23,8 +24,7 @@ function ReplyBox({
     const [html, setHTML] = useState('');
 
     const dispatch = useDispatch();
-    const location = useLocation();
-    const lessonId = new URLSearchParams(location.search).get('id');
+    const { type: typeComment, uid } = useSelector((state) => state.modun.modalComment);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     const handleGetDataChild = ({ html, text }) => {
@@ -52,18 +52,34 @@ function ReplyBox({
 
             handleReplyComment(replyComment);
         } else {
-            const newComment = {
-                lessonId: lessonId,
-                contentHTML: html,
-                contentMarkdown: text,
-            };
-            const result = await createComment(newComment, currentUser.accessToken);
+            if (typeComment === 'posts') {
+                const newComment = {
+                    postsId: uid,
+                    contentHTML: html,
+                    contentMarkdown: text,
+                };
+                const result = await createComment(currentUser.accessToken, typeComment, newComment);
 
-            if (result.statusCode === 0) {
-                setArrCmt([result.data, ...arrCmt]);
-                setIsChat(false);
-            } else {
-                dispatch(result.message || 'Lỗi thêm mới bình luận');
+                if (result.statusCode === 0) {
+                    setArrCmt([result.data, ...arrCmt]);
+                    setIsChat(false);
+                } else {
+                    dispatch(result.message);
+                }
+            } else if (typeComment === 'lesson') {
+                const newComment = {
+                    lessonId: uid,
+                    contentHTML: html,
+                    contentMarkdown: text,
+                };
+                const result = await createComment(currentUser.accessToken, typeComment, newComment);
+
+                if (result.statusCode === 0) {
+                    setArrCmt([result.data, ...arrCmt]);
+                    setIsChat(false);
+                } else {
+                    dispatch(result.message);
+                }
             }
         }
     };

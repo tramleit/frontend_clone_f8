@@ -194,3 +194,13 @@ body .slick-dots li.slick-active button:before {
     font-weight: 600;
     display: inline-block;
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    body .slick-dots {
+        left: 0;
+    }
+
+    body .slick-arrow {
+        display: none;
+    }
+}

@@ -1,31 +1,30 @@
-import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Learning.module.scss';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import Heading from '~/components/Heading';
-import LearningPathItem from '~/components/LearningPathItem';
+import LayoutWrapper from '~/components/LayoutWrapper';
 import SuggestionBox from '~/components/SuggestionBox';
 import { getLearningRoute } from '~/services/apiCourse';
-import { useDispatch } from 'react-redux';
+import LearningPathItem from '~/components/LearningPathItem';
 import { showNotification } from '~/redux/reducer/modunReducer';
-import LayoutWrapper from '~/components/LayoutWrapper';
-import { useLocation, useNavigate } from 'react-router-dom';
-import config from '~/config';
+
+import styles from './Learning.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Learning() {
-    const [learningRoute, setLearningRoute] = useState([]);
+    const [learningPath, setLearningPath] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const type = new URLSearchParams(location.search).get('type');
+    const type = searchParams.get('type');
 
     useEffect(() => {
-        if (!type) {
-            navigate(`${config.routes.learning}/?type=tab`);
-        }
-    }, [type, navigate]);
+        setSearchParams({ type: 'tab' });
+        document.title = 'Lộ trình học lập trình cho người mới tại F8';
+    }, [setSearchParams]);
 
     useEffect(() => {
         if (type) {
@@ -33,14 +32,13 @@ function Learning() {
                 const result = await getLearningRoute(type);
 
                 if (result.statusCode === 0) {
-                    setLearningRoute(result.data);
+                    setLearningPath(result.data);
                 } else {
-                    dispatch(showNotification('Lỗi gọi api lấy lộ trình học'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
         }
-        document.title = 'Lộ trình học lập trình cho người mới tại F8';
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type]);
@@ -55,7 +53,7 @@ function Learning() {
 
             <div className={cx('body')}>
                 <div className={cx('content')}>
-                    {learningRoute.map((route) => (
+                    {learningPath.map((route) => (
                         <LearningPathItem key={route._id} data={route} />
                     ))}
                 </div>

@@ -26,6 +26,10 @@
                 margin: 0;
             }
 
+            .view-all {
+                display: none;
+            }
+
             .watched {
                 animation: Notification 0.2s ease;
                 background-color: var(--background-color);
@@ -191,5 +195,34 @@
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .notify-result {
+            max-width: 94vw;
+            width: 520px;
+
+            .header {
+                .view-all {
+                    background: transparent;
+                    border-radius: 4px;
+                    color: var(--color-primary);
+                    font-size: 1.3rem;
+                    margin-left: auto;
+                    padding: 8px;
+                    font-weight: 600;
+
+                    &:hover {
+                        background: #f1f1f1;
+                    }
+                }
+
+                .dots {
+                    display: none;
+                }
+            }
+        }
     }
 }

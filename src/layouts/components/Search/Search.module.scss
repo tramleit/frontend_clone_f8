@@ -130,3 +130,9 @@
         transform: rotate(360deg);
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .body {
+        display: none;
+    }
+}

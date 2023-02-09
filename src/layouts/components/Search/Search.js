@@ -15,9 +15,7 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-
     const [dataSearch, setDataSearch] = useState([]);
-
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 

@@ -6,9 +6,28 @@
         padding: 0 40px 0 20px;
         width: 100%;
         max-width: calc(100% - 96px);
+
         &.hidden {
             flex: 1;
             max-width: 100%;
         }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .container {
+        padding: 0 16px;
+
+        .content {
+            padding: 0;
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 1023px) {
+    .container {
+        max-width: 100%;
     }
 }

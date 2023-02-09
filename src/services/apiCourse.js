@@ -39,14 +39,15 @@ export const getLessonById = async (lessonId, dispatch, token) => {
     }
 };
 
-export const getAllComments = async (lessonId, token) => {
+export const getAllComments = async (token, type, id) => {
     try {
         const res = await request.get(`/comment`, {
-            params: {
-                id: lessonId,
-            },
             headers: {
                 token,
+            },
+            params: {
+                type,
+                id,
             },
         });
 
@@ -73,11 +74,14 @@ export const getCommentReply = async (commentId, token) => {
     }
 };
 
-export const createComment = async (newComment, token) => {
+export const createComment = async (token, type, comment) => {
     try {
-        const res = await request.post('/comment/create', newComment, {
+        const res = await request.post('/comment/create', comment, {
             headers: {
                 token,
+            },
+            params: {
+                type,
             },
         });
 

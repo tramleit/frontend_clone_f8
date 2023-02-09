@@ -22,7 +22,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
         if (!type) {
             // Xóa bài viết đã lưu
             if (myPost.post) {
-                const result = await toggleSavaPost(myPost.post._id, currentUser.accessToken, dispatch);
+                const result = await toggleSavaPost(currentUser.accessToken, dispatch, myPost.post._id);
 
                 if (result.statusCode === 0) {
                     dispatch(showNotification('Xóa khỏi mục đã lưu'));

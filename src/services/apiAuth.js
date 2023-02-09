@@ -93,7 +93,7 @@ export const registerCourse = async (pathName, dispatch, token) => {
 };
 
 // Ok
-export const getInfoUserByUsername = async (username, token) => {
+export const getInfoUserByUsername = async (token, username) => {
     try {
         const res = await request.get(`/user/get-info/${username}`, {
             headers: {
@@ -163,7 +163,7 @@ export const changeInfoUser = async (info, token, dispatch) => {
 };
 
 // Ok
-export const toggleSavaPost = async (postId, token, dispatch) => {
+export const toggleSavaPost = async (token, dispatch, id) => {
     try {
         const res = await request.post(
             `/auth/toggle/bookmark`,
@@ -174,7 +174,7 @@ export const toggleSavaPost = async (postId, token, dispatch) => {
                 },
 
                 params: {
-                    postId,
+                    id,
                 },
             }
         );

@@ -29,19 +29,19 @@ function Profile() {
     useEffect(() => {
         if (currentUser) {
             const fetchApi = async () => {
-                const result = await getInfoUserByUsername(username, currentUser.accessToken);
+                const result = await getInfoUserByUsername(currentUser.accessToken, username);
 
                 if (result.statusCode === 0) {
                     setInfoUser(result.data);
-                    document.title = `${result.data.name}`;
+                    document.title = result.data.name;
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu trang cá nhân người dùng'));
+                    dispatch(showNotification(result.message));
                 }
             };
             fetchApi();
         } else {
             navigate(config.routes.login);
-            dispatch(showNotification('Vui lòng đăng nhập để có thể xem'));
+            dispatch(showNotification('Vui lòng đăng nhập'));
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -8,18 +8,18 @@ import Slideshow from './Slideshow';
 const cx = classNames.bind(styles);
 
 function NextArrow(props) {
-    const { className, style, onClick } = props;
+    const { className, onClick } = props;
     return (
-        <div className={cx(className, 'arrow')} style={{ ...style }} onClick={onClick}>
+        <div className={cx(className, 'arrow')} onClick={onClick}>
             <FontAwesomeIcon icon={faChevronRight} />
         </div>
     );
 }
 
 function PrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { className, onClick } = props;
     return (
-        <div className={className} style={{ ...style }} onClick={onClick}>
+        <div className={className} onClick={onClick}>
             <FontAwesomeIcon icon={faChevronLeft} />
         </div>
     );
@@ -31,7 +31,7 @@ function Banner({ slideshows }) {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         speed: 1000,
         autoplaySpeed: 10000,
         nextArrow: <NextArrow />,

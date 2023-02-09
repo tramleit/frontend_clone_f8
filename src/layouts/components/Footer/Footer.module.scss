@@ -116,7 +116,7 @@
                 align-items: center;
                 padding: 0 12px;
                 width: 100%;
-                margin-top: 50px;
+                margin-top: 48px;
                 margin-bottom: 74px;
 
                 .social {
@@ -145,6 +145,45 @@
                             opacity: 0.9;
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        padding: 48px 16px 40px;
+
+        .container {
+            .content {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: -4px;
+                margin-right: -4px;
+
+                .colum {
+                    width: 100%;
+                    padding-left: 4px;
+                    padding-right: 4px;
+
+                    &.col {
+                        width: 100%;
+                    }
+
+                    .fill {
+                        display: block;
+
+                        .title {
+                            margin-top: 36px;
+                        }
+                    }
+                }
+
+                .bottom {
+                    display: block;
+                    padding: 0;
+                    margin-bottom: 0;
                 }
             }
         }

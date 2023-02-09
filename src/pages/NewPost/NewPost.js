@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
-import EditorNewPost from '~/components/EditorNewPost';
-import Footer from '~/layouts/components/Footer';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
 import Header from '~/layouts/components/Header';
+import Footer from '~/layouts/components/Footer';
+import EditorNewPost from '~/components/EditorNewPost';
+
 import styles from './NewPost.module.scss';
 
 const cx = classNames.bind(styles);
 
 function NewPost() {
-    const [activePublic, setActivePublic] = useState(false);
-    const [title, setTitle] = useState('');
     const [text, setText] = useState('');
     const [html, setHtml] = useState('');
+    const [title, setTitle] = useState('');
+    const [activePublic, setActivePublic] = useState(false);
 
     useEffect(() => {
         if (title) {

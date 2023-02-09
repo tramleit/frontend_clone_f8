@@ -28,3 +28,9 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        display: none;
+    }
+}
