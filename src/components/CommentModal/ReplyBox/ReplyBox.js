@@ -40,14 +40,14 @@ function ReplyBox({
 
     const handleCreateComment = async () => {
         if (type === 'reply') {
-            const newText = text.replace(/@[^:]+:/g, ' ');
-            const newHTML = html.replace(/@[^:]+:/g, ' ');
+            const newText = text.replace(/@[^:]+:/g, '');
+            const newHTML = html.replace(/@[^:]+:/g, '');
 
             const replyComment = {
                 ownerComment,
                 authorReply,
-                contentHTML: newHTML.trim(),
-                contentMarkdown: newText.trim(),
+                contentHTML: newHTML,
+                contentMarkdown: newText,
             };
 
             handleReplyComment(replyComment);

@@ -12,6 +12,7 @@ import { getPostByPage, getTopic } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Blog.module.scss';
+import Topic from './Toppic/Toppic';
 
 const cx = classNames.bind(styles);
 
@@ -97,6 +98,8 @@ function Blog() {
             <div className={cx('container')}>
                 <div className={cx('left')}>
                     <div className={cx('content-left')}>
+                        {window.innerWidth < 740 && <Topic config={config} slug={slug} />}
+
                         {dataPages.length > 0 ? (
                             dataPages?.map((post) => <PostItem key={post._id} dataPost={post} />)
                         ) : (
@@ -116,21 +119,7 @@ function Blog() {
                         )}
                     </div>
                 </div>
-                <div className={cx('right')}>
-                    <h4>Các chủ đề được đề xuất</h4>
-                    <ul>
-                        {config.topics.map(
-                            (topic, index) =>
-                                topic.slug !== slug && (
-                                    <li key={index}>
-                                        <Link to={`${config.routes.blog}${config.routes.topic}/${topic.slug}`}>
-                                            {topic.label}
-                                        </Link>
-                                    </li>
-                                )
-                        )}
-                    </ul>
-                </div>
+                <Topic config={config} slug={slug} />
             </div>
         </LayoutWrapper>
     );

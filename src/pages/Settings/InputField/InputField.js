@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { showNotification } from '~/redux/reducer/modunReducer';
+
 import { changeInfoUser } from '~/services/apiAuth';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
 import styles from './InputField.module.scss';
 
 const cx = classNames.bind(styles);

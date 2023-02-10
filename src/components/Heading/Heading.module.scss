@@ -20,5 +20,9 @@
 @media (min-width: 0) and (max-width: 739px) {
     .wrapper {
         margin-bottom: 48px;
+
+        .desc {
+            line-height: 1.5;
+        }
     }
 }

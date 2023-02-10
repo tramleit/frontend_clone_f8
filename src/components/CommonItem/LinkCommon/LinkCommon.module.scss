@@ -5,7 +5,6 @@
     position: relative;
     padding-top: 56.25%;
     width: 100%;
-    min-height: 225.56px;
     cursor: pointer;
 
     &:hover .btn-view {
@@ -52,8 +51,7 @@
         position: absolute;
         top: 0;
         border-radius: 16px;
-        max-height: 225.56px;
-        height: 225.56px;
+        height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
         object-fit: cover;

@@ -3,6 +3,12 @@
     word-wrap: break-word;
     color: #292929;
 
+    .author-comment {
+        color: #007575;
+        font-weight: 600;
+        display: inline-block;
+    }
+
     blockquote {
         border-left: 3px solid var(--color-primary);
         color: #757575;

@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MarkdownParser from '~/components/tracks/MarkdownParser';
 import { createCommentReply, getCommentReply } from '~/services/apiCourse';
 import CommentReply from '../CommentReply';
 import ReplyBox from '../ReplyBox';
@@ -14,6 +13,7 @@ import ReactionFeel from './ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import ParserComment from '../ParserComment';
 
 const cx = classNames.bind(styles);
 
@@ -81,7 +81,7 @@ function CommentItem({ comment, ownerComment }) {
                             <span className={cx('author')}>{comment.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser data={comment.contentHTML} fontSize="1.4rem" />
+                            <ParserComment data={comment.contentMarkdown} fontSize="1.4rem" />
                         </div>
 
                         {comment.feel.length > 0 && (

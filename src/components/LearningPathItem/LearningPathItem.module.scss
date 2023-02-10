@@ -88,3 +88,29 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        width: 100%;
+
+        & + .wrapper {
+            margin: 16px 0 0;
+        }
+
+        .content {
+            .thumb {
+                display: none;
+            }
+        }
+
+        .list-course {
+            display: none;
+        }
+
+        .btn-detail {
+            a {
+                width: 100%;
+            }
+        }
+    }
+}

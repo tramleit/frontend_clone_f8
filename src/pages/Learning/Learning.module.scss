@@ -4,3 +4,11 @@
         margin-top: 24px;
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .body {
+        .content {
+            flex-direction: column;
+        }
+    }
+}

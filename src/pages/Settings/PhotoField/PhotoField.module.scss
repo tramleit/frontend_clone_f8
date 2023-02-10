@@ -104,3 +104,19 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .container {
+        .content {
+            align-items: center;
+
+            .body {
+                flex: 1;
+            }
+
+            .image {
+                margin-left: 38px;
+            }
+        }
+    }
+}

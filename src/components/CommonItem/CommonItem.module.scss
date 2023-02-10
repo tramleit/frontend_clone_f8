@@ -75,14 +75,10 @@
         padding: 0;
         flex-shrink: 0;
         height: 186px;
-        padding-left: 16px;
 
-        // & + .wrapper {
-        //     margin-left: 16px;
-        // }
-
-        // &:first-child {
-        // }
+        & + .wrapper {
+            margin-left: 16px;
+        }
 
         .item {
             margin-bottom: 0;

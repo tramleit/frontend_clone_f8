@@ -49,8 +49,6 @@ function Header({ post, activePublic, dataNewPost }) {
             ? cx('wrapper', 'active', 'mobile')
             : checkPathProfile
             ? cx('wrapper', 'active')
-            : height
-            ? cx('wrapper', 'mobile')
             : cx('wrapper');
 
     return (

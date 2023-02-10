@@ -107,9 +107,27 @@ function MobileMenu() {
                                             <ul className={active ? cx('list-sub') : cx('list-sub', 'active')}>
                                                 {item.sub.map((child, index) => (
                                                     <li key={index}>
-                                                        <NavLink to={child.path}>
-                                                            <span>{child.title}</span>
-                                                        </NavLink>
+                                                        {child?.sub ? (
+                                                            <div
+                                                                className={cx('no-path')}
+                                                                onClick={() => {
+                                                                    dispatch(closeModalMobile());
+                                                                    setActive(false);
+                                                                }}
+                                                            >
+                                                                {child.title}
+                                                            </div>
+                                                        ) : (
+                                                            <NavLink
+                                                                to={child.path}
+                                                                onClick={() => {
+                                                                    dispatch(closeModalMobile());
+                                                                    setActive(false);
+                                                                }}
+                                                            >
+                                                                <span>{child.title}</span>
+                                                            </NavLink>
+                                                        )}
                                                     </li>
                                                 ))}
                                             </ul>

@@ -34,6 +34,7 @@
 
             .provider-name {
                 font-size: 1.4rem;
+                font-weight: 500;
             }
 
             .no-connections {
@@ -67,6 +68,21 @@
                 line-height: 37px;
                 padding: 0 16px;
                 transition: background-color 0.1s, border-color 0.1s, color 0.1s, fill 0.1s;
+            }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .heading {
+            font-size: 2rem;
+        }
+
+        .connections {
+            .content {
+                align-items: flex-start;
+                flex-direction: column;
             }
         }
     }

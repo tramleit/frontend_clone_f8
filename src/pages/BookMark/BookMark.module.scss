@@ -22,3 +22,16 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .container {
+        margin-left: -4px;
+        margin-right: -4px;
+
+        .content {
+            width: 100%;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    }
+}

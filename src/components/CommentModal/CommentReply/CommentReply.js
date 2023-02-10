@@ -4,13 +4,13 @@ import classNames from 'classnames/bind';
 import moment from 'moment';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import MarkdownParser from '~/components/tracks/MarkdownParser';
 import ReplyBox from '../ReplyBox';
 import styles from '../CommentItem/CommentItem.module.scss';
 import { createCommentReply } from '~/services/apiCourse';
 import ReactionFeel from '../CommentItem/ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
 import { useDispatch, useSelector } from 'react-redux';
+import ParserComment from '../ParserComment';
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +32,7 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
 
             setIsChat(false);
         } else {
-            dispatch(result.message || 'Lỗi thêm mới bình luận');
+            dispatch(result.message);
         }
     };
 
@@ -59,7 +59,7 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
                             <span className={cx('author')}>{reply.author?.name}</span>
                         </Link>
                         <div className={cx('text')}>
-                            <MarkdownParser author={reply?.authorReply} data={reply.contentHTML} fontSize="1.4rem" />
+                            <ParserComment author={reply?.authorReply} data={reply.contentMarkdown} fontSize="1.4rem" />
                         </div>
 
                         {reply.feel.length > 0 && (

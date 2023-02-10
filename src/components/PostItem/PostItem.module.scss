@@ -137,3 +137,38 @@
         transform: translateY(0);
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .body {
+            align-items: flex-start;
+            flex-direction: column;
+
+            .content {
+                order: 2;
+                padding: 0;
+
+                .info {
+                    padding: 0;
+
+                    .tags {
+                        padding: 2px 6px;
+                    }
+
+                    span {
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+
+            .thumb {
+                margin: 12px auto 8px;
+                order: 1;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

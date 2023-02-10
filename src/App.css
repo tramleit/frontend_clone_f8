@@ -189,12 +189,6 @@ body .slick-dots li.slick-active button:before {
     margin: 16px 0;
 }
 
-.author-comment {
-    color: #007575;
-    font-weight: 600;
-    display: inline-block;
-}
-
 @media (min-width: 0) and (max-width: 739px) {
     body .slick-dots {
         left: 0;

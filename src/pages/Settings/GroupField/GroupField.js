@@ -92,7 +92,7 @@ function GroupField({ type, heading }) {
                             label="User Name"
                             placeholder="Thêm user name"
                             defaultValue={currentUser?.username}
-                            desc={`https://fullstack.edu.vn/@${currentUser?.username}`}
+                            desc={`${window.location.host}/@${currentUser?.username}`}
                         />
                     </FieldWrapper>
                 </>

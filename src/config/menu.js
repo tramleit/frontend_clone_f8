@@ -107,11 +107,7 @@ export const menuMobile = [
             sub: [
                 {
                     title: 'Cài đặt tài khoản',
-                    path: '/settings/personal',
-                },
-                {
-                    title: 'Bảo mật vài đăng nhập',
-                    path: '/settings/security',
+                    path: '/settings',
                 },
                 {
                     title: 'Quản lý tiếp thị liên kết',

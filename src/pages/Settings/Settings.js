@@ -1,9 +1,12 @@
-import classNames from 'classnames/bind';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';
-import { showNotification } from '~/redux/reducer/modunReducer';
+import { useDispatch, useSelector } from 'react-redux';
+
+import config from '~/config';
 import GroupField from './GroupField';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
 import styles from './Settings.module.scss';
 
 const cx = classNames.bind(styles);
@@ -18,7 +21,7 @@ function Settings() {
         document.title = 'Thiết lập về tôi tại F8';
 
         if (!currentUser) {
-            navigate('/login');
+            navigate(config.routes.login);
             dispatch(showNotification('Vui lòng đăng nhập'));
         }
 

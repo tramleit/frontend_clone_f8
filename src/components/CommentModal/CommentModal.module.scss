@@ -54,7 +54,7 @@
                 margin-top: 50px;
 
                 .heading {
-                    margin-bottom: 60px;
+                    margin-bottom: 48px;
 
                     .title {
                         font-size: 1.8rem;
@@ -226,5 +226,27 @@
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        padding: 10px 10px calc(20% - 10px);
+
+        .container {
+            border-radius: 16px;
+            min-width: 0;
+            width: 100%;
+
+            .content {
+                padding: 0;
+                max-height: 100%;
+
+                .detail {
+                    margin-left: 16px;
+                    margin-right: 16px;
+                }
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@
 
             .content {
                 min-width: 400px;
-                background-color: rgb(242, 243, 245);
+                background-color: #f2f3f5;
                 border-radius: 18px;
                 color: rgb(28, 30, 33);
                 padding: 9px 12px;
@@ -217,5 +217,42 @@
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .body {
+            .wrap {
+                .content {
+                    width: calc(100vw - 120px);
+                    min-width: 0;
+                }
+
+                .time {
+                    .createdAt {
+                        .more-btn-wrap {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .replies-cmt {
+                border-left: none;
+                margin-left: -64px;
+                width: 100%;
+                position: relative;
+
+                &::before {
+                    border-left: 2px solid #e87a5a;
+                    bottom: 6px;
+                    content: ' ';
+                    left: 2px;
+                    position: absolute;
+                    top: 0;
+                }
+            }
+        }
     }
 }

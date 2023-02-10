@@ -50,3 +50,21 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .course {
+        .course-wrapper {
+            .list {
+                display: flex;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: 16px;
+                padding-top: 3px;
+                min-height: 180px;
+                flex-wrap: nowrap;
+                margin-left: 0px;
+                margin-right: -4px;
+            }
+        }
+    }
+}

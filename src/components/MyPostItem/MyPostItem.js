@@ -1,15 +1,18 @@
-import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
-import Tippy from '@tippyjs/react/headless';
-import styles from './MyPostItem.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
 import moment from 'moment';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import Tippy from '@tippyjs/react/headless';
 import { useDispatch, useSelector } from 'react-redux';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { toggleSavaPost } from '~/services/apiAuth';
-import { showNotification } from '~/redux/reducer/modunReducer';
 import { deletePostById } from '~/services/apiBlog';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './MyPostItem.module.scss';
+
 const cx = classNames.bind(styles);
 
 function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
@@ -29,7 +32,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
                     setMyPosts([]);
                     setActive(false);
                 } else {
-                    dispatch(showNotification(result.message || 'Lỗi xóa bài viết đã lưu'));
+                    dispatch(showNotification(result.message));
                 }
             } else {
                 dispatch(showNotification('Bài viết không tồn tại'));
@@ -42,7 +45,7 @@ function MyPostItem({ type = false, setMyPosts = null, myPost = null }) {
                 setMyPosts([]);
                 dispatch(showNotification('Xóa bài viết thành công'));
             } else {
-                dispatch(showNotification(resultDelete.message || 'Lỗi xóa bài viết'));
+                dispatch(showNotification(resultDelete.message));
             }
         }
     };

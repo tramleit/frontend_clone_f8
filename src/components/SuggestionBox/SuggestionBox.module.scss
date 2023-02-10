@@ -50,3 +50,26 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        flex-direction: column;
+        padding: 0 16px;
+
+        .info {
+            width: 100%;
+
+            h2 {
+                line-height: 1.4;
+            }
+
+            a {
+                width: 100%;
+            }
+        }
+
+        .image {
+            display: none;
+        }
+    }
+}

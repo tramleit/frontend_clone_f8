@@ -9,6 +9,7 @@ import { uploadImage } from '~/services/apiImage';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './PreviewPost.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -82,9 +83,9 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
 
         const result = await createNewPosts(newPost, dispatch, currentUser.accessToken);
         if (result.statusCode === 0) {
-            navigate(`/blog/${result.data.slug}`);
+            navigate(`${config.routes.blog}/${result.data.slug}`);
         } else {
-            dispatch(result.message || 'Lỗi tạo mới bài viết');
+            dispatch(result.message);
         }
     };
 
