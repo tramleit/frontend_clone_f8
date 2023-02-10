@@ -1,8 +1,11 @@
-import classNames from 'classnames/bind';
-import { FaTiktok, FaYoutubeSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import { ImFacebook2 } from 'react-icons/im';
+import { FaTiktok, FaYoutubeSquare } from 'react-icons/fa';
+
+import config from '~/config';
 import { Image } from '~/assets/image';
+
 import styles from './Footer.module.scss';
 
 const cx = classNames.bind(styles);
@@ -41,109 +44,28 @@ function Footer() {
                             </div>
                         </div>
                     </div>
-
-                    <div className={cx('colum', 'col')}>
-                        <div className={cx('fill')}>
-                            <div>
-                                <h3 className={cx('title')}>Về F8</h3>
-
-                                <ul className={cx('list')}>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="/about-us">
-                                            Giới thiệu
-                                        </Link>
-                                    </li>
-                                    <li className={cx('item')} to="/careers">
-                                        <Link className={cx('link')}>Cơ hội việc làm</Link>
-                                    </li>
-                                </ul>
+                    {config.footer.map((child, index) => (
+                        <div className={child?.col ? cx('colum') : cx('colum', 'col')} key={index}>
+                            <div className={cx('fill')}>
+                                <div>
+                                    <h3 className={cx('title')}>{child.title}</h3>
+                                    <ul className={cx('list')}>
+                                        {child.sub.map((item, index) => (
+                                            <li className={cx('item')} key={index}>
+                                                {item.path ? (
+                                                    <Link className={cx('link')} to={item.path}>
+                                                        {item.title}
+                                                    </Link>
+                                                ) : (
+                                                    <span className={cx('link', 'disabled')}>{item.title}</span>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div className={cx('colum', 'col')}>
-                        <div className={cx('fill')}>
-                            <div>
-                                <h3 className={cx('title')}>SẢN PHẨM</h3>
-
-                                <ul className={cx('list')}>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="/shorten-urls">
-                                            Rút gọn liên kết
-                                        </Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="">
-                                            CSS Selector
-                                        </Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>CSS Diner</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Froggy</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Froggy Pro</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Nester</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Scoops</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={cx('colum', 'col')}>
-                        <div className={cx('fill')}>
-                            <div>
-                                <h3 className={cx('title')}>HỖ TRỢ</h3>
-
-                                <ul className={cx('list')}>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="/contact-us">
-                                            Liên hệ
-                                        </Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="/privacy">
-                                            Bảo mật
-                                        </Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')} to="/terms">
-                                            Điều khoản
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={cx('colum')}>
-                        <div className={cx('fill')}>
-                            <div>
-                                <h3 className={cx('title')}>CÔNG TY CỔ PHẦN CÔNG NGHỆ GIÁO DỤC F8</h3>
-                                <ul className={cx('list')}>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Mã số thuế: 0109922901</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>Ngày thành lập: 04/03/2022</Link>
-                                    </li>
-                                    <li className={cx('item')}>
-                                        <Link className={cx('link')}>
-                                            Lĩnh vực: Công nghệ, giáo dục, lập trình. F8 xây dựng và phát triển những
-                                            sản phẩm mang lại giá trị cho cộng đồng.
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('bottom')}>

@@ -13,7 +13,7 @@
             margin-left: -12px;
             margin-right: -12px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
 
             .colum {
                 width: 25%;
@@ -91,7 +91,7 @@
                         .item {
                             font-size: 1.4rem;
                             line-height: 2.2rem;
-                            margin-bottom: 8px;
+                            margin-bottom: 10px;
                             position: relative;
 
                             .link {
@@ -102,6 +102,11 @@
 
                                 &:hover {
                                     color: #fff;
+                                }
+
+                                &.disabled {
+                                    color: currentColor;
+                                    cursor: text;
                                 }
                             }
                         }
@@ -175,7 +180,20 @@
                         display: block;
 
                         .title {
-                            margin-top: 36px;
+                            margin-top: 28px;
+                            font-size: 1.6rem;
+                            line-height: 1;
+                        }
+
+                        .list {
+                            padding-left: 0;
+                            list-style: none;
+                            margin: 20px 0;
+
+                            .item {
+                                font-size: 1.3rem;
+                                line-height: 2rem;
+                            }
                         }
                     }
                 }
@@ -184,6 +202,10 @@
                     display: block;
                     padding: 0;
                     margin-bottom: 0;
+
+                    p {
+                        font-size: 1.4rem;
+                    }
                 }
             }
         }

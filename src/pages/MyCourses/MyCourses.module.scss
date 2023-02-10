@@ -86,3 +86,29 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .body {
+        .container {
+            .list {
+                min-height: 180px;
+
+                .wrap {
+                    padding-bottom: 16px;
+                    padding-top: 3px;
+                    margin-left: -20px;
+                    margin-right: -4px;
+                    display: flex;
+                    flex-wrap: nowrap;
+
+                    .item {
+                        margin-bottom: 0;
+                        width: 60vw;
+                        padding-left: 4px;
+                        padding-right: 4px;
+                    }
+                }
+            }
+        }
+    }
+}

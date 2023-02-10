@@ -1,24 +1,27 @@
-import config from '~/config';
 import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
-import { Image } from '~/assets/image';
-import Search from '../Search';
-import styles from './Header.module.scss';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyCourse from '~/layouts/components/MyCourse';
-import Notify from '../Notify';
-import MyInfo from '../MyInfo';
-import BackButton from '~/components/BackButton';
-import PreviewPost from '~/components/PreviewPost';
-import { Fragment, useState } from 'react';
-import MobileMenu from './MobileMenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
+import config from '~/config';
+import Search from '../Search';
+import Notify from '../Notify';
+import MyInfo from '../MyInfo';
+import MobileMenu from './MobileMenu';
+import { Image } from '~/assets/image';
+import BackButton from '~/components/BackButton';
+import PreviewPost from '~/components/PreviewPost';
+import MyCourse from '~/layouts/components/MyCourse';
 import { openModalMobile } from '~/redux/reducer/modunReducer';
+
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Header({ post, activePublic, dataNewPost }) {
+    const [height, setHeight] = useState(false);
     const [activePrevPost, setActivePrevPost] = useState(false);
 
     const dispatch = useDispatch();
@@ -31,8 +34,27 @@ function Header({ post, activePublic, dataNewPost }) {
         dispatch(openModalMobile());
     };
 
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200 && window.innerWidth < 740) {
+                setHeight(true);
+            } else {
+                setHeight(false);
+            }
+        });
+    }, []);
+
+    const className =
+        checkPathProfile && height
+            ? cx('wrapper', 'active', 'mobile')
+            : checkPathProfile
+            ? cx('wrapper', 'active')
+            : height
+            ? cx('wrapper', 'mobile')
+            : cx('wrapper');
+
     return (
-        <div className={checkPathProfile ? cx('wrapper', 'active') : cx('wrapper')}>
+        <div className={className}>
             {activePrevPost && <PreviewPost setActivePrevPost={setActivePrevPost} dataNewPost={dataNewPost} />}
 
             <div className={cx('logo')}>
@@ -64,9 +86,12 @@ function Header({ post, activePublic, dataNewPost }) {
                             </button>
                         )}
                         {!checkPathProfile && <MyCourse />}
-                        <Link className={cx('action-btn')} to={config.routes.search}>
-                            <FontAwesomeIcon className={cx('icon')} icon={faMagnifyingGlass} />
-                        </Link>
+                        {!checkPathProfile && (
+                            <Link className={cx('action-btn')} to={config.routes.search}>
+                                <FontAwesomeIcon className={cx('icon')} icon={faMagnifyingGlass} />
+                            </Link>
+                        )}
+
                         <Notify />
                         <MyInfo />
                     </div>

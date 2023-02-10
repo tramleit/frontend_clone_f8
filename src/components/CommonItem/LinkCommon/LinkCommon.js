@@ -8,44 +8,44 @@ import styles from './LinkCommon.module.scss';
 const cx = classNames.bind(styles);
 
 function LinkCommon({ type, pathName, title, image, coming, dataVideo }) {
-    let Component, buttonText, slug;
+    let Component, buttonText;
 
     switch (type) {
         case 'video':
             Component = 'a';
             buttonText = 'Xem video';
-            slug = `https://youtu.be/${pathName?.urlVideo}`;
             break;
 
         case 'blog':
             Component = Link;
             buttonText = 'Xem bài viết';
-            slug = `/blog/${pathName?.slug}`;
             break;
 
         case 'free':
             Component = Link;
             buttonText = 'Xem khóa học';
-            slug = `/courses/${pathName?.slug}`;
             break;
 
         case 'pro':
             Component = coming ? 'div' : Link;
             buttonText = 'Xem khóa học';
-            slug = `/landing/${pathName?.slug}`;
+            break;
+
+        case 'my':
+            Component = Link;
+            buttonText = 'Xem khóa học';
             break;
 
         default:
             Component = Link;
-            buttonText = 'Xem';
-            slug = '';
+            buttonText = '';
     }
 
     return (
         <Component
             className={coming ? cx('link', 'disabled') : cx('link')}
-            href={slug}
-            to={slug}
+            href={pathName}
+            to={pathName}
             target={type === 'video' ? '_blank' : null}
             rel={type === 'video' ? 'noreferrer' : null}
             title={title}

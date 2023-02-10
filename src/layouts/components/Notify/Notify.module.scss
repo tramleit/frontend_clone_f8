@@ -203,6 +203,7 @@
         .notify-result {
             max-width: 94vw;
             width: 520px;
+            top: 0;
 
             .header {
                 .view-all {
@@ -223,6 +224,10 @@
                     display: none;
                 }
             }
+        }
+
+        .btn-notify {
+            font-size: 2rem;
         }
     }
 }

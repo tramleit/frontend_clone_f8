@@ -22,7 +22,7 @@ function DefaultLayout({ children }) {
     return (
         <>
             <Header />
-            <div className={cx('container')}>
+            <div className={checkProfile ? cx('container', 'profile') : cx('container')}>
                 {!settings && <Sidebar />}
 
                 <div className={checkProfile ? cx('content', 'hidden') : cx('content')}>

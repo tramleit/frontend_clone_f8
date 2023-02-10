@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 import config from '~/config';
 import CommonItem from '~/components/CommonItem';
@@ -50,7 +50,13 @@ function HomeContent({ isNew = false, title, data = [], countStudent = 0, type }
                         {title}
 
                         {isNew && <span className={cx('course-new')}>Mới</span>}
+                        {!isNew && (
+                            <Component className={cx('view-all-icon')} href={pathViewAll} to={pathViewAll}>
+                                <FontAwesomeIcon icon={faArrowRight} />
+                            </Component>
+                        )}
                     </h4>
+
                     {!isNew && (
                         <Component className={cx('view-all')} href={pathViewAll} to={pathViewAll}>
                             {titleViewAll}

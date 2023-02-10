@@ -93,10 +93,10 @@ function PreviewPost({ setActivePrevPost, dataNewPost }) {
         formData.append('image', e.target.files[0]);
 
         const result = await uploadImage(formData, dispatch, currentUser.accessToken);
-        if (result.errCode === 0) {
+        if (result.statusCode === 0) {
             setImage(result.data.urlImage);
         } else {
-            dispatch(showNotification(result.message || 'Lỗi lấy đường dẫn ảnh'));
+            dispatch(showNotification(result.message));
         }
     };
 

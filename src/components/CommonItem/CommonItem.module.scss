@@ -13,12 +13,7 @@
         .name {
             margin: 11.7px 0;
 
-            &.disabled-name {
-                &:hover {
-                    cursor: context-menu;
-                }
-            }
-
+            .disabled-name,
             a {
                 word-wrap: break-word;
                 -webkit-box-orient: vertical;
@@ -80,18 +75,18 @@
         padding: 0;
         flex-shrink: 0;
         height: 186px;
+        padding-left: 16px;
 
-        & + .wrapper {
-            margin-left: 16px;
-        }
+        // & + .wrapper {
+        //     margin-left: 16px;
+        // }
+
+        // &:first-child {
+        // }
 
         .item {
             margin-bottom: 0;
             min-height: 0;
-
-            &:first-child {
-                padding-left: 12px;
-            }
         }
 
         .studying {

@@ -97,6 +97,11 @@ function CoverImage({ infoUser }) {
         }
     };
 
+    const handleSelectCover = () => {
+        setUpload(!upload);
+        setCover(null);
+    };
+
     return (
         <div
             className={cx('banner')}
@@ -121,7 +126,7 @@ function CoverImage({ infoUser }) {
                     onMouseLeave={() => setActive(false)}
                 >
                     <FallbackAvatar
-                        style={{ '--font-size': '17.2px' }}
+                        style={window.innerWidth < 740 ? { '--font-size': '12px' } : { '--font-size': '17.2px' }}
                         image={avatar ? avatar.preview : infoUser?.avatar}
                         alt={infoUser?.name}
                         admin={infoUser?.admin}
@@ -158,13 +163,7 @@ function CoverImage({ infoUser }) {
             </div>
 
             {username === currentUser?.username && (
-                <div
-                    className={cx('btn-change')}
-                    onClick={() => {
-                        setUpload(!upload);
-                        setCover(null);
-                    }}
-                >
+                <div className={cx('btn-change')} onClick={window.innerWidth > 740 ? handleSelectCover : null}>
                     <FontAwesomeIcon icon={faCamera} />
                     <span>Chỉnh sửa ảnh bìa</span>
                 </div>

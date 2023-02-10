@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -10,33 +11,81 @@ import VideoCommon from './VideoCommon';
 import VerticalProgressBar from '../VerticalProgressBar';
 
 import styles from './CommonItem.module.scss';
-import moment from 'moment';
 
 const cx = classNames.bind(styles);
 
 function CommonItem({ type, data, progress, lastCompletedAt, styles = null }) {
+    let slug, title, image;
+
+    switch (type) {
+        case 'video':
+            slug = `https://youtu.be/${data?.urlVideo}`;
+            title = data.title;
+            image = data.image;
+            break;
+
+        case 'blog':
+            slug = `/blog/${data?.slug}`;
+            title = data.metaTitle;
+            image = data.imagePreview;
+            break;
+
+        case 'free' || 'my':
+            slug = `/courses/${data?.slug}`;
+            title = data.title;
+            image = data.image;
+            break;
+
+        case 'pro':
+            slug = `/landing/${data?.slug}`;
+            title = data.title;
+            image = data.image;
+            break;
+
+        case 'my':
+            slug = `/courses/${data?.slug}`;
+            title = data.title;
+            image = data.image;
+            break;
+
+        default:
+            slug = '';
+            title = data.title;
+            image = data.image;
+    }
+
     return (
         <div className={cx('wrapper')} style={styles}>
             <div className={cx('item')}>
                 <LinkCommon
                     type={type}
-                    pathName={data}
-                    title={data?.title}
-                    image={data?.image}
+                    pathName={slug}
+                    title={title}
+                    image={image}
                     coming={data?.comingSoon}
                     dataVideo={data}
                 />
 
                 <h4 className={cx('name')}>
-                    <Link to={'pathName'} className={data?.comingSoon ? cx('disabled-name') : ''} title={data?.title}>
-                        {data?.title}
-                    </Link>
+                    {data?.comingSoon ? (
+                        <div className={cx('disabled-name')} title={title}>
+                            {title}
+                        </div>
+                    ) : (
+                        <Link to={slug} title={title}>
+                            {title}
+                        </Link>
+                    )}
                 </h4>
 
-                {type === 'pro' && !data?.comingSoon && (
+                {type === 'pro' && (
                     <div className={cx('price')}>
-                        <span className={cx('old-price')}>{data?.oldPrice.toLocaleString()}đ</span>
-                        <span className={cx('new-price')}>{data?.price.toLocaleString()}đ</span>
+                        <span className={cx('old-price')}>
+                            {!data?.comingSoon && `${data?.oldPrice.toLocaleString()}đ`}
+                        </span>
+                        <span className={cx('new-price')}>
+                            {!data?.comingSoon && `${data?.price.toLocaleString()}đ`}
+                        </span>
                     </div>
                 )}
 

@@ -46,3 +46,29 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        padding: 0;
+
+        input::placeholder {
+            color: #757575;
+            font-family: 600;
+        }
+
+        .container {
+            .result {
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: -4px;
+                margin-right: -4px;
+
+                .content {
+                    width: 100%;
+                    padding-left: 4px;
+                    padding-right: 4px;
+                }
+            }
+        }
+    }
+}

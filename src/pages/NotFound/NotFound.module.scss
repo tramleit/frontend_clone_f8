@@ -53,7 +53,7 @@
         }
 
         .error-title {
-            font-size: 45px;
+            font-size: 4.5rem;
             font-weight: 900;
             line-height: 1.6;
             margin-top: 0;
@@ -119,5 +119,25 @@
         margin-bottom: 20px;
         text-align: center;
         width: 100%;
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .header {
+            display: none;
+        }
+        .content {
+            padding: 0 16px;
+            width: 100%;
+
+            .error-title {
+                font-size: 4.2rem;
+            }
+        }
+
+        .copyright {
+            display: none;
+        }
     }
 }

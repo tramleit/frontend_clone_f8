@@ -65,7 +65,7 @@ function MyCourses() {
                                         type="my"
                                         key={course._id}
                                         data={course.course}
-                                        styles={{ width: '100%' }}
+                                        styles={window.innerWidth < 740 ? null : { width: '100%' }}
                                         progress={course.userProgress}
                                         lastCompletedAt={course.lastCompletedAt}
                                     />

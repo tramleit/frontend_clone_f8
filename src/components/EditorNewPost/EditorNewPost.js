@@ -4,6 +4,7 @@ import MdEditor from 'react-markdown-editor-lite';
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-markdown-editor-lite/lib/index.css';
 import { uploadImage } from '~/services/apiImage';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 const mdParser = new MarkdownIt();
 
@@ -31,11 +32,12 @@ function EditorNewPost({ handleGetDataNewPost }) {
         formData.append('image', file);
 
         const result = await uploadImage(formData, dispatch, currentUser.accessToken);
-        if (result.errCode === 0) {
+        if (result.statusCode === 0) {
             setImage(result.data.urlImage);
+
             return result.data.urlImage;
         } else {
-            alert('Upload ảnh thất bại');
+            dispatch(showNotification(result.message));
         }
     };
 

@@ -104,7 +104,7 @@ function MobileMenu() {
                                             )}
                                         </li>
                                         {item.sub?.length > 0 && (
-                                            <ul className={!active ? cx('list-sub') : cx('list-sub', 'active')}>
+                                            <ul className={active ? cx('list-sub') : cx('list-sub', 'active')}>
                                                 {item.sub.map((child, index) => (
                                                     <li key={index}>
                                                         <NavLink to={child.path}>

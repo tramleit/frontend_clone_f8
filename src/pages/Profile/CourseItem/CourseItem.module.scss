@@ -49,3 +49,16 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        flex-direction: column;
+
+        .thumb {
+            height: auto;
+            margin-bottom: 12px;
+            margin-right: 0;
+            width: 100%;
+        }
+    }
+}

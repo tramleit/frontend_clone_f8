@@ -18,6 +18,11 @@
         border-bottom: none;
     }
 
+    &.mobile {
+        background-color: #fff;
+        border-bottom: 1px solid #e8ebed;
+    }
+
     .logo {
         display: flex;
         align-items: center;

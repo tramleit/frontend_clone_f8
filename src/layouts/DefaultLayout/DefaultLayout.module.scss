@@ -18,6 +18,10 @@
     .container {
         padding: 0 16px;
 
+        &.profile {
+            padding: 0;
+        }
+
         .content {
             padding: 0;
             width: 100%;

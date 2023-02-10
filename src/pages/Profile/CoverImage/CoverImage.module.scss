@@ -1,5 +1,6 @@
 .banner {
     position: relative;
+    background: top/cover no-repeat;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     margin-top: -66px;
@@ -197,6 +198,56 @@
                 color: var(--background-color);
                 margin-left: 16px;
             }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .banner {
+        .user {
+            align-items: center;
+            bottom: -122px;
+            flex-direction: column;
+            left: 50%;
+            transform: translateX(-50%);
+
+            .user-avatar {
+                height: 128px;
+                width: 128px;
+
+                .choose-avatar {
+                    top: 6px;
+                    left: 6px;
+                }
+            }
+
+            .user-name {
+                font-size: 2.4rem;
+                margin-bottom: 0;
+                margin-left: 0;
+                margin-top: 6px;
+            }
+        }
+
+        .btn-change {
+            bottom: 8px;
+            height: auto;
+            padding: 5px 8px;
+            right: 8px;
+
+            svg {
+                margin-right: 0;
+                font-size: 1.6rem;
+            }
+
+            span {
+                display: none;
+            }
+        }
+
+        .confirm-upload.avatar {
+            top: 190px;
+            right: -106px;
         }
     }
 }
