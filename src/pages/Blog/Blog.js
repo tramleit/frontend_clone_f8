@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
+import Topic from './Topic';
 import config from '~/config';
 import Heading from '~/components/Heading';
 import PostItem from '~/components/PostItem';
@@ -12,19 +13,14 @@ import { getPostByPage, getTopic } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Blog.module.scss';
-import Topic from './Toppic/Toppic';
 
 const cx = classNames.bind(styles);
 
 function Blog() {
-    const [dataPages, setDataPages] = useState([]);
     const [totalPage, setTotalPage] = useState(0);
+    const [dataPages, setDataPages] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [currentPage, setCurrentPage] = useState(() => {
-        const savedPage = localStorage.getItem('currentPage');
-        const initialPage = savedPage ? parseInt(savedPage, 10) : 1;
-        return initialPage;
-    });
+    const [currentPage, setCurrentPage] = useState(() => localStorage.getItem('currentPage'));
 
     const [nameHeading, setNameHeading] = useState(null);
     const [descHeading, setDescHeading] = useState(null);
@@ -34,16 +30,15 @@ function Blog() {
     const page = searchParams.get('page');
 
     useEffect(() => {
-        if (!currentPage) {
-            setCurrentPage(page);
+        if (currentPage) {
+            setSearchParams({ page: currentPage });
+        } else {
+            setSearchParams({ page: 1 });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         document.title = 'Danh sách bài viết về lĩnh vực IT';
-        setSearchParams({ page: 1 });
 
         if (page) {
             const fetchApi = async () => {
@@ -115,10 +110,12 @@ function Blog() {
                                 totalPage={totalPage}
                                 currentPage={currentPage}
                                 setCurrentPage={setCurrentPage}
+                                setSearchParams={setSearchParams}
                             />
                         )}
                     </div>
                 </div>
+
                 <Topic config={config} slug={slug} />
             </div>
         </LayoutWrapper>

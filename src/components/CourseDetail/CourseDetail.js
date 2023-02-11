@@ -12,6 +12,7 @@ import { registerCourse } from '~/services/apiAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { showNotification } from '~/redux/reducer/modunReducer';
+import Purchase from './Purchase';
 
 const cx = classNames.bind(styles);
 
@@ -74,6 +75,16 @@ function CourseDetail({ course, pathName }) {
                     <div className={cx('content-left')}>
                         <h1 className={cx('course-name')}>{course.title}</h1>
                         <div className={cx('course-des')}>{course.description}</div>
+
+                        {window.innerWidth < 740 && (
+                            <Purchase
+                                course={course}
+                                allLesson={allLesson}
+                                numberTime={numberTime}
+                                onClick={handleRegisterCourse}
+                                setModalPrev={setModalPrev}
+                            />
+                        )}
 
                         <div className={cx('what-list')}>
                             <h3 className={cx('list-title')}>Bạn sẽ học được gì?</h3>
@@ -170,43 +181,19 @@ function CourseDetail({ course, pathName }) {
                         </div>
                     </div>
 
-                    <div className={cx('content-right')}>
-                        <div className={cx('purchase')}>
-                            <div className={cx('preview')} onClick={() => setModalPrev(true)}>
-                                <div className={cx('img-bg')} style={{ backgroundImage: `url(${course.image})` }}></div>
-
-                                <FontAwesomeIcon icon={faCirclePlay} />
-                                <p>Xem giới thiệu khóa học</p>
-                            </div>
-                            <h4>{course.price > 0 ? 'PRO' : 'Miễn phí'}</h4>
-                            <button className={cx('btn-register')} onClick={handleRegisterCourse}>
-                                ĐĂNG KÝ HỌC
-                            </button>
-
-                            <ul>
-                                <li>
-                                    <FontAwesomeIcon icon={faGaugeHigh} />
-                                    <span>Trình độ trung bình</span>
-                                </li>
-                                <li>
-                                    <FontAwesomeIcon icon={faFilm} />
-                                    <span>
-                                        Tổng số <strong>{allLesson}</strong> bài học
-                                    </span>
-                                </li>
-                                <li>
-                                    <FontAwesomeIcon icon={faClock} />
-                                    <span>
-                                        Thời lượng <strong>{numberTime}</strong>
-                                    </span>
-                                </li>
-                                <li>
-                                    <FontAwesomeIcon icon={faBatteryFull} />
-                                    <span>Học mọi lúc, mọi nơi</span>
-                                </li>
-                            </ul>
-                        </div>
+                    <div className={cx('btn-registered')}>
+                        <button>ĐĂNG KÝ MIỄN PHÍ</button>
                     </div>
+
+                    {window.innerWidth > 740 && (
+                        <Purchase
+                            course={course}
+                            allLesson={allLesson}
+                            numberTime={numberTime}
+                            onClick={handleRegisterCourse}
+                            setModalPrev={setModalPrev}
+                        />
+                    )}
                 </div>
             </div>
             <PreviewCourse course={course} modalPrev={modalPrev} setModalPrev={setModalPrev} />

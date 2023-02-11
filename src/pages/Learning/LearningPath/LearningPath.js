@@ -7,13 +7,13 @@ import Heading from '~/components/Heading';
 import LayoutWrapper from '~/components/LayoutWrapper';
 import { showNotification } from '~/redux/reducer/modunReducer';
 import { getLearningRouteBySlug } from '~/services/apiCourse';
-import LearningPath from './LearningPath';
+import LearningGroup from './LearningGroup';
 
-import styles from './LearningRoute.module.scss';
+import styles from './LearningPath.module.scss';
 
 const cx = classNames.bind(styles);
 
-function LearningRoute() {
+function LearningPath() {
     const [route, setRoute] = useState(null);
 
     const { slug } = useParams();
@@ -41,7 +41,7 @@ function LearningRoute() {
             <div className={cx('container')}>
                 <div className={cx('content')}>
                     {route?.groups.map((group) => (
-                        <LearningPath key={group._id} group={group} />
+                        <LearningGroup key={group._id} group={group} />
                     ))}
 
                     <CoursesPro />
@@ -51,4 +51,4 @@ function LearningRoute() {
     );
 }
 
-export default LearningRoute;
+export default LearningPath;

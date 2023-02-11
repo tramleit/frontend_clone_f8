@@ -100,3 +100,31 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        height: 60px;
+        justify-content: flex-end;
+
+        .toggle-sidebar {
+            justify-content: flex-start;
+            left: 0;
+            right: unset;
+            width: 26%;
+
+            .title {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 1023px) {
+    .wrapper {
+        .btn-right {
+            margin-right: 16px;
+            padding: 10px;
+            padding-left: 0;
+        }
+    }
+}

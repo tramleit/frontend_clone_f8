@@ -92,3 +92,33 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .body {
+            .item {
+                padding: 16px;
+
+                .wrap {
+                    flex-direction: column;
+
+                    .thumb {
+                        img {
+                            width: 100%;
+                        }
+                    }
+
+                    .info {
+                        margin-left: 0;
+                        margin-top: 8px;
+
+                        .btn-course {
+                            width: 100%;
+                            padding: 12px 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -59,6 +59,7 @@ function Header({ post, activePublic, dataNewPost }) {
                 <Link to={config.routes.home}>
                     <img src={Image.iconLogo} alt="logo F8" />
                 </Link>
+
                 {pathName === '/' ? <h4>Học Lập Trình Để Đi Làm</h4> : <BackButton />}
             </div>
 
@@ -83,11 +84,17 @@ function Header({ post, activePublic, dataNewPost }) {
                                 Xuất bản
                             </button>
                         )}
+
                         {!checkPathProfile && <MyCourse />}
-                        {!checkPathProfile && (
+
+                        {checkPathProfile ? (
+                            Fragment
+                        ) : !checkPathNewPost ? (
                             <Link className={cx('action-btn')} to={config.routes.search}>
                                 <FontAwesomeIcon className={cx('icon')} icon={faMagnifyingGlass} />
                             </Link>
+                        ) : (
+                            Fragment
                         )}
 
                         <Notify />

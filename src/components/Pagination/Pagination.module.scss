@@ -35,3 +35,40 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        position: relative;
+        margin: 32px 0;
+
+        .page {
+            &.pre {
+                left: -10px;
+                position: absolute;
+            }
+            &.next {
+                position: absolute;
+                right: -10px;
+            }
+        }
+    }
+}
+
+@media (min-width: 0px) and (max-width: 1024px) {
+    .wrapper {
+        position: relative;
+
+        .page {
+            padding: 6px;
+            width: 30px;
+            &.pre {
+                left: -10px;
+                position: absolute;
+            }
+            &.next {
+                position: absolute;
+                right: -10px;
+            }
+        }
+    }
+}

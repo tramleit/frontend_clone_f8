@@ -29,3 +29,20 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .comment {
+            bottom: 90px;
+            right: 16px;
+
+            .comment-btn {
+                padding: 12px;
+
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+}

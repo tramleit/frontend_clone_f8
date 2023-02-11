@@ -40,7 +40,7 @@ function HeaderTrack({ title }) {
                     <span>Ghi chú</span>
                 </button>
 
-                <button className={cx('action-btn')}>
+                <button className={cx('action-btn', 'mobile')}>
                     <FontAwesomeIcon icon={faCircleQuestion} />
                     <span>Hướng dẫn</span>
                 </button>

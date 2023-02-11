@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 
-import styles from './LearningPath.module.scss';
+import styles from './LearningGroup.module.scss';
 
 const cx = classNames.bind(styles);
 
-function LearningPath({ group }) {
+function LearningGroup({ group }) {
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
     return (
@@ -45,4 +45,4 @@ function LearningPath({ group }) {
     );
 }
 
-export default LearningPath;
+export default LearningGroup;

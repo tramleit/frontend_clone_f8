@@ -26,3 +26,9 @@
     background: var(--color-primary) !important;
     transition: 0.3s ease;
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        padding: 0 !important;
+    }
+}

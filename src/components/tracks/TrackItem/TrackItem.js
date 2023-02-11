@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './TrackItem.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { closeSidebarCourse } from '~/redux/reducer/modunReducer';
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,7 @@ function TrackItem({ chapter, index, slug }) {
     const [numberTime, setNumberTime] = useState('');
 
     const location = useLocation();
+    const dispatch = useDispatch();
     const lessonId = new URLSearchParams(location.search).get('id');
 
     useEffect(() => {
@@ -44,6 +47,10 @@ function TrackItem({ chapter, index, slug }) {
 
     const handleSetCurrentLesson = (id) => {
         localStorage.setItem('currentLesson', id);
+
+        if (window.innerWidth < 740) {
+            dispatch(closeSidebarCourse());
+        }
     };
 
     return (

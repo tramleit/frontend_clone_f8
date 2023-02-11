@@ -1,7 +1,7 @@
 const routes = {
     home: '/',
     learning: '/learning',
-    learningRoute: '/learning/:slug',
+    learningPath: '/learning/:slug',
     courses: '/courses',
     tracks: '/courses/:slug',
     blog: '/blog',

@@ -8,7 +8,6 @@
         position: relative;
         overflow: unset;
         margin-bottom: 32px;
-        min-height: 289px;
 
         .name {
             margin: 11.7px 0;
@@ -74,7 +73,6 @@
         width: 60vw;
         padding: 0;
         flex-shrink: 0;
-        height: 186px;
 
         & + .wrapper {
             margin-left: 16px;

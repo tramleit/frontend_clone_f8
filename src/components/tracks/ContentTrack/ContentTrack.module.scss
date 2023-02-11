@@ -77,3 +77,25 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        margin-top: 43px;
+        width: 100%;
+
+        &.active {
+            .content {
+                padding: 0 16px;
+            }
+        }
+
+        .content {
+            padding: 0 16px;
+
+            .header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    }
+}

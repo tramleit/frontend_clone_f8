@@ -1,5 +1,6 @@
-import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import styles from './Topic.module.scss';
 
 const cx = classNames.bind(styles);

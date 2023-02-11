@@ -83,10 +83,18 @@ function FooterTrack({ chapters }) {
                 <FontAwesomeIcon icon={faChevronRight} />
             </button>
 
-            <div className={cx('toggle-sidebar')} onClick={handleToggleSidebar}>
+            <div
+                className={cx('toggle-sidebar')}
+                onClick={window.innerWidth < 740 ? () => dispatch(openSidebarCourse()) : handleToggleSidebar}
+            >
                 <h3 className={cx('title')}>1. Giới thiệu</h3>
+
                 <button className={cx('toggle-btn')}>
-                    {active ? <FontAwesomeIcon icon={faBars} /> : <FontAwesomeIcon icon={faArrowRight} />}
+                    {active || window.innerWidth < 740 ? (
+                        <FontAwesomeIcon icon={faBars} />
+                    ) : (
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    )}
                 </button>
             </div>
         </div>

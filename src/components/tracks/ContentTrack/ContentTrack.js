@@ -61,7 +61,7 @@ function ContentTrack() {
                     </button>
                 </div>
 
-                <MarkdownParser data={lesson?.descHTML} fontSize="1.6rem" />
+                <MarkdownParser data={lesson?.descHTML} fontSize={window.innerWidth < 740 ? '1.4rem' : '1.6rem'} />
             </div>
 
             <p className={cx('powered')}>

@@ -11,7 +11,7 @@ import Settings from '~/pages/Settings';
 import Tracks from '~/pages/Tracks';
 import NewPost from '~/pages/NewPost';
 import Posts from '~/pages/Posts';
-import LearningRoute from '~/pages/Learning/LearningRoute';
+import LearningPath from '~/pages/Learning/LearningPath';
 import Search from '~/pages/Search';
 import NotFound from '~/pages/NotFound';
 import MyCourses from '~/pages/MyCourses';
@@ -21,7 +21,7 @@ import MyPost from '~/pages/MyPost';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.learning, component: Learning },
-    { path: config.routes.learningRoute, component: LearningRoute },
+    { path: config.routes.learningPath, component: LearningPath },
     { path: config.routes.courses, component: Courses },
     { path: config.routes.tracks, component: Tracks, layout: null },
     { path: config.routes.blog, component: Blog },

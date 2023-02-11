@@ -64,7 +64,7 @@ function Tracks() {
     };
 
     return (
-        <>
+        <Fragment>
             {registered ? (
                 <div className={cx('wrapper')}>
                     <Fragment>
@@ -84,7 +84,7 @@ function Tracks() {
             ) : (
                 <CourseDetail course={courses} pathName={slug} />
             )}
-        </>
+        </Fragment>
     );
 }
 

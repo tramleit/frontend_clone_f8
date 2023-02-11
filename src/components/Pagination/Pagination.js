@@ -1,23 +1,14 @@
-import queryString from 'query-string';
 import classNames from 'classnames/bind';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Pagination.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Pagination({ totalPage, currentPage, setCurrentPage }) {
-    const navigate = useNavigate();
-    const location = useLocation();
-
+function Pagination({ totalPage, currentPage, setCurrentPage, setSearchParams }) {
     const handlePageChange = (page) => {
-        const parsed = queryString.parse(location.search);
-        parsed.page = page;
-        const stringified = queryString.stringify(parsed);
-        location.search = stringified;
-        navigate(`${location.pathname}?${location.search}`);
+        setSearchParams({ page: page });
         setCurrentPage(page);
         localStorage.setItem('currentPage', page);
     };
@@ -25,35 +16,35 @@ function Pagination({ totalPage, currentPage, setCurrentPage }) {
     const pages = [];
     for (let i = 1; i <= totalPage; i++) {
         pages.push(
-            <span
+            <div
                 key={i}
                 className={cx('page', { active: Number(currentPage) === i })}
                 onClick={Number(currentPage) !== i ? () => handlePageChange(i) : undefined}
             >
-                {i}
-            </span>
+                <span style={{ margin: '0 auto' }}>{i}</span>
+            </div>
         );
     }
 
     return (
         <div className={cx('wrapper')}>
-            <span
-                className={cx('page', { disabled: Number(currentPage) === 1 })}
+            <div
+                className={cx('page', 'pre', { disabled: Number(currentPage) === 1 })}
                 onClick={Number(currentPage) !== 1 ? () => handlePageChange(Number(currentPage) - 1) : undefined}
             >
                 <FontAwesomeIcon icon={faAnglesLeft} />
-            </span>
+            </div>
 
             {pages.map((page) => page)}
 
-            <span
-                className={cx('page', { disabled: Number(currentPage) === totalPage })}
+            <div
+                className={cx('page', 'next', { disabled: Number(currentPage) === totalPage })}
                 onClick={
                     Number(currentPage) !== totalPage ? () => handlePageChange(Number(currentPage) + 1) : undefined
                 }
             >
                 <FontAwesomeIcon icon={faAnglesRight} />
-            </span>
+            </div>
         </div>
     );
 }

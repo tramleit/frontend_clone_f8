@@ -114,3 +114,44 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        height: 44px;
+
+        .logo {
+            display: none;
+        }
+
+        .title {
+            margin-left: 0;
+        }
+
+        .actions {
+            .completed {
+                display: none;
+            }
+
+            .cert {
+                display: none;
+            }
+
+            .action-btn {
+                margin-right: 16px;
+                padding: 4px;
+
+                &.mobile {
+                    display: none;
+                }
+
+                svg {
+                    font-size: 1.8rem;
+                }
+
+                span {
+                    display: none;
+                }
+            }
+        }
+    }
+}
