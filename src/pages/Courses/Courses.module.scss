@@ -51,7 +51,7 @@
     }
 }
 
-@media (min-width: 0) and (max-width: 739px) {
+@media (min-width: 0) and (max-width: 1023px) {
     .course {
         .course-wrapper {
             .list {
@@ -65,6 +65,14 @@
                 margin-left: 0px;
                 margin-right: -4px;
             }
+        }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .course {
+        .course-wrapper {
+            margin-bottom: 30px;
         }
     }
 }

@@ -3,6 +3,13 @@
     padding: 8px 44px 0;
 }
 
+@media (min-width: 0) and (max-width: 1023px) {
+    .wrapper {
+        margin-bottom: 48px;
+        padding: 0;
+    }
+}
+
 @media (min-width: 0) and (max-width: 739px) {
     .wrapper {
         margin-bottom: 48px;

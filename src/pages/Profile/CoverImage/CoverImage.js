@@ -51,7 +51,7 @@ function CoverImage({ infoUser }) {
                 window.location.reload();
                 dispatch(showNotification(result.message));
             } else {
-                dispatch(showNotification(result.message || 'Lỗi cập nhật ảnh đại diện'));
+                dispatch(showNotification(result.message));
             }
         } else {
             dispatch(showNotification('Vui lòng chọn ảnh đại diện'));
@@ -163,7 +163,7 @@ function CoverImage({ infoUser }) {
             </div>
 
             {username === currentUser?.username && (
-                <div className={cx('btn-change')} onClick={window.innerWidth > 740 ? handleSelectCover : null}>
+                <div className={cx('btn-change')} onClick={window.innerWidth > 1023 ? handleSelectCover : null}>
                     <FontAwesomeIcon icon={faCamera} />
                     <span>Chỉnh sửa ảnh bìa</span>
                 </div>

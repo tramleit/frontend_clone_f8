@@ -198,18 +198,26 @@
     }
 }
 
-@media (min-width: 0) and (max-width: 739px) {
+@media (min-width: 0) and (max-width: 1023px) {
     .wrapper {
         padding: 0;
 
         .container {
             .content {
-                margin-left: -4px;
-                margin-right: -4px;
-
                 .info-post {
                     display: none;
                 }
+            }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .container {
+            .content {
+                margin-left: -4px;
+                margin-right: -4px;
 
                 .content-post {
                     width: 100%;
@@ -228,6 +236,23 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .container {
+            .content {
+                margin-left: -8px;
+                margin-right: -8px;
+
+                .content-post {
+                    width: 100%;
+                    padding-left: 8px;
+                    padding-right: 8px;
                 }
             }
         }

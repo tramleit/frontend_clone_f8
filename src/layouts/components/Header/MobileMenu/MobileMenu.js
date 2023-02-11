@@ -1,13 +1,14 @@
-import { faCheckCircle, faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import FallbackAvatar from '~/components/FallbackAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faChevronDown, faChevronRight, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+
 import config from '~/config';
-import { closeModalMobile, showNotification } from '~/redux/reducer/modunReducer';
 import { logoutUser } from '~/services/apiAuth';
+import FallbackAvatar from '~/components/FallbackAvatar';
+import { closeModalMobile, showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './MobileMenu.module.scss';
 
@@ -36,6 +37,8 @@ function MobileMenu() {
         }
     };
 
+    const renderMenu = currentUser ? config.menuMobile : config.noUserMenu;
+
     return (
         <div
             className={status ? cx('wrapper', 'open') : cx('wrapper', 'close')}
@@ -43,24 +46,37 @@ function MobileMenu() {
         >
             <div className={cx('body')} onClick={(event) => event.stopPropagation()}>
                 <div className={cx('scrollable')}>
-                    <div className={cx('user')}>
-                        <div className={cx('avatar-wrap')}>
-                            <FallbackAvatar
-                                style={{ '--font-size': '8.8px' }}
-                                image={currentUser.avatar}
-                                alt={currentUser.name}
-                                admin={currentUser.admin}
-                            />
+                    {currentUser && (
+                        <div className={cx('user')}>
+                            <div className={cx('avatar-wrap')}>
+                                <FallbackAvatar
+                                    style={{ '--font-size': '8.8px' }}
+                                    image={currentUser?.avatar}
+                                    alt={currentUser?.name}
+                                    admin={currentUser?.admin}
+                                />
+                            </div>
+                            <div className={cx('username')}>
+                                <span className={cx('full-name')}>
+                                    {currentUser?.name} {currentUser?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
+                                </span>
+                            </div>
                         </div>
-                        <div className={cx('username')}>
-                            <span className={cx('full-name')}>
-                                Mã Việt Hà {currentUser.tick && <FontAwesomeIcon icon={faCheckCircle} />}
-                            </span>
-                        </div>
-                    </div>
+                    )}
 
                     <div className={cx('list-wrap')}>
-                        {config.menuMobile.map((menu, index) => (
+                        {!currentUser && (
+                            <ul className={cx('list')}>
+                                <li className={cx('item')}>
+                                    <NavLink to={config.routes.login}>
+                                        <FontAwesomeIcon icon={faRightToBracket} />
+                                        <span>Đăng nhập</span>
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        )}
+
+                        {renderMenu.map((menu, index) => (
                             <ul className={cx('list')} key={index}>
                                 {menu.map((item, index) => (
                                     <Fragment key={index}>
@@ -71,7 +87,7 @@ function MobileMenu() {
                                                     onClick={() => dispatch(closeModalMobile())}
                                                     to={
                                                         item.path === 'profile'
-                                                            ? `/@${currentUser.username}`
+                                                            ? `/@${currentUser?.username}`
                                                             : item.path
                                                     }
                                                 >
@@ -103,6 +119,7 @@ function MobileMenu() {
                                                 </div>
                                             )}
                                         </li>
+
                                         {item.sub?.length > 0 && (
                                             <ul className={active ? cx('list-sub') : cx('list-sub', 'active')}>
                                                 {item.sub.map((child, index) => (

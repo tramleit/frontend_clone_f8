@@ -16,8 +16,11 @@
 
                 .item {
                     width: 25%;
-                    padding-left: 12px;
-                    padding-right: 12px;
+
+                    &:last-child {
+                        padding-left: 12px;
+                        padding-right: 12px;
+                    }
 
                     .add-course {
                         border: 3px dashed #e8e8e8;
@@ -87,6 +90,24 @@
     }
 }
 
+@media (max-width: 1023px) {
+    .body {
+        .container {
+            .list {
+                .wrap {
+                    .item {
+                        .add-course {
+                            .add-course {
+                                width: 35vw;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 0) and (max-width: 739px) {
     .body {
         .container {
@@ -100,6 +121,8 @@
                     margin-right: -4px;
                     display: flex;
                     flex-wrap: nowrap;
+                    overflow-x: auto;
+                    overflow-y: hidden;
 
                     .item {
                         margin-bottom: 0;
@@ -109,6 +132,62 @@
 
                         &.item {
                             margin-left: 16px;
+                        }
+
+                        .add-course {
+                            width: 60vw;
+
+                            svg {
+                                top: 100px;
+                            }
+
+                            .add {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .body {
+        .container {
+            .list {
+                .wrap {
+                    padding-bottom: 16px;
+                    padding-top: 3px;
+                    margin-left: -20px;
+                    margin-right: -4px;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+
+                    .item {
+                        margin-bottom: 0;
+                        flex-shrink: 0;
+                        width: 35vw;
+                        padding: 0;
+
+                        &.item {
+                            margin-left: 16px;
+                        }
+
+                        &:last-child {
+                            padding: 0;
+                        }
+
+                        .add-course {
+                            svg {
+                                top: 100px;
+                            }
+
+                            .add {
+                                display: none;
+                            }
                         }
                     }
                 }

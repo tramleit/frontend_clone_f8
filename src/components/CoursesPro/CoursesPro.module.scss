@@ -58,3 +58,21 @@
         }
     }
 }
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .courses {
+            .wrap {
+                margin-left: -8px;
+                margin-right: -8px;
+
+                .content {
+                    width: 50%;
+                    margin-bottom: 30px;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
+            }
+        }
+    }
+}

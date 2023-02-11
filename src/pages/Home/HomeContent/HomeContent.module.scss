@@ -120,3 +120,20 @@
         }
     }
 }
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .content-wrap {
+        .list {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 16px;
+            min-height: 200px;
+            margin-top: 3px;
+
+            flex-wrap: nowrap;
+            margin-left: 0;
+            margin-right: -4px;
+        }
+    }
+}

@@ -229,6 +229,15 @@
             }
         }
 
+        .confirm-upload.avatar {
+            top: 190px;
+            right: -106px;
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 1023px) {
+    .banner {
         .btn-change {
             bottom: 8px;
             height: auto;
@@ -244,10 +253,8 @@
                 display: none;
             }
         }
-
-        .confirm-upload.avatar {
-            top: 190px;
-            right: -106px;
-        }
     }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
 }

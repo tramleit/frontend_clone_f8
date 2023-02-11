@@ -15,7 +15,7 @@ function Footer() {
         <footer className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('content')}>
-                    <div className={cx('colum')}>
+                    <div className={cx('colum', 'full')}>
                         <div className={cx('fill')}>
                             <div>
                                 <div className={cx('colum-header')}>

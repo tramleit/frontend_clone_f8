@@ -2,7 +2,7 @@
     display: none;
 }
 
-@media (min-width: 0) and (max-width: 739px) {
+@media (min-width: 0) and (max-width: 1023px) {
     .wrapper {
         background-color: rgba(0, 0, 0, 0.3);
         bottom: 0;
@@ -28,7 +28,7 @@
             left: 0;
             position: absolute;
             top: 0;
-            width: 80%;
+            width: 60%;
 
             .scrollable {
                 padding: 16px 0 0 16px;
@@ -131,6 +131,14 @@
                     }
                 }
             }
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
+        .body {
+            width: 80%;
         }
     }
 }

@@ -231,3 +231,12 @@
         }
     }
 }
+
+@media (min-width: 0px) and (max-width: 1024px) {
+    .wrapper {
+        .notify-result {
+            max-width: 84vw;
+            width: 520px;
+        }
+    }
+}

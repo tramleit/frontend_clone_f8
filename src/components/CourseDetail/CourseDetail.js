@@ -181,7 +181,7 @@ function CourseDetail({ course, pathName }) {
                         </div>
                     </div>
 
-                    <div className={cx('btn-registered')}>
+                    <div className={cx('btn-registered')} onClick={handleRegisterCourse}>
                         <button>ĐĂNG KÝ MIỄN PHÍ</button>
                     </div>
 

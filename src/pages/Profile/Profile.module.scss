@@ -132,3 +132,21 @@
         }
     }
 }
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        width: 644px;
+
+        .content {
+            margin-left: -8px;
+            margin-right: -8px;
+
+            .right,
+            .left {
+                padding-left: 8px;
+                padding-right: 8px;
+                width: 100%;
+            }
+        }
+    }
+}

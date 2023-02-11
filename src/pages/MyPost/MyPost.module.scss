@@ -22,3 +22,21 @@
         }
     }
 }
+
+@media (min-width: 0) and (max-width: 739px) {
+    .container {
+        margin-left: -4px;
+        margin-right: -4px;
+
+        .content {
+            padding-left: 4px;
+            padding-right: 4px;
+            width: 100%;
+
+            .no-result {
+                font-size: 1.3rem;
+                line-height: 1.2;
+            }
+        }
+    }
+}

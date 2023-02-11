@@ -107,7 +107,10 @@ function Posts() {
                                 <ActionPost dataPost={post} />
                             </div>
 
-                            <MarkdownParser data={post?.contentHTML} fontSize="1.8rem" />
+                            <MarkdownParser
+                                data={post?.contentHTML}
+                                fontSize={window.innerWidth < 740 ? '1.6rem' : '1.8rem'}
+                            />
 
                             <div className={cx('footer-post')}>
                                 <Reaction handleReaction={handleReaction} post={post} userId={currentUser?._id} />

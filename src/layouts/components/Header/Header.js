@@ -25,7 +25,7 @@ function Header({ post, activePublic, dataNewPost }) {
     const [activePrevPost, setActivePrevPost] = useState(false);
 
     const dispatch = useDispatch();
-    const isUser = useSelector((state) => state.auth.login.currentUser);
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
     const pathName = useLocation().pathname;
     const checkPathProfile = pathName.includes('/@');
     const checkPathNewPost = pathName.includes(config.routes.newPost) || pathName.includes(config.routes.search);
@@ -74,7 +74,7 @@ function Header({ post, activePublic, dataNewPost }) {
             {checkPathProfile ? Fragment : !checkPathNewPost ? <Search /> : Fragment}
 
             <div className={cx('action')}>
-                {isUser !== null ? (
+                {currentUser ? (
                     <div className={cx('is-login')}>
                         {post && (
                             <button

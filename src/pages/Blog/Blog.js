@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import Topic from './Topic';
 import config from '~/config';
 import Heading from '~/components/Heading';
 import PostItem from '~/components/PostItem';
@@ -13,6 +12,7 @@ import { getPostByPage, getTopic } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Blog.module.scss';
+import TopicPosts from './Topic/Topic';
 
 const cx = classNames.bind(styles);
 
@@ -30,12 +30,15 @@ function Blog() {
     const page = searchParams.get('page');
 
     useEffect(() => {
-        if (currentPage) {
+        if (currentPage && !slug) {
             setSearchParams({ page: currentPage });
         } else {
             setSearchParams({ page: 1 });
+            setCurrentPage(1);
         }
-    }, []);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [slug]);
 
     useEffect(() => {
         document.title = 'Danh sách bài viết về lĩnh vực IT';
@@ -93,7 +96,7 @@ function Blog() {
             <div className={cx('container')}>
                 <div className={cx('left')}>
                     <div className={cx('content-left')}>
-                        {window.innerWidth < 740 && <Topic config={config} slug={slug} />}
+                        {window.innerWidth < 1023 && <TopicPosts config={config} slug={slug} />}
 
                         {dataPages.length > 0 ? (
                             dataPages?.map((post) => <PostItem key={post._id} dataPost={post} />)
@@ -116,7 +119,7 @@ function Blog() {
                     </div>
                 </div>
 
-                <Topic config={config} slug={slug} />
+                <TopicPosts config={config} slug={slug} />
             </div>
         </LayoutWrapper>
     );

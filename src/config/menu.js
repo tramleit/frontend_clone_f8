@@ -125,4 +125,55 @@ export const menuMobile = [
     ],
 ];
 
+export const noUserMenu = [
+    [
+        {
+            icon: faHouse,
+            title: 'Tranh chủ',
+            path: routes.home,
+        },
+        {
+            icon: faRoad,
+            title: 'Lộ trình',
+            path: routes.learning,
+        },
+        {
+            icon: faLightbulb,
+            title: 'Khóa học',
+            path: routes.courses,
+        },
+        {
+            icon: faNewspaper,
+            title: 'Blog',
+            path: routes.blog,
+        },
+    ],
+    [
+        {
+            icon: faInfoCircle,
+            title: 'Giới thiệu',
+            path: 'about-us',
+        },
+        {
+            icon: faUsers,
+            title: 'Cơ hội việc làm',
+            path: 'careers',
+        },
+        {
+            icon: faLaptopCode,
+            title: 'Cài đặt',
+            sub: [
+                {
+                    title: 'Cài đặt tài khoản',
+                    path: '/settings',
+                },
+                {
+                    title: 'Quản lý tiếp thị liên kết',
+                    sub: [],
+                },
+            ],
+        },
+    ],
+];
+
 export default menu;
