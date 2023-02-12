@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Courses.module.scss';
 
@@ -8,7 +9,7 @@ function Courses({ courses, loading }) {
     return (
         <div className={cx('wrapper')}>
             {courses.length > 0 ? (
-                <>
+                <Fragment>
                     {courses.map((course) => (
                         <div className={cx('item')} key={course._id}>
                             <Link to={`/courses/${course.slug}`}>
@@ -22,7 +23,7 @@ function Courses({ courses, loading }) {
                             </div>
                         </div>
                     ))}
-                </>
+                </Fragment>
             ) : (
                 <div className={cx('black')}>
                     <span>{loading && 'Đang tìm kiếm...'}</span>

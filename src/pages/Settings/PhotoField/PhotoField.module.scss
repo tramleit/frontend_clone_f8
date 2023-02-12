@@ -105,7 +105,7 @@
     }
 }
 
-@media (min-width: 0) and (max-width: 739px) {
+@media (min-width: 0) and (max-width: 1023px) {
     .container {
         .content {
             align-items: center;
@@ -116,6 +116,16 @@
 
             .image {
                 margin-left: 38px;
+            }
+        }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .container {
+        .content {
+            .body {
+                max-width: 400px;
             }
         }
     }

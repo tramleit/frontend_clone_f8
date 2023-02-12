@@ -12,13 +12,14 @@ const cx = classNames.bind(styles);
 function FooterTrack({ chapters }) {
     const [nextLesson, setNextLesson] = useState('');
     const [prevLesson, setPrevLesson] = useState('');
+    const [nameChapter, setNameChapter] = useState('');
     const [active, setActive] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    const slug = useParams().slug;
-    const currentId = new URLSearchParams(location.search).get('id');
+    const { slug } = useParams();
+    const lessonId = new URLSearchParams(location.search).get('id');
 
     useEffect(() => {
         const lessonIds = [];
@@ -35,7 +36,7 @@ function FooterTrack({ chapters }) {
         let nextId;
 
         for (let i = 0; i < lessonIds.length; i++) {
-            if (lessonIds[i] === currentId) {
+            if (lessonIds[i] === lessonId) {
                 if (i > 0) {
                     prevId = lessonIds[i - 1];
                 }
@@ -48,7 +49,12 @@ function FooterTrack({ chapters }) {
         setPrevLesson(prevId);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [lessonId]);
+
+    useEffect(() => {
+        const targetLesson = chapters.find((chapter) => chapter.lesson.find((lesson) => lesson._id === lessonId));
+        setNameChapter(targetLesson.nameChapter);
+    }, [chapters, lessonId]);
 
     const handleToggleSidebar = () => {
         if (active) {
@@ -85,12 +91,12 @@ function FooterTrack({ chapters }) {
 
             <div
                 className={cx('toggle-sidebar')}
-                onClick={window.innerWidth < 740 ? () => dispatch(openSidebarCourse()) : handleToggleSidebar}
+                onClick={window.innerWidth < 1024 ? () => dispatch(openSidebarCourse()) : handleToggleSidebar}
             >
-                <h3 className={cx('title')}>1. Giới thiệu</h3>
+                <h3 className={cx('title')}>{nameChapter}</h3>
 
                 <button className={cx('toggle-btn')}>
-                    {active || window.innerWidth < 740 ? (
+                    {active || window.innerWidth < 1024 ? (
                         <FontAwesomeIcon icon={faBars} />
                     ) : (
                         <FontAwesomeIcon icon={faArrowRight} />

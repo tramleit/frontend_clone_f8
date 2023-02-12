@@ -48,7 +48,7 @@ function EditorNewPost({ handleGetDataNewPost }) {
             onChange={handleEditorChange}
             onImageUpload={handleUpload}
             placeholder="Nội dung viết ở đây"
-            view={{ html: window.innerWidth < 740 ? false : true }}
+            view={{ html: window.innerWidth < 1024 ? false : true }}
         />
     );
 }

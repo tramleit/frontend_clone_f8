@@ -28,7 +28,7 @@
             left: 0;
             position: absolute;
             top: 0;
-            width: 60%;
+            width: 50%;
 
             .scrollable {
                 padding: 16px 0 0 16px;
@@ -140,6 +140,12 @@
         .body {
             width: 80%;
         }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .sub-item {
+        padding-left: 176px !important;
     }
 }
 

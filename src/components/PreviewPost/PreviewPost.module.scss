@@ -241,6 +241,43 @@
     }
 }
 
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .container {
+            .content {
+                width: 644px;
+
+                .wrap {
+                    margin-left: -8px;
+                    margin-right: -8px;
+
+                    .box {
+                        padding-left: 8px;
+                        padding-right: 8px;
+                        width: 100%;
+
+                        &:last-child {
+                            margin-top: 20px;
+                        }
+
+                        .preview {
+                            padding-right: 0;
+
+                            .image-prev {
+                                margin-top: 30px;
+                            }
+                        }
+
+                        .preview-tag {
+                            margin-top: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @keyframes Modal {
     0% {
         opacity: 0;

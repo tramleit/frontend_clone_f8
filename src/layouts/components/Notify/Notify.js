@@ -49,7 +49,7 @@ function Notify() {
             if (result.statusCode === 0) {
                 setNotify([]);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
+                dispatch(showNotification(result.message));
             }
         }
     };
@@ -63,7 +63,7 @@ function Notify() {
             if (result.statusCode === 0) {
                 setNotify([]);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi vui lòng thử lại'));
+                dispatch(showNotification(result.message));
             }
         }
         setWatch(false);

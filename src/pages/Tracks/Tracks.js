@@ -12,7 +12,7 @@ import HeaderTrack from '~/components/tracks/HeaderTrack';
 import { getCourseByPathName } from '~/services/apiCourse';
 import SidebarTrack from '~/components/tracks/SidebarTrack';
 import ContentTrack from '~/components/tracks/ContentTrack';
-import { openModalComment, showNotification } from '~/redux/reducer/modunReducer';
+import { openModalComment, showNotification, closeSidebarCourse } from '~/redux/reducer/modunReducer';
 
 import styles from './Tracks.module.scss';
 
@@ -28,7 +28,7 @@ function Tracks() {
     const location = useLocation();
     const lessonId = new URLSearchParams(location.search).get('id');
     const currentUser = useSelector((state) => state.auth.login.currentUser);
-    const sidebarCourse = useSelector((state) => state.modun.sidebarCourse?.status);
+    const { status } = useSelector((state) => state.modun.sidebarCourse);
 
     useEffect(() => {
         if (currentUser) {
@@ -70,10 +70,13 @@ function Tracks() {
                     <Fragment>
                         <HeaderTrack title={courses.title} />
                         <SidebarTrack chapters={courses.chapter} slug={slug} />
+
+                        {status && <div className={cx('overlay')} onClick={() => dispatch(closeSidebarCourse())}></div>}
+
                         <ContentTrack />
                         <FooterTrack chapters={courses.chapter} />
 
-                        <div className={sidebarCourse ? cx('comment') : cx('comment', 'active')}>
+                        <div className={status ? cx('comment') : cx('comment', 'active')}>
                             <button className={cx('comment-btn')} onClick={handleOpenModalComment}>
                                 <FontAwesomeIcon icon={faComments} />
                                 <span>Hỏi đáp</span>

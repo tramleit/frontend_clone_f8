@@ -1,15 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import classNames from 'classnames/bind';
-import FallbackAvatar from '~/components/FallbackAvatar';
 import Cropper from 'react-easy-crop';
-import { Image } from '~/assets/image';
-import { faCamera, faCheckCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
-import styles from './CoverImage.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeAvatarUser, changeCoverUser } from '~/services/apiAuth';
-import { showNotification } from '~/redux/reducer/modunReducer';
+import classNames from 'classnames/bind';
 import { useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera, faCheckCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
+
+import { Image } from '~/assets/image';
+import FallbackAvatar from '~/components/FallbackAvatar';
+import { showNotification } from '~/redux/reducer/modunReducer';
+import { changeAvatarUser, changeCoverUser } from '~/services/apiAuth';
+
+import styles from './CoverImage.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -57,11 +59,6 @@ function CoverImage({ infoUser }) {
             dispatch(showNotification('Vui lòng chọn ảnh đại diện'));
         }
     };
-
-    const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-        console.log('croppedArea: ', croppedArea);
-        console.log('croppedAreaPixels: ', croppedAreaPixels);
-    }, []);
 
     const handleSaveCover = async () => {
         if (cover) {
@@ -115,7 +112,6 @@ function CoverImage({ infoUser }) {
                     image={cover.preview}
                     crop={crop}
                     onCropChange={setCrop}
-                    onCropComplete={onCropComplete}
                     objectFit="auto-cover"
                 />
             )}

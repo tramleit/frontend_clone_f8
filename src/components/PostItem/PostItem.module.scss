@@ -87,6 +87,7 @@
 
             .info {
                 padding-right: 32px;
+                line-height: 1.8;
 
                 .tags {
                     background-color: #f2f2f2;
@@ -127,17 +128,6 @@
     }
 }
 
-@keyframes Tippy {
-    0% {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 @media (min-width: 0) and (max-width: 739px) {
     .wrapper {
         .body {
@@ -171,5 +161,31 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .body {
+            .content {
+                .info {
+                    span {
+                        font-size: 1.3rem;
+                        line-height: 2;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes Tippy {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

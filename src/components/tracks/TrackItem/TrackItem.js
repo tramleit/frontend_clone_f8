@@ -48,7 +48,7 @@ function TrackItem({ chapter, index, slug }) {
     const handleSetCurrentLesson = (id) => {
         localStorage.setItem('currentLesson', id);
 
-        if (window.innerWidth < 740) {
+        if (window.innerWidth < 1024) {
             dispatch(closeSidebarCourse());
         }
     };

@@ -1,6 +1,10 @@
 .wrapper {
     width: 100%;
 
+    .overlay {
+        display: none;
+    }
+
     .comment {
         bottom: 70px;
         position: fixed;
@@ -43,6 +47,23 @@
                     display: none;
                 }
             }
+        }
+    }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.2);
+            display: block;
+            inset: 0;
+            position: fixed;
+            z-index: 98;
+        }
+
+        .comment {
+            bottom: 78px;
+            right: 20px;
         }
     }
 }

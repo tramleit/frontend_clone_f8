@@ -101,11 +101,21 @@
     }
 }
 
-@media (min-width: 0) and (max-width: 739px) {
+@media (min-width: 0) and (max-width: 1023px) {
     .wrapper {
         height: 60px;
         justify-content: flex-end;
 
+        .btn-right {
+            margin-right: 16px;
+            padding: 10px;
+            padding-left: 0;
+        }
+    }
+}
+
+@media (min-width: 0) and (max-width: 739px) {
+    .wrapper {
         .toggle-sidebar {
             justify-content: flex-start;
             left: 0;
@@ -119,12 +129,21 @@
     }
 }
 
-@media (min-width: 0) and (max-width: 1023px) {
+@media (min-width: 740px) and (max-width: 1023px) {
     .wrapper {
-        .btn-right {
-            margin-right: 16px;
-            padding: 10px;
-            padding-left: 0;
+        .toggle-sidebar {
+            justify-content: flex-start;
+            left: 0;
+            right: unset;
+            width: 26%;
+
+            .title {
+                order: 2;
+            }
+
+            .toggle-btn {
+                order: 1;
+            }
         }
     }
 }
