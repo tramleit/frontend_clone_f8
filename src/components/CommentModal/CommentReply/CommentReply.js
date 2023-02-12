@@ -1,16 +1,19 @@
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
 import moment from 'moment';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import ReplyBox from '../ReplyBox';
-import styles from '../CommentItem/CommentItem.module.scss';
-import { createCommentReply } from '~/services/apiCourse';
+import ParserComment from '../ParserComment';
 import ReactionFeel from '../CommentItem/ReactionFeel';
 import FallbackAvatar from '~/components/FallbackAvatar';
-import { useDispatch, useSelector } from 'react-redux';
-import ParserComment from '../ParserComment';
+import { createCommentReply } from '~/services/apiCourse';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from '../CommentItem/CommentItem.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -26,7 +29,8 @@ function CommentReply({ reply, ownerComment, setCommentReply, commentReply }) {
     const handleReplyComment = async (comment) => {
         const result = await createCommentReply(comment, currentUser.accessToken);
 
-        if (!result) alert('Lỗi vui lòng liên hệ admin');
+        if (!result) dispatch(showNotification('Lỗi vui lòng liên hệ admin'));
+
         if (result.statusCode === 0) {
             setCommentReply([...commentReply, result.data]);
 

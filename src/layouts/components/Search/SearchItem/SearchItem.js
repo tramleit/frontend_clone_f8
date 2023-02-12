@@ -1,6 +1,7 @@
-import classNames from 'classnames/bind';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import { Image } from '~/assets/image';
 import styles from './SearchItem.module.scss';
 

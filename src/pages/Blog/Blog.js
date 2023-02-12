@@ -4,15 +4,15 @@ import { useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 import config from '~/config';
+import PostItem from './PostItem';
+import Pagination from './Pagination';
+import TopicPosts from './TopicPosts';
 import Heading from '~/components/Heading';
-import PostItem from '~/components/PostItem';
-import Pagination from '~/components/Pagination';
 import LayoutWrapper from '~/components/LayoutWrapper';
 import { getPostByPage, getTopic } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Blog.module.scss';
-import TopicPosts from './Topic/Topic';
 
 const cx = classNames.bind(styles);
 

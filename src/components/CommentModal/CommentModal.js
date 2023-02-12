@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,7 @@ function CommentModal() {
     const [isChat, setIsChat] = useState(false);
     const [loading, setLoading] = useState(false);
     const [allComment, setAllComment] = useState([]);
+    const [totalComment, setTotalComment] = useState(0);
 
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
@@ -34,6 +35,7 @@ function CommentModal() {
 
                 if (result.statusCode === 0) {
                     setAllComment(result.data);
+                    setTotalComment(result.total);
                 } else {
                     dispatch(showNotification(result.message));
                 }
@@ -62,9 +64,9 @@ function CommentModal() {
                                 {loading ? (
                                     <FontAwesomeIcon icon={faSpinner} className={cx('spinner')} />
                                 ) : (
-                                    <>{allComment?.length} </>
+                                    <Fragment>{totalComment} </Fragment>
                                 )}
-                                hỏi đáp
+                                bình luận
                             </h4>
 
                             {!loading && (

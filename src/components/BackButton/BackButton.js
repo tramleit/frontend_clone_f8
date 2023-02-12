@@ -1,8 +1,9 @@
 import classNames from 'classnames/bind';
-import styles from './BackButton.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
+import styles from './BackButton.module.scss';
 
 const cx = classNames.bind(styles);
 

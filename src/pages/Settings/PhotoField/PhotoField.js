@@ -1,11 +1,12 @@
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { changeAvatarUser } from '~/services/apiAuth';
 import FallbackAvatar from '~/components/FallbackAvatar';
 import { showNotification } from '~/redux/reducer/modunReducer';
-import { changeAvatarUser } from '~/services/apiAuth';
 
 import styles from './PhotoField.module.scss';
 
@@ -28,15 +29,14 @@ function PhotoField({ avatar, name }) {
     const handleChangeAvatar = async () => {
         if (image) {
             const formData = new FormData();
-
             formData.append('avatar', image);
             setActive(false);
 
             const result = await changeAvatarUser(formData, currentUser.accessToken, dispatch);
-            if (result.errCode === 0) {
+            if (result.statusCode === 0) {
                 dispatch(showNotification('Cập nhật thành công'));
             } else {
-                dispatch(showNotification(`${result.message}`));
+                dispatch(showNotification(result.message));
             }
         } else {
             setActive(false);

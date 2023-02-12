@@ -9,7 +9,6 @@ import { refreshUser } from './services/apiAuth';
 import Notification from '~/components/Notification';
 import CommentModal from './components/CommentModal';
 import { logoutSuccess } from './redux/reducer/authReducer';
-
 import './App.css';
 
 function App() {

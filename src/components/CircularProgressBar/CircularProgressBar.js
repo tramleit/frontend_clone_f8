@@ -1,9 +1,11 @@
-import config from '~/config';
-import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import styles from './CircularProgressBar.module.scss';
+import Tippy from '@tippyjs/react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
+import config from '~/config';
+
+import styles from './CircularProgressBar.module.scss';
 
 const cx = classNames.bind(styles);
 

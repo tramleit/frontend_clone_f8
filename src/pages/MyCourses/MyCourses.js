@@ -26,7 +26,7 @@ function MyCourses() {
     useEffect(() => {
         if (currentUser) {
             const fetchApi = async () => {
-                const result = await getCoursesRegistered(currentUser?.accessToken);
+                const result = await getCoursesRegistered(currentUser.accessToken);
 
                 if (result.statusCode === 0) {
                     setCourses(result.data);
@@ -38,7 +38,7 @@ function MyCourses() {
             document.title = 'Khóa học bạn đã đăng ký tại F8';
         } else {
             navigate(config.routes.login);
-            dispatch(showNotification('Vui lòng đăng nhập'));
+            dispatch(showNotification('Bạn chưa đăng nhập'));
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

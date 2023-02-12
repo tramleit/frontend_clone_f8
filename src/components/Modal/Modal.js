@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import { Fragment, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { closeModal } from '~/redux/reducer/modunReducer';
 import styles from './Modal.module.scss';
 
@@ -39,9 +40,8 @@ function Modal() {
                             <p className={cx('time')}>10 ngày trước</p>
                             <div className={cx('body')}>
                                 <p>
-                                    Chào bạn mình tên <strong>Hà</strong>. Đây là dự án của mình với mục đính học hỏi và
-                                    trau dồi kiến thức học được chứ không phải vì mục đính phá hoại hay công kích tổ
-                                    chức hay cá nhân nào cả!
+                                    Chào bạn! Đây là dự án của mình với mục đính học hỏi và trau dồi kiến thức học được
+                                    chứ không phải vì mục đính phá hoại hay công kích tổ chức hay cá nhân nào cả.
                                 </p>
                                 <p>
                                     <span>Bạn có thể truy cập : </span>

@@ -1,13 +1,14 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CoursesPro from '~/components/CoursesPro';
+
 import Heading from '~/components/Heading';
-import LayoutWrapper from '~/components/LayoutWrapper';
-import { showNotification } from '~/redux/reducer/modunReducer';
-import { getLearningRouteBySlug } from '~/services/apiCourse';
 import LearningGroup from './LearningGroup';
+import CoursesPro from '~/components/CoursesPro';
+import LayoutWrapper from '~/components/LayoutWrapper';
+import { getLearningRouteBySlug } from '~/services/apiCourse';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './LearningPath.module.scss';
 
@@ -26,7 +27,7 @@ function LearningPath() {
             if (result.statusCode === 0) {
                 setRoute(result.data);
             } else {
-                dispatch(showNotification(result.message) || 'Lỗi lấy dữ liệu lộ trình');
+                dispatch(showNotification(result.message));
             }
         };
         fetchApi();

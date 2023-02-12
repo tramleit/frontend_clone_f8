@@ -1,47 +1,48 @@
 import classNames from 'classnames/bind';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Courses from './Courses';
-import Posts from './Posts';
-import styles from './Search.module.scss';
-import Videos from './Videos';
-import useDebounce from '~/hooks/useDebounce';
 import { useEffect, useState } from 'react';
-import { searchByName } from '~/services/apiSearch';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import Posts from './Posts';
+import Videos from './Videos';
+import Courses from './Courses';
+import useDebounce from '~/hooks/useDebounce';
 import HeadingTabs from '~/components/HeadingTabs';
+import { searchByName } from '~/services/apiSearch';
+
+import styles from './Search.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function Search() {
+    const [posts, setPost] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
     const [activeTab, setActiveTab] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-    const [courses, setCourses] = useState([]);
-    const [posts, setPost] = useState([]);
-    const [videos, setVideos] = useState([]);
 
-    const navigate = useNavigate();
     const { slug } = useParams();
+    const navigate = useNavigate();
     const location = useLocation();
-    const q = new URLSearchParams(location.search).get('q');
-
     const debounced = useDebounce(searchValue, 600);
+    const q = new URLSearchParams(location.search).get('q');
 
     useEffect(() => {
         if (!q) {
-            navigate('/search/courses?q=');
+            navigate(`${config.routes.search}${config.routes.courses}?q=`);
         } else {
             setSearchValue(q);
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [q]);
 
     useEffect(() => {
         if (searchValue !== '') {
-            navigate(`/search/${slug}?q=${searchValue}`);
+            navigate(`${config.routes.search}/${slug}?q=${searchValue}`);
         }
 
-        if (searchValue === '') {
+        if (!searchValue) {
             setActiveTab(false);
         }
 
@@ -57,9 +58,9 @@ function Search() {
 
                 if (result.statusCode === 0) {
                     setLoading(false);
-                    setCourses(result.data.courses);
                     setPost(result.data.blogs);
                     setVideos(result.data.videos);
+                    setCourses(result.data.courses);
                 } else {
                     setLoading(false);
                 }
@@ -67,16 +68,16 @@ function Search() {
             fetchApi();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [debounced]);
+    }, [debounced, searchValue]);
 
-    const handleOnChangeInput = (e) => {
+    const handleOnChange = (e) => {
         setSearchValue(e);
         setActiveTab(true);
 
         if (searchValue === '') {
-            setCourses([]);
             setPost([]);
             setVideos([]);
+            setCourses([]);
         }
     };
 
@@ -88,7 +89,7 @@ function Search() {
                     type="text"
                     placeholder="Tìm kiếm..."
                     value={searchValue}
-                    onChange={(e) => handleOnChangeInput(e.target.value)}
+                    onChange={(e) => handleOnChange(e.target.value)}
                 />
 
                 <div className={cx('result')}>

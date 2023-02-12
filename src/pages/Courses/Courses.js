@@ -8,9 +8,10 @@ import Heading from '~/components/Heading';
 import CommonItem from '~/components/CommonItem';
 import SuggestionBox from '~/components/SuggestionBox';
 import LayoutWrapper from '~/components/LayoutWrapper';
-import styles from './Courses.module.scss';
 import { getCombinedCourses } from '~/services/apiCourse';
 import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './Courses.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -33,8 +34,8 @@ function Courses() {
                 const result = await getCombinedCourses(type);
 
                 if (result.statusCode === 0) {
-                    setCourseFree(result.data.coursesFree);
                     setCoursePro(result.data.coursesPro);
+                    setCourseFree(result.data.coursesFree);
                 } else {
                     dispatch(showNotification(result.message));
                 }
@@ -77,7 +78,7 @@ function Courses() {
                     </div>
 
                     <div className={cx('list')}>
-                        {courseFree?.map((course) => (
+                        {courseFree.map((course) => (
                             <CommonItem type="free" key={course._id} data={course} />
                         ))}
                     </div>

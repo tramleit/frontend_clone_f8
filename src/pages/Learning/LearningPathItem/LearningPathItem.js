@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 
-import CircularProgressBar from '../CircularProgressBar';
+import CircularProgressBar from '~/components/CircularProgressBar';
 
 import styles from './LearningPathItem.module.scss';
 

@@ -1,19 +1,30 @@
-import config from '~/config';
+import { useEffect } from 'react';
 import classNames from 'classnames/bind';
-import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import config from '~/config';
 import Form from '~/components/Form';
-import Loading from '~/components/Loading';
+import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Login.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const isFetching = useSelector((state) => state.auth.login.isFetching);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const currentUser = useSelector((state) => state.auth.login.currentUser);
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate(config.routes.home);
+            dispatch(showNotification('Bạn đã đăng nhập'));
+        }
+    }, [currentUser, navigate, dispatch]);
 
     return (
         <div className={cx('wrapper')}>
-            {isFetching && <Loading />}
             <Form
                 name="Đăng nhập vào F8"
                 textBtn="Đăng nhập"

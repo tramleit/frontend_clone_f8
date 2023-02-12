@@ -1,10 +1,12 @@
 import React from 'react';
-import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import styles from './ActivityItem.module.scss';
-import FallbackAvatar from '~/components/FallbackAvatar';
+import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
+import FallbackAvatar from '~/components/FallbackAvatar';
+
+import styles from './ActivityItem.module.scss';
 
 const cx = classNames.bind(styles);
 

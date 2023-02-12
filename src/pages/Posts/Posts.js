@@ -33,9 +33,9 @@ function Posts() {
 
             if (result.statusCode === 0) {
                 setPost(result.data);
-                document.title = `${result.data.title} | by ${result.data.author.name} | 'F8`;
+                document.title = `${result.data.title} | by ${result.data.author.name} | F8`;
             } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu bài viết'));
+                dispatch(showNotification(result.message));
             }
         };
         fetchApi();
@@ -50,11 +50,11 @@ function Posts() {
             if (result.statusCode === 0) {
                 setPost(result.data);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi yêu thích bài viết'));
+                dispatch(showNotification(result.message));
             }
         } else {
             navigate(config.routes.login);
-            dispatch(showNotification('Vui lòng đăng nhập'));
+            dispatch(showNotification('Bạn chưa đăng nhập'));
         }
     };
 

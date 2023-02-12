@@ -1,10 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
 import { PersistGate } from 'redux-persist/integration/react';
+
+import App from './App';
 import { store, persistor } from '~/redux/store';
 import GlobalStyles from '~/components/GlobalStyles/';
-import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

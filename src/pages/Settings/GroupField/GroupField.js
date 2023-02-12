@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
-import { IconFaceBook, IconPhone } from '~/assets/Icon';
+
 import { Image } from '~/assets/image';
-import FieldWrapper from '../FieldWrapper';
-import InputField from '../InputField';
 import PhotoField from '../PhotoField';
+import InputField from '../InputField';
+import FieldWrapper from '../FieldWrapper';
+import { IconFaceBook, IconPhone } from '~/assets/Icon';
+
 import styles from './GroupField.module.scss';
 
 const cx = classNames.bind(styles);

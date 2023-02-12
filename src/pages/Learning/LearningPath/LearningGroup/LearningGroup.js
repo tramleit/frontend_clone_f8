@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
 
 import styles from './LearningGroup.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -21,19 +22,19 @@ function LearningGroup({ group }) {
                     <div className={cx('item')} key={course._id}>
                         <div className={cx('wrap')}>
                             <div className={cx('thumb')}>
-                                <Link to={`/courses/${course.slug}`}>
+                                <Link to={`${config.routes.courses}/${course.slug}`}>
                                     <img src={course.image} alt={course.title} />
                                 </Link>
                             </div>
                             <div className={cx('info')}>
                                 <div className={cx('title-course')}>
-                                    <Link to={`/courses/${course.slug}`}>
+                                    <Link to={`${config.routes.courses}/${course.slug}`}>
                                         <span>{course.title}</span>
                                         <span className={cx('free')}>{course.price > 0 ? 'Pro' : 'Miễn phí'}</span>
                                     </Link>
                                 </div>
                                 <p className={cx('desc-course')}>{course.description}</p>
-                                <Link className={cx('btn-course')} to={`/courses/${course.slug}`}>
+                                <Link className={cx('btn-course')} to={`${config.routes.courses}/${course.slug}`}>
                                     {currentUser?.myCourses.includes(course._id) ? 'Tiếp tục học' : 'Xem khóa học'}
                                 </Link>
                             </div>

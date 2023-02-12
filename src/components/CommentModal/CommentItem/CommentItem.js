@@ -1,19 +1,20 @@
-import React, { Fragment, useState } from 'react';
 import moment from 'moment';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createCommentReply, getCommentReply } from '~/services/apiCourse';
-import CommentReply from '../CommentReply';
+import { faAngleDown, faAngleUp, faEllipsis, faSpinner } from '@fortawesome/free-solid-svg-icons';
+
 import ReplyBox from '../ReplyBox';
+import ReactionFeel from './ReactionFeel';
+import CommentReply from '../CommentReply';
+import ParserComment from '../ParserComment';
+import FallbackAvatar from '~/components/FallbackAvatar';
+import { showNotification } from '~/redux/reducer/modunReducer';
+import { createCommentReply, getCommentReply } from '~/services/apiCourse';
 
 import styles from './CommentItem.module.scss';
-import ReactionFeel from './ReactionFeel';
-import FallbackAvatar from '~/components/FallbackAvatar';
-import { useDispatch, useSelector } from 'react-redux';
-import { showNotification } from '~/redux/reducer/modunReducer';
-import ParserComment from '../ParserComment';
 
 const cx = classNames.bind(styles);
 

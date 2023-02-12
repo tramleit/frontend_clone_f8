@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 import config from '~/config';
-import ActionPost from '../ActionPost';
-import FallbackAvatar from '../FallbackAvatar';
+import ActionPost from '~/components/ActionPost';
+import FallbackAvatar from '~/components/FallbackAvatar';
 
 import styles from './PostItem.module.scss';
 

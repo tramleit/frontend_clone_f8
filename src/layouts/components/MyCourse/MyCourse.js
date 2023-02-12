@@ -1,13 +1,13 @@
+import moment from 'moment';
 import 'tippy.js/dist/tippy.css';
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Tippy from '@tippyjs/react/headless';
 import { Link, useLocation } from 'react-router-dom';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import moment from 'moment';
 import config from '~/config';
 import { getCoursesRegistered } from '~/services/apiCourse';
 import VerticalProgressBar from '~/components/VerticalProgressBar';
@@ -21,6 +21,7 @@ function MyCourse() {
     const [active, setActive] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const dispatch = useDispatch();
     const { pathname } = useLocation();
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
@@ -28,6 +29,7 @@ function MyCourse() {
         if (pathname !== config.routes.myCourses) {
             setActive(!active);
             setLoading(true);
+
             if (!active) {
                 const result = await getCoursesRegistered(currentUser.accessToken);
 
@@ -35,7 +37,7 @@ function MyCourse() {
                     setMyCourses(result.data);
                     setLoading(false);
                 } else {
-                    alert('Lỗi api lấy khóa học đang học');
+                    dispatch(result.message);
                     setLoading(false);
                 }
             }

@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createNewPosts } from '~/services/apiBlog';
 import { uploadImage } from '~/services/apiImage';
+import { createNewPosts } from '~/services/apiBlog';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './PreviewPost.module.scss';

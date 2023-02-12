@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { showNotification } from '~/redux/reducer/modunReducer';
-import { getCombinedCourses } from '~/services/apiCourse';
+import { useEffect, useState } from 'react';
+
 import CommonItem from '../CommonItem';
+import { getCombinedCourses } from '~/services/apiCourse';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
 import styles from './CoursesPro.module.scss';
 
 const cx = classNames.bind(styles);
@@ -20,7 +22,7 @@ function CoursesPro() {
             if (result.statusCode === 0) {
                 setCourses(result.data);
             } else {
-                dispatch(showNotification(result.message || 'Lỗi lấy dữ liệu khóa học pro'));
+                dispatch(showNotification(result.message));
             }
         };
         fetchApi();

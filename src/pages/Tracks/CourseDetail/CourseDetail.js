@@ -1,18 +1,19 @@
-import config from '~/config';
-
-import { DefaultLayout } from '~/layouts';
 import classNames from 'classnames/bind';
-import styles from './CourseDetail.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
-import CourseCurriculum from './CourseCurriculum';
 import { useEffect, useState } from 'react';
-import PreviewCourse from './PreviewCourse';
-import { registerCourse } from '~/services/apiAuth';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { showNotification } from '~/redux/reducer/modunReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import config from '~/config';
 import Purchase from './Purchase';
+import { DefaultLayout } from '~/layouts';
+import PreviewCourse from './PreviewCourse';
+import CourseCurriculum from './CourseCurriculum';
+import { registerCourse } from '~/services/apiAuth';
+import { showNotification } from '~/redux/reducer/modunReducer';
+
+import styles from './CourseDetail.module.scss';
 
 const cx = classNames.bind(styles);
 

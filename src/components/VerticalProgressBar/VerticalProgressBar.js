@@ -1,6 +1,6 @@
-import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import Tippy from '@tippyjs/react';
+import classNames from 'classnames/bind';
 import styles from './VerticalProgressBar.module.scss';
 
 const cx = classNames.bind(styles);

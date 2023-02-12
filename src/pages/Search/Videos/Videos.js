@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Videos.module.scss';
 
@@ -7,7 +8,7 @@ function Videos({ videos, loading }) {
     return (
         <div className={cx('wrapper')}>
             {videos.length > 0 ? (
-                <>
+                <Fragment>
                     {videos.map((video) => (
                         <div className={cx('item')} key={video._id}>
                             <a href={`https://youtu.be/${video.urlVideo}`} target="_blank" rel="noreferrer">
@@ -27,7 +28,7 @@ function Videos({ videos, loading }) {
                             </div>
                         </div>
                     ))}
-                </>
+                </Fragment>
             ) : (
                 <div className={cx('black')}>
                     <span>{loading && 'Đang tìm kiếm...'}</span>

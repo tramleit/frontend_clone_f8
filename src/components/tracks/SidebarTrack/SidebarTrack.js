@@ -1,9 +1,11 @@
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeSidebarCourse } from '~/redux/reducer/modunReducer';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import TrackItem from '../TrackItem/TrackItem';
+import { closeSidebarCourse } from '~/redux/reducer/modunReducer';
+
 import styles from './SidebarTrack.module.scss';
 
 const cx = classNames.bind(styles);

@@ -1,12 +1,13 @@
-import classNames from 'classnames/bind';
 import ReactPlayer from 'react-player';
+import classNames from 'classnames/bind';
 import { useSelector } from 'react-redux';
+
 import styles from './VideoTrack.module.scss';
 
 const cx = classNames.bind(styles);
 
 function VideoTrack({ status }) {
-    const lesson = useSelector((state) => state.lesson?.currentLesson);
+    const lesson = useSelector((state) => state.lesson.currentLesson);
     const modalComment = useSelector((state) => state.modun.modalComment.status);
 
     return (

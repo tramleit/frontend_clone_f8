@@ -27,11 +27,6 @@ function ReplyBox({
     const { type: typeComment, uid } = useSelector((state) => state.modun.modalComment);
     const currentUser = useSelector((state) => state.auth.login.currentUser);
 
-    const handleGetDataChild = ({ html, text }) => {
-        setText(text);
-        setHTML(html);
-    };
-
     const handleCloseChat = () => {
         if (setIsChat) {
             setIsChat(false);
@@ -99,7 +94,7 @@ function ReplyBox({
 
                 <div className={cx('content-wrap')}>
                     <div className={cx('text-editor')}>
-                        <EditorComment handleGetDataChild={handleGetDataChild} authorCmt={authorCmt} />
+                        <EditorComment setHTML={setHTML} setText={setText} authorCmt={authorCmt} />
                     </div>
                     <div className={cx('actions')}>
                         <button className={cx('action-cancel')} onClick={handleCloseChat}>

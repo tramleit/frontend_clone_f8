@@ -1,24 +1,14 @@
 import MarkdownIt from 'markdown-it';
-import { useEffect, useState } from 'react';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 
 const mdParser = new MarkdownIt();
 
-function EditorComment({ handleGetDataChild, authorCmt }) {
-    const [text, setText] = useState('');
-    const [html, setHtml] = useState('');
-
+function EditorComment({ setHtml, setText, authorCmt }) {
     const handleEditorChange = ({ html, text }) => {
         setText(text);
         setHtml(html);
     };
-
-    useEffect(() => {
-        handleGetDataChild({ html, text });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [html, text]);
 
     return (
         <MdEditor

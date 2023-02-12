@@ -1,11 +1,12 @@
+import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { FcGoogle } from 'react-icons/fc';
+import { useEffect, useState } from 'react';
+import { HiChevronLeft } from 'react-icons/hi';
+import { FaFacebookSquare, FaGithub } from 'react-icons/fa';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
-import { FaFacebookSquare, FaGithub } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { HiChevronLeft } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+
 import { Image } from '~/assets/image';
 import FormWrap from '~/components/FormWrap';
 

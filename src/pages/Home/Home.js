@@ -32,7 +32,7 @@ function Home() {
     useEffect(() => {
         let totalStudent = 0;
 
-        courseFree?.forEach((course) => {
+        courseFree.forEach((course) => {
             totalStudent += course.userLearning;
         });
 

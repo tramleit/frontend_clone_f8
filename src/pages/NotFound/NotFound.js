@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 
 import config from '~/config';
 import { Image } from '~/assets/image';
-
 import styles from './NotFound.module.scss';
 
 const cx = classNames.bind(styles);

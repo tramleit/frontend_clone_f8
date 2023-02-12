@@ -1,7 +1,9 @@
+import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+
 import styles from './Posts.module.scss';
 
 const cx = classNames.bind(styles);
@@ -10,7 +12,7 @@ function Posts({ posts, loading }) {
     return (
         <div className={cx('wrapper')}>
             {posts.length > 0 ? (
-                <>
+                <Fragment>
                     {posts.map((post) => (
                         <div className={cx('item')} key={post._id}>
                             <Link to={`/blog/${post.slug}`}>
@@ -33,7 +35,7 @@ function Posts({ posts, loading }) {
                             </div>
                         </div>
                     ))}
-                </>
+                </Fragment>
             ) : (
                 <div className={cx('black')}>
                     <span>{loading && 'Đang tìm kiếm...'}</span>

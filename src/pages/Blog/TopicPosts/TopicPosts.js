@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-
-import styles from './Topic.module.scss';
+import styles from './TopicPosts.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Topic({ config, slug }) {
+function TopicPosts({ config, slug }) {
     return (
         <div className={cx('wrapper')}>
             <h4>Các chủ đề được đề xuất</h4>
@@ -25,4 +24,4 @@ function Topic({ config, slug }) {
     );
 }
 
-export default Topic;
+export default TopicPosts;

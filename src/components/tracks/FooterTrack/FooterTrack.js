@@ -1,11 +1,13 @@
-import { faArrowRight, faBars, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { faArrowRight, faBars, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 import { closeSidebarCourse, openSidebarCourse } from '~/redux/reducer/modunReducer';
 import styles from './FooterTrack.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -68,13 +70,13 @@ function FooterTrack({ chapters }) {
 
     const handlePrevLesson = () => {
         if (prevLesson) {
-            navigate(`/courses/${slug}?id=${prevLesson}`);
+            navigate(`${config.routes.courses}/${slug}?id=${prevLesson}`);
         }
     };
 
     const handleNextLesson = () => {
         if (nextLesson) {
-            navigate(`/courses/${slug}?id=${nextLesson}`);
+            navigate(`${config.routes.courses}/${slug}?id=${nextLesson}`);
         }
     };
 

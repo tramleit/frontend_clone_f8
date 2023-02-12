@@ -1,8 +1,9 @@
-import config from '~/config';
-import { faChevronLeft, faCircleQuestion, faFile } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { faChevronLeft, faCircleQuestion, faFile } from '@fortawesome/free-solid-svg-icons';
+
+import config from '~/config';
 import { Image } from '~/assets/image';
 import styles from './HeaderTrack.module.scss';
 

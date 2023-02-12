@@ -2,8 +2,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import SearchItem from '~/components/SearchItem';
-
+import SearchItem from '../SearchItem';
 import styles from './SearchResult.module.scss';
 
 const cx = classNames.bind(styles);

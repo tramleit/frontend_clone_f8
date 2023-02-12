@@ -1,11 +1,13 @@
-import config from '~/config';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Sidebar.module.scss';
 import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faNewspaper, faRoad, faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+
+import config from '~/config';
 import CreateButton from '~/components/CreateButton';
+
+import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 

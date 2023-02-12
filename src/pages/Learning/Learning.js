@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Heading from '~/components/Heading';
+import LearningPathItem from './LearningPathItem';
 import LayoutWrapper from '~/components/LayoutWrapper';
 import SuggestionBox from '~/components/SuggestionBox';
 import { getLearningRoute } from '~/services/apiCourse';
-import LearningPathItem from '~/components/LearningPathItem';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
 import styles from './Learning.module.scss';

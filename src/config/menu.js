@@ -176,4 +176,35 @@ export const noUserMenu = [
     ],
 ];
 
+export const listAction = [
+    {
+        title: 'Thích',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673283027/Course/like_iwpexh.svg',
+    },
+    {
+        title: 'Yêu Thích',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673284171/Course/love_may2gp.svg',
+    },
+    {
+        title: 'Thương Thương',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673284437/Course/dear_yzi2fd.svg',
+    },
+    {
+        title: 'Haha',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673283101/Course/haha_s7c8pj.svg',
+    },
+    {
+        title: 'Wow',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673284529/Course/wow_qxxlin.svg',
+    },
+    {
+        title: 'Buồn',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673284400/Course/said_wqhjf6.svg',
+    },
+    {
+        title: 'Phẫn Nộ',
+        icon: 'https://res.cloudinary.com/dwld3bqia/image/upload/v1673284171/Course/angry_f9301i.svg',
+    },
+];
+
 export default menu;

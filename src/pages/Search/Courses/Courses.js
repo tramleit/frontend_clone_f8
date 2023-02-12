@@ -1,6 +1,7 @@
-import classNames from 'classnames/bind';
 import { Fragment } from 'react';
+import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+
 import styles from './Courses.module.scss';
 
 const cx = classNames.bind(styles);

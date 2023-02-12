@@ -1,6 +1,7 @@
 import config from '~/config';
-import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames/bind';
+
 import { Image } from '~/assets/image';
 import styles from './SuggestionBox.module.scss';
 

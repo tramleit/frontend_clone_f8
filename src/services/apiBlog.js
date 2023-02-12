@@ -1,7 +1,6 @@
 import * as request from '~/utils/request';
 import { loadingStart, loadingSuccess } from '~/redux/reducer/modunReducer';
 
-// Ok
 export const createNewPosts = async (newPost, dispatch, token) => {
     dispatch(loadingStart());
     try {
@@ -20,7 +19,6 @@ export const createNewPosts = async (newPost, dispatch, token) => {
     }
 };
 
-// Ok
 export const getPostByPage = async (page) => {
     try {
         const res = await request.get('/posts', {
@@ -35,7 +33,6 @@ export const getPostByPage = async (page) => {
     }
 };
 
-// Ok
 export const getPostBySlug = async (slug) => {
     try {
         const res = await request.get(`posts/${slug}`);
@@ -46,7 +43,6 @@ export const getPostBySlug = async (slug) => {
     }
 };
 
-// Ok
 export const getMyPosts = async (token) => {
     try {
         const res = await request.get('/my-posts', {
@@ -61,7 +57,6 @@ export const getMyPosts = async (token) => {
     }
 };
 
-// Ok
 export const deletePostById = async (postId, token) => {
     try {
         const res = await request.remove(`/posts/delete`, {
@@ -79,7 +74,6 @@ export const deletePostById = async (postId, token) => {
     }
 };
 
-// Ok
 export const getTopic = async (topic, page) => {
     try {
         const res = await request.get(`/topic/${topic}`, {
@@ -94,7 +88,6 @@ export const getTopic = async (topic, page) => {
     }
 };
 
-// Ok
 export const reactionPosts = async (postsId, token) => {
     try {
         const res = await request.post(

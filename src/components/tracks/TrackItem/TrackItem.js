@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
-import { faChevronDown, faChevronUp, faCircleCheck, faCompactDisc } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from './TrackItem.module.scss';
-import { Link, useLocation } from 'react-router-dom';
 import moment from 'moment';
+import classNames from 'classnames/bind';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp, faCircleCheck, faCompactDisc } from '@fortawesome/free-solid-svg-icons';
+
 import { closeSidebarCourse } from '~/redux/reducer/modunReducer';
+import styles from './TrackItem.module.scss';
 
 const cx = classNames.bind(styles);
 

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import config from '~/config';
 import { getNotifyUser, markWatched } from '~/services/apiAuth';
 import { showNotification } from '~/redux/reducer/modunReducer';
 
@@ -33,7 +34,7 @@ function Notify() {
             if (result.statusCode === 0) {
                 setNotify(result.data);
             } else {
-                navigate('/login');
+                navigate(config.routes.login);
                 dispatch(showNotification(result.message));
             }
         };

@@ -6,7 +6,7 @@ import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import config from '~/config';
-import CourseDetail from '~/components/CourseDetail';
+import CourseDetail from './CourseDetail';
 import FooterTrack from '~/components/tracks/FooterTrack';
 import HeaderTrack from '~/components/tracks/HeaderTrack';
 import { getCourseByPathName } from '~/services/apiCourse';

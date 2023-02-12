@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
+import { MdClear } from 'react-icons/md';
 import { CgSearch } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
+import Tippy from '@tippyjs/react/headless';
 import { BiLoaderCircle } from 'react-icons/bi';
-import { MdClear } from 'react-icons/md';
+import { useState, useEffect, useRef } from 'react';
+
+import SearchResult from './SearchResult';
 import useDebounce from '~/hooks/useDebounce';
 import { searchByName } from '~/services/apiSearch';
 
 import styles from './Search.module.scss';
-import SearchResult from './SearchResult';
 
 const cx = classNames.bind(styles);
 

@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import { useSelector, useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
-import styles from './Notification.module.scss';
-import { hideNotification } from '~/redux/reducer/modunReducer';
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { hideNotification } from '~/redux/reducer/modunReducer';
+import styles from './Notification.module.scss';
 
 const cx = classNames.bind(styles);
 

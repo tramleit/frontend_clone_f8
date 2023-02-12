@@ -37,7 +37,7 @@ function MyPost() {
             fetchApi();
         } else {
             navigate(config.routes.login);
-            dispatch(showNotification('Vui lòng đăng nhập'));
+            dispatch(showNotification('Bạn chưa đăng nhập'));
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

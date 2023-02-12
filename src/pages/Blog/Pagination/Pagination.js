@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 function Pagination({ totalPage, currentPage, setCurrentPage, setSearchParams }) {
     const handlePageChange = (page) => {
-        setSearchParams({ page: page });
+        setSearchParams({ page });
         setCurrentPage(page);
         localStorage.setItem('currentPage', page);
     };

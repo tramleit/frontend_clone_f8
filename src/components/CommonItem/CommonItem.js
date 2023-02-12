@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LinkCommon from './LinkCommon';
 import PostCommon from './PostCommon';
 import VideoCommon from './VideoCommon';
-
 import VerticalProgressBar from '../VerticalProgressBar';
 
 import styles from './CommonItem.module.scss';
@@ -30,7 +29,7 @@ function CommonItem({ type, data, progress, lastCompletedAt, styles = null }) {
             image = data.imagePreview;
             break;
 
-        case 'free' || 'my':
+        case 'free':
             slug = `/courses/${data?.slug}`;
             title = data.title;
             image = data.image;
@@ -50,8 +49,8 @@ function CommonItem({ type, data, progress, lastCompletedAt, styles = null }) {
 
         default:
             slug = '';
-            title = data.title;
-            image = data.image;
+            title = '';
+            image = '';
     }
 
     return (

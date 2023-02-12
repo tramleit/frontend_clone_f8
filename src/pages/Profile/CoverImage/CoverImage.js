@@ -73,7 +73,7 @@ function CoverImage({ infoUser }) {
                 window.location.reload();
                 dispatch(showNotification(result.message));
             } else {
-                dispatch(showNotification(result.message || 'Lỗi cập nhật ảnh bìa'));
+                dispatch(showNotification(result.message));
             }
         } else {
             dispatch(showNotification('Vui lòng chọn ảnh bìa'));
