@@ -55,7 +55,7 @@ function FooterTrack({ chapters }) {
 
     useEffect(() => {
         const targetLesson = chapters.find((chapter) => chapter.lesson.find((lesson) => lesson._id === lessonId));
-        setNameChapter(targetLesson.nameChapter);
+        setNameChapter(targetLesson?.nameChapter);
     }, [chapters, lessonId]);
 
     const handleToggleSidebar = () => {

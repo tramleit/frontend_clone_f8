@@ -1,7 +1,7 @@
 import topics from './topic';
 import routes from './routes';
 import footer from './footer';
-import menu, { menuMobile, noUserMenu, listAction } from './menu';
+import menu, { menuMobile, noUserMenu, listAction, request } from './menu';
 
 const config = {
     routes,
@@ -11,6 +11,7 @@ const config = {
     footer,
     noUserMenu,
     listAction,
+    request,
 };
 
 export default config;

@@ -18,8 +18,8 @@ import styles from './CourseDetail.module.scss';
 const cx = classNames.bind(styles);
 
 function CourseDetail({ course, pathName }) {
-    const [numberTime, setNumberTime] = useState('');
     const [allLesson, setAllLesson] = useState(0);
+    const [numberTime, setNumberTime] = useState('');
     const [allChapter, setAllChapter] = useState([]);
     const [modalPrev, setModalPrev] = useState(false);
 
@@ -61,7 +61,7 @@ function CourseDetail({ course, pathName }) {
             if (result.statusCode === 0) {
                 window.location.reload();
             } else {
-                dispatch(showNotification(result.message || 'Lỗi đăng ký khóa học'));
+                dispatch(showNotification(result.message));
             }
         } else {
             navigate(config.routes.login);
@@ -77,7 +77,7 @@ function CourseDetail({ course, pathName }) {
                         <h1 className={cx('course-name')}>{course.title}</h1>
                         <div className={cx('course-des')}>{course.description}</div>
 
-                        {window.innerWidth < 740 && (
+                        {window.innerWidth < 1024 && (
                             <Purchase
                                 course={course}
                                 allLesson={allLesson}
@@ -144,38 +144,12 @@ function CourseDetail({ course, pathName }) {
                             <div className={cx('request-wrap')}>
                                 <div className={cx('wrap')}>
                                     <ul className={cx('request-list')}>
-                                        <li>
-                                            <FontAwesomeIcon icon={faCheck} />
-                                            <span>
-                                                Tuy duy mở để dễ dàng tiếp nhận các tư tưởng mới được chia sẻ trong các
-                                                bài học
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <FontAwesomeIcon icon={faCheck} />
-                                            <span>Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)</span>
-                                        </li>
-                                        <li>
-                                            <FontAwesomeIcon icon={faCheck} />
-                                            <span>
-                                                Ý thức cao, trách nhiệm cao trong việc tự học. Thực hành lại sau mỗi bài
-                                                học
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <FontAwesomeIcon icon={faCheck} />
-                                            <span>
-                                                Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập trình
-                                                web (fullstack.edu.vn)
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <FontAwesomeIcon icon={faCheck} />
-                                            <span>
-                                                Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn những
-                                                gì bạn cần phải biết
-                                            </span>
-                                        </li>
+                                        {config.request.map((req, index) => (
+                                            <li key={index}>
+                                                <FontAwesomeIcon icon={faCheck} />
+                                                <span>{req.description}</span>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>
@@ -186,7 +160,7 @@ function CourseDetail({ course, pathName }) {
                         <button>ĐĂNG KÝ MIỄN PHÍ</button>
                     </div>
 
-                    {window.innerWidth > 740 && (
+                    {window.innerWidth > 1023 && (
                         <Purchase
                             course={course}
                             allLesson={allLesson}

@@ -207,4 +207,22 @@ export const listAction = [
     },
 ];
 
+export const request = [
+    {
+        description: 'Tuy duy mở để dễ dàng tiếp nhận các tư tưởng mới được chia sẻ trong các bài học',
+    },
+    {
+        description: 'Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)',
+    },
+    {
+        description: 'Ý thức cao, trách nhiệm cao trong việc tự học. Thực hành lại sau mỗi bài học',
+    },
+    {
+        description: 'Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập trình web (fullstack.edu.vn)',
+    },
+    {
+        description: 'Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn những gì bạn cần phải biết',
+    },
+];
+
 export default menu;

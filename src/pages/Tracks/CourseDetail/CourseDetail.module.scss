@@ -262,3 +262,26 @@
         }
     }
 }
+
+@media (min-width: 740px) and (max-width: 1023px) {
+    .wrapper {
+        .container {
+            margin-left: -8px;
+            margin-right: -8px;
+
+            .content-left {
+                width: 100%;
+                padding-left: 8px;
+                padding-right: 8px;
+
+                .what-list {
+                    display: none;
+                }
+
+                .request {
+                    display: none;
+                }
+            }
+        }
+    }
+}

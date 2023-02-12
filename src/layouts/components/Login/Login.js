@@ -5,8 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import config from '~/config';
 import Form from '~/components/Form';
-import { showNotification } from '~/redux/reducer/modunReducer';
-
 import styles from './Login.module.scss';
 
 const cx = classNames.bind(styles);
@@ -19,7 +17,6 @@ function Login() {
     useEffect(() => {
         if (currentUser) {
             navigate(config.routes.home);
-            dispatch(showNotification('Bạn đã đăng nhập'));
         }
     }, [currentUser, navigate, dispatch]);
 
